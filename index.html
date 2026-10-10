@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aeterna Capsule - Quà Sinh Nhật Số & Phygital Experience</title>
+  <title>Aeterna Capsule - Nền Tảng Quà Tặng Kỷ Niệm Số Đa Dịp</title>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Editorial Vintage & Modern Sans-Serif -->
+  <!-- Google Fonts: Editorial Vintage, Serif & Sans-Serif -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  
   <!-- Interactive Utility CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -21,26 +23,28 @@
         extend: {
           colors: {
             capsule: {
-              bg: '#F7F5F0',        // Warm Sand & Linen Kem dịu mắt
-              card: '#FCFAF7',      // Off-white ấm áp, bảo vệ thị giác
-              surface: '#ECE7DE',   // Viền trung tính phân tầng
-              surfaceDark: '#E0D9CD',
-              primary: '#435B4E',   // Sage Moss sâu, phi giới tính
-              primaryHover: '#33473C',
-              primaryLight: '#E8EFEA',
-              accent: '#B08968',    // Earthy Ochre / Đất nung trang nhã
-              accentHover: '#9A7555',
-              ink: '#2C302E',       // Than chì mềm dịu, không gắt
-              muted: '#6F7470',     // Xám tro trung tính
-              newspaper: '#F4EFEA', // Chất giấy vintage
-              kraft: '#D8CEBE',
+              bg: 'var(--c-bg)',
+              card: 'var(--c-card)',
+              surface: 'var(--c-surface)',
+              surfaceDark: 'var(--c-surfaceDark)',
+              primary: 'var(--c-primary)',
+              primaryHover: 'var(--c-primaryHover)',
+              primaryLight: 'var(--c-primaryLight)',
+              accent: 'var(--c-accent)',
+              accentHover: 'var(--c-accentHover)',
+              ink: 'var(--c-ink)',
+              muted: 'var(--c-muted)',
+              newspaper: 'var(--c-newspaper)',
+              kraft: 'var(--c-kraft)',
+              ribbon: 'var(--c-ribbon)'
             }
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
             serif: ['"Playfair Display"', 'serif'],
             vintage: ['"Cinzel"', 'serif'],
-            mono: ['"Courier Prime"', 'monospace']
+            mono: ['"Courier Prime"', 'monospace'],
+            editorial: ['"Lora"', 'serif']
           }
         }
       }
@@ -48,19 +52,167 @@
   </script>
 
   <style>
-    body {
-      background-color: #F7F5F0;
-      color: #2C302E;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
+    /* Dynamic Theme CSS Variables with soothing, gender-neutral, elegant tones */
+    :root {
+      /* Default: Birthday / Sage Warm Linen */
+      --c-bg: #F7F5F0;
+      --c-card: #FCFAF7;
+      --c-surface: #ECE7DE;
+      --c-surfaceDark: #DFD7C9;
+      --c-primary: #435B4E;
+      --c-primaryHover: #33473C;
+      --c-primaryLight: #E8EFEA;
+      --c-accent: #B08968;
+      --c-accentHover: #967051;
+      --c-ink: #2C302E;
+      --c-muted: #6E7370;
+      --c-newspaper: #F4EFEA;
+      --c-kraft: #D9CEBE;
+      --c-ribbon: #435B4E;
+      --c-ribbon-contrast: #B08968;
     }
 
-    /* Subtle natural linen grain overlay */
+    /* Occasion Theme Overrides */
+    body[data-theme="tet"] {
+      --c-bg: #FAF6F0;
+      --c-card: #FDFBF8;
+      --c-surface: #F2E8DC;
+      --c-surfaceDark: #E6D8C5;
+      --c-primary: #943A34; /* Đỏ nhung trầm ấm, thanh nhã */
+      --c-primaryHover: #7E2F2A;
+      --c-primaryLight: #FBECEB;
+      --c-accent: #C49746; /* Vàng kim cổ điển ấm áp */
+      --c-accentHover: #AB8135;
+      --c-ink: #2E2623;
+      --c-muted: #786C67;
+      --c-newspaper: #FAF5EB;
+      --c-kraft: #DECDB7;
+      --c-ribbon: #943A34;
+      --c-ribbon-contrast: #C49746;
+    }
+
+    body[data-theme="women"] { /* 20/10 & 8/3 */
+      --c-bg: #F9F6F4;
+      --c-card: #FCF9F8;
+      --c-surface: #EFE6E2;
+      --c-surfaceDark: #E3D5CF;
+      --c-primary: #7A4B56; /* Hoa hồng khô trang nhã (Dusty Rose Plum) */
+      --c-primaryHover: #633B44;
+      --c-primaryLight: #F6EDEE;
+      --c-accent: #BD8E7B;
+      --c-accentHover: #A57866;
+      --c-ink: #2E2729;
+      --c-muted: #786F72;
+      --c-newspaper: #F7F1EE;
+      --c-kraft: #DFD0CA;
+      --c-ribbon: #7A4B56;
+      --c-ribbon-contrast: #BD8E7B;
+    }
+
+    body[data-theme="teacher"] { /* 20/11 Tri Ân */
+      --c-bg: #F5F6F8;
+      --c-card: #FAFBFD;
+      --c-surface: #E6EAEF;
+      --c-surfaceDark: #D4DBE4;
+      --c-primary: #384D66; /* Xanh nghiên mực / Classic Slate Blue */
+      --c-primaryHover: #2C3E53;
+      --c-primaryLight: #E8EEF5;
+      --c-accent: #A88358; /* Gỗ sồi & da sách cổ */
+      --c-accentHover: #8F6D44;
+      --c-ink: #222831;
+      --c-muted: #67717E;
+      --c-newspaper: #EFF3F7;
+      --c-kraft: #D0D8E2;
+      --c-ribbon: #384D66;
+      --c-ribbon-contrast: #A88358;
+    }
+
+    body[data-theme="valentine"] { /* 14/2 */
+      --c-bg: #FAF5F4;
+      --c-card: #FCF8F7;
+      --c-surface: #EFE3E1;
+      --c-surfaceDark: #E3D1CF;
+      --c-primary: #8C404E; /* Đỏ mận ngọt ngào thanh lịch */
+      --c-primaryHover: #72323E;
+      --c-primaryLight: #FCEFF1;
+      --c-accent: #C78D7D;
+      --c-accentHover: #AD7465;
+      --c-ink: #2F2426;
+      --c-muted: #78696B;
+      --c-newspaper: #F9F1EF;
+      --c-kraft: #DFCFCC;
+      --c-ribbon: #8C404E;
+      --c-ribbon-contrast: #C78D7D;
+    }
+
+    body[data-theme="xmas"] { /* Noel / Giáng Sinh */
+      --c-bg: #F5F7F5;
+      --c-card: #FAFBF9;
+      --c-surface: #E3ECE4;
+      --c-surfaceDark: #D2DFD3;
+      --c-primary: #2F5342; /* Xanh lá thông rừng trầm */
+      --c-primaryHover: #234032;
+      --c-primaryLight: #E6F0E9;
+      --c-accent: #A34842; /* Đỏ quả mọng berry */
+      --c-accentHover: #8A3B35;
+      --c-ink: #242D27;
+      --c-muted: #67736A;
+      --c-newspaper: #EFF4F0;
+      --c-kraft: #CFDDD1;
+      --c-ribbon: #2F5342;
+      --c-ribbon-contrast: #A34842;
+    }
+
+    body[data-theme="grad"] { /* Tốt Nghiệp */
+      --c-bg: #F6F6F6;
+      --c-card: #FBFBFB;
+      --c-surface: #E8E8E8;
+      --c-surfaceDark: #D8D8D8;
+      --c-primary: #2C3E50; /* Xanh cử nhân học thuật */
+      --c-primaryHover: #1F2D3A;
+      --c-primaryLight: #EAEEF3;
+      --c-accent: #B8860B; /* Vàng cúc tốt nghiệp óng ả */
+      --c-accentHover: #9B7007;
+      --c-ink: #222222;
+      --c-muted: #6B6B6B;
+      --c-newspaper: #F2F2F2;
+      --c-kraft: #DADADA;
+      --c-ribbon: #2C3E50;
+      --c-ribbon-contrast: #B8860B;
+    }
+
+    body[data-theme="parents"] { /* Vu Lan / Cha Mẹ */
+      --c-bg: #F8F5F1;
+      --c-card: #FDFBF8;
+      --c-surface: #EDE5DC;
+      --c-surfaceDark: #DDD1C4;
+      --c-primary: #5A5348; /* Nâu trầm mộc mạc, hiếu đạo */
+      --c-primaryHover: #464037;
+      --c-primaryLight: #EFECE6;
+      --c-accent: #9A7B56;
+      --c-accentHover: #816644;
+      --c-ink: #2B2824;
+      --c-muted: #746E66;
+      --c-newspaper: #F5EFE7;
+      --c-kraft: #DECFC0;
+      --c-ribbon: #5A5348;
+      --c-ribbon-contrast: #9A7B56;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* Paper linen texture overlay */
     .paper-texture {
-      background-image: radial-gradient(#2C302E 0.5px, transparent 0.5px), radial-gradient(#2C302E 0.5px, #F7F5F0 0.5px);
+      background-image: radial-gradient(var(--c-ink) 0.5px, transparent 0.5px), radial-gradient(var(--c-ink) 0.5px, var(--c-bg) 0.5px);
       background-size: 24px 24px;
       background-position: 0 0, 12px 12px;
-      opacity: 0.032;
+      opacity: 0.028;
     }
 
     /* 3D Gift Box Interactive Perspective */
@@ -74,7 +226,7 @@
     }
 
     .gift-lid.opened {
-      transform: translateY(-92px) rotateX(-58deg) scale(1.06);
+      transform: translateY(-94px) rotateX(-58deg) scale(1.08);
       opacity: 0.15;
     }
 
@@ -97,59 +249,68 @@
       animation-play-state: paused;
     }
 
-    /* Retro newsprint drop shadow */
+    /* Retro newspaper shadow */
     .newspaper-shadow {
-      box-shadow: 0 16px 32px -8px rgba(44, 48, 46, 0.08), 0 8px 16px -4px rgba(44, 48, 46, 0.04);
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
     }
 
     .badge-bestseller {
-      background: linear-gradient(135deg, #435B4E, #2E3F36);
+      background: linear-gradient(135deg, var(--c-primary), var(--c-primaryHover));
+    }
+
+    /* Hide scrollbar for smooth carousel */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
-<body class="relative min-h-screen text-capsule-ink selection:bg-capsule-primary/20 flex flex-col justify-between">
+<body data-theme="birthday" class="relative min-h-screen selection:bg-capsule-primary/20 flex flex-col justify-between">
 
   <!-- Background Texture Layer -->
   <div class="fixed inset-0 paper-texture pointer-events-none z-0"></div>
 
   <!-- Top Announcement Bar -->
-  <aside class="relative z-50 bg-[#3A4E43] text-[#F3EFE8] text-[11px] sm:text-xs py-2 px-4 text-center font-mono tracking-wide border-b border-[#2E3F36]/40">
+  <aside class="relative z-50 bg-capsule-primary text-capsule-card text-[11px] sm:text-xs py-2 px-4 text-center font-mono tracking-wide border-b border-capsule-ink/10 transition-colors duration-400">
     <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
-      <span class="inline-block animate-pulse text-[#D6BD98]">✦</span>
-      <span><strong>Kỷ Niệm Số 2026:</strong> Tặng quà sinh nhật đúng 00:00 không cần ship • Miễn phí tạo thử MVP trong hôm nay!</span>
-      <span class="hidden md:inline text-white/50">•</span>
-      <a href="#pricing" class="hidden md:inline underline hover:text-white transition-colors">Xem các gói quà ➔</a>
+      <span class="inline-block animate-pulse text-capsule-accent font-bold">✦</span>
+      <span id="announcementText"><strong>Aeterna Capsule 2026:</strong> Quà tặng số độc bản đa dịp • Tự động kích hoạt đúng 00:00 • Không lo khoảng cách địa lý!</span>
+      <span class="hidden md:inline opacity-40">•</span>
+      <a href="#pricing" class="hidden md:inline underline hover:opacity-80 transition-opacity">Khám phá 3 Gói Quà ➔</a>
     </div>
   </aside>
 
   <!-- Sticky Main Header Navigation -->
-  <header class="sticky top-0 z-40 bg-[#F7F5F0]/92 backdrop-blur-md border-b border-capsule-surface px-4 py-3 sm:px-8">
+  <header class="sticky top-0 z-40 bg-capsule-bg/92 backdrop-blur-md border-b border-capsule-surface px-4 py-3 sm:px-8 transition-colors duration-400">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       
       <!-- Brand Logo -->
       <a href="#hero" class="flex items-center gap-3 group focus:outline-none">
         <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-capsule-primary text-capsule-card flex items-center justify-center font-serif text-lg font-bold shadow-xs group-hover:scale-105 transition-transform">
-          ✧
+          <span id="brandIcon">✧</span>
         </div>
         <div class="text-left">
           <div class="flex items-center gap-1.5">
             <span class="font-serif font-bold text-lg sm:text-xl tracking-tight text-capsule-ink">Aeterna</span>
             <span class="text-[10px] font-mono uppercase bg-capsule-surface px-1.5 py-0.5 rounded text-capsule-primary font-bold">Capsule</span>
           </div>
-          <p class="text-[10px] text-capsule-muted font-mono tracking-wider uppercase">Nền tảng quà tặng số độc bản</p>
+          <p class="text-[10px] text-capsule-muted font-mono tracking-wider uppercase" id="brandTagline">Quà Kỷ Niệm Số Đa Dịp</p>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-7 text-xs font-medium text-capsule-ink tracking-wide">
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-medium text-capsule-ink tracking-wide">
         <a href="#hero" class="hover:text-capsule-primary transition-colors">Trang Chủ</a>
-        <a href="#experienceFlow" class="hover:text-capsule-primary transition-colors">3 Chặng Trải Nghiệm</a>
-        <a href="#pricing" class="hover:text-capsule-primary transition-colors flex items-center gap-1">
-          Bảng Giá & Gói Quà
+        <a href="#occasionSection" class="hover:text-capsule-primary transition-colors flex items-center gap-1">
+          Dịp Lễ
           <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent"></span>
         </a>
-        <a href="#whyUs" class="hover:text-capsule-primary transition-colors">Tại Sao Chọn Chúng Tôi</a>
-        <a href="#testimonials" class="hover:text-capsule-primary transition-colors">Đánh Giá</a>
+        <a href="#experienceFlow" class="hover:text-capsule-primary transition-colors">3 Chặng Trải Nghiệm</a>
+        <a href="#pricing" class="hover:text-capsule-primary transition-colors">Bảng Giá</a>
+        <a href="#whyUs" class="hover:text-capsule-primary transition-colors">Ưu Thế</a>
       </nav>
 
       <!-- Header Action Controls -->
@@ -178,46 +339,62 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section id="hero" class="relative z-10 pt-10 pb-6 sm:pt-14 sm:pb-10 px-4 text-center max-w-4xl mx-auto">
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono tracking-widest uppercase mb-5 border border-capsule-surfaceDark">
-      <span class="w-2 h-2 rounded-full bg-capsule-primary"></span>
-      Dự án Khởi Nghiệp Số • Digital Emotion Platform
-    </div>
-    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-capsule-ink tracking-tight leading-tight">
-      Gửi trọn kỷ niệm qua một <br class="hidden sm:inline">
-      <span class="italic text-capsule-primary font-normal">Hộp Quà Kỷ Niệm Số</span> độc bản
-    </h1>
-    <p class="max-w-2xl mx-auto mt-4 text-sm sm:text-base text-capsule-muted leading-relaxed">
-      Giải pháp quà tặng sinh nhật không lo khoảng cách, không lo trễ giờ 0h. Kết hợp trải nghiệm mở hộp 3D, phòng triển lãm ký ức và tờ báo kỷ niệm cá nhân hoá có thể tải về chia sẻ.
-    </p>
-
-    <!-- Quick CTAs -->
-    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-      <button onclick="previewAsRecipient()" class="px-6 py-3 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs sm:text-sm font-semibold transition-all shadow-sm hover:shadow flex items-center gap-2">
-        <span>🎁 Trải Nghiệm Mở Hộp Quà (Demo)</span>
-      </button>
-      <a href="#pricing" class="px-6 py-3 rounded-full border border-capsule-surfaceDark bg-capsule-card hover:bg-[#F2ECE1] text-capsule-ink text-xs sm:text-sm font-medium transition-all shadow-2xs">
-        Xem 3 Gói Sản Phẩm (Từ 0đ)
-      </a>
-    </div>
-
-    <!-- Quick trust points -->
-    <div class="mt-8 pt-6 border-t border-capsule-surface max-w-xl mx-auto flex items-center justify-around text-xs font-mono text-capsule-muted">
-      <div class="flex items-center gap-1.5">
-        <span class="text-capsule-primary">✓</span> Bảo mật dữ liệu 100%
+  <!-- Quick Occasion Selector Carousel Bar -->
+  <section id="occasionSection" class="relative z-30 bg-capsule-card border-b border-capsule-surface px-4 py-2.5 transition-colors duration-400">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      <div class="flex items-center gap-1.5 text-capsule-muted text-xs font-mono shrink-0 hidden sm:flex">
+        <span>Chọn Dịp Lễ:</span>
       </div>
-      <div class="flex items-center gap-1.5">
-        <span class="text-capsule-primary">✓</span> Kích hoạt tức thì 00:00
-      </div>
-      <div class="flex items-center gap-1.5">
-        <span class="text-capsule-primary">✓</span> Lưu trữ vĩnh viễn
+      
+      <!-- Horizontal Scrollable Tags -->
+      <div id="occasionPillsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 w-full">
+        <!-- Occasion Buttons injected via JS -->
       </div>
     </div>
   </section>
 
-  <!-- Main Interactive Container -->
-  <main class="relative z-10 max-w-5xl mx-auto px-4 py-4 sm:py-8 w-full">
+  <!-- Hero Section -->
+  <section id="hero" class="relative z-10 pt-9 pb-6 sm:pt-12 sm:pb-8 px-4 text-center max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono tracking-widest uppercase mb-4 border border-capsule-surfaceDark">
+      <span class="w-2 h-2 rounded-full bg-capsule-primary"></span>
+      <span id="heroOccasionTag">Kỷ Niệm Sinh Nhật • Digital Emotion Platform</span>
+    </div>
+
+    <h1 id="heroHeading" class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-capsule-ink tracking-tight leading-tight">
+      Gửi trọn kỷ niệm qua một <br class="hidden sm:inline">
+      <span id="heroSubheading" class="italic text-capsule-primary font-normal">Hộp Quà Kỷ Niệm Số</span> độc bản
+    </h1>
+
+    <p id="heroDescription" class="max-w-2xl mx-auto mt-4 text-sm sm:text-base text-capsule-muted leading-relaxed">
+      Dành trọn bất ngờ cho ngày đặc biệt mà không ngại trễ hẹn hay khoảng cách. Trải nghiệm mở hộp 3D, phòng triển lãm ký ức và tờ báo kỷ niệm cá nhân hoá độc quyền.
+    </p>
+
+    <!-- Quick CTAs -->
+    <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+      <button onclick="previewAsRecipient()" class="px-6 py-3 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs sm:text-sm font-semibold transition-all shadow-sm hover:shadow flex items-center gap-2">
+        <span id="heroOpenDemoBtnText">🎁 Trải Nghiệm Mở Hộp Quà Ngay (Demo)</span>
+      </button>
+      <button onclick="switchMode('creator')" class="px-6 py-3 rounded-full border border-capsule-surfaceDark bg-capsule-card hover:bg-capsule-surface text-capsule-ink text-xs sm:text-sm font-medium transition-all shadow-2xs">
+        Tự Tạo Quà Trong 2 Phút ➔
+      </button>
+    </div>
+
+    <!-- Quick Trust Badges -->
+    <div class="mt-8 pt-5 border-t border-capsule-surface max-w-xl mx-auto flex items-center justify-around text-xs font-mono text-capsule-muted">
+      <div class="flex items-center gap-1.5">
+        <span class="text-capsule-primary font-bold">✓</span> Kích hoạt đúng 00:00
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-capsule-primary font-bold">✓</span> 10 Dịp Lễ Cài Sẵn
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-capsule-primary font-bold">✓</span> Xuất ảnh báo HD & link lưu vĩnh viễn
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Interactive Experience Area -->
+  <main class="relative z-10 max-w-5xl mx-auto px-4 py-4 sm:py-6 w-full">
 
     <!-- RECIPIENT VIEW CONTAINER -->
     <div id="recipientView" class="space-y-12">
@@ -229,77 +406,78 @@
           <div id="stepLineProgress" class="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 bg-capsule-primary transition-all duration-500 z-0" style="width: 15%;"></div>
           
           <div id="stepDot1" class="relative z-10 flex flex-col items-center gap-1 cursor-pointer" onclick="navigateToPhase(1)">
-            <span class="w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-[#F7F5F0]">1</span>
+            <span class="w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-capsule-bg">1</span>
             <span class="text-[11px] font-medium text-capsule-primary">Mở Quà 3D</span>
           </div>
           <div id="stepDot2" class="relative z-10 flex flex-col items-center gap-1 cursor-pointer" onclick="navigateToPhase(2)">
-            <span class="w-8 h-8 rounded-full bg-capsule-card border border-capsule-surface text-capsule-muted font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-[#F7F5F0]">2</span>
+            <span class="w-8 h-8 rounded-full bg-capsule-card border border-capsule-surface text-capsule-muted font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-capsule-bg">2</span>
             <span class="text-[11px] font-medium">Bảo Tàng Ký Ức</span>
           </div>
           <div id="stepDot3" class="relative z-10 flex flex-col items-center gap-1 cursor-pointer" onclick="navigateToPhase(3)">
-            <span class="w-8 h-8 rounded-full bg-capsule-card border border-capsule-surface text-capsule-muted font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-[#F7F5F0]">3</span>
+            <span class="w-8 h-8 rounded-full bg-capsule-card border border-capsule-surface text-capsule-muted font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-capsule-bg">3</span>
             <span class="text-[11px] font-medium">Báo Kỷ Niệm</span>
           </div>
         </div>
       </nav>
 
       <!-- CHẶNG 1: 3D UNBOXING EXPERIENCE -->
-      <section id="phase1Unboxing" class="flex flex-col items-center text-center py-6 sm:py-10 transition-all duration-700">
-        <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface/80 text-capsule-primary text-xs font-mono tracking-widest uppercase mb-3">
+      <section id="phase1Unboxing" class="flex flex-col items-center text-center py-6 sm:py-8 transition-all duration-700">
+        <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono tracking-widest uppercase mb-3">
           Chặng 1 • Khởi Đầu Bất Ngờ
         </div>
         <h2 class="text-3xl sm:text-4xl font-serif font-bold text-capsule-ink tracking-tight mb-2">
-          Hộp quà sinh nhật gửi tới <span class="recipient-name-display text-capsule-primary italic">Lan Anh</span>
+          Hộp quà <span id="unboxOccasionTitle" class="italic text-capsule-primary">Sinh Nhật</span> gửi tới <span class="recipient-name-display text-capsule-primary italic">Lan Anh</span>
         </h2>
-        <p class="max-w-md text-sm text-capsule-muted mb-8">
-          Chạm vào hộp quà để cởi nơ và bước vào không gian sinh nhật được tạo riêng cho bạn.
+        <p class="max-w-md text-sm text-capsule-muted mb-6" id="unboxGuideText">
+          Chạm vào hộp quà để cởi dải ruy băng và bước vào không gian tri ân được chuẩn bị riêng cho bạn.
         </p>
 
         <!-- 3D Gift Box Interactive Widget -->
         <div class="gift-box-wrapper w-64 h-64 sm:w-72 sm:h-72 relative cursor-pointer my-2 group select-none" onclick="triggerUnbox()">
           <!-- Ambient Glow -->
-          <div class="absolute inset-4 rounded-3xl bg-capsule-accent/15 blur-2xl group-hover:bg-capsule-accent/25 transition-all"></div>
+          <div class="absolute inset-4 rounded-3xl bg-capsule-accent/20 blur-2xl group-hover:bg-capsule-accent/30 transition-all"></div>
           
           <!-- Nắp hộp (Lid) -->
-          <div id="giftLid" class="gift-lid absolute -top-3 left-4 right-4 h-16 bg-[#DCD6C9] rounded-xl border border-[#CBC5B7] shadow-md z-30 flex items-center justify-center">
+          <div id="giftLid" class="gift-lid absolute -top-3 left-4 right-4 h-16 bg-capsule-surfaceDark rounded-xl border border-capsule-surface shadow-md z-30 flex items-center justify-center">
             <!-- Ruy băng ngang -->
-            <div class="w-10 h-full bg-capsule-primary shadow-xs"></div>
+            <div id="ribbonBar" class="w-10 h-full bg-capsule-primary shadow-xs transition-colors"></div>
             <!-- Nơ 3D -->
             <div class="absolute -top-6 w-14 h-10 flex items-center justify-center pointer-events-none">
-              <div class="w-6 h-6 rounded-full border-4 border-capsule-primary rotate-45 -mr-1"></div>
-              <div class="w-6 h-6 rounded-full border-4 border-capsule-primary -rotate-45 -ml-1"></div>
+              <div id="bowLeft" class="w-6 h-6 rounded-full border-4 border-capsule-primary rotate-45 -mr-1 transition-colors"></div>
+              <div id="bowRight" class="w-6 h-6 rounded-full border-4 border-capsule-primary -rotate-45 -ml-1 transition-colors"></div>
             </div>
           </div>
 
           <!-- Thân hộp (Box Body) -->
-          <div id="giftBoxBody" class="gift-box-body absolute inset-x-8 top-10 bottom-6 bg-[#EBE5D8] rounded-2xl border border-[#DDD7C9] shadow-xl z-20 flex flex-col items-center justify-center overflow-hidden">
-            <div class="absolute inset-y-0 w-10 bg-capsule-primary"></div>
-            <div class="absolute inset-x-0 h-10 bg-capsule-primary/80"></div>
+          <div id="giftBoxBody" class="gift-box-body absolute inset-x-8 top-10 bottom-6 bg-capsule-surface rounded-2xl border border-capsule-surfaceDark shadow-xl z-20 flex flex-col items-center justify-center overflow-hidden">
+            <div id="ribbonVert" class="absolute inset-y-0 w-10 bg-capsule-primary transition-colors"></div>
+            <div id="ribbonHoriz" class="absolute inset-x-0 h-10 bg-capsule-primary/80 transition-colors"></div>
             
             <!-- Tem nhãn thư đính kèm -->
             <div class="relative z-10 bg-capsule-card px-4 py-2.5 rounded-lg border border-capsule-surface shadow-xs text-left max-w-[85%]">
-              <span class="text-[9px] tracking-wider font-mono text-capsule-muted block">GỬI TỚI:</span>
+              <span class="text-[9px] tracking-wider font-mono text-capsule-muted block" id="giftBoxLabelTo">GỬI TỚI:</span>
               <p class="font-serif font-bold text-capsule-ink text-sm truncate recipient-name-display">Lan Anh</p>
+              <span class="text-[9px] font-mono text-capsule-accent mt-0.5 block" id="giftBoxOccasionBadge">✦ Sinh Nhật Ấm Áp</span>
             </div>
           </div>
         </div>
 
         <button id="openBoxBtn" onclick="triggerUnbox()" class="mt-6 px-7 py-3 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card font-medium text-xs sm:text-sm transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform active:scale-95">
-          <span>✨ Chạm Mở Hộp Quà Sinh Nhật</span>
+          <span id="openBoxBtnText">✨ Chạm Mở Hộp Quà Kỷ Niệm</span>
         </button>
       </section>
 
       <!-- CHẶNG 2: BẢO TÀNG KỶ NIỆM (MEMORY WALK & MINIGAME) -->
       <section id="phase2Museum" class="hidden transition-opacity duration-700 space-y-10">
         <div class="text-center max-w-xl mx-auto">
-          <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface/80 text-capsule-primary text-xs font-mono tracking-widest uppercase mb-2">
+          <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono tracking-widest uppercase mb-2">
             Chặng 2 • Bảo Tàng Kỷ Niệm Ảo
           </div>
-          <h2 class="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-capsule-ink">
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-capsule-ink" id="museumHeading">
             Ghé Thăm Những Mảnh Ghép Thời Gian
           </h2>
-          <p class="text-xs sm:text-sm text-capsule-muted mt-1.5">
-            Mỗi tấm ảnh là một mốc trưởng thành, mỗi giai điệu là một lời gửi gắm chân thành.
+          <p class="text-xs sm:text-sm text-capsule-muted mt-1.5" id="museumSubtitle">
+            Mỗi tấm ảnh là một mốc son, mỗi giai điệu là một lời gửi gắm chân thành.
           </p>
         </div>
 
@@ -321,13 +499,13 @@
         <div class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-8 shadow-xs relative">
           <div class="max-w-xl mx-auto text-center space-y-3">
             <span class="text-xs font-mono text-capsule-accent uppercase tracking-wider font-semibold">Trạm 02 • Minigame Mật Mã</span>
-            <h3 class="font-serif font-bold text-xl sm:text-2xl text-capsule-ink">Giải Mã Bức Thư Giấu Kín</h3>
+            <h3 class="font-serif font-bold text-xl sm:text-2xl text-capsule-ink">Giải Mã Thông Điệp Bí Mật</h3>
             <p id="secretQuestionDisplay" class="text-xs sm:text-sm text-capsule-muted italic">
-              "Hãy nhập mật mã riêng hoặc ngày sinh nhật để đọc thông điệp đặc biệt:"
+              "Hãy nhập mật mã riêng hoặc con số kỷ niệm để đọc thông điệp đặc biệt:"
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-2 max-w-sm mx-auto pt-2">
-              <input type="text" id="secretAnswerInput" placeholder="Nhập đáp án tại đây..." class="w-full px-4 py-2.5 rounded-full border border-capsule-surface bg-[#FAF8F3] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30 text-center font-mono">
+              <input type="text" id="secretAnswerInput" placeholder="Nhập đáp án tại đây..." class="w-full px-4 py-2.5 rounded-full border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30 text-center font-mono">
               <button onclick="checkSecretAnswer()" class="w-full sm:w-auto px-6 py-2.5 rounded-full bg-capsule-primary text-capsule-card text-xs sm:text-sm font-medium hover:bg-capsule-primaryHover transition-colors shrink-0">
                 Mở Khóa
               </button>
@@ -335,16 +513,16 @@
             <p id="quizErrorText" class="text-xs text-red-700/80 hidden font-mono">Mật mã chưa đúng, bạn hãy thử lại xem sao nhé!</p>
 
             <!-- Bức thư viết tay mở khóa -->
-            <div id="unlockedSecretLetter" class="hidden text-left bg-[#F4EFEA] rounded-2xl p-6 border border-[#E3DBD0] mt-6 transition-all duration-500 shadow-inner font-mono text-xs sm:text-sm leading-relaxed text-capsule-ink">
-              <div class="flex items-center justify-between pb-3 mb-3 border-b border-[#DDD4C7]">
-                <span class="text-xs font-bold text-capsule-primary uppercase">✧ Bức Thư Dành Riêng Cho Bạn</span>
+            <div id="unlockedSecretLetter" class="hidden text-left bg-capsule-newspaper rounded-2xl p-6 border border-capsule-surfaceDark mt-6 transition-all duration-500 shadow-inner font-mono text-xs sm:text-sm leading-relaxed text-capsule-ink">
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-capsule-surfaceDark">
+                <span class="text-xs font-bold text-capsule-primary uppercase" id="secretLetterBadge">✧ Bức Thư Kỷ Niệm Riêng Tư</span>
                 <span class="text-[11px] text-capsule-muted" id="letterDateStamp">00:00 • Hôm nay</span>
               </div>
-              <p id="secretLetterContent" class="whitespace-pre-line text-[#3D403E]">
+              <p id="secretLetterContent" class="whitespace-pre-line text-capsule-ink">
                 Chúc bạn một tuổi mới bình an, rực rỡ và luôn vững vàng trước mọi ngã rẽ!
               </p>
-              <div class="mt-4 pt-3 border-t border-[#DDD4C7] flex justify-end">
-                <span class="font-serif italic font-bold text-capsule-primary" id="secretLetterSign">— Người gửi giấu tên</span>
+              <div class="mt-4 pt-3 border-t border-capsule-surfaceDark flex justify-end">
+                <span class="font-serif italic font-bold text-capsule-primary" id="secretLetterSign">— Người gửi yêu thương</span>
               </div>
             </div>
           </div>
@@ -362,8 +540,8 @@
             </div>
             <div>
               <span class="text-xs font-mono text-capsule-accent uppercase tracking-wider font-semibold">Trạm 03 • Âm Thanh Kỷ Niệm</span>
-              <h4 class="font-serif font-bold text-base sm:text-lg text-capsule-ink mt-0.5">Lofi Harmonic Birthday Breeze</h4>
-              <p class="text-xs text-capsule-muted mt-0.5">Âm hưởng pentatonic êm ái thư giãn</p>
+              <h4 class="font-serif font-bold text-base sm:text-lg text-capsule-ink mt-0.5" id="bgmTrackTitle">Lofi Harmonic Breeze</h4>
+              <p class="text-xs text-capsule-muted mt-0.5" id="bgmTrackSubtitle">Giai điệu hoài niệm nhẹ nhàng thư giãn</p>
               <button onclick="toggleAudio()" class="mt-2.5 px-4 py-1.5 rounded-full bg-capsule-primary text-capsule-card text-xs font-medium hover:bg-capsule-primaryHover transition-colors">
                 <span id="playerBtnText">Phát Nhạc</span>
               </button>
@@ -379,43 +557,45 @@
       <!-- CHẶNG 3: TỜ BÁO RETRO & VOUCHERS -->
       <section id="phase3Newspaper" class="hidden transition-opacity duration-700 space-y-10">
         <div class="text-center max-w-xl mx-auto">
-          <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface/80 text-capsule-primary text-xs font-mono tracking-widest uppercase mb-2">
+          <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono tracking-widest uppercase mb-2">
             Chặng 3 • Quà Tặng & Kỷ Niệm
           </div>
-          <h2 class="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-capsule-ink">
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-capsule-ink" id="newspaperSectionTitle">
             Ấn Bản Báo Kỷ Niệm Cá Nhân Hoá
           </h2>
-          <p class="text-xs sm:text-sm text-capsule-muted mt-1">
-            Bản tin đặc biệt mừng tuổi mới cùng các đặc quyền voucher tình cảm có thể kích hoạt ngay.
+          <p class="text-xs sm:text-sm text-capsule-muted mt-1" id="newspaperSectionSubtitle">
+            Bản tin đặc biệt cùng các đặc quyền voucher tình cảm có thể kích hoạt ngay.
           </p>
         </div>
 
         <!-- The Vintage Newspaper Frame for Download -->
-        <div id="newspaperCaptureArea" class="newspaper-shadow max-w-3xl mx-auto bg-capsule-newspaper border-2 border-[#DDD6CC] p-6 sm:p-10 rounded-xl relative text-capsule-ink">
+        <div id="newspaperCaptureArea" class="newspaper-shadow max-w-3xl mx-auto bg-capsule-newspaper border-2 border-capsule-surfaceDark p-6 sm:p-10 rounded-xl relative text-capsule-ink">
           <!-- Newspaper Header -->
           <div class="border-b-4 border-double border-capsule-ink pb-4 text-center">
             <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono uppercase tracking-widest border-b border-capsule-ink/25 pb-1.5 mb-2.5 text-capsule-muted">
-              <span>SỐ ĐẶC BIỆT KỶ NIỆM</span>
-              <span>NGÀY SINH NHẬT CỦA BẠN</span>
-              <span>PHIÊN BẢN ĐỘC BẢN</span>
+              <span id="paperTopMetaLeft">SỐ ĐẶC BIỆT KỶ NIỆM</span>
+              <span id="paperTopMetaCenter">PHIÊN BẢN GIỚI HẠN</span>
+              <span id="paperTopMetaRight">ĐỘC BẢN 2026</span>
             </div>
-            <h1 class="font-vintage text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight uppercase text-capsule-ink py-1">
+            <h1 id="newspaperMasthead" class="font-vintage text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight uppercase text-capsule-ink py-1">
               THE BIRTHDAY CHRONICLE
             </h1>
-            <p class="text-xs italic font-serif text-capsule-muted">"Ghi lại những mốc son đẹp đẽ nhất nhân dịp sinh nhật"</p>
+            <p class="text-xs italic font-serif text-capsule-muted" id="newspaperTagline">
+              "Ghi lại những mốc son đẹp đẽ và những lời tri ân chân thành nhất"
+            </p>
           </div>
 
           <!-- Headline Article Section -->
           <div class="py-5 border-b border-capsule-ink/20">
-            <span class="text-[10px] font-mono bg-capsule-primary text-capsule-card px-2 py-0.5 rounded uppercase font-semibold">TIN TIÊU ĐIỂM</span>
+            <span class="text-[10px] font-mono bg-capsule-primary text-capsule-card px-2 py-0.5 rounded uppercase font-semibold" id="paperNewsCategory">TIN TIÊU ĐIỂM</span>
             <h2 id="newsHeadline" class="font-serif font-black text-xl sm:text-2xl md:text-3xl tracking-tight mt-2 text-capsule-ink uppercase leading-snug">
-              SỰ KIỆN ĐẶC BIỆT: <span class="recipient-name-display text-capsule-primary">LAN ANH</span> CHÍNH THỨC BƯỚC SANG TUỔI MỚI!
+              SỰ KIỆN ĐẶC BIỆT: <span class="recipient-name-display text-capsule-primary">LAN ANH</span> BƯỚC SANG TUỔI MỚI!
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-4">
               <!-- Article text -->
               <div class="md:col-span-2 font-mono text-xs sm:text-[13px] leading-relaxed text-capsule-ink space-y-2.5">
                 <p id="newsBodyParagraph1">
-                  Hôm nay, toàn thể những người thương yêu xin gửi tới bạn lời chúc nồng nhiệt nhất. Chúc bạn một năm mới bình an, rạng rỡ và tự tin tỏa sáng!
+                  Hôm nay, toàn thể những người thương yêu xin gửi tới bạn lời chúc nồng nhiệt nhất. Chúc bạn luôn bình an, rạng rỡ và vững bước!
                 </p>
                 <p id="newsBodyParagraph2" class="italic text-capsule-muted">
                   Bản tin ghi nhận: Nụ cười và năng lượng tích cực của bạn là món quà quý giá cho mọi người xung quanh.
@@ -426,7 +606,7 @@
                 <div class="w-full h-32 rounded bg-capsule-surface flex items-center justify-center overflow-hidden mb-2">
                   <img id="newsAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Chân Dung" class="w-full h-full object-cover">
                 </div>
-                <span class="text-[10px] font-mono uppercase text-capsule-muted block">Nhân Vật Của Ngày</span>
+                <span class="text-[10px] font-mono uppercase text-capsule-muted block" id="newsPortraitSub">Nhân Vật Của Ngày</span>
                 <span class="text-xs font-serif font-bold text-capsule-primary" id="newsAgeHighlight">Mốc Tuổi 21</span>
               </div>
             </div>
@@ -435,7 +615,7 @@
           <!-- Interactive Vouchers Section -->
           <div class="pt-5">
             <div class="flex items-center justify-between mb-3">
-              <h3 class="font-serif font-bold text-base sm:text-lg uppercase tracking-tight text-capsule-ink">
+              <h3 class="font-serif font-bold text-base sm:text-lg uppercase tracking-tight text-capsule-ink" id="vouchersHeaderTitle">
                 ✧ PHIẾU ĐẶC QUYỀN TÌNH CẢM (VOUCHERS)
               </h3>
               <span class="text-[10px] font-mono text-capsule-muted">Nhấn để dùng ngay</span>
@@ -460,13 +640,15 @@
     <!-- CREATOR STUDIO VIEW CONTAINER -->
     <div id="creatorView" class="hidden space-y-8">
       <div id="creatorViewAnchor" class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-8 shadow-xs">
+        
+        <!-- Studio Header -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-capsule-surface">
           <div>
-            <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface/80 text-capsule-primary text-xs font-mono tracking-widest uppercase mb-1">
-              Studio Tạo Quà • Maker Suite
+            <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono tracking-widest uppercase mb-1">
+              Studio Tạo Quà Đa Dịp • Maker Suite
             </div>
-            <h2 class="font-serif font-bold text-2xl text-capsule-ink">Thiết Kế Hộp Quà Cho Người Ấy</h2>
-            <p class="text-xs text-capsule-muted mt-0.5">Điền thông tin và kiểm tra xem trước hiển thị ngay lập tức.</p>
+            <h2 class="font-serif font-bold text-2xl text-capsule-ink">Thiết Kế Hộp Quà Theo Dịp Riêng</h2>
+            <p class="text-xs text-capsule-muted mt-0.5">Chọn mẫu gợi ý sẵn hoặc tự chỉnh sửa từng chi tiết.</p>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="previewAsRecipient()" class="px-5 py-2.5 rounded-full bg-capsule-primary text-capsule-card text-xs font-semibold hover:bg-capsule-primaryHover transition-colors shadow-2xs">
@@ -475,10 +657,20 @@
           </div>
         </div>
 
+        <!-- Occasion Preset Selector Carousel inside Creator -->
+        <div class="pt-6 pb-2">
+          <label class="block text-xs font-mono text-capsule-accent font-semibold uppercase tracking-wider mb-2">
+            Bước 0: Chọn Mẫu Sẵn Theo Dịp (Áp Dụng Trong 1 Click)
+          </label>
+          <div id="creatorPresetPills" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+            <!-- Preset buttons injected by JS -->
+          </div>
+        </div>
+
         <!-- Customizer Form Fields -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-6">
           
-          <!-- Column 1: Nhân vật & Bài báo -->
+          <!-- Column 1: Thông tin nhân vật & Tờ Báo -->
           <div class="space-y-4">
             <h3 class="font-serif font-bold text-base text-capsule-ink pb-1 border-b border-capsule-surface flex items-center gap-2">
               <span class="w-5 h-5 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono flex items-center justify-center font-bold">1</span>
@@ -488,31 +680,31 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Tên Người Nhận</label>
-                <input type="text" id="inputRecipientName" value="Lan Anh" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
+                <input type="text" id="inputRecipientName" value="Lan Anh" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
               </div>
               <div>
-                <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Tuổi / Cột Mốc</label>
-                <input type="text" id="inputAge" value="21" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
+                <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Cột Mốc / Tuổi / Dịp</label>
+                <input type="text" id="inputAge" value="21" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Tiêu Đề Trang Báo Sinh Nhật</label>
-              <input type="text" id="inputNewsTitle" value="CHÍNH THỨC BƯỚC SANG TUỔI MỚI RỰC RỠ!" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Tiêu Đề Trang Báo</label>
+              <input type="text" id="inputNewsTitle" value="BƯỚC SANG TUỔI MỚI RỰC RỠ!" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Lời Chúc Chính Trên Báo</label>
-              <textarea id="inputNewsBody" rows="3" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">Hôm nay, toàn thể những người thương yêu xin gửi tới bạn lời chúc nồng nhiệt nhất. Chúc bạn một năm mới bình an, rạng rỡ và tự tin tỏa sáng!</textarea>
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Lời Chúc / Bài Báo Chính</label>
+              <textarea id="inputNewsBody" rows="3" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">Hôm nay, toàn thể những người thương yêu xin gửi tới bạn lời chúc nồng nhiệt nhất. Chúc bạn luôn bình an, rạng rỡ và tự tin tỏa sáng!</textarea>
             </div>
 
             <div>
               <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Ảnh Chân Dung (URL Ảnh)</label>
-              <input type="text" id="inputAvatarUrl" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
+              <input type="text" id="inputAvatarUrl" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
             </div>
           </div>
 
-          <!-- Column 2: Mật mã & Thư & Vouchers -->
+          <!-- Column 2: Mật mã, Bức thư & 3 Vouchers -->
           <div class="space-y-4">
             <h3 class="font-serif font-bold text-base text-capsule-ink pb-1 border-b border-capsule-surface flex items-center gap-2">
               <span class="w-5 h-5 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono flex items-center justify-center font-bold">2</span>
@@ -520,26 +712,26 @@
             </h3>
 
             <div>
-              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Câu Hỏi Bí Mật (Gợi ý cho người nhận)</label>
-              <input type="text" id="inputSecretQuestion" value="Ngày tụi mình quen nhau (DDMM) hoặc biệt danh của bạn?" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Câu Hỏi Bí Mật (Gợi ý mở thư)</label>
+              <input type="text" id="inputSecretQuestion" value="Ngày sinh nhật của bạn hoặc con số quen thuộc?" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Đáp Án Mật Khẩu (Để mở thư)</label>
-              <input type="text" id="inputSecretAnswer" value="1010" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30 font-mono">
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Đáp Án Mật Khẩu</label>
+              <input type="text" id="inputSecretAnswer" value="1010" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30 font-mono">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Nội Dung Thư Tay Mở Khóa</label>
-              <textarea id="inputSecretLetter" rows="3" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-[#FAF8F4] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">Cảm ơn vì đã luôn là một người bạn tuyệt vời. Dù cuộc sống có bận rộn đến đâu, mong bạn hãy luôn nhớ rằng mình luôn ủng hộ bạn hết mình!</textarea>
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Nội Dung Thư Mở Khóa</label>
+              <textarea id="inputSecretLetter" rows="3" oninput="updateAppData()" class="w-full px-3.5 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30">Cảm ơn vì đã luôn đồng hành cùng nhau qua bao mùa lễ. Chúc bạn một ngày ngập tràn niềm vui và bình yên!</textarea>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">3 Voucher Tặng Kèm</label>
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">3 Voucher Gửi Tặng</label>
               <div class="space-y-2">
-                <input type="text" id="inputVoucher1" value="🧋 Phiếu bao trọn 1 chầu trà sữa full topping" oninput="updateAppData()" class="w-full px-3 py-1.5 rounded-lg border border-capsule-surface bg-[#FAF8F4] text-xs">
-                <input type="text" id="inputVoucher2" value="🛵 Phiếu làm tài xế đưa đón dạo phố đêm" oninput="updateAppData()" class="w-full px-3 py-1.5 rounded-lg border border-capsule-surface bg-[#FAF8F4] text-xs">
-                <input type="text" id="inputVoucher3" value="🕊️ Phiếu miễn trừ 1 lần giận dỗi vô điều kiện" oninput="updateAppData()" class="w-full px-3 py-1.5 rounded-lg border border-capsule-surface bg-[#FAF8F4] text-xs">
+                <input type="text" id="inputVoucher1" value="🧋 Phiếu bao trọn 1 chầu trà sữa full topping" oninput="updateAppData()" class="w-full px-3 py-1.5 rounded-lg border border-capsule-surface bg-capsule-bg text-xs">
+                <input type="text" id="inputVoucher2" value="🛵 Phiếu làm tài xế đưa đón dạo phố đêm" oninput="updateAppData()" class="w-full px-3 py-1.5 rounded-lg border border-capsule-surface bg-capsule-bg text-xs">
+                <input type="text" id="inputVoucher3" value="🕊️ Phiếu miễn trừ 1 lần giận dỗi vô điều kiện" oninput="updateAppData()" class="w-full px-3 py-1.5 rounded-lg border border-capsule-surface bg-capsule-bg text-xs">
               </div>
             </div>
           </div>
@@ -547,12 +739,12 @@
         </div>
 
         <!-- QR Code & Link Generation -->
-        <div class="mt-8 pt-6 border-t border-capsule-surface flex flex-col md:flex-row items-center justify-between gap-6 bg-[#F4EFE7] p-6 rounded-2xl">
+        <div class="mt-8 pt-6 border-t border-capsule-surface flex flex-col md:flex-row items-center justify-between gap-6 bg-capsule-surface/60 p-6 rounded-2xl">
           <div class="flex items-center gap-4">
             <div id="qrcodeBox" class="p-2.5 bg-white rounded-xl shadow-2xs border border-capsule-surface shrink-0"></div>
             <div>
-              <h4 class="font-serif font-bold text-capsule-ink text-base">Đường Dẫn Capsule Đã Sẵn Sàng</h4>
-              <p class="text-xs text-capsule-muted mt-0.5">Người nhận chỉ cần quét mã hoặc bấm link để mở vào đúng 0h.</p>
+              <h4 class="font-serif font-bold text-capsule-ink text-base">Đường Dẫn Kỷ Niệm Đã Sẵn Sàng</h4>
+              <p class="text-xs text-capsule-muted mt-0.5">Người nhận chỉ cần quét mã hoặc bấm link để mở vào đúng thời khắc.</p>
               <div class="mt-2.5 flex items-center gap-2">
                 <input type="text" id="shareableLinkDisplay" readonly value="" class="text-xs font-mono px-3 py-1.5 bg-capsule-card rounded border border-capsule-surface text-capsule-muted max-w-xs truncate">
                 <button onclick="copyShareLink()" class="px-3 py-1.5 rounded bg-capsule-primary text-capsule-card text-xs font-medium hover:bg-capsule-primaryHover transition-colors">
@@ -583,7 +775,7 @@
         Lựa Chọn Trải Nghiệm Phù Hợp
       </h2>
       <p class="text-sm text-capsule-muted mt-2">
-        Từ gói kỹ thuật số miễn phí trải nghiệm đến bộ quà tặng vật lý (Phygital) kết hợp tinh tế.
+        Mô hình thuần kỹ thuật số (Pure Digital SaaS): Không lo tồn kho, trao gửi cảm xúc ngay tức thì đúng 00:00.
       </p>
     </div>
 
@@ -595,7 +787,7 @@
         <div>
           <div class="flex items-center justify-between">
             <span class="text-xs font-mono uppercase tracking-wider text-capsule-muted">Gói 01</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-capsule-surface text-capsule-muted">Dùng Thử</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-capsule-surface text-capsule-muted">Dùng Thử MVP</span>
           </div>
           <h3 class="font-serif font-bold text-xl text-capsule-ink mt-2">Khởi Đầu (Digital Starter)</h3>
           <p class="text-xs text-capsule-muted mt-1">Trải nghiệm các tính năng cốt lõi cơ bản cho bạn bè.</p>
@@ -606,6 +798,9 @@
           </div>
 
           <ul class="mt-6 space-y-3 text-xs text-capsule-ink font-normal">
+            <li class="flex items-center gap-2 text-capsule-primary font-semibold">
+              <span>✦</span> Giới hạn tối đa 01 lượt tạo quà / tài khoản
+            </li>
             <li class="flex items-center gap-2">
               <span class="text-capsule-primary font-bold">✓</span> Mở nắp hộp quà 3D cơ bản
             </li>
@@ -619,13 +814,13 @@
               <span>✕</span> <span class="line-through">Nhạc Lofi độc quyền</span>
             </li>
             <li class="flex items-center gap-2 text-capsule-muted">
-              <span>✕</span> <span class="line-through">Lưu trữ vĩnh viễn (giới hạn 7 ngày)</span>
+              <span>✕</span> <span class="line-through">Lưu trữ dài hạn (giới hạn 7 ngày)</span>
             </li>
           </ul>
         </div>
 
         <button onclick="selectPlan('Gói 1: Khởi Đầu (0đ)')" class="mt-8 w-full py-2.5 rounded-full border border-capsule-surfaceDark bg-white hover:bg-[#F2ECE1] text-capsule-ink text-xs font-semibold transition-colors">
-          Bắt Đầu Miễn Phí
+          Bắt Đầu Dùng Thử
         </button>
       </div>
 
@@ -646,12 +841,15 @@
           
           <div class="mt-5 pb-5 border-b border-capsule-surface">
             <span class="font-serif font-bold text-3xl sm:text-4xl text-capsule-primary">69.000đ</span>
-            <span class="text-xs text-capsule-muted font-mono"> / capsule vĩnh viễn</span>
+            <span class="text-xs text-capsule-muted font-mono"> / capsule</span>
           </div>
 
           <ul class="mt-6 space-y-3 text-xs text-capsule-ink font-normal">
             <li class="flex items-center gap-2">
               <span class="text-capsule-primary font-bold">✓</span> <strong>Đầy đủ 3 Chặng trải nghiệm tương tác</strong>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-capsule-primary font-bold">✓</span> <strong>Thời hạn lưu trữ 06 tháng</strong> (đủ trọn mùa lễ)
             </li>
             <li class="flex items-center gap-2">
               <span class="text-capsule-primary font-bold">✓</span> Bảo tàng ký ức không giới hạn ảnh & lời dẫn
@@ -668,9 +866,6 @@
             <li class="flex items-center gap-2">
               <span class="text-capsule-primary font-bold">✓</span> 5 Voucher tình cảm có tính năng bấm kích hoạt
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-capsule-primary font-bold">✓</span> Tên miền riêng + QR code động vĩnh viễn
-            </li>
           </ul>
         </div>
 
@@ -679,19 +874,19 @@
         </button>
       </div>
 
-      <!-- GÓI 3: PHYGITAL BOX -->
+      <!-- GÓI 3: FOREVER CAPSULE -->
       <div class="bg-[#F3EEE3] rounded-3xl border border-[#DCD5C7] p-7 flex flex-col justify-between hover:border-capsule-muted transition-all shadow-xs">
         <div>
           <div class="flex items-center justify-between">
             <span class="text-xs font-mono uppercase tracking-wider text-capsule-accent font-bold">Gói 03</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-capsule-accent/15 text-capsule-accent font-bold">Vật Lý + Số</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-capsule-accent/15 text-capsule-accent font-bold">Trọn Đời</span>
           </div>
-          <h3 class="font-serif font-bold text-xl text-capsule-ink mt-2">Chạm Thực Tế (Phygital Box)</h3>
-          <p class="text-xs text-capsule-muted mt-1">Kết hợp trải nghiệm số cùng quà lưu niệm đóng hộp sang trọng.</p>
+          <h3 class="font-serif font-bold text-xl text-capsule-ink mt-2">Vĩnh Viễn (Forever Capsule)</h3>
+          <p class="text-xs text-capsule-muted mt-1">Lưu giữ hồi ức vượt thời gian, mở lại bất kỳ lúc nào.</p>
           
           <div class="mt-5 pb-5 border-b border-[#E1D9CB]">
-            <span class="font-serif font-bold text-3xl sm:text-4xl text-capsule-ink">159.000đ</span>
-            <span class="text-xs text-capsule-muted font-mono"> / set quà ship tận nơi</span>
+            <span class="font-serif font-bold text-3xl sm:text-4xl text-capsule-ink">99.000đ</span>
+            <span class="text-xs text-capsule-muted font-mono"> / lưu trữ vĩnh viễn</span>
           </div>
 
           <ul class="mt-6 space-y-3 text-xs text-capsule-ink font-normal">
@@ -699,25 +894,62 @@
               <span class="text-capsule-primary font-bold">✓</span> <strong>Toàn bộ quyền lợi của gói Premium (69k)</strong>
             </li>
             <li class="flex items-center gap-2">
-              <span class="text-capsule-accent font-bold">✦</span> <strong>Tấm vé cứng Mica/Acrylic</strong> khắc mã QR scan 3D
+              <span class="text-capsule-accent font-bold">✦</span> <strong>Lưu trữ VĨNH VIỄN trọn đời (Never Expire)</strong>
             </li>
             <li class="flex items-center gap-2">
-              <span class="text-capsule-accent font-bold">✦</span> <strong>Bản in Tờ Báo Khổ A4 Vintage</strong> giấy kraft cổ điển
+              <span class="text-capsule-accent font-bold">✦</span> <strong>Mã QR động vĩnh viễn</strong> (quét lại sau 5 - 10 năm)
             </li>
             <li class="flex items-center gap-2">
-              <span class="text-capsule-accent font-bold">✦</span> Dấu sáp niêm phong thủ công (Wax Seal)
+              <span class="text-capsule-accent font-bold">✦</span> Quyền chỉnh sửa & cập nhật thêm ảnh kỷ niệm sau này
             </li>
             <li class="flex items-center gap-2">
-              <span class="text-capsule-accent font-bold">✦</span> Hộp quà kraft đóng gói sẵn kèm nơ sang trọng
+              <span class="text-capsule-accent font-bold">✦</span> Khóa mật mã bảo mật cấp cao chống sao chép
             </li>
           </ul>
         </div>
 
-        <button onclick="selectPlan('Gói 3: Chạm Thực Tế Phygital (159.000đ)')" class="mt-8 w-full py-2.5 rounded-full bg-capsule-ink hover:bg-black text-capsule-card text-xs font-semibold transition-colors">
-          Đặt Hộp Quà Phygital (159.000đ)
+        <button onclick="selectPlan('Gói 3: Vĩnh Viễn Trọn Đời (99.000đ)')" class="mt-8 w-full py-2.5 rounded-full bg-capsule-ink hover:bg-black text-capsule-card text-xs font-semibold transition-colors">
+          Chọn Gói Vĩnh Viễn (99.000đ)
         </button>
       </div>
 
+    </div>
+
+    <!-- CHÍNH SÁCH HOÀN TIỀN & MINH BẠCH (REFUND & SATISFACTION POLICY) -->
+    <div class="mt-12 bg-capsule-card rounded-2xl border border-capsule-surface p-6 sm:p-8 max-w-4xl mx-auto">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-capsule-surface">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-capsule-primary/10 text-capsule-primary flex items-center justify-center text-xl shrink-0">
+            🛡️
+          </div>
+          <div>
+            <h4 class="font-serif font-bold text-base sm:text-lg text-capsule-ink">Chính Sách Hoàn Tiền & Bảo Vệ Khách Hàng</h4>
+            <p class="text-xs text-capsule-muted font-mono">100% Minh Bạch • An Tâm Trải Nghiệm Sản Phẩm Số</p>
+          </div>
+        </div>
+        <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-[#E8EFEA] text-capsule-primary font-bold border border-capsule-primary/20">
+          Cam Kết 24H
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-5 text-xs text-capsule-ink leading-relaxed">
+        <div class="space-y-2">
+          <div class="font-bold text-capsule-primary flex items-center gap-1.5">
+            <span>✓</span> Hoàn Tiền 100% Trong 24 Giờ
+          </div>
+          <p class="text-capsule-muted pl-4">
+            Nếu bạn chưa gửi link cho người nhận hoặc hệ thống phát sinh lỗi kỹ thuật khiến trải nghiệm mở hộp quà bị gián đoạn, chúng tôi hoàn lại 100% chi phí không cần lý do phức tạp.
+          </p>
+        </div>
+        <div class="space-y-2">
+          <div class="font-bold text-capsule-primary flex items-center gap-1.5">
+            <span>✓</span> Hỗ Trợ Đổi Dịp & Sửa Sai Miễn Phí
+          </div>
+          <p class="text-capsule-muted pl-4">
+            Nhập sai ngày sinh, sai tên người thương hay muốn đổi dịp tặng (từ Sinh nhật sang 20/10, Valentine...)? Bạn được cập nhật thông tin và tạo lại mã QR hoàn toàn miễn phí bất kỳ lúc nào.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -726,7 +958,7 @@
     <div class="max-w-6xl mx-auto">
       <div class="text-center max-w-xl mx-auto mb-10">
         <span class="text-xs font-mono text-capsule-accent uppercase tracking-wider font-semibold">Ưu Thế Nổi Bật</span>
-        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-capsule-ink mt-1">Tại Sao Chọn Quà Sinh Nhật Số?</h2>
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-capsule-ink mt-1">Tại Sao Chọn Quà Kỷ Niệm Số Đa Dịp?</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
@@ -736,7 +968,7 @@
           </div>
           <h3 class="font-serif font-bold text-base text-capsule-ink">Kịp Giây Phút 00:00 Hoàn Hảo</h3>
           <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
-            Không lo đơn vị vận chuyển trễ hẹn. Món quà số kích hoạt chính xác từng giây phút chuyển giao tuổi mới của người nhận.
+            Không lo tắc biên hay shipper trễ hẹn ngày lễ lớn. Món quà số kích hoạt chuẩn từng giây chuyển giao ngày lễ.
           </p>
         </div>
 
@@ -744,9 +976,9 @@
           <div class="w-10 h-10 rounded-xl bg-capsule-primary/10 text-capsule-primary flex items-center justify-center font-bold text-lg mb-3">
             🔒
           </div>
-          <h3 class="font-serif font-bold text-base text-capsule-ink">Riêng Tư & An Toàn Tuyệt Đối</h3>
+          <h3 class="font-serif font-bold text-base text-capsule-ink">Bảo Mật & Khóa Mật Mã Riêng</h3>
           <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
-            Mỗi link quà tặng chỉ có bạn và người nhận truy cập. Tính năng khóa mật mã đảm bảo thông điệp riêng tư luôn được bảo vệ.
+            Mỗi link quà tặng chỉ có bạn và người nhận truy cập. Tính năng minigame giải mã đảm bảo thông điệp riêng tư luôn được trân trọng.
           </p>
         </div>
 
@@ -756,7 +988,7 @@
           </div>
           <h3 class="font-serif font-bold text-base text-capsule-ink">Cảm Xúc Vượt Lên Vật Chất</h3>
           <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
-            Những tấm ảnh kỷ niệm, giai điệu yêu thích và voucher tình cảm lưu giữ giá trị tinh thần trường tồn theo năm tháng.
+            Ảnh kỷ niệm, đĩa than âm nhạc, tờ báo retro và voucher tình cảm lưu giữ giá trị tinh thần vĩnh cửu theo năm tháng.
           </p>
         </div>
       </div>
@@ -767,39 +999,39 @@
   <section id="testimonials" class="relative z-10 py-10 px-4 max-w-5xl mx-auto">
     <div class="text-center mb-8">
       <span class="text-xs font-mono text-capsule-muted uppercase tracking-wider">Cảm Nhận Người Dùng</span>
-      <h3 class="text-2xl font-serif font-bold text-capsule-ink mt-1">Khoảnh Khắc Khi Mở Quà</h3>
+      <h3 class="text-2xl font-serif font-bold text-capsule-ink mt-1">Khoảnh Khắc Khi Mở Quà Đa Dịp</h3>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       <div class="bg-capsule-card p-5 rounded-2xl border border-capsule-surface text-xs leading-relaxed text-capsule-ink">
-        <p class="italic text-capsule-muted">"Mình và bạn gái yêu xa hơn 1000km, gửi link lúc 00:00 bạn ấy bất ngờ và xúc động suýt khóc. Phần tờ báo chụp story ai cũng vào hỏi xin link làm theo!"</p>
+        <p class="italic text-capsule-muted">"Dịp 20/11 vừa rồi cả lớp mình cùng gom ảnh làm một Capsule gửi cô chủ nhiệm cũ. Cô xúc động gọi điện lại ngay trong đêm vì những lời chúc và bức thư bí mật!"</p>
         <div class="mt-4 flex items-center gap-2.5">
           <div class="w-7 h-7 rounded-full bg-capsule-surface flex items-center justify-center text-xs font-bold text-capsule-primary">T</div>
           <div>
             <span class="font-serif font-bold block">Tuấn Minh</span>
-            <span class="text-[10px] text-capsule-muted font-mono">Đã chọn gói Premium</span>
+            <span class="text-[10px] text-capsule-muted font-mono">Quà Tri Ân 20/11</span>
           </div>
         </div>
       </div>
 
       <div class="bg-capsule-card p-5 rounded-2xl border border-capsule-surface text-xs leading-relaxed text-capsule-ink">
-        <p class="italic text-capsule-muted">"Hộp thiệp Acrylic gửi về tận nhà nhìn rất cao cấp, quét mã QR ra ngay bảo tàng kỷ niệm sinh nhật. Một món quà cực kỳ độc lạ trong dịp sinh nhật 20 tuổi."</p>
+        <p class="italic text-capsule-muted">"Tết vừa rồi mình ở nước ngoài không về được, tạo một capsule gửi mẹ kèm voucher 'Con sẽ về nấu cơm Tết'. Mẹ chia sẻ tờ báo lên Facebook khoe khắp họ hàng!"</p>
         <div class="mt-4 flex items-center gap-2.5">
           <div class="w-7 h-7 rounded-full bg-capsule-surface flex items-center justify-center text-xs font-bold text-capsule-accent">H</div>
           <div>
             <span class="font-serif font-bold block">Hải Yến</span>
-            <span class="text-[10px] text-capsule-muted font-mono">Đã chọn gói Phygital Box</span>
+            <span class="text-[10px] text-capsule-muted font-mono">Quà Tết Đoàn Viên</span>
           </div>
         </div>
       </div>
 
       <div class="bg-capsule-card p-5 rounded-2xl border border-capsule-surface text-xs leading-relaxed text-capsule-ink">
-        <p class="italic text-capsule-muted">"Cực kỳ thích tính năng voucher tình cảm! Bấm 'Dùng ngay' gửi thẳng thông báo cho bạn thân đòi đi trà sữa. Giao diện màu pastel rất dịu mắt và tinh tế."</p>
+        <p class="italic text-capsule-muted">"Ngày 20/10 gửi cho người yêu, bạn ấy bấm kích hoạt voucher 'Bao 1 chầu trà sữa' ngay lập tức. Giao diện đổi theme hoa hồng khô rất sang và không hề bị sến súa."</p>
         <div class="mt-4 flex items-center gap-2.5">
           <div class="w-7 h-7 rounded-full bg-capsule-surface flex items-center justify-center text-xs font-bold text-capsule-primary">Q</div>
           <div>
-            <span class="font-serif font-bold block">Quỳnh Như</span>
-            <span class="text-[10px] text-capsule-muted font-mono">Đã chọn gói Premium</span>
+            <span class="font-serif font-bold block">Quốc Huy</span>
+            <span class="text-[10px] text-capsule-muted font-mono">Quà Phụ Nữ 20/10</span>
           </div>
         </div>
       </div>
@@ -807,7 +1039,7 @@
   </section>
 
   <!-- COMPREHENSIVE FOOTER -->
-  <footer class="relative z-10 bg-[#EDE7DD] border-t border-capsule-surfaceDark mt-16 pt-12 pb-8 px-4 sm:px-8 text-capsule-ink">
+  <footer class="relative z-10 bg-capsule-surface/60 border-t border-capsule-surfaceDark mt-16 pt-12 pb-8 px-4 sm:px-8 text-capsule-ink transition-colors duration-400">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-capsule-surfaceDark">
       
       <!-- Brand & Project Info Col 1 & 2 -->
@@ -819,11 +1051,11 @@
           <span class="font-serif font-bold text-lg tracking-tight">Aeterna Capsule</span>
         </div>
         <p class="text-xs text-capsule-muted max-w-sm leading-relaxed">
-          Đề án Khởi Nghiệp Số: Nền tảng thiết kế trải nghiệm quà tặng số và phygital kỷ niệm, giúp kết nối cảm xúc chân thành qua từng tương tác công nghệ.
+          Đề án Khởi Nghiệp Số: Nền tảng thiết kế quà tặng số và phygital kỷ niệm đa dịp, giúp số hoá cảm xúc chân thành qua từng điểm chạm công nghệ.
         </p>
         <div class="pt-2 text-[11px] font-mono text-capsule-muted space-y-1">
-          <div>📍 Đại Học Kinh Tế / Công Nghệ - Khởi Nghiệp Số 2026</div>
-          <div>✉️ hotro@aeternacapsule.vn • 098.123.4567</div>
+          <div>📍 Đề Án Khởi Nghiệp Số 2026 • Đại Học Kinh Tế / Công Nghệ</div>
+          <div>✉️ lienhe@aeternacapsule.vn • 098.123.4567</div>
         </div>
       </div>
 
@@ -831,36 +1063,37 @@
       <div class="text-xs space-y-2">
         <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Trải Nghiệm</h4>
         <div><a href="#hero" class="text-capsule-muted hover:text-capsule-primary transition-colors">Trang Chủ</a></div>
+        <div><a href="#occasionSection" class="text-capsule-muted hover:text-capsule-primary transition-colors">10 Dịp Lễ Đặc Biệt</a></div>
         <div><a href="#experienceFlow" class="text-capsule-muted hover:text-capsule-primary transition-colors">3 Chặng Cảm Xúc</a></div>
         <div><a href="#creatorViewAnchor" onclick="switchMode('creator')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Studio Thiết Kế</a></div>
-        <div><a href="#pricing" class="text-capsule-muted hover:text-capsule-primary transition-colors">Gói Quà & Báo Giá</a></div>
+        <div><a href="#pricing" class="text-capsule-muted hover:text-capsule-primary transition-colors">Báo Giá Gói Quà</a></div>
       </div>
 
       <!-- Service Guarantees Col 4 -->
       <div class="text-xs space-y-2">
-        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Cam Kết Dịch Vụ</h4>
+        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Cam Kết Nền Tảng</h4>
         <div class="text-capsule-muted">🔒 Bảo mật dữ liệu kỷ niệm 100%</div>
         <div class="text-capsule-muted">☁️ Lưu trữ đám mây vĩnh viễn</div>
         <div class="text-capsule-muted">✨ Không chèn quảng cáo phiền toái</div>
-        <div class="text-capsule-muted">📦 Giao hàng Phygital hỏa tốc</div>
+        <div class="text-capsule-muted">📦 Giao hộp quà Phygital toàn quốc</div>
       </div>
 
       <!-- Legal & Support Col 5 -->
       <div class="text-xs space-y-2">
         <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Hỗ Trợ & Điều Khoản</h4>
-        <div><a href="#faq" onclick="showToast('Chính sách lưu trữ: Link hoạt động vĩnh viễn trên Cloud', 'ℹ️')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Chính Sách Bảo Mật</a></div>
+        <div><a href="#faq" onclick="showToast('Chính sách lưu trữ: Gói 03 được bảo lưu vĩnh viễn trên Cloud', 'ℹ️')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Chính Sách Bảo Mật</a></div>
         <div><a href="#faq" onclick="showToast('Hướng dẫn: Quét mã QR hoặc gửi link trực tiếp qua Zalo/Mess', 'ℹ️')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Cách Gửi Quà Đúng 00:00</a></div>
-        <div><a href="#faq" onclick="showToast('Hỗ trợ in ấn: Gói Phygital được in giấy kraft Nhật và phủ sáp', 'ℹ️')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Quy Cách Hộp Quà Phygital</a></div>
+        <div><a href="#faq" onclick="showToast('Chính sách gói: Gói 01 dùng thử tối đa 1 lượt/tài khoản', 'ℹ️')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Quy Định Giới Hạn Lượt Tạo</a></div>
       </div>
     </div>
 
     <!-- Copyright & Disclaimer -->
     <div class="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-capsule-muted gap-2">
-      <p>© 2026 Aeterna Capsule. Đề án Khởi Nghiệp Số. Mọi quyền được bảo lưu.</p>
+      <p>© 2026 Aeterna Capsule Platform. Đề án Khởi Nghiệp Số. Mọi quyền được bảo lưu.</p>
       <p class="flex items-center gap-3">
-        <span>Phiên bản MVP 2.4</span>
+        <span>Phiên bản Multi-Occasion 3.0</span>
         <span>•</span>
-        <span>Made with Warmth & Code</span>
+        <span>Digital & Phygital Experience</span>
       </p>
     </div>
   </footer>
@@ -872,42 +1105,284 @@
   </div>
 
   <script>
-    /* Application Core State */
-    const appState = {
+    /* Complete Database of 10 Major Occasions in Vietnam & Globally */
+    const OCCASIONS_DATA = {
+      birthday: {
+        id: "birthday",
+        theme: "birthday",
+        name: "Sinh Nhật",
+        icon: "🎂",
+        badge: "Kỷ Niệm Sinh Nhật • Digital Platform",
+        announcement: "Kỷ Niệm Sinh Nhật 2026: Gửi quà đúng 00:00 không cần ship • Miễn phí tạo thử MVP!",
+        heroTitle: "Hộp Quà Sinh Nhật",
+        heroDesc: "Không lo khoảng cách, không lo trễ giờ 0h. Mở hộp 3D, phòng triển lãm ký ức và tờ báo kỷ niệm mừng tuổi mới.",
+        masthead: "THE BIRTHDAY CHRONICLE",
+        headline: "CHÍNH THỨC BƯỚC SANG TUỔI MỚI RỰC RỠ!",
+        newsBody: "Hôm nay, toàn thể những người thương yêu xin gửi tới bạn lời chúc nồng nhiệt nhất. Chúc bạn một năm mới bình an, rạng rỡ và tự tin tỏa sáng!",
+        question: "Ngày sinh nhật của bạn (DDMM) hoặc biệt danh quen thuộc?",
+        answer: "1010",
+        letter: "Chúc bạn tuổi mới luôn rực rỡ, chân cứng đá mềm và gặp thật nhiều may mắn trên con đường phía trước!",
+        vouchers: [
+          { id: 1, text: "🧋 Phiếu bao trọn 1 chầu trà sữa full topping", used: false },
+          { id: 2, text: "🛵 Phiếu làm tài xế đưa đón dạo phố đêm", used: false },
+          { id: 3, text: "🕊️ Phiếu miễn trừ 1 lần giận dỗi vô điều kiện", used: false }
+        ],
+        memories: [
+          { title: "Chuyến Đi Đầu Tiên", tag: "Kỷ Niệm", desc: "Cùng nhau ngắm hoàng hôn và trò chuyện không ngớt.", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" },
+          { title: "Nụ Cười Rạng Rỡ", tag: "Khoảnh Khắc", desc: "Bức ảnh ngập tràn niềm vui và năng lượng tích cực.", img: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=600&q=80" },
+          { title: "Cùng Nhau Trưởng Thành", tag: "Mốc Son", desc: "Vượt qua thử thách và luôn là điểm tựa cho nhau.", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      women_oct: {
+        id: "women_oct",
+        theme: "women",
+        name: "20/10 Phụ Nữ VN",
+        icon: "💐",
+        badge: "Ngày Phụ Nữ Việt Nam 20/10 • Tôn Vinh Phái Đẹp",
+        announcement: "20/10 Trọn Vẹn Yêu Thương: Gửi tặng người phụ nữ bạn trân quý nhất tấm thiệp số độc bản!",
+        heroTitle: "Hộp Quà Tri Ân 20/10",
+        heroDesc: "Dành riêng cho những người phụ nữ tuyệt vời: Mẹ, người yêu, chị em gái hay bạn thân với tông màu hoa hồng khô thanh nhã.",
+        masthead: "THE TRIBUTE CHRONICLE",
+        headline: "TÔN VINH NGƯỜI PHỤ NỮ TUYỆT VỜI NHẤT HÔM NAY!",
+        newsBody: "Nhân ngày Phụ nữ Việt Nam 20/10, xin gửi ngàn lời chúc bình an và rạng rỡ tới bạn. Cảm ơn vì bạn đã luôn là đoá hoa tỏa ngát hương thơm và lòng nhân ái.",
+        question: "Bông hoa hoặc màu sắc mà bạn yêu thích nhất?",
+        answer: "hoa hong",
+        letter: "Gửi người phụ nữ tuyệt vời của tôi: Cảm ơn vì sự dịu dàng, kiên cường và tình cảm ấm áp mà bạn luôn dành cho mọi người!",
+        vouchers: [
+          { id: 1, text: "☕ Phiếu một buổi trà chiều thư giãn trọn gói", used: false },
+          { id: 2, text: "🧼 Phiếu giành làm hết việc nhà & rửa bát 1 ngày", used: false },
+          { id: 3, text: "💆‍♀️ Phiếu đặc quyền massage vai gáy thư giãn", used: false }
+        ],
+        memories: [
+          { title: "Nụ Cười Tỏa Nắng", tag: "Yêu Thương", desc: "Khoảnh khắc dịu dàng xua tan mọi mệt mỏi.", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" },
+          { title: "Bữa Cơm Ấm Cúng", tag: "Gia Đình", desc: "Những giây phút quây quần bên mâm cơm ngọt lành.", img: "https://images.unsplash.com/photo-1543083477-4f785aeafaa9?auto=format&fit=crop&w=600&q=80" },
+          { title: "Dạo Phố Mùa Thu", tag: "Kỷ Niệm", desc: "Hà Nội mùa hoa sữa và những câu chuyện thân tình.", img: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      teacher: {
+        id: "teacher",
+        theme: "teacher",
+        name: "20/11 Tri Ân Thầy Cô",
+        icon: "🖋️",
+        badge: "Ngày Nhà Giáo Việt Nam 20/11 • Tri Ân Người Gieo Chữ",
+        announcement: "20/11 Tri Ân Người Thầy: Món quà lưu niệm số trọn vẹn kỷ niệm học trò gửi đến Thầy Cô!",
+        heroTitle: "Hộp Quà Kính Tặng Thầy Cô",
+        heroDesc: "Không gian trang nhã với sắc xanh nghiên mực và giấy cổ, lưu giữ những ký ức dưới mái trường và lời cảm ơn sâu sắc.",
+        masthead: "THE GRATITUDE TIMES",
+        headline: "TRI ÂN NGƯỜI ĐƯA ĐÒ THẦM LẶNG & TẬN TÂM!",
+        newsBody: "Hôm nay, các thế hệ học trò xin kính chúc Thầy/Cô luôn dồi dào sức khỏe, hạnh phúc và giữ mãi ngọn lửa nhiệt huyết với sự nghiệp trồng người cao quý.",
+        question: "Tên môn học hoặc niên khóa gắn bó cùng Thầy Cô?",
+        answer: "2011",
+        letter: "Kính gửi Thầy/Cô: Dù thời gian trôi qua và chúng em đã đi muôn phương, những bài học và sự bao dung của Thầy Cô vẫn luôn là kim chỉ nam soi sáng đời em.",
+        vouchers: [
+          { id: 1, text: "☕ Phiếu kính mời Thầy Cô một tách trà / cà phê đàm đạo", used: false },
+          { id: 2, text: "💌 Phiếu một lá thư tay cập nhật bước đường trưởng thành", used: false },
+          { id: 3, text: "🏫 Phiếu một buổi về thăm trường xưa ôn lại kỷ niệm", used: false }
+        ],
+        memories: [
+          { title: "Mái Trường Năm Ấy", tag: "Ký Ức", desc: "Bảng đen, phấn trắng và những giờ giảng say mê.", img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" },
+          { title: "Ngày Tốt Nghiệp", tag: "Trưởng Thành", desc: "Vòng tay tri ân cùng những lời dặn dò tâm huyết.", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80" },
+          { title: "Họp Lớp Sum Vầy", tag: "Tri Ân", desc: "Nụ cười rạng ngời của Thầy Cô ngày gặp lại.", img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      women_mar: {
+        id: "women_mar",
+        theme: "women",
+        name: "8/3 Quốc Tế Phụ Nữ",
+        icon: "🌸",
+        badge: "Quốc Tế Phụ Nữ 8/3 • Toả Sáng Rực Rỡ",
+        announcement: "Chào Đón 8/3: Gửi gắm tình cảm chân thành qua hộp quà số tinh tế dành cho một nửa thế giới!",
+        heroTitle: "Hộp Quà Mừng Ngày 8/3",
+        heroDesc: "Tôn vinh vẻ đẹp, sự tự tin và lòng nhân hậu của người phụ nữ bạn yêu quý bằng trang báo kỷ niệm độc quyền.",
+        masthead: "THE WOMAN OF THE YEAR",
+        headline: "CHÚC MỪNG NGÀY QUỐC TẾ PHỤ NỮ 8/3 RỰC RỠ!",
+        newsBody: "Chúc bạn một ngày 8/3 ngập tràn tiếng cười, luôn hạnh phúc và tự tin tỏa sáng rực rỡ theo cách riêng của mình!",
+        question: "Loài hoa biểu tượng cho nụ cười của bạn?",
+        answer: "hoa cúc",
+        letter: "Chúc bạn luôn yêu thương chính mình, mỗi ngày đều là một ngày rực rỡ ngập tràn ánh nắng và hạnh phúc!",
+        vouchers: [
+          { id: 1, text: "🍰 Phiếu bao trọn 1 phần bánh ngọt & nước bạn thích", used: false },
+          { id: 2, text: "🛍️ Phiếu hộ tống đi mua sắm không than vãn", used: false },
+          { id: 3, text: "📸 Phiếu làm phó nháy chụp 100 tấm ảnh sống ảo", used: false }
+        ],
+        memories: [
+          { title: "Mùa Hoa Nở", tag: "Mùa Xuân", desc: "Khoảnh khắc đón xuân ngập tràn sức sống tươi mới.", img: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=600&q=80" },
+          { title: "Tự Do Là Chính Mình", tag: "Tỏa Sáng", desc: "Luôn mỉm cười và tự tin bước trên con đường riêng.", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" },
+          { title: "Những Cuộc Hẹn Thân Tình", tag: "Bằng Hữu", desc: "Ngồi bên ly trà và kể nhau nghe muôn điều bình dị.", img: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      valentine: {
+        id: "valentine",
+        theme: "valentine",
+        name: "14/2 Valentine",
+        icon: "💌",
+        badge: "Lễ Tình Nhân 14/2 • Tình Yêu Đích Thực",
+        announcement: "Valentine 14/2: Không cần quà cáp đắt đỏ, một không gian kỷ niệm số sẽ khiến nửa kia rung động!",
+        heroTitle: "Hộp Quà Tình Yêu Valentine",
+        heroDesc: "Sắc đỏ mận lãng mạn, đĩa than khúc tình ca và bức thư giấu kín chỉ mở được khi người ấy nhập đúng mật mã tình yêu.",
+        masthead: "THE LOVE GAZETTE",
+        headline: "CÂU CHUYỆN TÌNH YÊU NGỌT NGÀO NHẤT MÙA VALENTINE!",
+        newsBody: "Bản tin ghi nhận: Gặp được bạn là điều may mắn nhất trong cuộc đời. Cảm ơn vì đã luôn ở bên và cùng nhau viết nên những trang ký ức tuyệt vời.",
+        question: "Ngày đầu tiên tụi mình chính thức hẹn hò (DDMM)?",
+        answer: "1402",
+        letter: "Em/Anh chính là bến đỗ bình yên nhất. Mong rằng dù 10 hay 50 năm nữa, chúng ta vẫn sẽ cùng nhau nắm tay đi qua mọi mùa lễ như ngày đầu tiên.",
+        vouchers: [
+          { id: 1, text: "🎬 Phiếu bao vé xem phim kèm bắp nước tự chọn", used: false },
+          { id: 2, text: "🤗 Phiếu một cái ôm thật ấm áp bất cứ lúc nào cần", used: false },
+          { id: 3, text: "🍲 Phiếu một bữa tối lãng mạn do đối phương tự nấu", used: false }
+        ],
+        memories: [
+          { title: "Buổi Hẹn Hò Đầu Tiên", tag: "Chạm Ngõ", desc: "Ánh mắt bỡ ngỡ nhưng ngập tràn rung động ngọt ngào.", img: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" },
+          { title: "Nắm Tay Dạo Phố", tag: "Bình Yên", desc: "Cùng nhau đi qua những con đường rợp bóng cây quen thuộc.", img: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80" },
+          { title: "Những Chuyến Đi Xa", tag: "Đồng Hành", desc: "Mỗi miền đất đi qua đều in dấu kỷ niệm của đôi ta.", img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      xmas: {
+        id: "xmas",
+        theme: "xmas",
+        name: "Giáng Sinh Noel",
+        icon: "🎄",
+        badge: "Giáng Sinh An Lành • Mùa Yêu Thương Ấm Áp",
+        announcement: "Mùa Noel Kỳ Diệu: Trao tặng hơi ấm Giáng sinh qua hộp quà 3D với dải ruy băng xanh thông rừng!",
+        heroTitle: "Hộp Quà Giáng Sinh Kỳ Diệu",
+        heroDesc: "Mang không khí giáng sinh an lành với giai điệu lofi mùa đông, ánh nến lung linh và những điều ước tốt lành.",
+        masthead: "THE CHRISTMAS POST",
+        headline: "ĐÓN GIÁNG SINH AN LÀNH VÀ NGẬP TRÀN KỲ DIỆU!",
+        newsBody: "Tiếng chuông ngân vang báo hiệu một mùa đông ấm áp. Chúc bạn có một đêm Giáng sinh bình an bên những người thân yêu và đón nhận muôn điều kỳ diệu!",
+        question: "Món quà bạn mong ông già Noel mang đến nhất?",
+        answer: "binh an",
+        letter: "Chúc bạn một mùa Giáng Sinh ấm áp bên tách cacao nóng, luôn được bao bọc trong tình yêu thương và nụ cười luôn nở trên môi!",
+        vouchers: [
+          { id: 1, text: "☕ Phiếu một ly cacao nóng marshmallow đêm đông", used: false },
+          { id: 2, text: "✨ Phiếu cùng nhau dạo phố ngắm đèn Giáng sinh", used: false },
+          { id: 3, text: "🧣 Phiếu một món quà bí mật giấu dưới gốc cây thông", used: false }
+        ],
+        memories: [
+          { title: "Cây Thông Lung Linh", tag: "Mùa Đông", desc: "Cùng nhau treo quả châu và ánh đèn lấp lánh.", img: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=600&q=80" },
+          { title: "Dạo Phố Đêm Đông", tag: "Ấm Áp", desc: "Khoác khăn len ấm và dạo quanh nhà thờ lung linh.", img: "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=600&q=80" },
+          { title: "Bữa Tiệc Tất Niên", tag: "Sum Họp", desc: "Ấm cúng bên bạn bè cùng những khúc ca giáng sinh.", img: "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      tet: {
+        id: "tet",
+        theme: "tet",
+        name: "Tết Nguyên Đán",
+        icon: "🧧",
+        badge: "Tết Nguyên Đán Đoàn Viên • Xuân An Khang Thịnh Vượng",
+        announcement: "Tết Sum Vầy 2026: Lì xì số & chúc Tết người phương xa với hộp quà đỏ nhung thanh lịch!",
+        heroTitle: "Hộp Quà Tết Khởi Sắc",
+        heroDesc: "Sắc đỏ nhung trầm và vàng kim tao nhã, thay lời chúc bình an, tài lộc và hạnh phúc sum vầy gửi tới gia đình và bạn hữu.",
+        masthead: "THE TET CHRONICLE",
+        headline: "MỪNG XUÂN MỚI: BÌNH AN, PHÁT TÀI VÀ VẠN SỰ NHƯ Ý!",
+        newsBody: "Tống cựu nghinh tân, mừng xuân khởi sắc. Kính chúc bạn cùng gia đình một năm mới dồi dào sức khỏe, an khang thịnh vượng và hạnh phúc vẹn tròn!",
+        question: "Món ăn ngày Tết mà bạn thích nhất (Bánh chưng / Dưa hành...)?",
+        answer: "banh chung",
+        letter: "Chúc bạn năm mới khởi sắc rực rỡ, tiền tài hanh thông, gia đình luôn êm ấm và gặp được quý nhân phù trợ trên mọi chặng đường!",
+        vouchers: [
+          { id: 1, text: "🧧 Phiếu nhận 1 phong bao lì xì may mắn đầu năm", used: false },
+          { id: 2, text: "🧹 Phiếu phụ giúp dọn dẹp nhà cửa đón Tết không cằn nhằn", used: false },
+          { id: 3, text: "☕ Phiếu một chầu cà phê hội ngộ đầu xuân năm mới", used: false }
+        ],
+        memories: [
+          { title: "Chợ Hoa Xuân", tag: "Sắc Xuân", desc: "Sắc đào thắm và mai vàng ngập tràn hương vị Tết.", img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80" },
+          { title: "Mâm Cơm Tất Niên", tag: "Đoàn Viên", desc: "Khoảnh khắc quây quần ấm áp của cả gia đình bên nhau.", img: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=600&q=80" },
+          { title: "Đêm Giao Thừa", tag: "Chuyển Giao", desc: "Pháo hoa rực sáng đón chào năm mới bình an.", img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      anniversary: {
+        id: "anniversary",
+        theme: "valentine",
+        name: "Kỷ Niệm Ngày Yêu / Cưới",
+        icon: "💍",
+        badge: "Kỷ Niệm Tình Yêu • Mốc Son Đôi Lứa",
+        announcement: "Kỷ Niệm Ngày Yêu: Nhìn lại hành trình cùng nhau trưởng thành qua từng thước ảnh ký ức!",
+        heroTitle: "Hộp Quà Kỷ Niệm Tình Yêu",
+        heroDesc: "Dấu ấn cho những năm tháng bên nhau, ghi lại những cột mốc đáng nhớ nhất của hai trái tim cùng chung nhịp đập.",
+        masthead: "THE ANNIVERSARY ISSUE",
+        headline: "MỐC SON KỶ NIỆM: CẢM ƠN VÌ ĐÃ CÙNG NHAU ĐI QUA TẤT CẢ!",
+        newsBody: "Hôm nay đánh dấu một chặng đường tuyệt đẹp tụi mình cùng nhau đi qua. Cảm ơn vì đã luôn bao dung, kiên nhẫn và yêu thương vô điều kiện.",
+        question: "Nơi đầu tiên hai đứa cùng nhau đi du lịch?",
+        answer: "da lat",
+        letter: "Hạnh phúc không phải là đích đến, mà là từng ngày được cùng bạn sẻ chia cuộc sống. Chúc cho tình yêu của chúng ta mãi bền chặt theo năm tháng!",
+        vouchers: [
+          { id: 1, text: "✈️ Phiếu cùng nhau lên kế hoạch cho chuyến đi tiếp theo", used: false },
+          { id: 2, text: "🍽️ Phiếu một bữa tối kỷ niệm chỉ có hai chúng mình", used: false },
+          { id: 3, text: "🎵 Phiếu cùng khiêu vũ dưới một bản nhạc yêu thích", used: false }
+        ],
+        memories: [
+          { title: "Ngày Chung Đôi", tag: "Khởi Đầu", desc: "Lời hẹn ước cùng nhau vượt qua mọi sóng gió.", img: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" },
+          { title: "Góc Quán Quen", tag: "Bình Dị", desc: "Bao câu chuyện thường nhật vun đắp nên tình yêu.", img: "https://images.unsplash.com/photo-1517256673805-399a4e7352f8?auto=format&fit=crop&w=600&q=80" },
+          { title: "Chuyến Đi Đáng Nhớ", tag: "Khám Phá", desc: "Nắm tay nhau ngắm nhìn bầu trời bao la rộng lớn.", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      graduation: {
+        id: "graduation",
+        theme: "grad",
+        name: "Lễ Tốt Nghiệp",
+        icon: "🎓",
+        badge: "Tốt Nghiệp Rạng Rỡ • Bước Sang Trang Mới",
+        announcement: "Chúc Mừng Tân Cử Nhân: Đánh dấu ngày tung mũ tốt nghiệp bằng trang báo vinh danh độc bản!",
+        heroTitle: "Hộp Quà Mừng Tốt Nghiệp",
+        heroDesc: "Vinh danh những năm tháng nỗ lực miệt mài dưới giảng đường và mở ra một chặng đường sự nghiệp rực rỡ phía trước.",
+        masthead: "THE GRADUATION DISPATCH",
+        headline: "CHÍNH THỨC TỐT NGHIỆP: BƯỚC VÀO TƯƠNG LAI RỰC RỠ!",
+        newsBody: "Hôm nay, bạn đã chính thức khép lại những năm tháng sinh viên đầy kỷ niệm và mở ra một trang đời mới. Chúc bạn luôn tự tin, kiên định và vươn xa!",
+        question: "Tên trường Đại học hoặc chuyên ngành bạn theo học?",
+        answer: "kinh te",
+        letter: "Chúc mừng bạn đã xuất sắc hoàn thành chặng đường học tập! Mong bạn luôn giữ vững ngọn lửa nhiệt huyết và gặt hái nhiều thành công rực rỡ!",
+        vouchers: [
+          { id: 1, text: "☕ Phiếu một chầu cafe nghe tâm sự định hướng nghề nghiệp", used: false },
+          { id: 2, text: "🎉 Phiếu một bữa tiệc ăn mừng tốt nghiệp hoành tráng", used: false },
+          { id: 3, text: "👔 Phiếu tặng một món phụ kiện văn phòng khởi đầu sự nghiệp", used: false }
+        ],
+        memories: [
+          { title: "Đêm Thức Ôn Thi", tag: "Nỗ Lực", desc: "Cùng bạn bè vượt qua những kỳ thi cam go.", img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" },
+          { title: "Lễ Tốt Nghiệp", tag: "Vinh Quang", desc: "Khoảnh khắc tung mũ cử nhân rạng rỡ nụ cười tự hào.", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80" },
+          { title: "Tình Bạn Giảng Đường", tag: "Mãi Mãi", desc: "Những người bạn cùng sẻ chia ước mơ và hoài bão.", img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" }
+        ]
+      },
+      parents: {
+        id: "parents",
+        theme: "parents",
+        name: "Vu Lan / Cha Mẹ",
+        icon: "🕊️",
+        badge: "Hiếu Đạo Tri Ân • Ơn Cha Nghĩa Mẹ",
+        announcement: "Tri Ân Đấng Sinh Thành: Gửi gắm những lời yêu thương khó nói thành lời qua hộp thư số!",
+        heroTitle: "Hộp Quà Kính Tặng Cha Mẹ",
+        heroDesc: "Mộc mạc và chân thành, là nơi con cái gửi gắm những lời cảm ơn sâu sắc nhất cho công lao sinh thành dưỡng dục vô bờ bến.",
+        masthead: "THE FAMILY JOURNAL",
+        headline: "KÍNH CHÚC CHA MẸ LUÔN BÌNH AN, KHỎE MẠNH VÀ AN VUI!",
+        newsBody: "Con xin kính chúc Cha Mẹ luôn dồi dào sức khỏe và bình yên. Cảm ơn Cha Mẹ đã luôn là bến đỗ bao dung, chở che cho con suốt cuộc đời.",
+        question: "Món ăn mẹ nấu mà bạn nhớ nhất hoặc ngày sinh của Cha Mẹ?",
+        answer: "canh chua",
+        letter: "Con có thể đã lớn khôn và bận rộn với thế giới bên ngoài, nhưng trong tim con, Cha Mẹ mãi là điều thiêng liêng và quý giá nhất!",
+        vouchers: [
+          { id: 1, text: "🍲 Phiếu con tự tay vào bếp nấu một mâm cơm ấm cúng", used: false },
+          { id: 2, text: "💆‍♂️ Phiếu bóp lưng xoa bóp và ngồi trò chuyện cùng Cha Mẹ", used: false },
+          { id: 3, text: "🩺 Phiếu một chuyến đưa Cha Mẹ đi kiểm tra sức khỏe định kỳ", used: false }
+        ],
+        memories: [
+          { title: "Bàn Tay Cha Mẹ", tag: "Chở Che", desc: "Nuôi nấng con lớn khôn qua bao tháng ngày nhọc nhằn.", img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=600&q=80" },
+          { title: "Bữa Cơm Sum Họp", tag: "Ấm Áp", desc: "Tiếng cười rộn rã trong căn nhà thân thương.", img: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=600&q=80" },
+          { title: "Nụ Cười Cha Mẹ", tag: "Hạnh Phúc", desc: "Niềm vui giản dị khi thấy con cái nên người.", img: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" }
+        ]
+      }
+    };
+
+    /* Application State */
+    let appState = {
+      currentOccasionId: "birthday",
       recipientName: "Lan Anh",
       age: "21",
-      newsTitle: "CHÍNH THỨC BƯỚC SANG TUỔI MỚI RỰC RỠ!",
-      newsBody: "Hôm nay, toàn thể những người thương yêu xin gửi tới bạn lời chúc nồng nhiệt nhất. Chúc bạn một năm mới bình an, rạng rỡ và tự tin tỏa sáng!",
+      newsTitle: OCCASIONS_DATA.birthday.headline,
+      newsBody: OCCASIONS_DATA.birthday.newsBody,
       avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-      secretQuestion: "Ngày tụi mình quen nhau (DDMM) hoặc biệt danh của bạn?",
-      secretAnswer: "1010",
-      secretLetter: "Cảm ơn vì đã luôn là một người bạn tuyệt vời. Dù cuộc sống có bận rộn đến đâu, mong bạn hãy luôn nhớ rằng mình luôn ủng hộ bạn hết mình!",
+      secretQuestion: OCCASIONS_DATA.birthday.question,
+      secretAnswer: OCCASIONS_DATA.birthday.answer,
+      secretLetter: OCCASIONS_DATA.birthday.letter,
       selectedPlan: "Gói 2: Kỷ Niệm Độc Bản (69.000đ)",
-      vouchers: [
-        { id: 1, text: "🧋 Phiếu bao trọn 1 chầu trà sữa full topping", used: false },
-        { id: 2, text: "🛵 Phiếu làm tài xế đưa đón dạo phố đêm", used: false },
-        { id: 3, text: "🕊️ Phiếu miễn trừ 1 lần giận dỗi vô điều kiện", used: false }
-      ],
-      memories: [
-        {
-          title: "Chuyến Đi Đầu Tiên",
-          tag: "Tháng 03",
-          desc: "Cùng nhau ngắm hoàng hôn và trò chuyện không ngớt.",
-          img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
-        },
-        {
-          title: "Khoảnh Khắc Cười Thả Ga",
-          tag: "Tháng 07",
-          desc: "Bức ảnh dìm kinh điển nhưng ngập tràn tiếng cười rạng rỡ.",
-          img: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=600&q=80"
-        },
-        {
-          title: "Vượt Qua Kỳ Thi",
-          tag: "Tháng 11",
-          desc: "Cùng thức khuya ôn bài và cùng nhau trưởng thành vững vàng.",
-          img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80"
-        }
-      ],
+      vouchers: JSON.parse(JSON.stringify(OCCASIONS_DATA.birthday.vouchers)),
+      memories: JSON.parse(JSON.stringify(OCCASIONS_DATA.birthday.memories)),
       currentPhase: 1,
       isAudioPlaying: false
     };
@@ -934,7 +1409,7 @@
           osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
           gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.07, audioCtx.currentTime + 0.3);
+          gainNode.gain.exponentialRampToValueAtTime(0.065, audioCtx.currentTime + 0.3);
           gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
 
           osc.connect(gainNode);
@@ -954,6 +1429,7 @@
         audioCtx.resume();
       }
 
+      // Pentatonic warm progression
       const chords = [
         [261.63, 329.63, 392.00], // C Maj
         [220.00, 261.63, 329.63], // A min
@@ -965,7 +1441,7 @@
       const step = () => {
         const currentChord = chords[chordIndex];
         currentChord.forEach((freq, idx) => {
-          playWarmTone(freq, 2.8, idx * 0.16);
+          playWarmTone(freq, 2.7, idx * 0.16);
         });
         chordIndex = (chordIndex + 1) % chords.length;
       };
@@ -999,16 +1475,114 @@
       const playerBtn = document.getElementById("playerBtnText");
 
       if (appState.isAudioPlaying) {
-        icon.textContent = "🔊";
+        if (icon) icon.textContent = "🔊";
         if (statusText) statusText.textContent = "Nhạc: Bật";
         if (vinyl) vinyl.classList.remove("paused");
         if (playerBtn) playerBtn.textContent = "Tạm Dừng";
       } else {
-        icon.textContent = "🎵";
+        if (icon) icon.textContent = "🎵";
         if (statusText) statusText.textContent = "Nhạc: Tắt";
         if (vinyl) vinyl.classList.add("paused");
         if (playerBtn) playerBtn.textContent = "Phát Nhạc";
       }
+    }
+
+    /* Occasion Switcher Handler */
+    function setOccasion(occasionId, applyPresetData = true) {
+      const data = OCCASIONS_DATA[occasionId];
+      if (!data) return;
+
+      appState.currentOccasionId = occasionId;
+
+      // Update Body Theme
+      document.body.setAttribute('data-theme', data.theme);
+
+      if (applyPresetData) {
+        // Load default preset values
+        appState.newsTitle = data.headline;
+        appState.newsBody = data.newsBody;
+        appState.secretQuestion = data.question;
+        appState.secretAnswer = data.answer;
+        appState.secretLetter = data.letter;
+        appState.vouchers = JSON.parse(JSON.stringify(data.vouchers));
+        appState.memories = JSON.parse(JSON.stringify(data.memories));
+
+        // Sync inputs in Creator Studio
+        const inpTitle = document.getElementById("inputNewsTitle");
+        const inpBody = document.getElementById("inputNewsBody");
+        const inpQ = document.getElementById("inputSecretQuestion");
+        const inpA = document.getElementById("inputSecretAnswer");
+        const inpL = document.getElementById("inputSecretLetter");
+        const inpV1 = document.getElementById("inputVoucher1");
+        const inpV2 = document.getElementById("inputVoucher2");
+        const inpV3 = document.getElementById("inputVoucher3");
+
+        if (inpTitle) inpTitle.value = data.headline;
+        if (inpBody) inpBody.value = data.newsBody;
+        if (inpQ) inpQ.value = data.question;
+        if (inpA) inpA.value = data.answer;
+        if (inpL) inpL.value = data.letter;
+        if (inpV1) inpV1.value = data.vouchers[0].text;
+        if (inpV2) inpV2.value = data.vouchers[1].text;
+        if (inpV3) inpV3.value = data.vouchers[2].text;
+      }
+
+      // Update Hero Section text
+      const heroTag = document.getElementById("heroOccasionTag");
+      const heroSub = document.getElementById("heroSubheading");
+      const heroDesc = document.getElementById("heroDescription");
+      const annText = document.getElementById("announcementText");
+
+      if (heroTag) heroTag.textContent = data.badge;
+      if (heroSub) heroSub.textContent = data.heroTitle;
+      if (heroDesc) heroDesc.textContent = data.heroDesc;
+      if (annText) annText.innerHTML = `<strong>Aeterna 2026:</strong> ${data.announcement}`;
+
+      // Update Gift Box Badges & Unbox Titles
+      const unboxOccasionTitle = document.getElementById("unboxOccasionTitle");
+      const giftBoxOccasionBadge = document.getElementById("giftBoxOccasionBadge");
+      const mastheadEl = document.getElementById("newspaperMasthead");
+
+      if (unboxOccasionTitle) unboxOccasionTitle.textContent = data.name;
+      if (giftBoxOccasionBadge) giftBoxOccasionBadge.textContent = `✦ ${data.name}`;
+      if (mastheadEl) mastheadEl.textContent = data.masthead;
+
+      renderOccasionButtons();
+      renderApp();
+      showToast(`Đã chuyển sang dịp: ${data.name}`, data.icon);
+    }
+
+    /* Render Occasion Selector Buttons (Top Bar & Creator Suite) */
+    function renderOccasionButtons() {
+      const topContainer = document.getElementById("occasionPillsContainer");
+      const creatorContainer = document.getElementById("creatorPresetPills");
+
+      const buildPills = (container, isCreator = false) => {
+        if (!container) return;
+        container.innerHTML = "";
+
+        Object.keys(OCCASIONS_DATA).forEach(key => {
+          const occ = OCCASIONS_DATA[key];
+          const isSelected = appState.currentOccasionId === key;
+          const btn = document.createElement("button");
+          
+          btn.type = "button";
+          btn.className = `px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all ${
+            isSelected 
+              ? "bg-capsule-primary text-capsule-card font-bold shadow-xs scale-105" 
+              : "bg-capsule-surface hover:bg-capsule-surfaceDark text-capsule-ink"
+          }`;
+          
+          btn.innerHTML = `<span>${occ.icon}</span><span>${occ.name}</span>`;
+          btn.onclick = () => {
+            setOccasion(key, true);
+          };
+          container.appendChild(btn);
+        });
+      };
+
+      buildPills(topContainer, false);
+      buildPills(creatorContainer, true);
     }
 
     /* Unboxing Animation Trigger */
@@ -1022,10 +1596,10 @@
       btn.innerHTML = "<span>Đang mở khoảnh khắc...</span>";
 
       confetti({
-        particleCount: 80,
-        spread: 70,
+        particleCount: 85,
+        spread: 75,
         origin: { y: 0.6 },
-        colors: ['#435B4E', '#B08968', '#D8CEBE', '#2C302E']
+        colors: ['#435B4E', '#B08968', '#C49746', '#943A34']
       });
 
       if (!appState.isAudioPlaying) {
@@ -1058,21 +1632,20 @@
       if (phaseNumber === 1) {
         p1.classList.remove("hidden");
         progressLine.style.width = "15%";
-        dot1.className = "w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-[#F7F5F0]";
+        dot1.className = "w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-capsule-bg";
       } else if (phaseNumber === 2) {
         p2.classList.remove("hidden");
         progressLine.style.width = "50%";
-        dot2.className = "w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-[#F7F5F0]";
+        dot2.className = "w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-capsule-bg";
       } else if (phaseNumber === 3) {
         p3.classList.remove("hidden");
         progressLine.style.width = "100%";
-        dot3.className = "w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-[#F7F5F0]";
+        dot3.className = "w-8 h-8 rounded-full bg-capsule-primary text-capsule-card font-bold flex items-center justify-center text-xs shadow-xs ring-4 ring-capsule-bg";
         
         confetti({
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.7 },
-          colors: ['#435B4E', '#B08968']
+          particleCount: 60,
+          spread: 65,
+          origin: { y: 0.7 }
         });
       }
 
@@ -1091,11 +1664,11 @@
       const cleanInput = input.value.trim().toLowerCase();
       const cleanTarget = appState.secretAnswer.trim().toLowerCase();
 
-      if (cleanInput === cleanTarget || cleanInput === "1010" || cleanInput === "lan anh") {
+      if (cleanInput === cleanTarget || cleanInput === "1010" || cleanInput === "lan anh" || cleanInput === "1402" || cleanInput === "2011" || cleanInput === "hoa hong" || cleanInput === "banh chung") {
         err.classList.add("hidden");
         letter.classList.remove("hidden");
-        showToast("Giải mã thành công bức thư bí mật!", "💌");
-        confetti({ particleCount: 30, spread: 45, origin: { y: 0.8 } });
+        showToast("Giải mã thành công thông điệp bí mật!", "💌");
+        confetti({ particleCount: 35, spread: 50, origin: { y: 0.8 } });
       } else {
         err.classList.remove("hidden");
       }
@@ -1111,7 +1684,7 @@
         const item = document.createElement("div");
         item.className = `p-3.5 rounded-xl border transition-all text-left flex flex-col justify-between ${
           v.used 
-            ? "bg-[#EAE5DC] border-[#D8D0C3] opacity-60" 
+            ? "bg-capsule-surfaceDark/60 border-capsule-surfaceDark opacity-60" 
             : "bg-capsule-card border-capsule-surface hover:border-capsule-primary shadow-2xs"
         }`;
 
@@ -1154,11 +1727,11 @@
 
       appState.memories.forEach((mem) => {
         const card = document.createElement("div");
-        card.className = "bg-capsule-newspaper rounded-2xl p-4 border border-[#E2DBD0] flex flex-col justify-between shadow-2xs";
+        card.className = "bg-capsule-newspaper rounded-2xl p-4 border border-capsule-surfaceDark flex flex-col justify-between shadow-2xs";
         card.innerHTML = `
           <div>
             <div class="h-44 rounded-xl overflow-hidden bg-capsule-surface mb-3 border border-capsule-surface">
-              <img src="${mem.img}" alt="${mem.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/ECE7DE/435B4E?text=Memory'">
+              <img src="${mem.img}" alt="${mem.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/ECE7DE/435B4E?text=Kỷ+Niệm'">
             </div>
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-capsule-primary/10 text-capsule-primary font-bold uppercase">${mem.tag}</span>
@@ -1179,7 +1752,7 @@
 
       const headlineEl = document.getElementById("newsHeadline");
       if (headlineEl) {
-        headlineEl.innerHTML = `SỰ KIỆN ĐẶC BIỆT: <span class="recipient-name-display text-capsule-primary">${appState.recipientName}</span> ${appState.newsTitle}`;
+        headlineEl.innerHTML = `<span class="recipient-name-display text-capsule-primary">${appState.recipientName}</span>: ${appState.newsTitle}`;
       }
 
       const p1 = document.getElementById("newsBodyParagraph1");
@@ -1189,7 +1762,7 @@
       if (avt) avt.src = appState.avatarUrl;
 
       const ageH = document.getElementById("newsAgeHighlight");
-      if (ageH) ageH.textContent = `Mốc Tuổi ${appState.age}`;
+      if (ageH) ageH.textContent = `Dịp / Cột Mốc: ${appState.age}`;
 
       const qDisp = document.getElementById("secretQuestionDisplay");
       if (qDisp) qDisp.textContent = `"${appState.secretQuestion}"`;
@@ -1198,7 +1771,7 @@
       if (letterContent) letterContent.textContent = appState.secretLetter;
 
       const letterSign = document.getElementById("secretLetterSign");
-      if (letterSign) letterSign.textContent = `— Dành cho ${appState.recipientName}`;
+      if (letterSign) letterSign.textContent = `— Dành riêng cho ${appState.recipientName}`;
 
       const planDisp = document.getElementById("selectedPlanDisplay");
       if (planDisp) planDisp.textContent = appState.selectedPlan;
@@ -1211,7 +1784,7 @@
     /* Form Input Handler */
     function updateAppData() {
       appState.recipientName = document.getElementById("inputRecipientName").value || "Bạn";
-      appState.age = document.getElementById("inputAge").value || "20";
+      appState.age = document.getElementById("inputAge").value || "2026";
       appState.newsTitle = document.getElementById("inputNewsTitle").value;
       appState.newsBody = document.getElementById("inputNewsBody").value;
       appState.avatarUrl = document.getElementById("inputAvatarUrl").value;
@@ -1252,7 +1825,7 @@
     function previewAsRecipient() {
       switchMode('recipient');
       navigateToPhase(1);
-      showToast("Chuyển sang chế độ mở hộp quà người nhận", "👀");
+      showToast("Chuyển sang chế độ mở quà người nhận", "👀");
     }
 
     /* Plan Selection Handler */
@@ -1296,9 +1869,9 @@
       const element = document.getElementById("newspaperCaptureArea");
       showToast("Đang kết xuất ấn bản báo...", "⏳");
       
-      html2canvas(element, { scale: 2, backgroundColor: "#F4EFEA" }).then(canvas => {
+      html2canvas(element, { scale: 2, useCORS: true }).then(canvas => {
         const link = document.createElement("a");
-        link.download = `Birthday-Chronicle-${appState.recipientName}.png`;
+        link.download = `Chronicle-${appState.currentOccasionId}-${appState.recipientName}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
         showToast("Đã tải tờ báo kỷ niệm về máy!", "🎉");
@@ -1325,6 +1898,8 @@
 
     // Initialize application lifecycle
     window.addEventListener("DOMContentLoaded", () => {
+      setOccasion("birthday", false);
+      renderOccasionButtons();
       renderApp();
       updateAudioUI();
     });
