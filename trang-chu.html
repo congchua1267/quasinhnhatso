@@ -515,6 +515,148 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition: none !important; }
     }
+    
+/* ===== PHONG CÁCH 20/10 LÃNG MẠN ===== */
+:root {
+  --pink: #c65376;
+  --pink-dark: #a83e61;
+  --pink-light: #f8dce2;
+  --cream: #fff8f4;
+  --green: #315642;
+  --ink: #38252d;
+  --muted: #866f76;
+}
+
+body {
+  font-family: "Be Vietnam Pro", sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+h1,
+.gift-caption {
+  font-family: "Playfair Display", serif;
+}
+
+.script-title {
+  font-family: "Dancing Script", cursive;
+  color: var(--pink);
+}
+
+/* Nền hồng nhiều lớp */
+.hero {
+  background:
+    radial-gradient(ellipse at 85% 30%, #f7cbd7 0%, transparent 40%),
+    radial-gradient(ellipse at 15% 85%, #ffe6df 0%, transparent 42%),
+    linear-gradient(135deg, #fff9f4, #ffedf0 65%, #f9dfe5);
+}
+
+/* Khung hộp quà */
+.gift {
+  background: rgba(255, 252, 250, .88);
+  border: 1px solid white;
+  border-radius: 28px;
+  box-shadow:
+    0 35px 70px rgba(163, 76, 105, .18),
+    0 8px 20px rgba(163, 76, 105, .08);
+  transform: rotate(2deg);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.gift:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 0 40px 80px rgba(163, 76, 105, .23);
+}
+
+.gift-art {
+  background:
+    radial-gradient(circle at 50% 25%, #fff7e7 0 7%, transparent 8%),
+    linear-gradient(145deg, #f9d9df, #edc5df 60%, #e3d3f1);
+  border: 1px solid rgba(255,255,255,.8);
+}
+
+/* Hộp quà nổi khối 3D */
+.gift-box {
+  background: linear-gradient(135deg, #f7b5c7, #dc7f9e 65%, #c65c7e);
+  border: 1px solid #d77b98;
+  border-radius: 8px 8px 14px 14px;
+  box-shadow:
+    0 24px 25px rgba(126, 54, 82, .23),
+    inset -10px 0 15px rgba(128, 43, 77, .12);
+  animation: giftFloat 4s ease-in-out infinite;
+}
+
+.gift-box::before {
+  background: linear-gradient(180deg, #fbd8df, #edb4c4);
+  border-color: #e6a1b6;
+  box-shadow: 0 5px 10px rgba(126, 54, 82, .15);
+}
+
+.ribbon-vertical {
+  background: linear-gradient(
+    90deg,
+    #b84368,
+    #f7c6d2 45%,
+    #d75f85
+  );
+  box-shadow: 2px 0 5px rgba(110, 36, 61, .12);
+}
+
+.bow {
+  border-color: #c44d74;
+  filter: drop-shadow(0 3px 3px rgba(120, 40, 70, .15));
+}
+
+.bow::after {
+  border-color: #dc7595;
+}
+
+/* Hoa trang trí */
+.flower {
+  filter: drop-shadow(0 7px 7px rgba(145, 70, 91, .15));
+  animation: flowerSway 4s ease-in-out infinite;
+}
+
+.flower-two { animation-delay: .8s; }
+.flower-three { animation-delay: 1.4s; }
+
+@keyframes giftFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes flowerSway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(5deg); }
+}
+
+/* Trình phát nhạc */
+.music-player {
+  border: 1px solid #f0d5dd;
+  background: rgba(255, 255, 255, .8);
+  box-shadow: 0 10px 28px rgba(163, 76, 105, .09);
+}
+
+.player-button {
+  background: var(--pink);
+  box-shadow: 0 4px 12px rgba(198, 83, 118, .25);
+}
+
+.player-button:hover {
+  background: var(--pink-dark);
+}
+
+.volume {
+  accent-color: var(--pink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gift-box,
+  .flower {
+    animation: none;
+  }
+}
+
   </style>
 </head>
 
@@ -606,38 +748,49 @@
 
         <!-- HỘP QUÀ TRANG TRÍ -->
         <div class="visual">
-          <div class="glow"></div>
+      
+<!-- HỘP QUÀ 3D VÀ HOA HỒNG -->
+<div class="visual">
+  <div class="glow"></div>
 
-          <div class="gift">
-            <div class="gift-top">
-              <span>ÚM BA LA · CAPSULE</span>
-              <span>№ 2010</span>
-            </div>
+  <div class="gift">
+    <div class="gift-top">
+      <span>ÚM BA LA · CAPSULE</span>
+      <span>№ 2010</span>
+    </div>
 
-            <div class="gift-art">
-              <span class="flower flower-one">🌸</span>
-              <span class="flower flower-two">🌷</span>
-              <span class="flower flower-three">🌹</span>
+    <div class="gift-art">
+      <span class="flower flower-one">🌹</span>
+      <span class="flower flower-two">🌷</span>
+      <span class="flower flower-three">🌸</span>
 
-              <div class="gift-box">
-                <div class="ribbon-vertical"></div>
-                <div class="bow"></div>
-                <span class="heart">♡</span>
-                <div class="gift-message">
-                  Happy<br>Women's Day<br>20/10
-                </div>
-              </div>
-            </div>
+      <div class="gift-box">
+        <div class="ribbon-vertical"></div>
+        <div class="bow"></div>
+        <span class="heart">♡</span>
 
-            <div class="gift-caption">Một món quà dành riêng cho bạn</div>
-            <div class="gift-subcaption">MADE WITH LOVE · OPEN WITH JOY</div>
-          </div>
-
-          <div class="floating-note">
-            💌 Gửi người phụ nữ tuyệt vời
-            <strong>Cảm ơn vì đã luôn là chính mình ♡</strong>
-          </div>
+        <div class="gift-message">
+          Happy<br>
+          Women's Day<br>
+          20/10
         </div>
+      </div>
+    </div>
+
+    <div class="gift-caption">
+      Một món quà dành riêng cho bạn ♡
+    </div>
+
+    <div class="gift-subcaption">
+      MADE WITH LOVE · OPEN WITH JOY
+    </div>
+  </div>
+
+  <div class="floating-note">
+    💌 Gửi người phụ nữ tuyệt vời
+    <strong>Cảm ơn vì đã luôn là chính mình ♡</strong>
+  </div>
+</div>
 
       </div>
     </section>
