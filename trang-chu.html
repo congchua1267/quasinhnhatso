@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Úm Ba La | Hộp quà số độc bản</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+      background: #fff8f3;
+      color: #292522;
+    }
+    .serif { font-family: 'Playfair Display', serif; }
+    .gift-card { transform: rotate(-4deg); }
+    .primary-btn {
+      background: #bd5872;
+      color: white;
+      transition: .2s;
+    }
+    .primary-btn:hover { background: #a94862; }
+  </style>
+</head>
+
+<body>
+  <!-- THANH MENU -->
+  <header class="sticky top-0 z-20 border-b border-[#eee4dc] bg-[#fffaf5]/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-4">
+      <a href="./trang-chu.html" class="flex items-center gap-3">
+        <span class="grid h-11 w-11 place-items-center rounded-full bg-[#294a39] text-2xl text-white">✧</span>
+        <span>
+          <strong class="serif text-xl">Úm BA LA</strong>
+          <small class="block text-[9px] tracking-widest">QUÀ KỶ NIỆM SỐ ĐA DỊP</small>
+        </span>
+      </a>
+
+      <nav class="flex flex-wrap items-center gap-4 text-sm">
+        <a href="./trang-chu.html">Trang chủ</a>
+        <a href="./index.html#occasionSection">Dịp lễ</a>
+        <a href="./index.html#experienceFlow">Trải nghiệm</a>
+        <a href="./index.html#pricing">Bảng giá</a>
+      </nav>
+
+      <a href="./index.html"
+         class="rounded-full bg-[#294a39] px-5 py-3 text-sm font-semibold text-white">
+        ✨ Tạo Hộp Quà
+      </a>
+    </div>
+  </header>
+
+  <!-- BANNER TRANG CHỦ -->
+  <main id="hero" class="relative min-h-[calc(100vh-80px)] overflow-hidden">
+    <div class="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#f7d9d3] opacity-70 blur-3xl"></div>
+    <div class="absolute -bottom-36 -left-24 h-96 w-96 rounded-full bg-[#f8e2df] opacity-70 blur-3xl"></div>
+
+    <section class="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-16 sm:px-10 sm:py-24 lg:grid-cols-2">
+      <!-- TIÊU ĐỀ -->
+      <div>
+        <span class="inline-block rounded-full border border-[#edc9ca] bg-white/70 px-4 py-2 text-sm text-[#bd5872]">
+          ✧ DIGITAL EMOTION PLATFORM
+        </span>
+
+        <h1 class="serif mt-7 text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl">
+          Gửi trọn kỷ niệm qua một
+          <span class="text-[#bd5872]">hộp quà số độc bản.</span>
+        </h1>
+
+        <p class="mt-6 max-w-xl text-lg leading-8 text-[#77716d]">
+          Tạo bất ngờ cho người thương trong ngày đặc biệt — dù ở bất cứ đâu.
+          Một chiếc hộp quà tương tác, lưu giữ ký ức và những lời nhắn
+          được thiết kế riêng cho người nhận.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="./index.html"
+             class="primary-btn rounded-full px-6 py-4 font-semibold shadow-lg">
+            🎁 Tự tạo quà ngay →
+          </a>
+
+          <a href="./index.html#experienceFlow"
+             class="rounded-full border border-[#eadbd4] bg-white px-6 py-4 font-semibold">
+            Khám phá trải nghiệm
+          </a>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-5 text-sm text-[#77716d]">
+          <span>✓ Hẹn giờ mở quà</span>
+          <span>✓ Nhiều dịp đặc biệt</span>
+          <span>✓ Chia sẻ qua đường link</span>
+        </div>
+      </div>
+
+      <!-- HÌNH HỘP QUÀ MINH HỌA -->
+      <div class="relative mx-auto w-full max-w-lg">
+        <div class="gift-card rounded-[30px] border border-white bg-white/80 p-5 shadow-2xl sm:p-7">
+          <div class="flex justify-between text-xs tracking-widest text-[#8e8581]">
+            <span>ÚM BA LA · CAPSULE</span>
+            <span>№ 026</span>
+          </div>
+
+          <div class="mt-6 flex aspect-[4/3] items-center justify-center rounded-2xl bg-gradient-to-br from-[#f3d0da] to-[#dfc8eb]">
+            <div class="text-center">
+              <div class="text-8xl sm:text-9xl">🎁</div>
+              <p class="serif mt-3 text-xl font-bold text-[#754452]">
+                A little gift, a lot of love
+              </p>
+            </div>
+          </div>
+
+          <p class="serif mt-6 text-center text-2xl font-bold">
+            Mỗi điều dành riêng cho bạn
+          </p>
+          <p class="mt-2 text-center text-xs tracking-widest text-[#928681]">
+            MADE WITH LOVE · OPEN WITH JOY
+          </p>
+        </div>
+
+        <div class="absolute -right-2 top-12 rounded-2xl bg-white p-4 shadow-lg sm:-right-5">
+          <p class="text-xs text-[#8b817c]">✨ Món quà đã sẵn sàng</p>
+          <strong class="mt-1 block">Hẹn mở lúc 00:00</strong>
+        </div>
+
+        <div class="absolute -left-2 bottom-8 rounded-2xl bg-white p-4 shadow-lg sm:-left-5">
+          <p class="text-xs text-[#8b817c]">💗 Một chiếc hộp</p>
+          <strong class="mt-1 block">Thật nhiều kỷ niệm</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-[#eee4dc] px-5 py-6 text-center text-sm text-[#77716d]">
+    © Úm Ba La — Gửi yêu thương theo cách đặc biệt.
+  </footer>
+</body>
+</html>
