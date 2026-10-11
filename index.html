@@ -304,9 +304,9 @@
       <!-- Desktop Nav Links -->
       <nav class="hidden lg:flex items-center gap-6 text-xs font-medium text-capsule-ink tracking-wide">
         <a href="#hero" class="hover:text-capsule-primary transition-colors">Trang chủ</a>
-        <a href="#occasionSection" class="hover:text-capsule-primary transition-colors flex items-center gap-1">
-          Dịp Lễ
-          <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent"></span>
+        <a href="#occasionSection" id="navOccasionLink" class="hover:text-capsule-primary transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-capsule-surface/70 hover:bg-capsule-surface">
+        <span id="navOccasionLabel">Dịp Lễ</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent"></span>
         </a>
         <a href="#experienceFlow" class="hover:text-capsule-primary transition-colors">3 chặng trải nghiệm</a>
         <a href="#pricing" class="hover:text-capsule-primary transition-colors">Bảng giá</a>
@@ -340,8 +340,8 @@
   </header>
 
   <!-- Quick Occasion Selector Carousel Bar -->
-  <section id="occasionSection" class="relative z-30 bg-capsule-card border-b border-capsule-surface px-4 py-2.5 transition-colors duration-400">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+<section id="occasionSection" class="sticky top-[57px] sm:top-[65px] scroll-mt-16 z-30 bg-capsule-card/95 backdrop-blur-md border-b border-capsule-surface px-4 py-2.5 transition-colors duration-400 shadow-2xs">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
       <div class="flex items-center gap-1.5 text-capsule-muted text-xs font-mono shrink-0 hidden sm:flex">
         <span>Chọn dịp Lễ:</span>
       </div>
@@ -1485,12 +1485,18 @@
     function setOccasion(occasionId, applyPresetData = true) {
       const data = OCCASIONS_DATA[occasionId];
       if (!data) return;
-
       appState.currentOccasionId = occasionId;
-
       // Update Body Theme
       document.body.setAttribute('data-theme', data.theme);
-
+      const navLabel = document.getElementById("navOccasionLabel");
+      const navLink = document.getElementById("navOccasionLink");
+      
+      if (navLabel) {
+        navLabel.innerHTML = `Dịp Lễ: <strong class="text-capsule-primary font-bold">${data.icon} ${data.name}</strong>`;
+      }
+      if (navLink) {
+        navLink.setAttribute("href", "#occasionSection");
+      }
       if (applyPresetData) {
         // Load default preset values
         appState.newsTitle = data.headline;
