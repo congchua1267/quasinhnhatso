@@ -4,42 +4,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff5f4">
-
-  <title>Úm Ba La | Gửi trọn yêu thương 20/10</title>
-  <meta name="description" content="Tạo hộp quà số độc bản, gửi yêu thương và lưu giữ kỷ niệm trong ngày Phụ nữ Việt Nam 20/10.">
+  <meta name="theme-color" content="#fff0f5">
+  <title>20/10 - Gửi Ngàn Yêu Thương</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --pink: #c65376;
-      --pink-dark: #a83d60;
-      --pink-light: #f8dce3;
-      --cream: #fff8f4;
-      --green: #315642;
-      --ink: #39272e;
-      --muted: #846f75;
-      --border: #f0d9df;
+      --pink: #e979a5;
+      --pink-dark: #c84f7d;
+      --pink-light: #fff0f5;
+      --cream: #fffaf6;
+      --text: #713b52;
+      --muted: #a77c8e;
+      --white: #ffffff;
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 100px;
     }
 
     body {
-      font-family: "Be Vietnam Pro", sans-serif;
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
       background: var(--cream);
-      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
     }
 
     a {
@@ -47,671 +51,536 @@
       text-decoration: none;
     }
 
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    /* =========================
-       THANH MENU
-    ========================= */
-
+    /* THANH ĐIỀU HƯỚNG */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 100;
-      width: 100%;
-      padding: 13px 5%;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
       gap: 20px;
-      background: rgba(255, 250, 247, .94);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(16px);
+      padding: 15px 7%;
+      background: rgba(255, 250, 246, 0.92);
+      border-bottom: 1px solid #f8dce7;
+      backdrop-filter: blur(14px);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      flex-shrink: 0;
-    }
-
-    .brand-icon {
-      width: 45px;
-      height: 45px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--green);
-      color: white;
-      font-size: 25px;
-      box-shadow: 0 5px 15px #31564225;
-    }
-
-    .brand-name {
+    .logo {
       font-family: "Playfair Display", serif;
-      font-size: 21px;
+      font-size: 22px;
       font-weight: 700;
-      letter-spacing: -.5px;
-    }
-
-    .brand-tagline {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 9px;
-      letter-spacing: 1.1px;
+      color: var(--pink-dark);
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 23px;
-      font-size: 12px;
-      font-weight: 600;
+      gap: 25px;
     }
 
     .nav-links a {
-      transition: color .2s;
+      font-size: 13px;
+      font-weight: 600;
+      transition: color 0.25s;
     }
 
     .nav-links a:hover {
       color: var(--pink);
     }
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .music-toggle {
-      padding: 10px 13px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      background: white;
-      color: var(--pink-dark);
-      font-size: 12px;
-      white-space: nowrap;
-      transition: .2s;
-    }
-
-    .music-toggle:hover {
-      background: var(--pink-light);
-    }
-
-    .create-btn {
+    .music-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 17px;
+      gap: 8px;
+      padding: 10px 15px;
+      border: 1px solid #f1b5cd;
       border-radius: 30px;
-      background: var(--green);
-      color: white;
-      font-size: 12px;
+      color: var(--pink-dark);
+      background: #fff;
+      cursor: pointer;
+      font-size: 13px;
       font-weight: 700;
       white-space: nowrap;
-      transition: .2s;
+      transition: 0.25s;
     }
 
-    .create-btn:hover {
-      background: #203e2e;
+    .music-button:hover {
+      background: #ffe5ef;
       transform: translateY(-2px);
     }
 
-    /* =========================
-       BANNER 20/10
-    ========================= */
+    .music-button:focus-visible,
+    .primary-button:focus-visible,
+    .secondary-button:focus-visible {
+      outline: 3px solid #c84f7d;
+      outline-offset: 4px;
+    }
 
+    /* BANNER CHÍNH */
     .hero {
       position: relative;
-      min-height: 690px;
+      min-height: 660px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 20px;
+      padding: 65px 9%;
       overflow: hidden;
       background:
-        radial-gradient(ellipse at 85% 40%, #f7c9d5 0%, transparent 42%),
-        radial-gradient(ellipse at 5% 90%, #ffe4dc 0%, transparent 40%),
-        linear-gradient(125deg, #fffaf5, #ffedf0 60%, #f8dce4);
+        radial-gradient(ellipse at 15% 15%, #ffffff 0%, transparent 38%),
+        radial-gradient(ellipse at 85% 85%, #ffdce9 0%, transparent 38%),
+        linear-gradient(135deg, #fff6f8 0%, #ffe7ef 48%, #fff4e9 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "✿";
+      position: absolute;
+      color: rgba(222, 111, 157, 0.18);
+      pointer-events: none;
     }
 
     .hero::before {
-      content: "✿";
-      position: absolute;
-      top: -100px;
-      right: 4%;
-      font-size: 300px;
-      color: #c6537610;
-      transform: rotate(20deg);
-      pointer-events: none;
+      top: 7%;
+      left: 3%;
+      font-size: 95px;
+      transform: rotate(-20deg);
     }
 
     .hero::after {
-      content: "❀";
-      position: absolute;
-      bottom: -120px;
-      left: 35%;
-      font-size: 280px;
-      color: #c6537610;
-      pointer-events: none;
+      right: 4%;
+      bottom: 3%;
+      font-size: 130px;
+      transform: rotate(18deg);
     }
 
-    .petals {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .petal {
-      position: absolute;
-      color: #ce6989;
-      opacity: .4;
-      animation: petalFloat 8s ease-in-out infinite;
-    }
-
-    .petal:nth-child(1) {
-      top: 15%;
-      left: 45%;
-      font-size: 25px;
-    }
-
-    .petal:nth-child(2) {
-      top: 72%;
-      left: 8%;
-      font-size: 19px;
-      animation-delay: 2s;
-    }
-
-    .petal:nth-child(3) {
-      top: 20%;
-      right: 42%;
-      font-size: 17px;
-      animation-delay: 3s;
-    }
-
-    .petal:nth-child(4) {
-      bottom: 15%;
-      right: 8%;
-      font-size: 28px;
-      animation-delay: 1s;
-    }
-
-    @keyframes petalFloat {
-      0%, 100% {
-        transform: translateY(0) rotate(0);
-      }
-      50% {
-        transform: translateY(-17px) rotate(18deg);
-      }
-    }
-
-    .hero-inner {
+    .hero-content {
       position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 1450px;
-      min-height: 690px;
-      margin: auto;
-      padding: 65px 6%;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      gap: 40px;
+      z-index: 2;
+      max-width: 600px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 10px 16px;
-      border: 1px solid #e9b0bf;
+      gap: 8px;
+      padding: 9px 16px;
+      border: 1px solid #f6c4d7;
       border-radius: 30px;
-      background: #ffffffa8;
+      background: rgba(255,255,255,0.7);
       color: var(--pink-dark);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     .hero h1 {
-      margin: 27px 0 20px;
+      margin: 25px 0 18px;
       font-family: "Playfair Display", serif;
-      font-size: clamp(42px, 5vw, 72px);
+      font-size: clamp(43px, 5.4vw, 75px);
       line-height: 1.12;
-      letter-spacing: -1.8px;
-      font-weight: 700;
+      color: #9f456a;
     }
 
-    .script-title {
+    .hero h1 span {
       display: block;
-      margin: 8px 0;
       color: var(--pink);
-      font-family: "Dancing Script", cursive;
-      font-size: 1.12em;
-      font-weight: 700;
-      letter-spacing: 0;
+      font-style: italic;
     }
 
     .hero-description {
-      max-width: 570px;
-      color: #79666b;
-      font-size: 14px;
-      line-height: 2;
+      max-width: 470px;
+      margin-bottom: 28px;
+      color: #93677b;
+      font-size: 16px;
+      line-height: 1.9;
     }
 
-    .hero-buttons {
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      gap: 13px;
-      margin-top: 28px;
+      gap: 12px;
     }
 
-    .btn {
-      min-height: 48px;
+    .primary-button,
+    .secondary-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 14px 21px;
-      border-radius: 35px;
-      font-size: 12px;
+      gap: 9px;
+      min-height: 48px;
+      padding: 13px 22px;
+      border-radius: 30px;
+      font-size: 14px;
       font-weight: 700;
-      transition: transform .2s, background .2s;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
 
-    .btn-primary {
-      background: var(--pink);
+    .primary-button {
+      border: none;
       color: white;
-      box-shadow: 0 8px 22px #c6537630;
+      background: linear-gradient(135deg, #ee91b5, #cf5d8b);
+      box-shadow: 0 8px 22px rgba(207, 93, 139, 0.23);
     }
 
-    .btn-primary:hover {
-      background: var(--pink-dark);
+    .secondary-button {
+      border: 1px solid #edb7cc;
+      color: var(--pink-dark);
+      background: rgba(255,255,255,0.75);
+    }
+
+    .primary-button:hover,
+    .secondary-button:hover {
       transform: translateY(-3px);
     }
 
-    .btn-secondary {
-      border: 1px solid #e7bdc8;
-      background: #ffffffa8;
-      color: var(--ink);
+    .hero-note {
+      margin-top: 22px;
+      color: #b18497;
+      font-size: 12px;
     }
 
-    .btn-secondary:hover {
-      background: white;
-      transform: translateY(-2px);
-    }
-
-    .benefits {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 19px;
-      margin-top: 25px;
-      color: #816c72;
-      font-size: 10px;
-    }
-
-    /* =========================
-       HỘP QUÀ 3D
-    ========================= */
-
-    .visual {
+    /* HỘP QUÀ 3D */
+    .gift-scene {
       position: relative;
-      display: grid;
-      place-items: center;
-      min-width: 0;
-      min-height: 510px;
+      z-index: 2;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 900px;
     }
 
-    .glow {
+    .gift-glow {
       position: absolute;
       width: 330px;
       height: 330px;
       border-radius: 50%;
-      background: #efb4c8;
-      filter: blur(65px);
-      opacity: .55;
+      background: rgba(255,255,255,0.6);
+      box-shadow: 0 0 90px rgba(231,121,165,0.22);
     }
 
     .gift {
       position: relative;
-      z-index: 1;
-      width: min(100%, 410px);
-      padding: 18px;
-      border: 1px solid #fff;
-      border-radius: 25px;
-      background: #fffdfbdc;
-      box-shadow:
-        0 30px 70px #a34c691f,
-        0 7px 18px #a34c6910;
-      transform: rotate(2deg);
-      transition: transform .4s;
-    }
-
-    .gift:hover {
-      transform: rotate(0deg) translateY(-5px);
-    }
-
-    .gift-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      color: #a18a90;
-      font-size: 9px;
-      letter-spacing: 1.3px;
-    }
-
-    .gift-art {
-      position: relative;
-      min-height: 310px;
-      margin-top: 16px;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      border: 1px solid #ffffffbd;
-      border-radius: 17px;
-      background:
-        radial-gradient(circle at 50% 40%, #fff9ef 0%, transparent 32%),
-        linear-gradient(145deg, #f8dce2, #efc5dd 60%, #e4d4ef);
-    }
-
-    .flower {
-      position: absolute;
-      z-index: 2;
-      font-size: 57px;
-      filter: drop-shadow(0 7px 6px #9b52621e);
-      animation: flowerSway 4s ease-in-out infinite;
-    }
-
-    .flower-one {
-      top: 12px;
-      left: 12px;
-    }
-
-    .flower-two {
-      top: 18px;
-      right: 12px;
-      animation-delay: .8s;
-    }
-
-    .flower-three {
-      bottom: 9px;
-      left: 15px;
-      font-size: 42px;
-      animation-delay: 1.3s;
-    }
-
-    .flower-four {
-      right: 16px;
-      bottom: 12px;
-      font-size: 43px;
-      animation-delay: .5s;
-    }
-
-    @keyframes flowerSway {
-      0%, 100% { transform: rotate(-4deg); }
-      50% { transform: rotate(5deg); }
+      width: 210px;
+      height: 190px;
+      margin-top: 65px;
+      animation: giftFloat 4s ease-in-out infinite;
+      transform-style: preserve-3d;
     }
 
     .gift-box {
-      position: relative;
-      width: 185px;
-      height: 150px;
-      margin-top: 35px;
-      display: grid;
-      place-items: center;
-      border: 1px solid #d77b98;
-      border-radius: 5px 5px 12px 12px;
-      background: linear-gradient(135deg, #f6bfd0, #df87a5 68%, #ca6588);
-      box-shadow:
-        0 23px 26px #8e40552b,
-        inset -12px 0 18px #92395716;
-      animation: giftFloat 4s ease-in-out infinite;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 210px;
+      height: 145px;
+      border: 1px solid rgba(184, 66, 111, 0.18);
+      border-radius: 4px 4px 12px 12px;
+      background: linear-gradient(135deg, #f9b5cf, #e97fa7);
+      box-shadow: 0 20px 35px rgba(183, 79, 121, 0.23);
     }
 
     .gift-box::before {
       content: "";
       position: absolute;
-      top: -17px;
-      left: -9px;
-      right: -9px;
-      height: 29px;
-      border: 1px solid #e8adbf;
-      border-radius: 5px;
-      background: linear-gradient(180deg, #ffe7eb, #f5cad6);
-      box-shadow: 0 5px 10px #9239571c;
+      top: 0;
+      left: 77px;
+      width: 45px;
+      height: 100%;
+      background: linear-gradient(90deg, #fff0b9, #ffe4a0);
+      box-shadow: inset 1px 0 rgba(255,255,255,0.6);
     }
 
-    .ribbon-vertical {
+    .gift-box::after {
+      content: "";
       position: absolute;
-      z-index: 1;
-      top: -15px;
-      bottom: 0;
-      left: 75px;
-      width: 35px;
-      background: linear-gradient(90deg, #b9446a, #f6c0d0 48%, #cf6285);
-      box-shadow: 2px 0 5px #792b4414;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 17px;
+      background: rgba(255,255,255,0.18);
     }
 
-    .bow {
+    .gift-lid {
+      position: absolute;
+      z-index: 2;
+      left: -12px;
+      top: 30px;
+      width: 234px;
+      height: 35px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #f8a6c4, #df6c99);
+      box-shadow: 0 7px 13px rgba(183, 79, 121, 0.18);
+      animation: lidFloat 4s ease-in-out infinite;
+    }
+
+    .gift-lid::before {
+      content: "";
+      position: absolute;
+      left: 94px;
+      width: 45px;
+      height: 100%;
+      background: #ffedb1;
+    }
+
+    .ribbon {
       position: absolute;
       z-index: 3;
-      top: -48px;
-      left: 52px;
-      width: 44px;
-      height: 34px;
-      border: 10px solid #c34d73;
-      border-radius: 70% 20% 70% 20%;
-      transform: rotate(28deg);
-      filter: drop-shadow(0 3px 3px #782b441f);
+      top: -10px;
+      left: 88px;
+      width: 35px;
+      height: 45px;
+      border: 8px solid #f4c75e;
+      border-radius: 50% 50% 15% 50%;
+      transform: rotate(25deg);
     }
 
-    .bow::after {
+    .ribbon::after {
       content: "";
       position: absolute;
       top: -8px;
-      left: 26px;
-      width: 44px;
-      height: 34px;
-      border: 10px solid #df7d9b;
-      border-radius: 20% 70% 20% 70%;
-      transform: rotate(-52deg);
-    }
-
-    .gift-message {
-      position: relative;
-      z-index: 2;
-      color: #fff8f5;
-      font-family: "Playfair Display", serif;
-      font-size: 17px;
-      line-height: 1.65;
-      text-align: center;
-      text-shadow: 0 2px 5px #86314e55;
+      left: 17px;
+      width: 35px;
+      height: 45px;
+      border: 8px solid #f4c75e;
+      border-radius: 50% 50% 50% 15%;
+      transform: rotate(-55deg);
     }
 
     .gift-heart {
       position: absolute;
-      z-index: 3;
-      top: 42px;
-      right: 10px;
-      color: #fff1f3;
-      font-size: 26px;
+      z-index: 4;
+      top: 75px;
+      left: 92px;
+      color: #fff8fa;
+      font-size: 27px;
+      text-shadow: 0 2px 5px rgba(160, 63, 101, 0.2);
     }
 
-    @keyframes giftFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-7px); }
+    .floating-heart {
+      position: absolute;
+      color: #e78aaf;
+      animation: heartFloat 4s ease-in-out infinite;
+    }
+
+    .heart-one {
+      top: 10%;
+      left: 18%;
+      font-size: 30px;
+    }
+
+    .heart-two {
+      top: 18%;
+      right: 12%;
+      font-size: 23px;
+      animation-delay: 1s;
+    }
+
+    .heart-three {
+      bottom: 12%;
+      right: 14%;
+      font-size: 33px;
+      animation-delay: 1.7s;
+    }
+
+    .flower {
+      position: absolute;
+      color: #e6a0b9;
+      font-size: 48px;
+      opacity: 0.8;
+      animation: flowerSpin 18s linear infinite;
+    }
+
+    .flower-one {
+      left: 5%;
+      bottom: 14%;
+    }
+
+    .flower-two {
+      right: 2%;
+      top: 12%;
+      font-size: 35px;
+      animation-direction: reverse;
     }
 
     .gift-caption {
-      padding: 18px 0 5px;
-      font-family: "Playfair Display", serif;
-      font-size: 19px;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    .gift-subcaption {
-      padding-bottom: 3px;
-      color: #a18b90;
-      font-size: 9px;
-      letter-spacing: 1.8px;
-      text-align: center;
-    }
-
-    .floating-note {
       position: absolute;
-      z-index: 4;
-      top: 52px;
-      right: -12px;
-      max-width: 235px;
-      padding: 14px 16px;
-      border: 1px solid #fff;
-      border-radius: 14px;
-      background: #fffaf7;
-      box-shadow: 0 10px 30px #9f53611c;
-      font-size: 10px;
-      line-height: 1.7;
-      transform: rotate(3deg);
-    }
-
-    .floating-note strong {
-      display: block;
-      margin-top: 3px;
-      font-size: 11px;
-    }
-
-    /* =========================
-       TRÌNH PHÁT NHẠC
-    ========================= */
-
-    .music-player {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: fit-content;
-      max-width: 100%;
-      margin-top: 27px;
-      padding: 11px 15px;
-      border: 1px solid #f0d5dd;
-      border-radius: 40px;
-      background: #ffffffbd;
-      box-shadow: 0 8px 25px #a34c6910;
-    }
-
-    .music-symbol {
-      color: var(--pink);
-      font-size: 26px;
-    }
-
-    .track-info {
-      min-width: 105px;
-    }
-
-    .track-info strong {
-      display: block;
-      font-size: 11px;
-    }
-
-    .track-info small {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 9px;
-    }
-
-    .player-button {
-      width: 35px;
-      height: 35px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border: 0;
-      border-radius: 50%;
-      background: var(--pink);
-      color: white;
-      font-size: 13px;
-      transition: background .2s;
-    }
-
-    .player-button:hover {
-      background: var(--pink-dark);
-    }
-
-    .volume {
-      width: 58px;
-      accent-color: var(--pink);
-      cursor: pointer;
-    }
-
-    .music-hint {
-      margin-top: 8px;
-      color: #927d83;
-      font-size: 10px;
-    }
-
-    /* =========================
-       PHẦN GIỚI THIỆU BÊN DƯỚI
-    ========================= */
-
-    .intro {
-      padding: 75px 6%;
+      bottom: 5px;
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
       text-align: center;
-      background: #fffaf7;
-    }
-
-    .intro-label {
-      color: var(--pink);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-
-    .intro h2 {
-      margin: 15px 0;
+      color: #b66a89;
       font-family: "Playfair Display", serif;
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: 18px;
+      font-style: italic;
     }
 
-    .intro p {
-      max-width: 650px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 2;
+    /* LỜI CHÚC */
+    .message-section {
+      padding: 85px 8%;
+      text-align: center;
+      background: var(--cream);
     }
 
-    .intro-link {
-      display: inline-flex;
-      margin-top: 24px;
-      padding: 13px 23px;
-      border-radius: 30px;
-      background: var(--green);
-      color: white;
+    .section-label {
+      color: var(--pink);
       font-size: 12px;
       font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    footer {
-      padding: 24px 15px;
-      border-top: 1px solid var(--border);
-      background: #fff8f4;
-      color: var(--muted);
-      font-size: 11px;
+    .section-title {
+      margin: 14px 0;
+      color: #94476a;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.25;
+    }
+
+    .section-description {
+      max-width: 630px;
+      margin: 0 auto;
+      color: #9c7b89;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .message-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      max-width: 1000px;
+      margin: 42px auto 0;
+    }
+
+    .message-card {
+      padding: 30px 23px;
+      border: 1px solid #f7dce6;
+      border-radius: 22px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(180, 100, 130, 0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .message-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(180, 100, 130, 0.12);
+    }
+
+    .card-icon {
+      margin-bottom: 14px;
+      font-size: 34px;
+    }
+
+    .message-card h3 {
+      margin-bottom: 10px;
+      color: #a65275;
+      font-family: "Playfair Display", serif;
+      font-size: 21px;
+    }
+
+    .message-card p {
+      color: #9c7b89;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* LỜI NHẮN CUỐI */
+    .closing-section {
+      padding: 75px 8%;
       text-align: center;
+      background: linear-gradient(135deg, #ffeaf1, #fff5eb);
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================= */
+    .closing-heart {
+      margin-bottom: 12px;
+      color: #df719d;
+      font-size: 40px;
+      animation: heartbeat 1.8s ease-in-out infinite;
+    }
 
-    @media (max-width: 1100px) {
+    .closing-section p {
+      max-width: 620px;
+      margin: 0 auto 25px;
+      color: #93677b;
+      line-height: 1.9;
+    }
+
+    .footer {
+      padding: 23px 7%;
+      text-align: center;
+      color: #ae8193;
+      background: #fffaf6;
+      font-size: 12px;
+    }
+
+    /* THÔNG BÁO NHẠC */
+    .music-status {
+      position: fixed;
+      z-index: 200;
+      right: 20px;
+      bottom: 20px;
+      max-width: calc(100% - 40px);
+      padding: 12px 17px;
+      border: 1px solid #f2ccda;
+      border-radius: 14px;
+      color: #8e4765;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 7px 25px rgba(150,70,100,0.12);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .music-status[hidden] {
+      display: none;
+    }
+
+    .music-playing {
+      animation: musicPulse 1s ease-in-out infinite alternate;
+    }
+
+    /* HIỆU ỨNG */
+    @keyframes giftFloat {
+      0%, 100% { transform: translateY(0) rotateY(-5deg); }
+      50% { transform: translateY(-13px) rotateY(5deg); }
+    }
+
+    @keyframes lidFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-4px) rotate(2deg); }
+    }
+
+    @keyframes heartFloat {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.65; }
+      50% { transform: translateY(-14px) scale(1.12); opacity: 1; }
+    }
+
+    @keyframes flowerSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.14); }
+    }
+
+    @keyframes musicPulse {
+      from { box-shadow: 0 0 0 rgba(231,121,165,0); }
+      to { box-shadow: 0 0 16px rgba(231,121,165,0.4); }
+    }
+
+    /* ĐIỆN THOẠI */
+    @media (max-width: 850px) {
       .navbar {
+        padding: 13px 5%;
         flex-wrap: wrap;
       }
 
@@ -719,146 +588,81 @@
         order: 3;
         width: 100%;
         justify-content: center;
-        flex-wrap: wrap;
-        gap: 17px;
-      }
-
-      .hero-inner {
         gap: 20px;
       }
 
-      .floating-note {
-        right: -4px;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .navbar {
-        padding: 12px 4%;
-        gap: 12px;
-      }
-
-      .brand-icon {
-        width: 39px;
-        height: 39px;
-        font-size: 22px;
-      }
-
-      .brand-name {
-        font-size: 18px;
-      }
-
-      .brand-tagline {
-        font-size: 8px;
-      }
-
-      .nav-actions {
-        gap: 6px;
-      }
-
-      .music-toggle {
-        padding: 9px 10px;
-        font-size: 10px;
-      }
-
-      .create-btn {
-        padding: 10px 12px;
-        font-size: 10px;
-      }
-
-      .nav-links {
-        gap: 12px;
-        font-size: 11px;
-      }
-
-      .hero-inner {
+      .hero {
         grid-template-columns: 1fr;
-        min-height: auto;
-        padding: 48px 6% 40px;
-        gap: 20px;
+        text-align: center;
+        padding: 65px 7% 35px;
       }
 
-      .hero h1 {
-        font-size: clamp(41px, 10vw, 60px);
-        letter-spacing: -1px;
+      .hero-content {
+        margin: auto;
       }
 
       .hero-description {
-        font-size: 13px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .hero-buttons {
-        gap: 10px;
+      .hero-actions {
+        justify-content: center;
       }
 
-      .btn {
-        padding: 13px 16px;
-        font-size: 11px;
+      .hero-note {
+        margin-bottom: 5px;
       }
 
-      .benefits {
-        gap: 10px 13px;
+      .gift-scene {
+        min-height: 340px;
       }
 
-      .visual {
-        min-height: 440px;
-      }
-
-      .gift {
-        max-width: 360px;
-      }
-
-      .gift-art {
-        min-height: 290px;
-      }
-
-      .floating-note {
-        top: 20px;
-        right: -3px;
-        max-width: 205px;
-      }
-
-      .music-player {
-        gap: 9px;
-        padding: 10px 12px;
-      }
-
-      .volume {
-        width: 43px;
-      }
-
-      .intro {
-        padding: 55px 6%;
+      .message-grid {
+        grid-template-columns: 1fr;
+        max-width: 440px;
       }
     }
 
-    @media (max-width: 390px) {
-      .brand-tagline {
-        letter-spacing: .3px;
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 18px;
       }
 
-      .music-toggle {
-        font-size: 9px;
-        padding: 9px 8px;
-      }
-
-      .create-btn {
-        padding: 9px 10px;
-        font-size: 9px;
+      .music-button {
+        padding: 9px 11px;
+        font-size: 12px;
       }
 
       .nav-links {
-        gap: 9px;
-        font-size: 10px;
+        gap: 15px;
       }
 
-      .floating-note {
-        max-width: 180px;
-        font-size: 9px;
+      .nav-links a {
+        font-size: 11px;
       }
 
-      .gift-box {
-        transform: scale(.9);
+      .hero {
+        min-height: auto;
+        padding-top: 48px;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .gift-scene {
+        min-height: 310px;
+        transform: scale(0.9);
+      }
+
+      .message-section,
+      .closing-section {
+        padding: 60px 6%;
       }
     }
 
@@ -867,300 +671,250 @@
       *::before,
       *::after {
         scroll-behavior: auto !important;
-        animation: none !important;
-        transition: none !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- =========================
-       MENU CHÍNH
-  ========================= -->
-
+  <!-- THANH MENU -->
   <header class="navbar">
-    <a href="./trang-chu.html" class="brand">
-      <span class="brand-icon">✧</span>
-      <span>
-        <span class="brand-name">Úm BA LA</span>
-        <span class="brand-tagline">QUÀ KỶ NIỆM SỐ ĐA DỊP</span>
-      </span>
-    </a>
+    <a class="logo" href="./trang-chu.html">♡ Sweet October</a>
 
-    <nav class="nav-links" aria-label="Menu chính">
-      <a href="./trang-chu.html">Trang chủ</a>
-      <a href="./index.html#occasionSection">Dịp lễ</a>
-      <a href="./index.html#experienceFlow">Trải nghiệm</a>
-      <a href="./index.html#pricing">Bảng giá</a>
-      <a href="./index.html#whyUs">Ưu thế</a>
+    <nav class="nav-links" aria-label="Điều hướng chính">
+      <a href="#home">Trang chủ</a>
+      <a href="#messages">Lời chúc</a>
+      <a href="#love">Yêu thương</a>
+      <a href="./index.html">Trải nghiệm</a>
     </nav>
 
-    <div class="nav-actions">
-      <button
-        class="music-toggle"
-        id="musicToggle"
-        type="button"
-        aria-label="Bật hoặc tắt nhạc nền"
-        aria-pressed="false">
-        ♫ Nhạc: Tắt
-      </button>
-
-      <a href="./index.html" class="create-btn">
-        ✨ Tạo Hộp Quà
-      </a>
-    </div>
+    <button
+      id="musicToggle"
+      class="music-button"
+      type="button"
+      aria-pressed="false"
+    >
+      <span id="musicIcon" aria-hidden="true">♫</span>
+      <span id="musicLabel">Bật nhạc</span>
+    </button>
   </header>
 
-  <!-- =========================
-       BANNER 20/10
-  ========================= -->
-
   <main>
-    <section class="hero" id="hero">
-      <div class="petals" aria-hidden="true">
-        <span class="petal">✿</span>
-        <span class="petal">♡</span>
-        <span class="petal">✧</span>
-        <span class="petal">❀</span>
+    <!-- BANNER 20/10 -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">🌷 20 THÁNG 10 · NGÀY CỦA YÊU THƯƠNG</div>
+
+        <h1>
+          Gửi ngàn
+          <span>yêu thương</span>
+          đến nàng
+        </h1>
+
+        <p class="hero-description">
+          Một chút ngọt ngào, một chút dịu dàng và thật nhiều yêu thương.
+          Chúc những người phụ nữ tuyệt vời luôn xinh đẹp, hạnh phúc
+          và được trân trọng mỗi ngày.
+        </p>
+
+        <div class="hero-actions">
+          <a class="primary-button" href="#messages">
+            🌸 Nhận lời chúc
+          </a>
+
+          <button
+            class="secondary-button"
+            id="heroMusicButton"
+            type="button"
+          >
+            ♫ <span id="heroMusicLabel">Mở nhạc yêu thương</span>
+          </button>
+        </div>
+
+        <p class="hero-note">
+          ✨ Dành tặng bạn — người xứng đáng với những điều đẹp đẽ nhất.
+        </p>
       </div>
 
-      <div class="hero-inner">
+      <div class="gift-scene" aria-label="Hộp quà hồng trang trí ngày 20 tháng 10">
+        <div class="gift-glow"></div>
 
-        <!-- NỘI DUNG BÊN TRÁI -->
+        <span class="floating-heart heart-one">♥</span>
+        <span class="floating-heart heart-two">♡</span>
+        <span class="floating-heart heart-three">♥</span>
+        <span class="flower flower-one">✿</span>
+        <span class="flower flower-two">❀</span>
 
-        <div class="hero-copy">
-          <div class="eyebrow">
-            🌹 ĐẶC BIỆT · NGÀY PHỤ NỮ VIỆT NAM 20/10
-          </div>
-
-          <h1>
-            Gửi trọn yêu thương
-            <span class="script-title">qua từng khoảnh khắc ♡</span>
-            đặc biệt.
-          </h1>
-
-          <p class="hero-description">
-            Có những lời yêu thương đôi khi thật khó nói thành lời.
-            Nhân ngày 20/10, hãy tạo một hộp quà số độc bản để gửi gắm
-            những lời chúc, kỷ niệm và cảm xúc chân thành đến người
-            phụ nữ mà bạn trân quý.
-          </p>
-
-          <div class="hero-buttons">
-            <a href="./index.html" class="btn btn-primary">
-              🎁 Tự tạo quà ngay
-              <span>→</span>
-            </a>
-
-            <a href="./index.html#experienceFlow" class="btn btn-secondary">
-              Khám phá trải nghiệm
-            </a>
-          </div>
-
-          <div class="benefits">
-            <span>♡ Cá nhân hóa món quà</span>
-            <span>♡ Lưu giữ kỷ niệm</span>
-            <span>♡ Chia sẻ bằng đường link</span>
-          </div>
-
-          <!-- TRÌNH PHÁT NHẠC -->
-
-          <div class="music-player">
-            <span class="music-symbol" aria-hidden="true">♫</span>
-
-            <div class="track-info">
-              <strong>Melody of Love</strong>
-              <small id="trackStatus" aria-live="polite">
-                Piano nhẹ nhàng · Nhấn để phát
-              </small>
-            </div>
-
-            <button
-              class="player-button"
-              id="playButton"
-              type="button"
-              aria-label="Phát nhạc"
-              title="Phát hoặc tạm dừng">
-              ▶
-            </button>
-
-            <input
-              class="volume"
-              id="volumeControl"
-              type="range"
-              min="0"
-              max="1"
-              step="0.05"
-              value="0.6"
-              aria-label="Điều chỉnh âm lượng">
-          </div>
-
-          <p class="music-hint">
-            ♪ Bật một chút piano để khoảnh khắc thêm dịu dàng.
-          </p>
+        <div class="gift">
+          <div class="gift-box"></div>
+          <div class="gift-lid"></div>
+          <div class="ribbon"></div>
+          <div class="gift-heart">♥</div>
         </div>
 
-        <!-- HỘP QUÀ VÀ HOA BÊN PHẢI -->
-
-        <div class="visual">
-          <div class="glow"></div>
-
-          <div class="gift">
-            <div class="gift-top">
-              <span>ÚM BA LA · CAPSULE</span>
-              <span>№ 2010</span>
-            </div>
-
-            <div class="gift-art">
-              <span class="flower flower-one" aria-hidden="true">🌹</span>
-              <span class="flower flower-two" aria-hidden="true">🌷</span>
-              <span class="flower flower-three" aria-hidden="true">🌸</span>
-              <span class="flower flower-four" aria-hidden="true">🌺</span>
-
-              <div class="gift-box">
-                <div class="ribbon-vertical"></div>
-                <div class="bow"></div>
-                <span class="gift-heart">♡</span>
-
-                <div class="gift-message">
-                  Happy<br>
-                  Women's Day<br>
-                  20/10
-                </div>
-              </div>
-            </div>
-
-            <div class="gift-caption">
-              Một món quà dành riêng cho bạn ♡
-            </div>
-
-            <div class="gift-subcaption">
-              MADE WITH LOVE · OPEN WITH JOY
-            </div>
-          </div>
-
-          <div class="floating-note">
-            💌 Gửi người phụ nữ tuyệt vời
-            <strong>Cảm ơn vì đã luôn là chính mình ♡</strong>
-          </div>
-        </div>
-
+        <div class="gift-caption">A little gift, a lot of love ♡</div>
       </div>
     </section>
 
-    <!-- PHẦN GIỚI THIỆU -->
+    <!-- LỜI CHÚC -->
+    <section class="message-section" id="messages">
+      <div class="section-label">A little note for you</div>
 
-    <section class="intro" id="about">
-      <div class="intro-label">A LITTLE BOX OF LOVE</div>
+      <h2 class="section-title">Bạn xứng đáng được yêu thương</h2>
 
-      <h2>Món quà nhỏ, cảm xúc lớn</h2>
-
-      <p>
-        Không chỉ là một món quà, đó còn là nơi cất giữ những lời chúc,
-        những tấm hình và những kỷ niệm đáng nhớ. Hãy tự tay tạo nên
-        một trải nghiệm riêng dành cho người bạn yêu thương.
+      <p class="section-description">
+        Nhân ngày Phụ nữ Việt Nam 20/10, mong bạn luôn tìm thấy niềm vui
+        trong những điều bình dị, sự bình yên trong tâm hồn và thật nhiều
+        lý do để mỉm cười.
       </p>
 
-      <a href="./index.html" class="intro-link">
-        Bắt đầu tạo hộp quà ✨
+      <div class="message-grid">
+        <article class="message-card">
+          <div class="card-icon">🌷</div>
+          <h3>Luôn xinh đẹp</h3>
+          <p>
+            Chúc bạn luôn rạng rỡ theo cách riêng của mình,
+            tự tin tỏa sáng và yêu thương chính bản thân.
+          </p>
+        </article>
+
+        <article class="message-card">
+          <div class="card-icon">💗</div>
+          <h3>Luôn hạnh phúc</h3>
+          <p>
+            Mong mỗi ngày đều có một điều khiến bạn vui,
+            một người khiến bạn an lòng và một giấc mơ để theo đuổi.
+          </p>
+        </article>
+
+        <article class="message-card">
+          <div class="card-icon">🦋</div>
+          <h3>Luôn tự do</h3>
+          <p>
+            Chúc bạn đủ mạnh mẽ để theo đuổi điều mình yêu,
+            đủ dịu dàng với bản thân và đủ can đảm để là chính mình.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- THÔNG ĐIỆP CUỐI -->
+    <section class="closing-section" id="love">
+      <div class="closing-heart">♥</div>
+
+      <div class="section-label">With love, always</div>
+
+      <h2 class="section-title">Thế giới đẹp hơn vì có bạn</h2>
+
+      <p>
+        Đừng chỉ chờ đến ngày 20/10 mới được nhận hoa và quà.
+        Bạn xứng đáng với sự quan tâm, những lời tử tế và tình yêu chân thành
+        trong tất cả 365 ngày của năm. Chúc bạn một ngày 20/10 thật ngọt ngào!
+      </p>
+
+      <a class="primary-button" href="./index.html">
+        Khám phá trải nghiệm ♡
       </a>
     </section>
   </main>
 
-  <footer>
-    © Úm Ba La — Gửi yêu thương theo cách đặc biệt.
+  <footer class="footer">
+    Made with ♡ for Vietnamese Women's Day · 20/10
   </footer>
 
-  <!--
-    FILE NHẠC:
-    Tải file piano MP3 có quyền sử dụng lên cùng thư mục.
-    Đặt tên chính xác: music.mp3
-  -->
-
-  <audio
-    id="bgMusic"
-    src="./music.mp3"
-    loop
-    preload="none">
+  <!-- TRÌNH PHÁT NHẠC -->
+  <audio id="bgMusic" loop preload="none">
+    <source src="./music.mp3" type="audio/mpeg">
   </audio>
 
+  <div id="musicStatus" class="music-status" role="status" aria-live="polite" hidden></div>
+
   <script>
-    /* =========================
-       ĐIỀU KHIỂN NHẠC NỀN
-    ========================= */
+    document.addEventListener("DOMContentLoaded", function () {
+      const audio = document.getElementById("bgMusic");
+      const toggleButton = document.getElementById("musicToggle");
+      const heroButton = document.getElementById("heroMusicButton");
+      const musicLabel = document.getElementById("musicLabel");
+      const musicIcon = document.getElementById("musicIcon");
+      const heroMusicLabel = document.getElementById("heroMusicLabel");
+      const musicStatus = document.getElementById("musicStatus");
 
-    const music = document.getElementById("bgMusic");
-    const musicToggle = document.getElementById("musicToggle");
-    const playButton = document.getElementById("playButton");
-    const trackStatus = document.getElementById("trackStatus");
-    const volumeControl = document.getElementById("volumeControl");
+      let statusTimer;
 
-    music.volume = Number(volumeControl.value);
+      function showStatus(message) {
+        musicStatus.textContent = message;
+        musicStatus.hidden = false;
 
-    function updateMusicUI() {
-      const playing = !music.paused;
-
-      musicToggle.textContent = playing
-        ? "♫ Nhạc: Bật"
-        : "♫ Nhạc: Tắt";
-
-      musicToggle.setAttribute(
-        "aria-pressed",
-        String(playing)
-      );
-
-      playButton.textContent = playing ? "Ⅱ" : "▶";
-
-      playButton.setAttribute(
-        "aria-label",
-        playing ? "Tạm dừng nhạc" : "Phát nhạc"
-      );
-
-      if (playing) {
-        trackStatus.textContent = "Đang phát piano nhẹ nhàng";
-      } else if (music.error) {
-        trackStatus.textContent = "Không tìm thấy file nhạc";
-      } else {
-        trackStatus.textContent = "Piano nhẹ nhàng · Nhấn để phát";
+        clearTimeout(statusTimer);
+        statusTimer = setTimeout(function () {
+          musicStatus.hidden = true;
+        }, 4500);
       }
-    }
 
-    async function toggleMusic() {
-      if (music.paused) {
-        try {
-          await music.play();
-        } catch (error) {
-          trackStatus.textContent =
-            "Kiểm tra file music.mp3 và thử lại";
+      function updateButtons(isPlaying) {
+        toggleButton.setAttribute("aria-pressed", String(isPlaying));
+
+        if (isPlaying) {
+          musicLabel.textContent = "Tắt nhạc";
+          musicIcon.textContent = "♫";
+          heroMusicLabel.textContent = "Tạm dừng nhạc";
+          toggleButton.classList.add("music-playing");
+        } else {
+          musicLabel.textContent = "Bật nhạc";
+          musicIcon.textContent = "♫";
+          heroMusicLabel.textContent = "Mở nhạc yêu thương";
+          toggleButton.classList.remove("music-playing");
         }
-      } else {
-        music.pause();
       }
 
-      updateMusicUI();
-    }
+      async function toggleMusic() {
+        if (!audio.paused) {
+          audio.pause();
+          updateButtons(false);
+          showStatus("Đã tạm dừng nhạc ♡");
+          return;
+        }
 
-    musicToggle.addEventListener("click", toggleMusic);
-    playButton.addEventListener("click", toggleMusic);
+        try {
+          // Trình duyệt cho phép phát nhạc sau thao tác bấm của người dùng.
+          await audio.play();
+          updateButtons(true);
+          showStatus("Nhạc yêu thương đang phát ♫");
+        } catch (error) {
+          updateButtons(false);
+          console.error("Không thể phát nhạc:", error);
 
-    volumeControl.addEventListener("input", function () {
-      music.volume = Number(volumeControl.value);
+          if (error.name === "NotSupportedError") {
+            showStatus("File nhạc không đúng định dạng hoặc không đọc được. Hãy kiểm tra music.mp3.");
+          } else {
+            showStatus("Chưa phát được nhạc. Hãy kiểm tra file music.mp3 và thử lại.");
+          }
+        }
+      }
+
+      toggleButton.addEventListener("click", toggleMusic);
+      heroButton.addEventListener("click", toggleMusic);
+
+      audio.addEventListener("play", function () {
+        updateButtons(true);
+      });
+
+      audio.addEventListener("pause", function () {
+        updateButtons(false);
+      });
+
+      audio.addEventListener("error", function () {
+        updateButtons(false);
+        console.error(
+          "Lỗi tải nhạc. Kiểm tra đường dẫn ./music.mp3 và tên file."
+        );
+      });
+
+      updateButtons(false);
     });
-
-    music.addEventListener("play", updateMusicUI);
-    music.addEventListener("pause", updateMusicUI);
-
-    music.addEventListener("error", function () {
-      trackStatus.textContent =
-        "Chưa có file music.mp3 hoặc đường dẫn bị lỗi";
-
-      updateMusicUI();
-    });
-
-    updateMusicUI();
   </script>
-
 </body>
 </html>
