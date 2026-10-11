@@ -4,155 +4,264 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff2ef">
-  <title>Úm Ba La | Món quà đặc biệt ngày 20/10</title>
+  <meta name="theme-color" content="#fff5f4">
+
+  <title>Úm Ba La | Gửi trọn yêu thương 20/10</title>
+  <meta name="description" content="Tạo hộp quà số độc bản, gửi yêu thương và lưu giữ kỷ niệm trong ngày Phụ nữ Việt Nam 20/10.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --pink: #c84e70;
-      --pink-dark: #a83c5b;
-      --pink-light: #f8d9dc;
-      --cream: #fff8f3;
+      --pink: #c65376;
+      --pink-dark: #a83d60;
+      --pink-light: #f8dce3;
+      --cream: #fff8f4;
       --green: #315642;
-      --ink: #392824;
-      --muted: #7c6d69;
+      --ink: #39272e;
+      --muted: #846f75;
+      --border: #f0d9df;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
 
     body {
-      margin: 0;
-      font-family: "DM Sans", sans-serif;
-      color: var(--ink);
+      font-family: "Be Vietnam Pro", sans-serif;
       background: var(--cream);
+      color: var(--ink);
     }
 
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; cursor: pointer; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    /* MENU */
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================
+       THANH MENU
+    ========================= */
+
     .navbar {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
+      width: 100%;
+      padding: 13px 5%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 20px;
-      padding: 14px 4%;
-      background: rgba(255, 250, 246, .95);
-      border-bottom: 1px solid #f0e2dd;
-      backdrop-filter: blur(14px);
+      background: rgba(255, 250, 247, .94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       flex-shrink: 0;
     }
 
     .brand-icon {
-      width: 44px;
-      height: 44px;
+      width: 45px;
+      height: 45px;
       display: grid;
       place-items: center;
-      color: white;
-      background: var(--green);
       border-radius: 50%;
+      background: var(--green);
+      color: white;
       font-size: 25px;
+      box-shadow: 0 5px 15px #31564225;
     }
 
     .brand-name {
       font-family: "Playfair Display", serif;
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 700;
+      letter-spacing: -.5px;
     }
 
-    .brand-sub {
+    .brand-tagline {
       display: block;
       margin-top: 3px;
-      font-size: 9px;
-      letter-spacing: 1px;
       color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 1.1px;
     }
 
     .nav-links {
       display: flex;
-      gap: 22px;
       align-items: center;
-      font-size: 13px;
+      gap: 23px;
+      font-size: 12px;
+      font-weight: 600;
     }
 
-    .nav-links a:hover { color: var(--pink); }
+    .nav-links a {
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--pink);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
     .music-toggle {
-      border: 1px solid #edc7cb;
-      background: #fff;
-      color: var(--green);
+      padding: 10px 13px;
+      border: 1px solid var(--border);
       border-radius: 30px;
-      padding: 10px 14px;
+      background: white;
+      color: var(--pink-dark);
+      font-size: 12px;
       white-space: nowrap;
+      transition: .2s;
+    }
+
+    .music-toggle:hover {
+      background: var(--pink-light);
     }
 
     .create-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 17px;
+      border-radius: 30px;
       background: var(--green);
       color: white;
-      padding: 12px 19px;
-      border-radius: 30px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       white-space: nowrap;
+      transition: .2s;
     }
 
-    /* BANNER 20/10 */
+    .create-btn:hover {
+      background: #203e2e;
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       BANNER 20/10
+    ========================= */
+
     .hero {
       position: relative;
       min-height: 690px;
       overflow: hidden;
       background:
-        radial-gradient(ellipse at 80% 45%, #f6c9cc 0%, transparent 43%),
-        radial-gradient(ellipse at 10% 90%, #ffe1db 0%, transparent 40%),
-        linear-gradient(120deg, #fff9f4, #ffebe8 60%, #f8d6d8);
-    }
-
-    .hero::before,
-    .hero::after {
-      content: "✿";
-      position: absolute;
-      color: rgba(195, 91, 116, .16);
-      font-size: 180px;
-      pointer-events: none;
+        radial-gradient(ellipse at 85% 40%, #f7c9d5 0%, transparent 42%),
+        radial-gradient(ellipse at 5% 90%, #ffe4dc 0%, transparent 40%),
+        linear-gradient(125deg, #fffaf5, #ffedf0 60%, #f8dce4);
     }
 
     .hero::before {
-      top: -60px;
-      right: 5%;
+      content: "✿";
+      position: absolute;
+      top: -100px;
+      right: 4%;
+      font-size: 300px;
+      color: #c6537610;
       transform: rotate(20deg);
+      pointer-events: none;
     }
 
     .hero::after {
-      bottom: -90px;
-      left: 42%;
-      font-size: 240px;
+      content: "❀";
+      position: absolute;
+      bottom: -120px;
+      left: 35%;
+      font-size: 280px;
+      color: #c6537610;
+      pointer-events: none;
+    }
+
+    .petals {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .petal {
+      position: absolute;
+      color: #ce6989;
+      opacity: .4;
+      animation: petalFloat 8s ease-in-out infinite;
+    }
+
+    .petal:nth-child(1) {
+      top: 15%;
+      left: 45%;
+      font-size: 25px;
+    }
+
+    .petal:nth-child(2) {
+      top: 72%;
+      left: 8%;
+      font-size: 19px;
+      animation-delay: 2s;
+    }
+
+    .petal:nth-child(3) {
+      top: 20%;
+      right: 42%;
+      font-size: 17px;
+      animation-delay: 3s;
+    }
+
+    .petal:nth-child(4) {
+      bottom: 15%;
+      right: 8%;
+      font-size: 28px;
+      animation-delay: 1s;
+    }
+
+    @keyframes petalFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0);
+      }
+      50% {
+        transform: translateY(-17px) rotate(18deg);
+      }
     }
 
     .hero-inner {
       position: relative;
       z-index: 1;
-      max-width: 1440px;
+      width: 100%;
+      max-width: 1450px;
       min-height: 690px;
       margin: auto;
       padding: 65px 6%;
       display: grid;
       grid-template-columns: 1.05fr .95fr;
       align-items: center;
-      gap: 35px;
+      gap: 40px;
     }
 
     .eyebrow {
@@ -160,102 +269,111 @@
       align-items: center;
       gap: 9px;
       padding: 10px 16px;
-      color: var(--pink);
-      border: 1px solid #e9a7b4;
-      background: rgba(255,255,255,.65);
+      border: 1px solid #e9b0bf;
       border-radius: 30px;
-      font-size: 12px;
+      background: #ffffffa8;
+      color: var(--pink-dark);
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .6px;
+      letter-spacing: 1px;
     }
 
-    h1 {
+    .hero h1 {
       margin: 27px 0 20px;
       font-family: "Playfair Display", serif;
-      font-size: clamp(43px, 5vw, 75px);
-      line-height: 1.1;
-      letter-spacing: -2px;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 1.12;
+      letter-spacing: -1.8px;
+      font-weight: 700;
     }
 
     .script-title {
       display: block;
-      margin-top: 5px;
+      margin: 8px 0;
       color: var(--pink);
       font-family: "Dancing Script", cursive;
-      font-size: 1.02em;
-      font-weight: 600;
+      font-size: 1.12em;
+      font-weight: 700;
       letter-spacing: 0;
     }
 
     .hero-description {
-      max-width: 580px;
-      color: #76635f;
-      font-size: 16px;
-      line-height: 1.9;
+      max-width: 570px;
+      color: #79666b;
+      font-size: 14px;
+      line-height: 2;
     }
 
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      align-items: center;
+      gap: 13px;
       margin-top: 28px;
     }
 
     .btn {
+      min-height: 48px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
-      padding: 15px 23px;
-      border-radius: 40px;
-      font-size: 14px;
+      gap: 8px;
+      padding: 14px 21px;
+      border-radius: 35px;
+      font-size: 12px;
       font-weight: 700;
-      transition: .2s;
+      transition: transform .2s, background .2s;
     }
 
     .btn-primary {
       background: var(--pink);
       color: white;
-      box-shadow: 0 9px 25px #c84e7030;
+      box-shadow: 0 8px 22px #c6537630;
     }
 
     .btn-primary:hover {
       background: var(--pink-dark);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,.75);
-      border: 1px solid #e4a0ad;
+      border: 1px solid #e7bdc8;
+      background: #ffffffa8;
+      color: var(--ink);
     }
 
-    .btn-secondary:hover { background: white; }
+    .btn-secondary:hover {
+      background: white;
+      transform: translateY(-2px);
+    }
 
     .benefits {
       display: flex;
       flex-wrap: wrap;
-      gap: 18px;
-      margin-top: 28px;
-      color: #826d68;
-      font-size: 12px;
+      gap: 12px 19px;
+      margin-top: 25px;
+      color: #816c72;
+      font-size: 10px;
     }
 
-    .benefits span::first-letter { color: var(--pink); }
+    /* =========================
+       HỘP QUÀ 3D
+    ========================= */
 
-    /* HỘP QUÀ MINH HỌA */
     .visual {
       position: relative;
-      min-height: 490px;
       display: grid;
       place-items: center;
+      min-width: 0;
+      min-height: 510px;
     }
 
     .glow {
       position: absolute;
-      width: 340px;
-      height: 340px;
-      background: #f3b9c4;
+      width: 330px;
+      height: 330px;
       border-radius: 50%;
+      background: #efb4c8;
       filter: blur(65px);
       opacity: .55;
     }
@@ -265,534 +383,689 @@
       z-index: 1;
       width: min(100%, 410px);
       padding: 18px;
-      background: rgba(255,255,255,.77);
       border: 1px solid #fff;
-      border-radius: 24px;
-      box-shadow: 0 25px 65px #9f53612a;
+      border-radius: 25px;
+      background: #fffdfbdc;
+      box-shadow:
+        0 30px 70px #a34c691f,
+        0 7px 18px #a34c6910;
       transform: rotate(2deg);
+      transition: transform .4s;
+    }
+
+    .gift:hover {
+      transform: rotate(0deg) translateY(-5px);
     }
 
     .gift-top {
       display: flex;
       justify-content: space-between;
-      color: #9a7d79;
-      font-size: 10px;
-      letter-spacing: 1.5px;
+      gap: 8px;
+      color: #a18a90;
+      font-size: 9px;
+      letter-spacing: 1.3px;
     }
 
     .gift-art {
       position: relative;
+      min-height: 310px;
       margin-top: 16px;
-      min-height: 300px;
       display: grid;
       place-items: center;
       overflow: hidden;
-      border-radius: 16px;
-      background: linear-gradient(145deg, #f7d9dd, #f2b8c7 55%, #e9cbe5);
+      border: 1px solid #ffffffbd;
+      border-radius: 17px;
+      background:
+        radial-gradient(circle at 50% 40%, #fff9ef 0%, transparent 32%),
+        linear-gradient(145deg, #f8dce2, #efc5dd 60%, #e4d4ef);
     }
 
     .flower {
       position: absolute;
-      font-size: 65px;
-      filter: drop-shadow(0 5px 5px #b15a5a22);
+      z-index: 2;
+      font-size: 57px;
+      filter: drop-shadow(0 7px 6px #9b52621e);
+      animation: flowerSway 4s ease-in-out infinite;
     }
 
-    .flower-one { top: 12px; left: 14px; }
-    .flower-two { top: 18px; right: 14px; }
-    .flower-three { bottom: 10px; left: 18px; font-size: 46px; }
+    .flower-one {
+      top: 12px;
+      left: 12px;
+    }
+
+    .flower-two {
+      top: 18px;
+      right: 12px;
+      animation-delay: .8s;
+    }
+
+    .flower-three {
+      bottom: 9px;
+      left: 15px;
+      font-size: 42px;
+      animation-delay: 1.3s;
+    }
+
+    .flower-four {
+      right: 16px;
+      bottom: 12px;
+      font-size: 43px;
+      animation-delay: .5s;
+    }
+
+    @keyframes flowerSway {
+      0%, 100% { transform: rotate(-4deg); }
+      50% { transform: rotate(5deg); }
+    }
 
     .gift-box {
       position: relative;
-      width: 190px;
-      height: 155px;
+      width: 185px;
+      height: 150px;
       margin-top: 35px;
       display: grid;
       place-items: center;
-      border: 2px solid #e9b6b7;
-      border-radius: 7px;
-      background: linear-gradient(135deg, #fff6ec, #f6d8d3);
-      box-shadow: 0 15px 20px #9d59652a;
+      border: 1px solid #d77b98;
+      border-radius: 5px 5px 12px 12px;
+      background: linear-gradient(135deg, #f6bfd0, #df87a5 68%, #ca6588);
+      box-shadow:
+        0 23px 26px #8e40552b,
+        inset -12px 0 18px #92395716;
+      animation: giftFloat 4s ease-in-out infinite;
     }
 
     .gift-box::before {
       content: "";
       position: absolute;
-      top: -15px;
+      top: -17px;
       left: -9px;
       right: -9px;
-      height: 27px;
+      height: 29px;
+      border: 1px solid #e8adbf;
       border-radius: 5px;
-      background: #fff0e8;
-      border: 2px solid #e8b8b8;
+      background: linear-gradient(180deg, #ffe7eb, #f5cad6);
+      box-shadow: 0 5px 10px #9239571c;
     }
 
     .ribbon-vertical {
       position: absolute;
-      top: -14px;
+      z-index: 1;
+      top: -15px;
       bottom: 0;
-      left: 76px;
-      width: 34px;
-      background: linear-gradient(90deg, #c95376, #e58da1, #bd476c);
+      left: 75px;
+      width: 35px;
+      background: linear-gradient(90deg, #b9446a, #f6c0d0 48%, #cf6285);
+      box-shadow: 2px 0 5px #792b4414;
     }
 
     .bow {
       position: absolute;
-      z-index: 2;
-      top: -49px;
-      left: 54px;
-      width: 43px;
-      height: 36px;
-      border: 10px solid #c95376;
+      z-index: 3;
+      top: -48px;
+      left: 52px;
+      width: 44px;
+      height: 34px;
+      border: 10px solid #c34d73;
       border-radius: 70% 20% 70% 20%;
       transform: rotate(28deg);
+      filter: drop-shadow(0 3px 3px #782b441f);
     }
 
     .bow::after {
       content: "";
       position: absolute;
-      left: 26px;
       top: -8px;
-      width: 43px;
-      height: 36px;
-      border: 10px solid #d96d8a;
+      left: 26px;
+      width: 44px;
+      height: 34px;
+      border: 10px solid #df7d9b;
       border-radius: 20% 70% 20% 70%;
       transform: rotate(-52deg);
     }
 
-    .heart {
+    .gift-message {
+      position: relative;
+      z-index: 2;
+      color: #fff8f5;
+      font-family: "Playfair Display", serif;
+      font-size: 17px;
+      line-height: 1.65;
+      text-align: center;
+      text-shadow: 0 2px 5px #86314e55;
+    }
+
+    .gift-heart {
       position: absolute;
-      top: 46px;
-      right: 12px;
-      color: #bd5574;
+      z-index: 3;
+      top: 42px;
+      right: 10px;
+      color: #fff1f3;
       font-size: 26px;
     }
 
-    .gift-message {
-      position: absolute;
-      z-index: 3;
-      top: 48%;
-      left: 0;
-      right: 0;
-      text-align: center;
-      color: #88505b;
-      font-family: "Playfair Display", serif;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.6;
+    @keyframes giftFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
     }
 
     .gift-caption {
-      padding: 17px 0 5px;
-      text-align: center;
+      padding: 18px 0 5px;
       font-family: "Playfair Display", serif;
-      font-size: 20px;
+      font-size: 19px;
+      font-weight: 600;
+      text-align: center;
     }
 
     .gift-subcaption {
+      padding-bottom: 3px;
+      color: #a18b90;
+      font-size: 9px;
+      letter-spacing: 1.8px;
       text-align: center;
-      color: #9a8580;
-      font-size: 10px;
-      letter-spacing: 2px;
     }
 
     .floating-note {
       position: absolute;
-      z-index: 2;
-      right: -7px;
-      top: 65px;
-      padding: 15px 18px;
-      background: #fffaf5;
+      z-index: 4;
+      top: 52px;
+      right: -12px;
+      max-width: 235px;
+      padding: 14px 16px;
+      border: 1px solid #fff;
       border-radius: 14px;
-      box-shadow: 0 10px 30px #9f536122;
-      transform: rotate(4deg);
-      font-size: 12px;
+      background: #fffaf7;
+      box-shadow: 0 10px 30px #9f53611c;
+      font-size: 10px;
+      line-height: 1.7;
+      transform: rotate(3deg);
     }
 
     .floating-note strong {
       display: block;
-      margin-top: 5px;
+      margin-top: 3px;
+      font-size: 11px;
     }
 
-    /* TRÌNH PHÁT NHẠC */
+    /* =========================
+       TRÌNH PHÁT NHẠC
+    ========================= */
+
     .music-player {
       display: flex;
       align-items: center;
-      gap: 13px;
+      gap: 12px;
       width: fit-content;
       max-width: 100%;
-      margin-top: 28px;
-      padding: 12px 16px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid #ffffff;
-      border-radius: 50px;
-      box-shadow: 0 7px 24px #9f536115;
+      margin-top: 27px;
+      padding: 11px 15px;
+      border: 1px solid #f0d5dd;
+      border-radius: 40px;
+      background: #ffffffbd;
+      box-shadow: 0 8px 25px #a34c6910;
     }
 
     .music-symbol {
-      font-size: 25px;
       color: var(--pink);
+      font-size: 26px;
     }
 
-    .track-info { min-width: 100px; }
+    .track-info {
+      min-width: 105px;
+    }
 
     .track-info strong {
       display: block;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .track-info small {
       display: block;
       margin-top: 3px;
       color: var(--muted);
-      font-size: 10px;
+      font-size: 9px;
     }
 
     .player-button {
-      display: grid;
-      place-items: center;
       width: 35px;
       height: 35px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
       border: 0;
       border-radius: 50%;
       background: var(--pink);
       color: white;
+      font-size: 13px;
+      transition: background .2s;
+    }
+
+    .player-button:hover {
+      background: var(--pink-dark);
     }
 
     .volume {
-      width: 65px;
+      width: 58px;
       accent-color: var(--pink);
+      cursor: pointer;
+    }
+
+    .music-hint {
+      margin-top: 8px;
+      color: #927d83;
+      font-size: 10px;
+    }
+
+    /* =========================
+       PHẦN GIỚI THIỆU BÊN DƯỚI
+    ========================= */
+
+    .intro {
+      padding: 75px 6%;
+      text-align: center;
+      background: #fffaf7;
+    }
+
+    .intro-label {
+      color: var(--pink);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .intro h2 {
+      margin: 15px 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 4vw, 42px);
+    }
+
+    .intro p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .intro-link {
+      display: inline-flex;
+      margin-top: 24px;
+      padding: 13px 23px;
+      border-radius: 30px;
+      background: var(--green);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     footer {
-      padding: 22px;
+      padding: 24px 15px;
+      border-top: 1px solid var(--border);
+      background: #fff8f4;
+      color: var(--muted);
+      font-size: 11px;
       text-align: center;
-      color: #8b7771;
-      font-size: 12px;
     }
 
-    @media (max-width: 1000px) {
-      .navbar { flex-wrap: wrap; }
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1100px) {
+      .navbar {
+        flex-wrap: wrap;
+      }
+
       .nav-links {
         order: 3;
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 17px;
       }
-      .hero-inner { gap: 20px; }
-      .visual { min-height: 430px; }
+
+      .hero-inner {
+        gap: 20px;
+      }
+
+      .floating-note {
+        right: -4px;
+      }
     }
 
-    @media (max-width: 700px) {
-      .navbar { padding: 12px 5%; }
-      .brand-name { font-size: 18px; }
-      .nav-links { font-size: 12px; }
-      .music-toggle { padding: 9px 11px; }
-      .create-btn { padding: 10px 13px; font-size: 12px; }
+    @media (max-width: 760px) {
+      .navbar {
+        padding: 12px 4%;
+        gap: 12px;
+      }
+
+      .brand-icon {
+        width: 39px;
+        height: 39px;
+        font-size: 22px;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .brand-tagline {
+        font-size: 8px;
+      }
+
+      .nav-actions {
+        gap: 6px;
+      }
+
+      .music-toggle {
+        padding: 9px 10px;
+        font-size: 10px;
+      }
+
+      .create-btn {
+        padding: 10px 12px;
+        font-size: 10px;
+      }
+
+      .nav-links {
+        gap: 12px;
+        font-size: 11px;
+      }
 
       .hero-inner {
         grid-template-columns: 1fr;
-        padding: 48px 6% 35px;
-        gap: 15px;
+        min-height: auto;
+        padding: 48px 6% 40px;
+        gap: 20px;
       }
 
-      h1 {
-        font-size: clamp(42px, 11vw, 60px);
+      .hero h1 {
+        font-size: clamp(41px, 10vw, 60px);
         letter-spacing: -1px;
       }
 
-      .hero-description { font-size: 14px; }
-      .visual { min-height: 400px; }
-      .gift { max-width: 350px; }
-      .gift-art { min-height: 260px; }
-      .floating-note { right: -2px; top: 35px; }
-      .benefits { gap: 10px 15px; }
-      .music-player { gap: 9px; padding: 10px 12px; }
-      .volume { width: 48px; }
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .hero-buttons {
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 13px 16px;
+        font-size: 11px;
+      }
+
+      .benefits {
+        gap: 10px 13px;
+      }
+
+      .visual {
+        min-height: 440px;
+      }
+
+      .gift {
+        max-width: 360px;
+      }
+
+      .gift-art {
+        min-height: 290px;
+      }
+
+      .floating-note {
+        top: 20px;
+        right: -3px;
+        max-width: 205px;
+      }
+
+      .music-player {
+        gap: 9px;
+        padding: 10px 12px;
+      }
+
+      .volume {
+        width: 43px;
+      }
+
+      .intro {
+        padding: 55px 6%;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .brand-tagline {
+        letter-spacing: .3px;
+      }
+
+      .music-toggle {
+        font-size: 9px;
+        padding: 9px 8px;
+      }
+
+      .create-btn {
+        padding: 9px 10px;
+        font-size: 9px;
+      }
+
+      .nav-links {
+        gap: 9px;
+        font-size: 10px;
+      }
+
+      .floating-note {
+        max-width: 180px;
+        font-size: 9px;
+      }
+
+      .gift-box {
+        transform: scale(.9);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; }
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
     }
-    
-/* ===== PHONG CÁCH 20/10 LÃNG MẠN ===== */
-:root {
-  --pink: #c65376;
-  --pink-dark: #a83e61;
-  --pink-light: #f8dce2;
-  --cream: #fff8f4;
-  --green: #315642;
-  --ink: #38252d;
-  --muted: #866f76;
-}
-
-body {
-  font-family: "Be Vietnam Pro", sans-serif;
-  background: var(--cream);
-  color: var(--ink);
-}
-
-h1,
-.gift-caption {
-  font-family: "Playfair Display", serif;
-}
-
-.script-title {
-  font-family: "Dancing Script", cursive;
-  color: var(--pink);
-}
-
-/* Nền hồng nhiều lớp */
-.hero {
-  background:
-    radial-gradient(ellipse at 85% 30%, #f7cbd7 0%, transparent 40%),
-    radial-gradient(ellipse at 15% 85%, #ffe6df 0%, transparent 42%),
-    linear-gradient(135deg, #fff9f4, #ffedf0 65%, #f9dfe5);
-}
-
-/* Khung hộp quà */
-.gift {
-  background: rgba(255, 252, 250, .88);
-  border: 1px solid white;
-  border-radius: 28px;
-  box-shadow:
-    0 35px 70px rgba(163, 76, 105, .18),
-    0 8px 20px rgba(163, 76, 105, .08);
-  transform: rotate(2deg);
-  transition: transform .4s ease, box-shadow .4s ease;
-}
-
-.gift:hover {
-  transform: rotate(0deg) translateY(-5px);
-  box-shadow: 0 40px 80px rgba(163, 76, 105, .23);
-}
-
-.gift-art {
-  background:
-    radial-gradient(circle at 50% 25%, #fff7e7 0 7%, transparent 8%),
-    linear-gradient(145deg, #f9d9df, #edc5df 60%, #e3d3f1);
-  border: 1px solid rgba(255,255,255,.8);
-}
-
-/* Hộp quà nổi khối 3D */
-.gift-box {
-  background: linear-gradient(135deg, #f7b5c7, #dc7f9e 65%, #c65c7e);
-  border: 1px solid #d77b98;
-  border-radius: 8px 8px 14px 14px;
-  box-shadow:
-    0 24px 25px rgba(126, 54, 82, .23),
-    inset -10px 0 15px rgba(128, 43, 77, .12);
-  animation: giftFloat 4s ease-in-out infinite;
-}
-
-.gift-box::before {
-  background: linear-gradient(180deg, #fbd8df, #edb4c4);
-  border-color: #e6a1b6;
-  box-shadow: 0 5px 10px rgba(126, 54, 82, .15);
-}
-
-.ribbon-vertical {
-  background: linear-gradient(
-    90deg,
-    #b84368,
-    #f7c6d2 45%,
-    #d75f85
-  );
-  box-shadow: 2px 0 5px rgba(110, 36, 61, .12);
-}
-
-.bow {
-  border-color: #c44d74;
-  filter: drop-shadow(0 3px 3px rgba(120, 40, 70, .15));
-}
-
-.bow::after {
-  border-color: #dc7595;
-}
-
-/* Hoa trang trí */
-.flower {
-  filter: drop-shadow(0 7px 7px rgba(145, 70, 91, .15));
-  animation: flowerSway 4s ease-in-out infinite;
-}
-
-.flower-two { animation-delay: .8s; }
-.flower-three { animation-delay: 1.4s; }
-
-@keyframes giftFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-@keyframes flowerSway {
-  0%, 100% { transform: rotate(-4deg); }
-  50% { transform: rotate(5deg); }
-}
-
-/* Trình phát nhạc */
-.music-player {
-  border: 1px solid #f0d5dd;
-  background: rgba(255, 255, 255, .8);
-  box-shadow: 0 10px 28px rgba(163, 76, 105, .09);
-}
-
-.player-button {
-  background: var(--pink);
-  box-shadow: 0 4px 12px rgba(198, 83, 118, .25);
-}
-
-.player-button:hover {
-  background: var(--pink-dark);
-}
-
-.volume {
-  accent-color: var(--pink);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gift-box,
-  .flower {
-    animation: none;
-  }
-}
-
   </style>
 </head>
 
 <body>
 
-  <!-- THANH MENU -->
+  <!-- =========================
+       MENU CHÍNH
+  ========================= -->
+
   <header class="navbar">
     <a href="./trang-chu.html" class="brand">
-      <span class="brand-icon">✦</span>
+      <span class="brand-icon">✧</span>
       <span>
         <span class="brand-name">Úm BA LA</span>
-        <span class="brand-sub">QUÀ KỶ NIỆM SỐ ĐA DỊP</span>
+        <span class="brand-tagline">QUÀ KỶ NIỆM SỐ ĐA DỊP</span>
       </span>
     </a>
 
-    <nav class="nav-links">
+    <nav class="nav-links" aria-label="Menu chính">
       <a href="./trang-chu.html">Trang chủ</a>
-      <a href="./index.html#occasionSection">🎁 Dịp lễ</a>
+      <a href="./index.html#occasionSection">Dịp lễ</a>
       <a href="./index.html#experienceFlow">Trải nghiệm</a>
       <a href="./index.html#pricing">Bảng giá</a>
       <a href="./index.html#whyUs">Ưu thế</a>
     </nav>
 
-    <div style="display:flex;align-items:center;gap:10px">
-      <button class="music-toggle" id="musicToggle" type="button">
+    <div class="nav-actions">
+      <button
+        class="music-toggle"
+        id="musicToggle"
+        type="button"
+        aria-label="Bật hoặc tắt nhạc nền"
+        aria-pressed="false">
         ♫ Nhạc: Tắt
       </button>
-      <a href="./index.html" class="create-btn">✦ Tạo Hộp Quà</a>
+
+      <a href="./index.html" class="create-btn">
+        ✨ Tạo Hộp Quà
+      </a>
     </div>
   </header>
 
-  <!-- BANNER 20/10 -->
+  <!-- =========================
+       BANNER 20/10
+  ========================= -->
+
   <main>
     <section class="hero" id="hero">
+      <div class="petals" aria-hidden="true">
+        <span class="petal">✿</span>
+        <span class="petal">♡</span>
+        <span class="petal">✧</span>
+        <span class="petal">❀</span>
+      </div>
+
       <div class="hero-inner">
 
+        <!-- NỘI DUNG BÊN TRÁI -->
+
         <div class="hero-copy">
-          <div class="eyebrow">✦ &nbsp; ĐẶC BIỆT: NGÀY 20/10</div>
+          <div class="eyebrow">
+            🌹 ĐẶC BIỆT · NGÀY PHỤ NỮ VIỆT NAM 20/10
+          </div>
 
           <h1>
-            Gửi yêu thương
+            Gửi trọn yêu thương
             <span class="script-title">qua từng khoảnh khắc ♡</span>
             đặc biệt.
           </h1>
 
           <p class="hero-description">
-            Nhân dịp 20/10, hãy trao gửi những lời yêu thương theo cách thật
-            đặc biệt với một hộp quà số độc bản — nơi những ký ức, lời nhắn
-            và cảm xúc được lưu giữ trọn vẹn.
+            Có những lời yêu thương đôi khi thật khó nói thành lời.
+            Nhân ngày 20/10, hãy tạo một hộp quà số độc bản để gửi gắm
+            những lời chúc, kỷ niệm và cảm xúc chân thành đến người
+            phụ nữ mà bạn trân quý.
           </p>
 
           <div class="hero-buttons">
             <a href="./index.html" class="btn btn-primary">
-              🎁 Tự tạo quà trong 2 phút →
+              🎁 Tự tạo quà ngay
+              <span>→</span>
             </a>
+
             <a href="./index.html#experienceFlow" class="btn btn-secondary">
               Khám phá trải nghiệm
             </a>
           </div>
 
           <div class="benefits">
-            <span>✓ Kích hoạt đúng 00:00</span>
-            <span>✓ 10 dịp đặc biệt</span>
-            <span>✓ Chia sẻ bằng một đường link</span>
+            <span>♡ Cá nhân hóa món quà</span>
+            <span>♡ Lưu giữ kỷ niệm</span>
+            <span>♡ Chia sẻ bằng đường link</span>
           </div>
 
           <!-- TRÌNH PHÁT NHẠC -->
+
           <div class="music-player">
-            <span class="music-symbol">♫</span>
+            <span class="music-symbol" aria-hidden="true">♫</span>
+
             <div class="track-info">
-              <strong id="trackName">Nhạc nền 20/10</strong>
-              <small id="trackStatus">Nhấn nút để phát nhạc</small>
+              <strong>Melody of Love</strong>
+              <small id="trackStatus" aria-live="polite">
+                Piano nhẹ nhàng · Nhấn để phát
+              </small>
             </div>
 
-            <button class="player-button" id="playButton"
-                    type="button" aria-label="Phát hoặc tạm dừng nhạc">
+            <button
+              class="player-button"
+              id="playButton"
+              type="button"
+              aria-label="Phát nhạc"
+              title="Phát hoặc tạm dừng">
               ▶
             </button>
 
-            <input class="volume" id="volumeControl" type="range"
-                   min="0" max="1" step="0.05" value="0.6"
-                   aria-label="Âm lượng">
+            <input
+              class="volume"
+              id="volumeControl"
+              type="range"
+              min="0"
+              max="1"
+              step="0.05"
+              value="0.6"
+              aria-label="Điều chỉnh âm lượng">
           </div>
 
-          <p style="font-size:11px;color:#8b7771;margin-top:8px">
-            ♪ Bạn có thể thêm bản nhạc yêu thích của mình.
+          <p class="music-hint">
+            ♪ Bật một chút piano để khoảnh khắc thêm dịu dàng.
           </p>
         </div>
 
-        <!-- HỘP QUÀ TRANG TRÍ -->
+        <!-- HỘP QUÀ VÀ HOA BÊN PHẢI -->
+
         <div class="visual">
-      
-<!-- HỘP QUÀ 3D VÀ HOA HỒNG -->
-<div class="visual">
-  <div class="glow"></div>
+          <div class="glow"></div>
 
-  <div class="gift">
-    <div class="gift-top">
-      <span>ÚM BA LA · CAPSULE</span>
-      <span>№ 2010</span>
-    </div>
+          <div class="gift">
+            <div class="gift-top">
+              <span>ÚM BA LA · CAPSULE</span>
+              <span>№ 2010</span>
+            </div>
 
-    <div class="gift-art">
-      <span class="flower flower-one">🌹</span>
-      <span class="flower flower-two">🌷</span>
-      <span class="flower flower-three">🌸</span>
+            <div class="gift-art">
+              <span class="flower flower-one" aria-hidden="true">🌹</span>
+              <span class="flower flower-two" aria-hidden="true">🌷</span>
+              <span class="flower flower-three" aria-hidden="true">🌸</span>
+              <span class="flower flower-four" aria-hidden="true">🌺</span>
 
-      <div class="gift-box">
-        <div class="ribbon-vertical"></div>
-        <div class="bow"></div>
-        <span class="heart">♡</span>
+              <div class="gift-box">
+                <div class="ribbon-vertical"></div>
+                <div class="bow"></div>
+                <span class="gift-heart">♡</span>
 
-        <div class="gift-message">
-          Happy<br>
-          Women's Day<br>
-          20/10
+                <div class="gift-message">
+                  Happy<br>
+                  Women's Day<br>
+                  20/10
+                </div>
+              </div>
+            </div>
+
+            <div class="gift-caption">
+              Một món quà dành riêng cho bạn ♡
+            </div>
+
+            <div class="gift-subcaption">
+              MADE WITH LOVE · OPEN WITH JOY
+            </div>
+          </div>
+
+          <div class="floating-note">
+            💌 Gửi người phụ nữ tuyệt vời
+            <strong>Cảm ơn vì đã luôn là chính mình ♡</strong>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="gift-caption">
-      Một món quà dành riêng cho bạn ♡
-    </div>
-
-    <div class="gift-subcaption">
-      MADE WITH LOVE · OPEN WITH JOY
-    </div>
-  </div>
-
-  <div class="floating-note">
-    💌 Gửi người phụ nữ tuyệt vời
-    <strong>Cảm ơn vì đã luôn là chính mình ♡</strong>
-  </div>
-</div>
 
       </div>
+    </section>
+
+    <!-- PHẦN GIỚI THIỆU -->
+
+    <section class="intro" id="about">
+      <div class="intro-label">A LITTLE BOX OF LOVE</div>
+
+      <h2>Món quà nhỏ, cảm xúc lớn</h2>
+
+      <p>
+        Không chỉ là một món quà, đó còn là nơi cất giữ những lời chúc,
+        những tấm hình và những kỷ niệm đáng nhớ. Hãy tự tay tạo nên
+        một trải nghiệm riêng dành cho người bạn yêu thương.
+      </p>
+
+      <a href="./index.html" class="intro-link">
+        Bắt đầu tạo hộp quà ✨
+      </a>
     </section>
   </main>
 
@@ -801,12 +1074,23 @@ h1,
   </footer>
 
   <!--
-    ĐẶT FILE NHẠC MP3 TÊN music.mp3 CÙNG THƯ MỤC VỚI FILE HTML.
-    Sau đó trình phát nhạc sẽ sử dụng file này.
+    FILE NHẠC:
+    Tải file piano MP3 có quyền sử dụng lên cùng thư mục.
+    Đặt tên chính xác: music.mp3
   -->
-  <audio id="bgMusic" src="./music.mp3" loop preload="none"></audio>
+
+  <audio
+    id="bgMusic"
+    src="./music.mp3"
+    loop
+    preload="none">
+  </audio>
 
   <script>
+    /* =========================
+       ĐIỀU KHIỂN NHẠC NỀN
+    ========================= */
+
     const music = document.getElementById("bgMusic");
     const musicToggle = document.getElementById("musicToggle");
     const playButton = document.getElementById("playButton");
@@ -817,9 +1101,30 @@ h1,
 
     function updateMusicUI() {
       const playing = !music.paused;
-      musicToggle.textContent = playing ? "♫ Nhạc: Bật ❚❚" : "♫ Nhạc: Tắt";
+
+      musicToggle.textContent = playing
+        ? "♫ Nhạc: Bật"
+        : "♫ Nhạc: Tắt";
+
+      musicToggle.setAttribute(
+        "aria-pressed",
+        String(playing)
+      );
+
       playButton.textContent = playing ? "Ⅱ" : "▶";
-      trackStatus.textContent = playing ? "Đang phát nhạc nền" : "Nhấn nút để phát nhạc";
+
+      playButton.setAttribute(
+        "aria-label",
+        playing ? "Tạm dừng nhạc" : "Phát nhạc"
+      );
+
+      if (playing) {
+        trackStatus.textContent = "Đang phát piano nhẹ nhàng";
+      } else if (music.error) {
+        trackStatus.textContent = "Không tìm thấy file nhạc";
+      } else {
+        trackStatus.textContent = "Piano nhẹ nhàng · Nhấn để phát";
+      }
     }
 
     async function toggleMusic() {
@@ -827,11 +1132,13 @@ h1,
         try {
           await music.play();
         } catch (error) {
-          trackStatus.textContent = "Hãy thêm file music.mp3 vào repository";
+          trackStatus.textContent =
+            "Kiểm tra file music.mp3 và thử lại";
         }
       } else {
         music.pause();
       }
+
       updateMusicUI();
     }
 
@@ -844,10 +1151,15 @@ h1,
 
     music.addEventListener("play", updateMusicUI);
     music.addEventListener("pause", updateMusicUI);
+
     music.addEventListener("error", function () {
-      trackStatus.textContent = "Chưa tìm thấy file music.mp3";
+      trackStatus.textContent =
+        "Chưa có file music.mp3 hoặc đường dẫn bị lỗi";
+
       updateMusicUI();
     });
+
+    updateMusicUI();
   </script>
 
 </body>
