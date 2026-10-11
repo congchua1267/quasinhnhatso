@@ -316,7 +316,7 @@
     }
 
     /* =========================
-       HỘP QUÀ TRANG TRÍ & HIỆU ỨNG MỞ QUÀ TUNG TÓE
+       HỘP QUÀ TRANG TRÍ & HIỆU ỨNG HIỆN BÓ HOA
     ========================= */
 
     .hero-art {
@@ -359,6 +359,7 @@
       background: linear-gradient(130deg, #f6a1c0, #e97ba6);
       border-radius: 0 0 12px 12px;
       overflow: hidden;
+      z-index: 2;
     }
 
     .gift-ribbon {
@@ -430,9 +431,28 @@
       text-shadow: 0 4px 5px rgba(183, 133, 41, 0.1);
     }
 
+    /* BÓ HOA BÊN TRONG HỘP QUÀ */
+    .gift-bouquet {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%) scale(0.2);
+      opacity: 0;
+      z-index: 1;
+      font-size: 85px;
+      transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      filter: drop-shadow(0 8px 15px rgba(216, 93, 140, 0.3));
+    }
+
     /* Khi mở nắp hộp */
     .gift-box.open .gift-lid-group {
-      transform: translateY(-75px) rotate(-35deg);
+      transform: translateY(-85px) rotate(-40deg);
+    }
+
+    .gift-box.open .gift-bouquet {
+      transform: translateX(-50%) translateY(-95px) scale(1.1);
+      opacity: 1;
     }
 
     .gift-caption {
@@ -973,6 +993,9 @@
 
           <div class="gift-circle">
             <div class="gift-box" id="giftBox" onclick="openGiftBox(event)">
+              <!-- Bó hoa tươi sẽ trồi lên từ hộp quà -->
+              <div class="gift-bouquet">💐</div>
+
               <div class="gift-body">
                 <div class="gift-ribbon"></div>
                 <div class="gift-heart">♥</div>
