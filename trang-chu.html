@@ -887,4 +887,366 @@
       }
 
       .section {
-        padding: 65px
+        padding: 65px 6%;
+      }
+
+      .experience-grid,
+      .advantages {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-card {
+        padding: 25px;
+      }
+
+      .occasion-panel {
+        padding: 26px;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .occasion-panel h3 {
+        font-size: 23px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- THANH MENU -->
+  <header class="topbar" id="top">
+    <a class="brand" href="#top" aria-label="Úm ba la - Trang chủ">
+      <span class="brand-icon">✦</span>
+      <span class="brand-text">
+        <span class="brand-name">
+          Úm <span class="brand-badge">BA LA</span>
+        </span>
+        <span class="brand-tag">QUÀ KỶ NIỆM SỐ ĐA DỊP</span>
+      </span>
+    </a>
+
+    <div class="nav-right">
+      <button
+        class="nav-music"
+        id="navMusicBtn"
+        type="button"
+        aria-label="Bật hoặc tắt nhạc"
+        onclick="toggleAudio()"
+      >
+        🎵 <span id="navMusicText">Nhạc: Tắt</span>
+      </button>
+
+      <div class="nav-actions">
+        <a class="nav-pill active" href="#trai-nghiem">Người Nhận</a>
+        <a class="nav-pill" href="./index.html">Studio Tạo Quà</a>
+      </div>
+
+      <a class="nav-create" href="./index.html">✨ Tạo Hộp Quà</a>
+    </div>
+  </header>
+
+  <!-- NHẠC NỀN -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- BANNER 20/10 -->
+  <main>
+    <section class="hero" id="loi-chuc">
+      <span class="decor flower-left decor">✿</span>
+      <span class="decor decor-heart heart-one">♥</span>
+      <span class="decor decor-flower flower-right">✿</span>
+
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-label">
+            🌷 20 THÁNG 10 · NGÀY CỦA YÊU THƯƠNG
+          </div>
+
+          <h1>
+            Gửi ngàn<br>
+            <em>yêu thương</em><br>
+            đến nàng
+          </h1>
+
+          <p class="hero-description">
+            Một chút ngọt ngào, một chút dịu dàng và thật nhiều yêu thương.
+            Chúc những người phụ nữ tuyệt vời luôn xinh đẹp, hạnh phúc
+            và được trân trọng mỗi ngày.
+          </p>
+
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="./index.html">
+              ✨ Trải nghiệm ngay
+            </a>
+          </div>
+
+          <p class="hero-note">
+            ✨ Dành tặng bạn — người xứng đáng với những điều đẹp đẽ nhất.
+          </p>
+        </div>
+
+        <div class="hero-art" aria-label="Hộp quà màu hồng">
+          <span class="decor decor-heart" style="top:12%;left:8%;">♥</span>
+          <span class="decor decor-heart" style="top:18%;right:3%;font-size:20px;">♡</span>
+          <span class="decor decor-flower" style="top:16%;right:-7%;font-size:30px;">❀</span>
+          <span class="decor decor-flower flower-small">✿</span>
+          <span class="decor decor-heart heart-three">♥</span>
+
+          <div class="gift-circle">
+            <div class="gift-box" id="giftBox" onclick="openGiftBox(event)">
+              
+              <!-- FILE "bá khí.webp" ĐÃ ĐƯỢC CHÈN VÀO ĐÂY -->
+              <div class="surprise-card">
+                <img src="bá khí.webp" alt="Bá khí">
+              </div>
+
+              <div class="gift-body">
+                <div class="gift-ribbon"></div>
+                <div class="gift-heart">♥</div>
+              </div>
+
+              <div class="gift-lid-group">
+                <div class="gift-lid"></div>
+                <div class="gift-lid-ribbon"></div>
+                <div class="gift-bow">♡</div>
+              </div>
+
+              <div class="gift-caption">A little gift, a lot of love ♡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 CHẶNG TRẢI NGHIỆM -->
+    <section class="section" id="trai-nghiem">
+      <div class="section-heading">
+        <div class="section-kicker">YOUR LITTLE SURPRISE</div>
+        <h2>Ba chặng, một món quà yêu thương</h2>
+        <p>
+          Bắt đầu hành trình tạo nên món quà số của riêng bạn.
+          Mỗi chi tiết nhỏ đều có thể trở thành một kỷ niệm đáng nhớ.
+        </p>
+      </div>
+
+      <div class="experience-grid">
+        <article class="experience-card">
+          <div class="card-icon">💌</div>
+          <h3>01. Gửi lời yêu thương</h3>
+          <p>
+            Chọn những lời chúc ngọt ngào để gửi đến người bạn trân quý
+            trong dịp đặc biệt.
+          </p>
+          <a class="card-link" href="./index.html">Bắt đầu khám phá →</a>
+        </article>
+
+        <article class="experience-card">
+          <div class="card-icon">🎁</div>
+          <h3>02. Tạo hộp quà</h3>
+          <p>
+            Khám phá trải nghiệm tạo quà số và biến thông điệp của bạn
+            thành một bất ngờ thật riêng.
+          </p>
+          <a class="card-link" href="./index.html">Tạo món quà →</a>
+        </article>
+
+        <article class="experience-card">
+          <div class="card-icon">💗</div>
+          <h3>03. Trao kỷ niệm</h3>
+          <p>
+            Hoàn thiện món quà và chia sẻ niềm vui đến người nhận
+            theo cách thật đặc biệt.
+          </p>
+          <a class="card-link" href="./index.html">Khám phá ngay →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- DỊP LỄ -->
+    <section class="section occasion-section">
+      <div class="section-heading">
+        <div class="section-kicker">EVERY MOMENT MATTERS</div>
+        <h2>Mỗi dịp lễ, một cách yêu thương</h2>
+        <p>
+          Không cần món quà quá lớn. Đôi khi, một lời chúc đúng lúc
+          cũng khiến một ngày trở nên thật đặc biệt.
+        </p>
+      </div>
+
+      <div class="occasion-panel">
+        <div>
+          <h3>Tháng 10 — tháng của nàng 🌷</h3>
+          <p>
+            Gửi lời chúc đến mẹ, chị, em gái, bạn thân hoặc người đặc biệt
+            của bạn. Hãy để những điều nhỏ bé nói thay tình cảm chân thành.
+          </p>
+          <div style="margin-top:20px;">
+            <a class="btn btn-primary" href="./index.html">✨ Trải nghiệm ngay</a>
+          </div>
+        </div>
+        <div class="occasion-emoji">🌸🎀💝</div>
+      </div>
+    </section>
+
+    <!-- BẢNG GIÁ -->
+    <section class="section" id="bang-gia">
+      <div class="section-heading">
+        <div class="section-kicker">SIMPLE & MEANINGFUL</div>
+        <h2>Món quà mang dấu ấn riêng</h2>
+        <p>
+          Khám phá các lựa chọn trong Studio để tìm trải nghiệm phù hợp
+          với điều bạn muốn gửi gắm.
+        </p>
+      </div>
+
+      <div style="text-align:center;">
+        <a class="btn btn-primary" href="./index.html">🎁 Khám phá Studio Tạo Quà</a>
+      </div>
+    </section>
+
+    <!-- ƯU THẾ -->
+    <section class="section occasion-section" id="uu-the">
+      <div class="section-heading">
+        <div class="section-kicker">WHY ÚM?</div>
+        <h2>Điều đặc biệt nằm trong từng chi tiết</h2>
+        <p>
+          Một không gian nhỏ để bạn gửi đi những tình cảm lớn.
+        </p>
+      </div>
+
+      <div class="advantages">
+        <article class="advantage">
+          <span>💌</span>
+          <h3>Cá nhân hóa</h3>
+          <p>Tạo trải nghiệm mang dấu ấn và thông điệp của riêng bạn.</p>
+        </article>
+
+        <article class="advantage">
+          <span>🎀</span>
+          <h3>Ngọt ngào</h3>
+          <p>Phong cách nhẹ nhàng, lãng mạn cho những dịp đáng nhớ.</p>
+        </article>
+
+        <article class="advantage">
+          <span>💗</span>
+          <h3>Lưu giữ kỷ niệm</h3>
+          <p>Biến lời chúc và tình cảm thành một món quà ý nghĩa.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- CHÂN TRANG -->
+  <footer>
+    <p><strong>Úm — Quà kỷ niệm số đa dịp</strong></p>
+    <p>Gửi một chút ngọt ngào, lưu giữ thật nhiều yêu thương. ♡</p>
+    <p>Made with love 🌷</p>
+  </footer>
+
+  <!-- SCRIPT ĐIỀU KHIỂN NHẠC VÀ HỘP QUÀ TUNG TÓE -->
+  <script>
+    // --- BẬT / TẮT NHẠC ---
+    const bgMusic = document.getElementById("bgMusic");
+    const navMusicText = document.getElementById("navMusicText");
+    const navMusicBtn = document.getElementById("navMusicBtn");
+
+    let isPlaying = false;
+
+    function updateMusicUI(playing) {
+      isPlaying = playing;
+      navMusicText.textContent = playing ? "Nhạc: Bật" : "Nhạc: Tắt";
+      navMusicBtn.setAttribute("aria-label", playing ? "Tắt nhạc" : "Bật nhạc");
+      navMusicBtn.style.background = playing ? "#edf3ec" : "#fffdfa";
+    }
+
+    async function toggleAudio() {
+      if (bgMusic.paused) {
+        try {
+          await bgMusic.play();
+          updateMusicUI(true);
+        } catch (error) {
+          updateMusicUI(false);
+          alert(
+            "Chưa phát được nhạc. Bạn hãy kiểm tra file music.mp3 đã được tải lên cùng thư mục với trang-chu.html chưa nhé!"
+          );
+        }
+      } else {
+        bgMusic.pause();
+        updateMusicUI(false);
+      }
+    }
+
+    bgMusic.addEventListener("play", () => updateMusicUI(true));
+    bgMusic.addEventListener("pause", () => updateMusicUI(false));
+    bgMusic.addEventListener("ended", () => updateMusicUI(false));
+
+    updateMusicUI(false);
+
+    // --- HIỆU ỨNG MỞ HỘP QUÀ TUNG TÓE HOA ---
+    const flowers = ['🌸', '🌷', '🌹', '🌺', '🌼', '💖', '💗', '✨', '💐', '🎀'];
+
+    function openGiftBox(e) {
+      const box = document.getElementById("giftBox");
+      
+      // Bật/tắt mở nắp hộp quà
+      box.classList.toggle("open");
+
+      // Bật nhạc tự động khi nhấp mở quà
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => updateMusicUI(true)).catch(() => {});
+      }
+
+      // Tạo hoa bay tung tóe mỗi lần bấm mở quà
+      if (box.classList.contains("open")) {
+        const rect = box.getBoundingClientRect();
+        const startX = rect.left + rect.width / 2;
+        const startY = rect.top + 30;
+
+        for (let i = 0; i < 35; i++) {
+          createParticle(startX, startY);
+        }
+      }
+    }
+
+    function createParticle(x, y) {
+      const p = document.createElement("div");
+      p.className = "flower-particle";
+      p.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+
+      p.style.left = x + "px";
+      p.style.top = y + "px";
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 120 + Math.random() * 220;
+
+      const dx = Math.cos(angle) * distance + "px";
+      const dy = Math.sin(angle) * distance - (50 + Math.random() * 80) + "px";
+      const scale = (0.7 + Math.random() * 0.9).toFixed(2);
+      const rot = (Math.random() * 360 - 180) + "deg";
+
+      p.style.setProperty("--dx", dx);
+      p.style.setProperty("--dy", dy);
+      p.style.setProperty("--scale", scale);
+      p.style.setProperty("--rot", rot);
+
+      document.body.appendChild(p);
+
+      setTimeout(() => {
+        p.remove();
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
