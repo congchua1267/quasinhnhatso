@@ -2,1192 +2,1301 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Úm – Quà kỷ niệm số đa dịp | 20/10</title>
-  <meta name="description" content="Gửi yêu thương qua những món quà số ngọt ngào dành cho ngày 20/10.">
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap');
-
-    :root {
-      --green: #405b4d;
-      --green-dark: #2f493b;
-      --cream: #faf8f3;
-      --cream-dark: #eee9df;
-      --pink: #ec79a4;
-      --pink-dark: #b64d76;
-      --pink-light: #fff0f5;
-      --text: #6d5960;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 85px;
-    }
-
-    body {
-      font-family: "DM Sans", sans-serif;
-      color: var(--text);
-      background: #fffafa;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    /* =========================
-       THANH MENU PHÍA TRÊN
-    ========================= */
-
-    .topbar {
-      width: 100%;
-      min-height: 70px;
-      padding: 10px 7.8%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(250, 248, 243, 0.97);
-      border-bottom: 1px solid #e9e4da;
-      box-shadow: 0 2px 12px rgba(53, 64, 51, 0.04);
-      backdrop-filter: blur(12px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .brand-icon {
-      width: 41px;
-      height: 41px;
-      border-radius: 50%;
-      background: var(--green);
-      color: white;
-      display: grid;
-      place-items: center;
-      font-size: 23px;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .brand-name {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: "Playfair Display", Georgia, serif;
-      color: #302f2a;
-      font-size: 24px;
-      font-weight: 800;
-      line-height: 1;
-    }
-
-    .brand-tag {
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 1.1px;
-      color: #77756a;
-      white-space: nowrap;
-    }
-
-    .brand-tag span {
-      display: inline-block;
-      padding: 2px 5px;
-      margin-left: 2px;
-      border-radius: 4px;
-      background: #e9e4d8;
-      letter-spacing: 0;
-    }
-
-    .main-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 25px;
-    }
-
-    .main-nav a {
-      font-size: 12px;
-      font-weight: 600;
-      color: #514f48;
-      white-space: nowrap;
-      transition: color 0.2s;
-    }
-
-    .main-nav a:hover {
-      color: var(--green);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .nav-music {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      border: 1px solid #e9e4dc;
-      border-radius: 30px;
-      padding: 10px 14px;
-      background: #fffdfa;
-      color: #55534c;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: 0.2s;
-    }
-
-    .nav-music:hover {
-      border-color: #b7c4b8;
-      background: #f4f6f0;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      padding: 5px;
-      border-radius: 30px;
-      background: #eeeae2;
-    }
-
-    .nav-pill {
-      display: inline-block;
-      padding: 10px 12px;
-      border-radius: 25px;
-      font-size: 11px;
-      font-weight: 600;
-      white-space: nowrap;
-      color: #68665e;
-      transition: 0.2s;
-    }
-
-    .nav-pill.active,
-    .nav-pill:hover {
-      background: #fffdfa;
-      color: var(--green);
-    }
-
-    .nav-create {
-      padding: 12px 16px;
-      border-radius: 30px;
-      background: var(--green);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: 0.25s;
-    }
-
-    .nav-create:hover {
-      background: var(--green-dark);
-      transform: translateY(-1px);
-    }
-
-    /* =========================
-       BANNER 20/10
-    ========================= */
-
-    .hero {
-      min-height: 670px;
-      position: relative;
-      isolation: isolate;
-      display: flex;
-      align-items: center;
-      padding: 65px 9%;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse at 77% 40%, rgba(255, 218, 231, 0.93), transparent 43%),
-        radial-gradient(ellipse at 30% 95%, rgba(255, 224, 235, 0.9), transparent 48%),
-        linear-gradient(135deg, #fffdfd 0%, #fff3f7 50%, #ffe3ed 100%);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        radial-gradient(circle at 12% 22%, rgba(255,255,255,.9) 0 2px, transparent 3px),
-        radial-gradient(circle at 72% 20%, rgba(255,255,255,.8) 0 2px, transparent 3px),
-        radial-gradient(circle at 88% 76%, rgba(255,255,255,.9) 0 3px, transparent 4px);
-      background-size: 90px 90px, 120px 120px, 150px 150px;
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      width: 100%;
-      max-width: 1250px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      align-items: center;
-      gap: 35px;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 10px 18px;
-      border: 1px solid #ffc6d9;
-      border-radius: 30px;
-      color: #d85d8b;
-      background: rgba(255, 255, 255, 0.72);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      margin-bottom: 28px;
-    }
-
-    .hero h1 {
-      font-family: "Playfair Display", Georgia, serif;
-      color: #a7476e;
-      font-size: clamp(49px, 5.2vw, 77px);
-      line-height: 1.08;
-      letter-spacing: -2px;
-      margin-bottom: 22px;
-      font-weight: 800;
-    }
-
-    .hero h1 em {
-      color: #ed78a4;
-      font-weight: 600;
-    }
-
-    .hero-description {
-      max-width: 460px;
-      color: #a47788;
-      font-size: 15px;
-      line-height: 2;
-      margin-bottom: 28px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      padding: 15px 23px;
-      border-radius: 32px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, #f18ab0, #d65d8c);
-      box-shadow: 0 9px 23px rgba(216, 93, 140, 0.2);
-    }
-
-    .btn-secondary {
-      color: #bf4d7b;
-      background: rgba(255, 255, 255, 0.76);
-      border-color: #ffc0d6;
-    }
-
-    .hero-note {
-      margin-top: 24px;
-      color: #c291a2;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    /* =========================
-       HỘP QUÀ TRANG TRÍ
-    ========================= */
-
-    .hero-art {
-      min-height: 440px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .gift-circle {
-      width: min(330px, 76vw);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.77);
-      box-shadow: 0 30px 70px rgba(200, 105, 142, 0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      animation: floatGift 4s ease-in-out infinite;
-    }
-
-    .gift-box {
-      width: 210px;
-      height: 155px;
-      position: relative;
-      margin-top: 50px;
-      filter: drop-shadow(0 17px 13px rgba(170, 65, 108, 0.12));
-    }
-
-    .gift-body {
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      top: 15px;
-      bottom: 0;
-      background: linear-gradient(130deg, #f6a1c0, #e97ba6);
-      border-radius: 0 0 12px 12px;
-      overflow: hidden;
-    }
-
-    .gift-ribbon {
-      position: absolute;
-      z-index: 2;
-      width: 45px;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, #fff0a9, #ffe7a0);
-    }
-
-    .gift-lid {
-      position: absolute;
-      z-index: 3;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 36px;
-      border-radius: 7px;
-      background: linear-gradient(100deg, #f99cbd, #e66e9d);
-      box-shadow: 0 7px 9px rgba(171, 64, 106, 0.12);
-      transform: rotate(-2deg);
-    }
-
-    .gift-lid-ribbon {
-      position: absolute;
-      z-index: 4;
-      width: 45px;
-      height: 36px;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #ffecaa;
-    }
-
-    .gift-heart {
-      position: absolute;
-      z-index: 5;
-      left: 50%;
-      top: 56px;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 21px;
-    }
-
-    .gift-bow {
-      position: absolute;
-      z-index: 6;
-      top: -38px;
-      left: 50%;
-      color: #f8c75d;
-      font-size: 85px;
-      font-family: Georgia, serif;
-      font-weight: bold;
-      line-height: 1;
-      transform: translateX(-32%) rotate(-23deg);
-      text-shadow: 0 4px 5px rgba(183, 133, 41, 0.1);
-    }
-
-    .gift-caption {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -43px;
-      text-align: center;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 17px;
-      font-style: italic;
-      color: #bf728f;
-      white-space: nowrap;
-    }
-
-    .decor {
-      position: absolute;
-      user-select: none;
-      pointer-events: none;
-      animation: floatDecor 4s ease-in-out infinite;
-    }
-
-    .decor-heart {
-      font-size: 25px;
-      color: #e78aab;
-    }
-
-    .decor-flower {
-      font-size: 35px;
-      color: #e99ab6;
-    }
-
-    .flower-left {
-      top: 11%;
-      left: 3.5%;
-      font-size: 78px;
-      color: #f8e2eb;
-    }
-
-    .flower-right {
-      bottom: 8%;
-      right: 4%;
-      font-size: 90px;
-      color: #f8cddd;
-    }
-
-    .heart-one {
-      top: 27%;
-      left: 5%;
-    }
-
-    .heart-two {
-      top: 23%;
-      right: 12%;
-      font-size: 20px;
-    }
-
-    .heart-three {
-      bottom: 26%;
-      right: 17%;
-    }
-
-    .flower-small {
-      bottom: 29%;
-      left: 5%;
-    }
-
-    @keyframes floatGift {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-11px); }
-    }
-
-    @keyframes floatDecor {
-      0%, 100% { translate: 0 0; }
-      50% { translate: 0 -10px; }
-    }
-
-    /* =========================
-       PHẦN GIỚI THIỆU TRẢI NGHIỆM
-    ========================= */
-
-    .section {
-      padding: 85px 8%;
-      scroll-margin-top: 85px;
-    }
-
-    .section-heading {
-      max-width: 680px;
-      margin: 0 auto 42px;
-      text-align: center;
-    }
-
-    .section-kicker {
-      color: #d96b95;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 13px;
-    }
-
-    .section-heading h2 {
-      font-family: "Playfair Display", Georgia, serif;
-      color: #a7476e;
-      font-size: clamp(30px, 4vw, 43px);
-      margin-bottom: 14px;
-    }
-
-    .section-heading p {
-      color: #987a85;
-      font-size: 14px;
-      line-height: 1.9;
-    }
-
-    .experience-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .experience-card {
-      padding: 30px 25px;
-      background: white;
-      border: 1px solid #f5e4ea;
-      border-radius: 22px;
-      box-shadow: 0 8px 30px rgba(150, 89, 112, 0.055);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-
-    .experience-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 35px rgba(150, 89, 112, 0.1);
-    }
-
-    .card-icon {
-      width: 54px;
-      height: 54px;
-      display: grid;
-      place-items: center;
-      border-radius: 17px;
-      background: #fff0f5;
-      font-size: 25px;
-      margin-bottom: 20px;
-    }
-
-    .experience-card h3 {
-      color: #a7476e;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 21px;
-      margin-bottom: 12px;
-    }
-
-    .experience-card p {
-      font-size: 13px;
-      color: #987d86;
-      line-height: 1.9;
-      margin-bottom: 20px;
-    }
-
-    .card-link {
-      display: inline-block;
-      color: #c65380;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    /* =========================
-       DỊP LỄ / ƯU THẾ
-    ========================= */
-
-    .occasion-section {
-      background: linear-gradient(135deg, #fff5f8, #fffdfb);
-    }
-
-    .occasion-panel {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-      padding: 38px;
-      background: white;
-      border: 1px solid #f4e3e9;
-      border-radius: 25px;
-      box-shadow: 0 10px 35px rgba(150, 89, 112, 0.06);
-    }
-
-    .occasion-panel h3 {
-      color: #a7476e;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-
-    .occasion-panel p {
-      max-width: 580px;
-      color: #987d86;
-      font-size: 13px;
-      line-height: 1.9;
-    }
-
-    .occasion-emoji {
-      font-size: 65px;
-      flex-shrink: 0;
-    }
-
-    .advantages {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      max-width: 1050px;
-      margin: 0 auto;
-    }
-
-    .advantage {
-      text-align: center;
-      padding: 25px 18px;
-      border-radius: 20px;
-      background: #fff7fa;
-      border: 1px solid #f8e6ec;
-    }
-
-    .advantage span {
-      display: block;
-      font-size: 28px;
-      margin-bottom: 13px;
-    }
-
-    .advantage h3 {
-      color: #a7476e;
-      font-size: 15px;
-      margin-bottom: 9px;
-    }
-
-    .advantage p {
-      color: #987d86;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      padding: 30px 8%;
-      text-align: center;
-      background: #f8f4ed;
-      color: #84776d;
-      font-size: 12px;
-      line-height: 2;
-    }
-
-    footer strong {
-      color: var(--green);
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 1250px) {
-      .topbar {
-        padding-left: 4%;
-        padding-right: 4%;
-        gap: 14px;
-      }
-
-      .main-nav {
-        gap: 15px;
-      }
-
-      .nav-actions {
-        gap: 2px;
-      }
-
-      .nav-pill {
-        padding: 9px 8px;
-      }
-
-      .nav-create {
-        padding: 11px 12px;
-      }
-    }
-
-    @media (max-width: 1000px) {
-      .topbar {
-        flex-wrap: wrap;
-      }
-
-      .main-nav {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        padding-top: 8px;
-      }
-
-      .hero {
-        padding: 65px 6%;
-      }
-
-      .hero-inner {
-        gap: 15px;
-      }
-
-      .hero h1 {
-        font-size: clamp(46px, 6vw, 65px);
-      }
-
-      .hero-art {
-        min-height: 350px;
-      }
-
-      .gift-circle {
-        width: 285px;
-      }
-
-      .gift-box {
-        transform: scale(0.86);
-      }
-    }
-
-    @media (max-width: 700px) {
-      .topbar {
-        padding: 12px 5%;
-        gap: 10px;
-      }
-
-      .brand-name {
-        font-size: 21px;
-      }
-
-      .brand-tag {
-        font-size: 7px;
-      }
-
-      .brand-icon {
-        width: 36px;
-        height: 36px;
-      }
-
-      .nav-right {
-        gap: 5px;
-      }
-
-      .nav-actions {
-        display: none;
-      }
-
-      .nav-music {
-        padding: 9px 11px;
-      }
-
-      .main-nav {
-        justify-content: flex-start;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding: 7px 0 5px;
-        gap: 19px;
-      }
-
-      .main-nav a {
-        font-size: 11px;
-      }
-
-      .hero {
-        padding: 50px 7% 65px;
-      }
-
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 35px;
-      }
-
-      .hero-content {
-        text-align: center;
-      }
-
-      .hero-label {
-        font-size: 9px;
-        letter-spacing: 0.6px;
-        padding: 9px 13px;
-        margin-bottom: 23px;
-      }
-
-      .hero h1 {
-        font-size: clamp(43px, 11vw, 62px);
-        letter-spacing: -1.5px;
-      }
-
-      .hero-description {
-        margin-left: auto;
-        margin-right: auto;
-        font-size: 13px;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .btn {
-        padding: 13px 17px;
-        font-size: 12px;
-      }
-
-      .hero-note {
-        font-size: 11px;
-      }
-
-      .hero-art {
-        min-height: 335px;
-      }
-
-      .gift-circle {
-        width: 265px;
-      }
-
-      .flower-left {
-        font-size: 50px;
-      }
-
-      .flower-right {
-        font-size: 60px;
-      }
-
-      .section {
-        padding: 65px 6%;
-      }
-
-      .experience-grid,
-      .advantages {
-        grid-template-columns: 1fr;
-      }
-
-      .experience-card {
-        padding: 25px;
-      }
-
-      .occasion-panel {
-        padding: 26px;
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .occasion-panel h3 {
-        font-size: 23px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Úm – Quà kỷ niệm số đa dịp | 20/10</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green: #405b4d;
+  --green-dark: #30483b;
+  --cream: #faf8f3;
+  --pink: #ed78a4;
+  --pink-dark: #a7476e;
+  --text: #705c64;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 95px;
+}
+
+body {
+  font-family: "DM Sans", Arial, sans-serif;
+  color: var(--text);
+  background: #fffafa;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+/* =========================
+   THANH MENU TRÊN CÙNG
+========================= */
+
+.topbar {
+  width: 100%;
+  min-height: 76px;
+  padding: 10px 7.8%;
+  display: grid;
+  grid-template-columns: 225px minmax(400px, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(250, 248, 243, 0.98);
+  border-bottom: 1px solid #e9e4da;
+  box-shadow: 0 2px 12px rgba(53, 64, 51, 0.04);
+  backdrop-filter: blur(12px);
+}
+
+/* Logo Úm */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.brand-icon {
+  width: 41px;
+  height: 41px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: white;
+  font-size: 23px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.brand-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #302f2a;
+  font: 800 24px/1 "Playfair Display", Georgia, serif;
+}
+
+.brand-badge {
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: #e9e4d8;
+  font: 800 8px/1.2 "DM Sans", sans-serif;
+}
+
+.brand-tag {
+  color: #77756a;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
+/* Menu chính nằm giữa */
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 24px);
+  white-space: nowrap;
+}
+
+.main-nav a {
+  color: #514f48;
+  font-size: 12px;
+  font-weight: 800;
+  transition: color 0.2s;
+}
+
+.main-nav a:hover {
+  color: var(--green);
+}
+
+/* Các nút bên phải */
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 9px;
+  white-space: nowrap;
+}
+
+.nav-music {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 10px 14px;
+  border: 1px solid #e9e4dc;
+  border-radius: 30px;
+
+  background: #fffdfa;
+  color: #55534c;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.nav-music:hover {
+  border-color: #b7c4b8;
+  background: #f4f6f0;
+}
+
+.nav-music.playing {
+  background: #edf3ec;
+  border-color: #d4dfd2;
+  color: var(--green);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px;
+  border-radius: 30px;
+  background: #eeeae2;
+}
+
+.nav-pill {
+  display: inline-block;
+  padding: 10px 11px;
+  border-radius: 25px;
+  color: #68665e;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.nav-pill.active,
+.nav-pill:hover {
+  background: #fffdfa;
+  color: var(--green);
+}
+
+.nav-create {
+  padding: 12px 15px;
+  border-radius: 30px;
+  background: var(--green);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  transition: 0.2s;
+}
+
+.nav-create:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   BANNER 20/10
+========================= */
+
+.hero {
+  min-height: 675px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  padding: 60px 9%;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 77% 40%,
+      rgba(255, 218, 231, 0.93),
+      transparent 43%
+    ),
+    radial-gradient(
+      ellipse at 30% 95%,
+      rgba(255, 224, 235, 0.9),
+      transparent 48%
+    ),
+    linear-gradient(
+      135deg,
+      #fffdfd 0%,
+      #fff3f7 50%,
+      #ffe3ed 100%
+    );
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.95) 0 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.75) 0 2px,
+      transparent 3px
+    );
+
+  background-size: 74px 74px, 113px 113px;
+  background-position: 10px 8px, 37px 45px;
+}
+
+.hero-inner {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: center;
+  gap: 35px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 10px 18px;
+  margin-bottom: 28px;
+
+  border: 1px solid #ffc6d9;
+  border-radius: 30px;
+  color: #d85d8b;
+  background: rgba(255,255,255,0.72);
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.hero h1 {
+  color: var(--pink-dark);
+  font: 800 clamp(49px, 5.2vw, 77px)/1.08
+    "Playfair Display", Georgia, serif;
+  letter-spacing: -2px;
+  margin-bottom: 22px;
+}
+
+.hero h1 em {
+  color: var(--pink);
+  font-weight: 600;
+}
+
+.hero-description {
+  max-width: 460px;
+  color: #a47788;
+  font-size: 15px;
+  line-height: 2;
+  margin-bottom: 28px;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  padding: 15px 23px;
+  border-radius: 32px;
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-primary {
+  color: white;
+  background: linear-gradient(135deg, #f18ab0, #d65d8c);
+  box-shadow: 0 9px 23px rgba(216,93,140,0.2);
+}
+
+.hero-note {
+  margin-top: 24px;
+  color: #c291a2;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* Hộp quà 3D */
+
+.hero-art {
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gift-circle {
+  width: min(330px, 76vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.77);
+  box-shadow: 0 30px 70px rgba(200,105,142,0.14);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  animation: floatGift 4s ease-in-out infinite;
+}
+
+.gift-box {
+  width: 210px;
+  height: 155px;
+  position: relative;
+  margin-top: 50px;
+  filter: drop-shadow(0 17px 13px rgba(170,65,108,0.12));
+}
+
+.gift-body {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 15px;
+  bottom: 0;
+
+  background: linear-gradient(130deg, #f6a1c0, #e97ba6);
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+}
+
+.gift-ribbon {
+  position: absolute;
+  z-index: 2;
+  width: 45px;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #fff0a9, #ffe7a0);
+}
+
+.gift-lid {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 36px;
+
+  border-radius: 7px;
+  background: linear-gradient(100deg, #f99cbd, #e66e9d);
+  box-shadow: 0 7px 9px rgba(171,64,106,0.12);
+  transform: rotate(-2deg);
+}
+
+.gift-lid-ribbon {
+  position: absolute;
+  z-index: 4;
+  width: 45px;
+  height: 36px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffecaa;
+}
+
+.gift-heart {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 56px;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 21px;
+}
+
+.gift-bow {
+  position: absolute;
+  z-index: 6;
+  top: -38px;
+  left: 50%;
+  color: #f8c75d;
+  font: 700 85px/1 Georgia, serif;
+  transform: translateX(-32%) rotate(-23deg);
+}
+
+.gift-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -43px;
+
+  text-align: center;
+  font: italic 600 17px "Playfair Display", Georgia, serif;
+  color: #bf728f;
+  white-space: nowrap;
+}
+
+/* Hoa và trái tim trang trí */
+
+.decor {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  animation: floatDecor 4s ease-in-out infinite;
+}
+
+.decor-heart {
+  font-size: 25px;
+  color: #e78aab;
+}
+
+.decor-flower {
+  font-size: 35px;
+  color: #e99ab6;
+}
+
+.flower-left {
+  top: 11%;
+  left: 3.5%;
+  font-size: 78px;
+  color: #f8e2eb;
+}
+
+.flower-right {
+  bottom: 8%;
+  right: 4%;
+  font-size: 90px;
+  color: #f8cddd;
+}
+
+.heart-one {
+  top: 27%;
+  left: 5%;
+}
+
+.heart-three {
+  bottom: 26%;
+  right: 17%;
+}
+
+.flower-small {
+  bottom: 29%;
+  left: 5%;
+}
+
+@keyframes floatGift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-11px); }
+}
+
+@keyframes floatDecor {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+/* =========================
+   CÁC PHẦN NỘI DUNG
+========================= */
+
+.section {
+  padding: 85px 8%;
+  scroll-margin-top: 90px;
+}
+
+.section-heading {
+  max-width: 680px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+.section-kicker {
+  color: #d96b95;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 13px;
+}
+
+.section-heading h2 {
+  font: 700 clamp(30px, 4vw, 43px)/1.2
+    "Playfair Display", Georgia, serif;
+  color: var(--pink-dark);
+  margin-bottom: 14px;
+}
+
+.section-heading p {
+  color: #987a85;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.experience-card {
+  padding: 30px 25px;
+  background: white;
+  border: 1px solid #f5e4ea;
+  border-radius: 22px;
+  box-shadow: 0 8px 30px rgba(150,89,112,0.055);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.experience-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(150,89,112,0.1);
+}
+
+.card-icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 17px;
+  background: #fff0f5;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.experience-card h3 {
+  color: var(--pink-dark);
+  font: 700 21px "Playfair Display", Georgia, serif;
+  margin-bottom: 12px;
+}
+
+.experience-card p {
+  font-size: 13px;
+  color: #987d86;
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.card-link {
+  display: inline-block;
+  color: #c65380;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.occasion-section {
+  background: linear-gradient(135deg, #fff5f8, #fffdfb);
+}
+
+.occasion-panel {
+  max-width: 1000px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+
+  padding: 38px;
+  background: white;
+  border: 1px solid #f4e3e9;
+  border-radius: 25px;
+  box-shadow: 0 10px 35px rgba(150,89,112,0.06);
+}
+
+.occasion-panel h3 {
+  color: var(--pink-dark);
+  font: 700 26px "Playfair Display", Georgia, serif;
+  margin-bottom: 10px;
+}
+
+.occasion-panel p {
+  max-width: 580px;
+  color: #987d86;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.occasion-emoji {
+  font-size: 65px;
+  flex-shrink: 0;
+}
+
+.advantages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.advantage {
+  text-align: center;
+  padding: 25px 18px;
+  border-radius: 20px;
+  background: #fff7fa;
+  border: 1px solid #f8e6ec;
+}
+
+.advantage span {
+  display: block;
+  font-size: 28px;
+  margin-bottom: 13px;
+}
+
+.advantage h3 {
+  color: var(--pink-dark);
+  font-size: 15px;
+  margin-bottom: 9px;
+}
+
+.advantage p {
+  color: #987d86;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+footer {
+  padding: 30px 8%;
+  text-align: center;
+  background: #f8f4ed;
+  color: #84776d;
+  font-size: 12px;
+  line-height: 2;
+}
+
+footer strong {
+  color: var(--green);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1350px) {
+  .topbar {
+    padding-left: 3%;
+    padding-right: 3%;
+    grid-template-columns: 190px minmax(370px, 1fr) auto;
+    gap: 14px;
+  }
+
+  .main-nav {
+    gap: 13px;
+  }
+
+  .nav-actions {
+    gap: 2px;
+  }
+
+  .nav-pill {
+    padding: 9px 8px;
+  }
+
+  .nav-create {
+    padding: 11px 12px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .topbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 7px;
+  }
+
+  .hero {
+    padding: 55px 6%;
+  }
+
+  .hero-inner {
+    gap: 15px;
+  }
+
+  .hero h1 {
+    font-size: clamp(46px, 6vw, 65px);
+  }
+
+  .hero-art {
+    min-height: 350px;
+  }
+
+  .gift-circle {
+    width: 285px;
+  }
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    padding: 11px 5%;
+    gap: 10px;
+  }
+
+  .brand-name {
+    font-size: 21px;
+  }
+
+  .brand-tag {
+    font-size: 7px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .nav-right {
+    gap: 5px;
+  }
+
+  .nav-actions {
+    display: none;
+  }
+
+  .nav-music {
+    padding: 9px 11px;
+  }
+
+  .main-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 7px 0 5px;
+    gap: 19px;
+  }
+
+  .main-nav a {
+    font-size: 11px;
+  }
+
+  .hero {
+    padding: 48px 7% 60px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-label {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    padding: 9px 13px;
+    margin-bottom: 23px;
+  }
+
+  .hero h1 {
+    font-size: clamp(43px, 11vw, 62px);
+    letter-spacing: -1.5px;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 13px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 14px 19px;
+    font-size: 12px;
+  }
+
+  .hero-note {
+    font-size: 11px;
+  }
+
+  .hero-art {
+    min-height: 315px;
+  }
+
+  .gift-circle {
+    width: 260px;
+  }
+
+  .flower-left {
+    font-size: 50px;
+  }
+
+  .flower-right {
+    font-size: 60px;
+  }
+
+  .section {
+    padding: 65px 6%;
+  }
+
+  .experience-grid,
+  .advantages {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-card {
+    padding: 25px;
+  }
+
+  .occasion-panel {
+    padding: 26px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .occasion-panel h3 {
+    font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- THANH MENU -->
-  <header class="topbar" id="top">
-    <a class="brand" href="#top" aria-label="Úm - Trang chủ">
-      <span class="brand-icon">✦</span>
-      <span class="brand-text">
-        <span class="brand-name">
-          Úm <span style="font-size:10px;background:#e9e4d8;padding:4px 6px;border-radius:4px;">BA LA</span>
-        </span>
-        <span class="brand-tag">QUÀ KỶ NIỆM SỐ ĐA DỊP</span>
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="topbar" id="top">
+
+  <a class="brand" href="#top" aria-label="Úm - Trang chủ">
+    <span class="brand-icon">✦</span>
+
+    <span class="brand-text">
+      <span class="brand-name">
+        Úm <span class="brand-badge">BA LA</span>
       </span>
+      <span class="brand-tag">QUÀ KỶ NIỆM SỐ ĐA DỊP</span>
+    </span>
+  </a>
+
+  <nav class="main-nav" aria-label="Điều hướng chính">
+    <a href="#top">Trang chủ</a>
+    <a href="#loi-chuc">Dịp Lễ: 🎂 Sinh Nhật</a>
+    <a href="#trai-nghiem">3 chặng trải nghiệm</a>
+    <a href="#bang-gia">Bảng giá</a>
+    <a href="#uu-the">Ưu thế</a>
+  </nav>
+
+  <div class="nav-right">
+
+    <!-- CHỈ GIỮ MỘT NÚT NHẠC Ở THANH MENU -->
+    <button
+      class="nav-music"
+      id="navMusicBtn"
+      type="button"
+      onclick="toggleAudio()"
+      aria-pressed="false">
+      🎵 <span id="navMusicText">Nhạc: Tắt</span>
+    </button>
+
+    <div class="nav-actions">
+      <a class="nav-pill active" href="#trai-nghiem">Người Nhận</a>
+      <a class="nav-pill" href="./index.html">Studio Tạo Quà</a>
+    </div>
+
+    <a class="nav-create" href="./index.html">
+      ✨ Tạo Hộp Quà
     </a>
 
-    <nav class="main-nav" aria-label="Điều hướng chính">
-      <a href="#top">Trang chủ</a>
-      <a href="#loi-chuc">Dịp Lễ: 🎂 Sinh Nhật</a>
-      <a href="#trai-nghiem">3 chặng trải nghiệm</a>
-      <a href="#bang-gia">Bảng giá</a>
-      <a href="#uu-the">Ưu thế</a>
-    </nav>
+  </div>
+</header>
 
-    <div class="nav-right">
-      <button
-        class="nav-music"
-        id="navMusicBtn"
-        type="button"
-        aria-label="Bật hoặc tắt nhạc"
-        onclick="toggleAudio()"
-      >
-        🎵 <span id="navMusicText">Nhạc: Tắt</span>
-      </button>
+<!--
+  ĐẶT FILE music.mp3 CÙNG THƯ MỤC VỚI trang-chu.html.
+  Không bật autoplay để tránh trình duyệt chặn nhạc.
+-->
 
-      <div class="nav-actions">
-        <a class="nav-pill active" href="#trai-nghiem">Người Nhận</a>
-        <a class="nav-pill" href="./index.html">Studio Tạo Quà</a>
-      </div>
+<audio id="bgMusic" loop preload="auto">
+  <source src="./music.mp3" type="audio/mpeg">
+  Trình duyệt của bạn không hỗ trợ phát nhạc.
+</audio>
 
-      <a class="nav-create" href="#trai-nghiem">✨ Tạo Hộp Quà</a>
-    </div>
-  </header>
+<main>
 
-  <!-- NHẠC NỀN
-       Đặt music.mp3 cùng thư mục với trang-chu.html.
-  -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="./music.mp3" type="audio/mpeg">
-  </audio>
+  <!-- =========================
+       BANNER 20/10
+  ========================= -->
 
-  <!-- BANNER 20/10 -->
-  <main>
-    <section class="hero" id="loi-chuc">
-      <span class="decor flower-left decor">✿</span>
-      <span class="decor decor-heart heart-one">♥</span>
-      <span class="decor decor-flower flower-right">✿</span>
+  <section class="hero" id="loi-chuc">
 
-      <div class="hero-inner">
-        <div class="hero-content">
-          <div class="hero-label">
-            🌷 20 THÁNG 10 · NGÀY CỦA YÊU THƯƠNG
-          </div>
+    <span class="decor flower-left">✿</span>
+    <span class="decor decor-heart heart-one">♥</span>
+    <span class="decor decor-flower flower-right">✿</span>
 
-          <h1>
-            Gửi ngàn<br>
-            <em>yêu thương</em><br>
-            đến nàng
-          </h1>
+    <div class="hero-inner">
 
-          <p class="hero-description">
-            Một chút ngọt ngào, một chút dịu dàng và thật nhiều yêu thương.
-            Chúc những người phụ nữ tuyệt vời luôn xinh đẹp, hạnh phúc
-            và được trân trọng mỗi ngày.
-          </p>
+      <div class="hero-content">
 
-          <div class="hero-buttons">
-            <a class="btn btn-primary" href="#trai-nghiem">
-              ✨ Trải nghiệm ngay
-            </a>
-
-            <button class="btn btn-secondary" id="heroMusicBtn" type="button" onclick="toggleAudio()">
-              🎵 <span id="heroMusicText">Bật nhạc piano</span>
-            </button>
-          </div>
-
-          <p class="hero-note">
-            ✨ Dành tặng bạn — người xứng đáng với những điều đẹp đẽ nhất.
-          </p>
+        <div class="hero-label">
+          🌷 20 THÁNG 10 · NGÀY CỦA YÊU THƯƠNG
         </div>
 
-        <div class="hero-art" aria-label="Hộp quà màu hồng">
-          <span class="decor decor-heart" style="top:12%;left:8%;">♥</span>
-          <span class="decor decor-heart" style="top:18%;right:3%;font-size:20px;">♡</span>
-          <span class="decor decor-flower" style="top:16%;right:-7%;font-size:30px;">❀</span>
-          <span class="decor decor-flower flower-small">✿</span>
-          <span class="decor decor-heart heart-three">♥</span>
+        <h1>
+          Gửi ngàn<br>
+          <em>yêu thương</em><br>
+          đến nàng
+        </h1>
 
-          <div class="gift-circle">
-            <div class="gift-box">
-              <div class="gift-body">
-                <div class="gift-ribbon"></div>
-                <div class="gift-heart">♥</div>
-              </div>
-              <div class="gift-lid"></div>
-              <div class="gift-lid-ribbon"></div>
-              <div class="gift-bow">♡</div>
-              <div class="gift-caption">A little gift, a lot of love ♡</div>
+        <p class="hero-description">
+          Một chút ngọt ngào, một chút dịu dàng và thật nhiều yêu thương.
+          Chúc những người phụ nữ tuyệt vời luôn xinh đẹp, hạnh phúc
+          và được trân trọng mỗi ngày.
+        </p>
+
+        <div class="hero-buttons">
+          <!-- ĐÃ BỎ NÚT BẬT NHẠC Ở BANNER -->
+          <a class="btn btn-primary" href="#trai-nghiem">
+            ✨ Trải nghiệm ngay
+          </a>
+        </div>
+
+        <p class="hero-note">
+          ✨ Dành tặng bạn — người xứng đáng với những điều đẹp đẽ nhất.
+        </p>
+
+      </div>
+
+      <div class="hero-art" aria-label="Hộp quà màu hồng">
+
+        <span class="decor decor-heart" style="top:12%;left:8%">♥</span>
+        <span class="decor decor-heart" style="top:18%;right:3%;font-size:20px">♡</span>
+        <span class="decor decor-flower" style="top:16%;right:-7%;font-size:30px">❀</span>
+        <span class="decor decor-flower flower-small">✿</span>
+        <span class="decor decor-heart heart-three">♥</span>
+
+        <div class="gift-circle">
+
+          <div class="gift-box">
+
+            <div class="gift-body">
+              <div class="gift-ribbon"></div>
+              <div class="gift-heart">♥</div>
             </div>
+
+            <div class="gift-lid"></div>
+            <div class="gift-lid-ribbon"></div>
+            <div class="gift-bow">♡</div>
+
+            <div class="gift-caption">
+              A little gift, a lot of love ♡
+            </div>
+
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 3 CHẶNG TRẢI NGHIỆM -->
-    <section class="section" id="trai-nghiem">
-      <div class="section-heading">
-        <div class="section-kicker">YOUR LITTLE SURPRISE</div>
-        <h2>Ba chặng, một món quà yêu thương</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       3 CHẶNG TRẢI NGHIỆM
+  ========================= -->
+
+  <section class="section" id="trai-nghiem">
+
+    <div class="section-heading">
+      <div class="section-kicker">YOUR LITTLE SURPRISE</div>
+
+      <h2>Ba chặng, một món quà yêu thương</h2>
+
+      <p>
+        Bắt đầu hành trình tạo nên món quà số của riêng bạn.
+        Mỗi chi tiết nhỏ đều có thể trở thành một kỷ niệm đáng nhớ.
+      </p>
+    </div>
+
+    <div class="experience-grid">
+
+      <article class="experience-card">
+        <div class="card-icon">💌</div>
+        <h3>01. Gửi lời yêu thương</h3>
         <p>
-          Bắt đầu hành trình tạo nên món quà số của riêng bạn.
-          Mỗi chi tiết nhỏ đều có thể trở thành một kỷ niệm đáng nhớ.
+          Chọn những lời chúc ngọt ngào để gửi đến người bạn trân quý
+          trong dịp đặc biệt.
         </p>
-      </div>
+        <a class="card-link" href="./index.html">
+          Bắt đầu khám phá →
+        </a>
+      </article>
 
-      <div class="experience-grid">
-        <article class="experience-card">
-          <div class="card-icon">💌</div>
-          <h3>01. Gửi lời yêu thương</h3>
-          <p>
-            Chọn những lời chúc ngọt ngào để gửi đến người bạn trân quý
-            trong dịp đặc biệt.
-          </p>
-          <a class="card-link" href="./index.html">Bắt đầu khám phá →</a>
-        </article>
-
-        <article class="experience-card">
-          <div class="card-icon">🎁</div>
-          <h3>02. Tạo hộp quà</h3>
-          <p>
-            Khám phá trải nghiệm tạo quà số và biến thông điệp của bạn
-            thành một bất ngờ thật riêng.
-          </p>
-          <a class="card-link" href="./index.html">Tạo món quà →</a>
-        </article>
-
-        <article class="experience-card">
-          <div class="card-icon">💗</div>
-          <h3>03. Trao kỷ niệm</h3>
-          <p>
-            Hoàn thiện món quà và chia sẻ niềm vui đến người nhận
-            theo cách thật đặc biệt.
-          </p>
-          <a class="card-link" href="./index.html">Khám phá ngay →</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- DỊP LỄ -->
-    <section class="section occasion-section">
-      <div class="section-heading">
-        <div class="section-kicker">EVERY MOMENT MATTERS</div>
-        <h2>Mỗi dịp lễ, một cách yêu thương</h2>
+      <article class="experience-card">
+        <div class="card-icon">🎁</div>
+        <h3>02. Tạo hộp quà</h3>
         <p>
-          Không cần món quà quá lớn. Đôi khi, một lời chúc đúng lúc
-          cũng khiến một ngày trở nên thật đặc biệt.
+          Khám phá trải nghiệm tạo quà số và biến thông điệp của bạn
+          thành một bất ngờ thật riêng.
         </p>
-      </div>
+        <a class="card-link" href="./index.html">
+          Tạo món quà →
+        </a>
+      </article>
 
-      <div class="occasion-panel">
-        <div>
-          <h3>Tháng 10 — tháng của nàng 🌷</h3>
-          <p>
-            Gửi lời chúc đến mẹ, chị, em gái, bạn thân hoặc người đặc biệt
-            của bạn. Hãy để những điều nhỏ bé nói thay tình cảm chân thành.
-          </p>
-          <div style="margin-top:20px;">
-            <a class="btn btn-primary" href="#trai-nghiem">✨ Trải nghiệm ngay</a>
-          </div>
+      <article class="experience-card">
+        <div class="card-icon">💗</div>
+        <h3>03. Trao kỷ niệm</h3>
+        <p>
+          Hoàn thiện món quà và chia sẻ niềm vui đến người nhận
+          theo cách thật đặc biệt.
+        </p>
+        <a class="card-link" href="./index.html">
+          Khám phá ngay →
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- =========================
+       DỊP LỄ
+  ========================= -->
+
+  <section class="section occasion-section">
+
+    <div class="section-heading">
+      <div class="section-kicker">EVERY MOMENT MATTERS</div>
+
+      <h2>Mỗi dịp lễ, một cách yêu thương</h2>
+
+      <p>
+        Không cần món quà quá lớn. Đôi khi, một lời chúc đúng lúc
+        cũng khiến một ngày trở nên thật đặc biệt.
+      </p>
+    </div>
+
+    <div class="occasion-panel">
+
+      <div>
+        <h3>Tháng 10 — tháng của nàng 🌷</h3>
+
+        <p>
+          Gửi lời chúc đến mẹ, chị, em gái, bạn thân hoặc người đặc biệt
+          của bạn. Hãy để những điều nhỏ bé nói thay tình cảm chân thành.
+        </p>
+
+        <div style="margin-top:20px">
+          <a class="btn btn-primary" href="#trai-nghiem">
+            ✨ Trải nghiệm ngay
+          </a>
         </div>
-        <div class="occasion-emoji">🌸🎀💝</div>
       </div>
-    </section>
 
-    <!-- BẢNG GIÁ -->
-    <section class="section" id="bang-gia">
-      <div class="section-heading">
-        <div class="section-kicker">SIMPLE & MEANINGFUL</div>
-        <h2>Món quà mang dấu ấn riêng</h2>
+      <div class="occasion-emoji">🌸🎀💝</div>
+
+    </div>
+  </section>
+
+  <!-- =========================
+       BẢNG GIÁ
+  ========================= -->
+
+  <section class="section" id="bang-gia">
+
+    <div class="section-heading">
+      <div class="section-kicker">SIMPLE & MEANINGFUL</div>
+
+      <h2>Món quà mang dấu ấn riêng</h2>
+
+      <p>
+        Khám phá các lựa chọn trong Studio để tìm trải nghiệm
+        phù hợp với điều bạn muốn gửi gắm.
+      </p>
+    </div>
+
+    <div style="text-align:center">
+      <a class="btn btn-primary" href="./index.html">
+        🎁 Khám phá Studio Tạo Quà
+      </a>
+    </div>
+
+  </section>
+
+  <!-- =========================
+       ƯU THẾ
+  ========================= -->
+
+  <section class="section occasion-section" id="uu-the">
+
+    <div class="section-heading">
+      <div class="section-kicker">WHY ÚM?</div>
+
+      <h2>Điều đặc biệt nằm trong từng chi tiết</h2>
+
+      <p>
+        Một không gian nhỏ để bạn gửi đi những tình cảm lớn.
+      </p>
+    </div>
+
+    <div class="advantages">
+
+      <article class="advantage">
+        <span>💌</span>
+        <h3>Cá nhân hóa</h3>
         <p>
-          Khám phá các lựa chọn trong Studio để tìm trải nghiệm phù hợp
-          với điều bạn muốn gửi gắm.
+          Tạo trải nghiệm mang dấu ấn và thông điệp của riêng bạn.
         </p>
-      </div>
+      </article>
 
-      <div style="text-align:center;">
-        <a class="btn btn-primary" href="./index.html">🎁 Khám phá Studio Tạo Quà</a>
-      </div>
-    </section>
-
-    <!-- ƯU THẾ -->
-    <section class="section occasion-section" id="uu-the">
-      <div class="section-heading">
-        <div class="section-kicker">WHY ÚM?</div>
-        <h2>Điều đặc biệt nằm trong từng chi tiết</h2>
+      <article class="advantage">
+        <span>🎀</span>
+        <h3>Ngọt ngào</h3>
         <p>
-          Một không gian nhỏ để bạn gửi đi những tình cảm lớn.
+          Phong cách nhẹ nhàng, lãng mạn cho những dịp đáng nhớ.
         </p>
-      </div>
+      </article>
 
-      <div class="advantages">
-        <article class="advantage">
-          <span>💌</span>
-          <h3>Cá nhân hóa</h3>
-          <p>Tạo trải nghiệm mang dấu ấn và thông điệp của riêng bạn.</p>
-        </article>
+      <article class="advantage">
+        <span>💗</span>
+        <h3>Lưu giữ kỷ niệm</h3>
+        <p>
+          Biến lời chúc và tình cảm thành một món quà ý nghĩa.
+        </p>
+      </article>
 
-        <article class="advantage">
-          <span>🎀</span>
-          <h3>Ngọt ngào</h3>
-          <p>Phong cách nhẹ nhàng, lãng mạn cho những dịp đáng nhớ.</p>
-        </article>
+    </div>
+  </section>
 
-        <article class="advantage">
-          <span>💗</span>
-          <h3>Lưu giữ kỷ niệm</h3>
-          <p>Biến lời chúc và tình cảm thành một món quà ý nghĩa.</p>
-        </article>
-      </div>
-    </section>
-  </main>
+</main>
 
-  <!-- CHÂN TRANG -->
-  <footer>
-    <p><strong>Úm — Quà kỷ niệm số đa dịp</strong></p>
-    <p>Gửi một chút ngọt ngào, lưu giữ thật nhiều yêu thương. ♡</p>
-    <p>Made with love 🌷</p>
-  </footer>
+<footer>
+  <p><strong>Úm — Quà kỷ niệm số đa dịp</strong></p>
+  <p>Gửi một chút ngọt ngào, lưu giữ thật nhiều yêu thương. ♡</p>
+  <p>Made with love 🌷</p>
+</footer>
 
-  <!-- ĐIỀU KHIỂN NHẠC -->
-  <script>
-    const bgMusic = document.getElementById("bgMusic");
-    const navMusicText = document.getElementById("navMusicText");
-    const heroMusicText = document.getElementById("heroMusicText");
-    const navMusicBtn = document.getElementById("navMusicBtn");
-    const heroMusicBtn = document.getElementById("heroMusicBtn");
+<!-- =========================
+     JAVASCRIPT ĐIỀU KHIỂN NHẠC
+========================= -->
 
-    let isPlaying = false;
+<script>
+const bgMusic = document.getElementById("bgMusic");
+const navMusicBtn = document.getElementById("navMusicBtn");
+const navMusicText = document.getElementById("navMusicText");
 
-    function updateMusicUI(playing) {
-      isPlaying = playing;
+/* Cập nhật chữ và trạng thái nút nhạc */
+function updateMusicButton(playing) {
+  navMusicText.textContent = playing ? "Nhạc: Bật" : "Nhạc: Tắt";
 
-      navMusicText.textContent = playing ? "Nhạc: Bật" : "Nhạc: Tắt";
-      heroMusicText.textContent = playing ? "Tạm dừng nhạc" : "Bật nhạc piano";
+  navMusicBtn.classList.toggle("playing", playing);
 
-      navMusicBtn.setAttribute(
-        "aria-label",
-        playing ? "Tắt nhạc" : "Bật nhạc"
+  navMusicBtn.setAttribute(
+    "aria-pressed",
+    String(playing)
+  );
+}
+
+/* Bấm nút trên thanh menu để bật hoặc tắt nhạc */
+async function toggleAudio() {
+  if (bgMusic.paused) {
+    try {
+      await bgMusic.play();
+      updateMusicButton(true);
+    } catch (error) {
+      updateMusicButton(false);
+
+      alert(
+        "Chưa phát được nhạc. Bạn hãy kiểm tra file music.mp3 " +
+        "đã nằm cùng thư mục với trang-chu.html chưa nhé."
       );
-
-      navMusicBtn.style.background = playing ? "#edf3ec" : "#fffdfa";
-      heroMusicBtn.style.background = playing ? "#ffe5ef" : "rgba(255,255,255,.76)";
     }
+  } else {
+    bgMusic.pause();
+    updateMusicButton(false);
+  }
+}
 
-    async function toggleAudio() {
-      if (bgMusic.paused) {
-        try {
-          await bgMusic.play();
-          updateMusicUI(true);
-        } catch (error) {
-          updateMusicUI(false);
-          alert(
-            "Chưa phát được nhạc. Bạn hãy kiểm tra file music.mp3 đã được tải lên cùng thư mục với trang-chu.html chưa nhé!"
-          );
-        }
-      } else {
-        bgMusic.pause();
-        updateMusicUI(false);
-      }
-    }
+/* Đồng bộ giao diện với trạng thái thực tế của audio */
+bgMusic.addEventListener("play", function () {
+  updateMusicButton(true);
+});
 
-    bgMusic.addEventListener("play", () => updateMusicUI(true));
-    bgMusic.addEventListener("pause", () => updateMusicUI(false));
-    bgMusic.addEventListener("ended", () => updateMusicUI(false));
+bgMusic.addEventListener("pause", function () {
+  updateMusicButton(false);
+});
 
-    updateMusicUI(false);
-  </script>
+bgMusic.addEventListener("ended", function () {
+  updateMusicButton(false);
+});
+
+bgMusic.addEventListener("error", function () {
+  updateMusicButton(false);
+});
+
+/* Mặc định không tự phát để tránh bị trình duyệt chặn */
+updateMusicButton(false);
+</script>
+
 </body>
 </html>
