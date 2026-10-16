@@ -426,6 +426,27 @@
   <!-- Main Interactive Experience Area -->
   <main class="relative z-10 max-w-5xl mx-auto px-4 py-4 sm:py-6 w-full">
 
+    <!-- BANNER CHẾ ĐỘ XEM TRƯỚC (PREVIEW MODE BAR) -->
+    <div id="recipientPreviewBanner" class="hidden mb-6 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-capsule-primary text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3 text-xs animate-fade-in">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-base shrink-0 animate-pulse">
+          👁️
+        </span>
+        <div>
+          <span class="font-bold tracking-wide block sm:inline">Chế độ trải nghiệm người nhận (Xem thử):</span>
+          <span class="text-white/90">Bạn đang kiểm tra luồng mở hộp quà 3 chặng như người nhận sẽ thấy.</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+        <button type="button" onclick="switchMode('creator')" class="px-4 py-2 rounded-full bg-white text-capsule-ink font-bold hover:bg-amber-50 transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer text-xs">
+          <span>✏️</span> <span>Quay lại Studio chỉnh sửa</span>
+        </button>
+        <button type="button" onclick="openCardPreviewModal()" class="px-4 py-2 rounded-full bg-black/35 hover:bg-black/50 text-white font-bold transition-colors flex items-center gap-1.5 cursor-pointer text-xs border border-white/20">
+          <span>💌</span> <span>Checklist thiệp & thông tin</span>
+        </button>
+      </div>
+    </div>
+
     <!-- RECIPIENT VIEW CONTAINER -->
     <div id="recipientView" class="space-y-12">
       
@@ -806,9 +827,12 @@
             <h2 class="font-serif font-bold text-2xl text-capsule-ink">Thiết kế hộp quà theo dịp riêng</h2>
             <p class="text-xs text-capsule-muted mt-0.5">Chọn mẫu gợi ý sẵn hoặc tự chỉnh sửa từng chi tiết.</p>
           </div>
-          <div class="flex items-center gap-2">
-            <button onclick="previewAsRecipient()" class="px-5 py-2.5 rounded-full bg-capsule-primary text-capsule-card text-xs font-semibold hover:bg-capsule-primaryHover transition-colors shadow-2xs">
-              👁️ Xem trước trải nghiệm mở hộp
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="openCardPreviewModal()" class="px-4 py-2.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer">
+              <span>💌</span> <span>Xem lại thiệp & thông tin</span>
+            </button>
+            <button type="button" onclick="previewAsRecipient()" class="px-4.5 py-2.5 rounded-full bg-capsule-primary text-capsule-card text-xs font-semibold hover:bg-capsule-primaryHover transition-colors shadow-2xs flex items-center gap-1.5 cursor-pointer">
+              <span>👁️</span> <span>Mở hộp thử như người nhận</span>
             </button>
           </div>
         </div>
@@ -1109,11 +1133,14 @@
               <span class="text-[10px] font-mono text-capsule-muted font-semibold block uppercase">Cấp quyền dịch vụ</span>
               <span id="selectedPlanDisplay" class="text-base sm:text-lg font-bold font-serif text-capsule-primary">Gói 2: Kỷ niệm độc bản</span>
             </div>
-            <div class="flex flex-wrap items-center justify-end gap-2">
-              <button id="btnPublishGift" onclick="publishGiftWithQuota()" class="px-4 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5">
+            <div class="flex flex-wrap items-center justify-end gap-2.5">
+              <button type="button" onclick="openCardPreviewModal()" class="px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-lg flex items-center gap-1.5 cursor-pointer transform hover:-translate-y-0.5">
+                <span>💌</span> <span>Xem lại thiệp trước khi gửi</span>
+              </button>
+              <button id="btnPublishGift" onclick="publishGiftWithQuota()" class="px-4 py-2.5 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer">
                 <span>🚀</span> <span id="btnPublishLabel">Kích hoạt hộp quà (Dùng 1 lượt)</span>
               </button>
-              <button onclick="openUpgradeModal()" class="px-4 py-2 rounded-full border border-capsule-primary bg-capsule-primary/5 hover:bg-capsule-primary/10 text-capsule-primary text-xs font-semibold transition-all flex items-center gap-1">
+              <button onclick="openUpgradeModal()" class="px-4 py-2.5 rounded-full border border-capsule-primary bg-capsule-primary/5 hover:bg-capsule-primary/10 text-capsule-primary text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer">
                 <span>💎 Nâng cấp trả phí</span>
               </button>
             </div>
@@ -1428,6 +1455,39 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
         <div class="pt-2 text-[11px] font-mono text-capsule-muted space-y-1">
           <div>Mỗi món quà là một câu chuyện.</div>
           <div>Mỗi kỷ niệm là một phép màu.</div>
+        </div>
+
+        <!-- Kênh mạng xã hội chính thức -->
+        <div class="pt-3">
+          <p class="text-xs font-semibold text-capsule-ink mb-2">Kết nối với Úm Ba La:</p>
+          <div class="flex items-center gap-2.5">
+            <!-- Facebook -->
+            <a href="https://me-l.co/4do9euc0" target="_blank" rel="noopener noreferrer" 
+               class="group flex items-center justify-center w-8 h-8 rounded-full bg-[#1877F2] text-white shadow-sm hover:scale-110 transition-transform" 
+               title="Facebook Úm Ba La" aria-label="Facebook Úm Ba La">
+              <span class="w-5 h-5 rounded-full bg-white flex items-center justify-center shadow-inner">
+                <svg class="w-3.5 h-3.5 text-[#1877F2] fill-current" viewBox="0 0 24 24">
+                  <path d="M14 13.5h2.5l1-4H14v-2c0-1.03.28-1.5 1.5-1.5h2V2.14c-.35-.05-1.55-.14-2.95-.14-2.92 0-4.8 1.78-4.8 4.93V9.5H7v4h2.75V22h4.25v-8.5z"/>
+                </svg>
+              </span>
+            </a>
+            <!-- Messenger -->
+            <a href="https://me-l.co/4do9euc0" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-tr from-[#006AFF] via-[#00B2FF] to-[#DF3C8C] text-white shadow-sm hover:scale-110 transition-transform" 
+               title="Nhắn tin Messenger" aria-label="Nhắn tin Messenger">
+              <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.91 1.455 5.518 3.735 7.185v3.557c0 .493.542.793.957.527l3.96-2.544c.438.077.886.117 1.348.117 5.523 0 10-4.145 10-9.258C22 6.145 17.523 2 12 2zm1.07 12.35l-2.61-2.784-5.093 2.784 5.6-5.946 2.678 2.784 5.025-2.784-5.6 5.946z"/>
+              </svg>
+            </a>
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@umbalavlu?_r=1&_t=ZS-9AauyjsqK2f" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white border border-white/20 shadow-sm hover:scale-110 transition-transform" 
+               title="TikTok @umbalavlu" aria-label="TikTok @umbalavlu">
+              <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.47 6.27 6.27 0 0 0 1.87-4.47V8.92a8.28 8.28 0 0 0 4.8 1.51v-3.52c-.3-.03-.6-.11-.9-.22z"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -1785,11 +1845,297 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 bg-capsule-ink text-capsule-card text-xs font-medium px-4 py-3 rounded-xl shadow-lg border border-capsule-muted/30 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+  <!-- MODAL: XEM LẠI THIỆP & KIỂM TRA TOÀN DIỆN THÔNG TIN TRƯỚC KHI GỬI -->
+  <div id="cardPreviewModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-3 sm:p-4 transition-all duration-300">
+    <div class="bg-capsule-card rounded-3xl border border-capsule-surfaceDark max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl relative text-capsule-ink overflow-hidden animate-scale-up">
+      
+      <!-- Modal Header -->
+      <div class="px-5 sm:px-7 py-4 border-b border-capsule-surfaceDark flex items-center justify-between bg-capsule-surface/50 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xl shrink-0">
+            💌
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-serif font-bold text-lg sm:text-xl text-capsule-ink">Xem Lại Thiệp & Hộp Quà Trước Khi Gửi</h3>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold">Kiểm Tra Lần Cuối</span>
+            </div>
+            <p class="text-xs text-capsule-muted mt-0.5">Rà soát lại tên người nhận, lời chúc, giọng thu âm và video để món quà hoàn hảo nhất.</p>
+          </div>
+        </div>
+        <button onclick="closeCardPreviewModal()" class="w-8 h-8 rounded-full bg-capsule-surface hover:bg-capsule-surfaceDark text-capsule-muted hover:text-capsule-ink flex items-center justify-center transition-colors cursor-pointer shrink-0">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-5 sm:p-7 overflow-y-auto space-y-6 no-scrollbar flex-1">
+        
+        <!-- Smart Quota Alert Banner -->
+        <div id="previewQuotaNotice" class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
+          <span class="text-base shrink-0">⚠️</span>
+          <div class="leading-relaxed">
+            <strong>Lưu ý quan trọng:</strong> Tài khoản của bạn đang dùng <strong>Gói Khởi Đầu (01 lượt kích hoạt miễn phí)</strong>. Khi bấm "Xác nhận & Xuất quà", hệ thống sẽ kích hoạt đường link chính thức và tiêu hao lượt dùng này. Hãy kiểm tra thật kỹ các thông tin bên dưới nhé!
+          </div>
+        </div>
+
+        <!-- 2 Columns Grid: Visual Card & Pre-send Checklist -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Column A (7 cols): Visual Greeting Card Simulation -->
+          <div class="lg:col-span-7 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono uppercase tracking-wider text-capsule-primary font-bold flex items-center gap-1.5">
+                <span>🎨</span> TẤM THIỆP TRỰC QUAN GỬI NGƯỜI NHẬN
+              </span>
+              <span id="previewCardOccasionBadge" class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-capsule-surface text-capsule-ink font-semibold border border-capsule-surfaceDark">
+                🎂 Sinh Nhật
+              </span>
+            </div>
+
+            <!-- The Card Itself -->
+            <div class="bg-gradient-to-b from-[#FAF7F2] to-[#F3EFE8] rounded-2xl border-2 border-[#E5DEC9] p-5 sm:p-6 shadow-md relative overflow-hidden text-capsule-ink space-y-4">
+              <!-- Decorative Stamp / Border -->
+              <div class="flex items-start justify-between gap-3 border-b border-[#E2D8C0] pb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-capsule-surface border-2 border-white shadow-sm shrink-0">
+                    <img id="previewCardAvatar" src="" alt="Chân dung" class="w-full h-full object-cover">
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-mono uppercase text-capsule-muted tracking-wider block">Thân gửi tới:</span>
+                    <h4 class="font-serif font-black text-lg sm:text-xl text-capsule-primary" id="previewCardRecipient">Lan Anh</h4>
+                    <span class="text-xs font-mono text-capsule-muted" id="previewCardMilestone">Cột mốc 21 tuổi</span>
+                  </div>
+                </div>
+                <div class="text-right font-mono text-[10px] text-capsule-muted shrink-0">
+                  <div class="px-2 py-1 rounded bg-white/70 border border-[#DDD4BC]">ÚM BA LA • 2026</div>
+                  <div class="mt-1 text-capsule-accent">★ Độc Bản</div>
+                </div>
+              </div>
+
+              <!-- Main Greeting Headline & Body -->
+              <div class="space-y-2">
+                <span class="text-[10px] font-mono uppercase text-capsule-accent font-bold tracking-wider">Tiêu đề thông điệp:</span>
+                <h5 class="font-serif font-bold text-sm sm:text-base text-capsule-ink" id="previewCardHeadline">
+                  BƯỚC SANG TUỔI MỚI RỰC RỠ!
+                </h5>
+                <p class="text-xs sm:text-[13px] leading-relaxed text-capsule-ink/90 font-mono whitespace-pre-line bg-white/50 p-3 rounded-xl border border-[#E8DFC8]" id="previewCardMessage">
+                  Hôm nay, toàn thể những người thương yêu xin gửi tới bạn lời chúc nồng nhiệt nhất. Chúc bạn luôn bình an, rạng rỡ và tự tin tỏa sáng!
+                </p>
+              </div>
+
+              <!-- Secret Handwritten Letter Preview -->
+              <div class="space-y-1.5 pt-1">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-amber-800 font-bold flex items-center gap-1">
+                    <span>💌</span> Bức thư bí mật (Mở sau minigame):
+                  </span>
+                  <span class="text-[10px] text-capsule-muted font-mono" id="previewCardPasscodeSnippet">Mật mã: 1010</span>
+                </div>
+                <div class="bg-amber-50/60 p-3 rounded-xl border border-amber-200/70 text-xs italic font-serif text-amber-950 leading-relaxed max-h-24 overflow-y-auto no-scrollbar" id="previewCardSecretLetter">
+                  Cảm ơn vì đã luôn đồng hành cùng nhau qua bao mùa lễ. Chúc bạn một ngày ngập tràn niềm vui và bình yên!
+                </div>
+              </div>
+
+              <!-- Media Highlights (Audio & Video Previews) -->
+              <div class="pt-2 border-t border-[#E2D8C0] space-y-2">
+                <span class="text-[10px] font-mono uppercase text-capsule-muted tracking-wider block font-semibold">Tài nguyên cảm xúc đính kèm:</span>
+                
+                <!-- Audio Player in Card -->
+                <div id="previewCardAudioRow" class="p-2.5 rounded-xl bg-white border border-[#DDD4BC] flex items-center justify-between gap-3 text-xs">
+                  <div class="flex items-center gap-2 min-w-0">
+                    <span class="text-base shrink-0">🎙️</span>
+                    <div class="min-w-0">
+                      <span class="font-bold text-capsule-ink block text-[11px] truncate" id="previewCardAudioTitle">Giọng hát / Thu âm trực tiếp</span>
+                      <span class="text-[10px] text-capsule-muted font-mono" id="previewCardAudioStatus">Đã có file thu âm</span>
+                    </div>
+                  </div>
+                  <audio id="previewModalAudioPlayer" controls class="h-8 max-w-[180px] outline-none"></audio>
+                </div>
+
+                <!-- Video in Card -->
+                <div id="previewCardVideoRow" class="p-2.5 rounded-xl bg-white border border-[#DDD4BC] space-y-2 text-xs">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 min-w-0">
+                      <span class="text-base shrink-0">🎬</span>
+                      <div class="min-w-0">
+                        <span class="font-bold text-capsule-ink block text-[11px] truncate" id="previewCardVideoTitle">Video kỷ niệm</span>
+                        <span class="text-[10px] text-capsule-muted font-mono" id="previewCardVideoStatus">Thời lượng: 00:00</span>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold" id="previewCardVideoBadge">Đã Tải</span>
+                  </div>
+                  <div id="previewModalVideoWrap" class="relative rounded-lg overflow-hidden bg-black aspect-video max-h-36 flex items-center justify-center">
+                    <video id="previewModalVideoPlayer" controls class="w-full h-full object-contain" playsinline></video>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Column B (5 cols): Pre-flight Verification Checklist -->
+          <div class="lg:col-span-5 space-y-4">
+            <span class="text-xs font-mono uppercase tracking-wider text-capsule-primary font-bold flex items-center gap-1.5">
+              <span>📋</span> BẢNG CHECKLIST KIỂM TRA NHANH
+            </span>
+
+            <div class="bg-capsule-surface/50 rounded-2xl border border-capsule-surfaceDark p-4 sm:p-5 space-y-3.5 text-xs text-capsule-ink">
+              
+              <!-- Item 1: Recipient & Milestone -->
+              <div class="flex items-start gap-2.5 pb-2.5 border-b border-capsule-surfaceDark">
+                <span class="text-emerald-600 font-bold text-sm shrink-0">✓</span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-mono text-capsule-muted uppercase">Người nhận & Dịp lễ</div>
+                  <div class="font-bold text-capsule-ink mt-0.5 truncate" id="chkRecipient">Lan Anh • 21 tuổi</div>
+                </div>
+              </div>
+
+              <!-- Item 2: Secret Code & Hint -->
+              <div class="flex items-start gap-2.5 pb-2.5 border-b border-capsule-surfaceDark">
+                <span class="text-emerald-600 font-bold text-sm shrink-0">✓</span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-mono text-capsule-muted uppercase">Gợi ý & Mật khẩu mở hộp</div>
+                  <div class="font-mono text-capsule-ink mt-0.5 text-[11px]" id="chkQuiz">
+                    Gợi ý: "Ngày sinh nhật..."
+                  </div>
+                  <div class="font-mono font-bold text-capsule-primary mt-0.5" id="chkAnswer">
+                    Mật khẩu: [ 1010 ]
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 3: Voice Recording -->
+              <div class="flex items-start gap-2.5 pb-2.5 border-b border-capsule-surfaceDark">
+                <span id="chkAudioIcon" class="text-emerald-600 font-bold text-sm shrink-0">✓</span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-mono text-capsule-muted uppercase">Giọng hát / Thu âm trực tiếp</div>
+                  <div class="font-medium mt-0.5" id="chkAudioText">Đã đính kèm bản thu âm riêng</div>
+                </div>
+              </div>
+
+              <!-- Item 4: Video Clip -->
+              <div class="flex items-start gap-2.5 pb-2.5 border-b border-capsule-surfaceDark">
+                <span id="chkVideoIcon" class="text-emerald-600 font-bold text-sm shrink-0">✓</span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-mono text-capsule-muted uppercase">Video kỷ niệm (≤ 3 phút)</div>
+                  <div class="font-medium mt-0.5" id="chkVideoText">Đã tải video kỷ niệm</div>
+                </div>
+              </div>
+
+              <!-- Item 5: Memories Walk -->
+              <div class="flex items-start gap-2.5 pb-2.5 border-b border-capsule-surfaceDark">
+                <span class="text-emerald-600 font-bold text-sm shrink-0">✓</span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-mono text-capsule-muted uppercase">Bảo tàng kỷ niệm</div>
+                  <div class="font-medium mt-0.5" id="chkMemoriesText">3 khoảnh khắc ảnh & chú thích</div>
+                </div>
+              </div>
+
+              <!-- Item 6: Vouchers -->
+              <div class="flex items-start gap-2.5 pb-2.5 border-b border-capsule-surfaceDark">
+                <span class="text-emerald-600 font-bold text-sm shrink-0">✓</span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-mono text-capsule-muted uppercase">3 Phiếu Voucher tình cảm</div>
+                  <ul class="font-mono text-[11px] text-capsule-muted space-y-0.5 mt-0.5 list-disc pl-3" id="chkVouchersList">
+                    <li>Phiếu bao trà sữa</li>
+                    <li>Phiếu dạo phố đêm</li>
+                    <li>Phiếu tha thứ giận dỗi</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Item 7: Service Tier -->
+              <div class="flex items-start gap-2.5">
+                <span class="text-emerald-600 font-bold text-sm shrink-0">✓</span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-[11px] font-mono text-capsule-muted uppercase">Gói cấp quyền dịch vụ</div>
+                  <div class="font-bold text-capsule-primary mt-0.5" id="chkPlanText">Gói 2: Kỷ niệm độc bản</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Helpful Guidance Box -->
+            <div class="p-3.5 rounded-xl bg-blue-50/80 border border-blue-200/80 text-[11px] text-blue-900 leading-relaxed">
+              💡 <strong>Mẹo nhỏ:</strong> Bạn có thể bấm nút <strong>"Mở hộp thử thực tế"</strong> bên dưới để trực tiếp tương tác như người nhận từ màn mở nắp 3D đến từng trạm cảm xúc!
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Modal Footer Action Bar -->
+      <div class="px-5 sm:px-7 py-4 border-t border-capsule-surfaceDark bg-capsule-surface/70 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+        <button type="button" onclick="closeCardPreviewModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-full border border-capsule-surfaceDark bg-capsule-card hover:bg-capsule-surface text-capsule-ink text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+          <span>✏️ Tiếp tục chỉnh sửa</span>
+        </button>
+
+        <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+          <button type="button" onclick="previewInteractiveExperienceFromModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-full bg-capsule-surfaceDark hover:bg-capsule-surfaceDark/80 text-capsule-ink text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+            <span>👁️ Mở hộp thử thực tế</span>
+          </button>
+          
+          <button type="button" onclick="confirmAndPublishGiftFromModal()" class="w-full sm:w-auto px-6 py-2.5 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5">
+            <span>🚀 Xác nhận đúng & Xuất quà</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification (Căn giữa đáy màn hình tránh che khuất cụm nút nổi) -->
+  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-capsule-ink text-capsule-card text-xs font-medium px-5 py-3 rounded-2xl shadow-2xl border border-capsule-muted/30 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5 backdrop-blur-md">
     <span id="toastIcon">✓</span>
     <span id="toastMessage">Thông báo</span>
   </div>
+
+  <!-- CỤM NÚT NỔI LIÊN HỆ MẠNG XÃ HỘI (MESSENGER, FACEBOOK, TIKTOK) -->
+  <aside aria-label="Kênh liên hệ mạng xã hội Úm Ba La" class="fixed bottom-6 right-5 sm:bottom-8 sm:right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto">
+    <!-- Nút Messenger -->
+    <a href="https://me-l.co/4do9euc0" target="_blank" rel="noopener noreferrer" 
+       title="Nhắn tin Messenger" aria-label="Nhắn tin Messenger"
+       class="group relative flex items-center justify-center w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-tr from-[#006AFF] via-[#00B2FF] to-[#DF3C8C] text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/60 hover:scale-110 active:scale-95 transition-all duration-300">
+      <svg class="w-6 h-6 sm:w-6.5 sm:h-6.5 fill-current drop-shadow-sm" viewBox="0 0 24 24">
+        <path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.91 1.455 5.518 3.735 7.185v3.557c0 .493.542.793.957.527l3.96-2.544c.438.077.886.117 1.348.117 5.523 0 10-4.145 10-9.258C22 6.145 17.523 2 12 2zm1.07 12.35l-2.61-2.784-5.093 2.784 5.6-5.946 2.678 2.784 5.025-2.784-5.6 5.946z"/>
+      </svg>
+      <!-- Tooltip sang trái -->
+      <span class="hidden sm:inline-block absolute right-full mr-3.5 px-3 py-1.5 rounded-xl bg-gray-900/95 backdrop-blur-md text-white text-xs font-medium whitespace-nowrap shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 pointer-events-none transition-all duration-200 border border-white/10">
+        Nhắn tin Messenger 💬
+      </span>
+    </a>
+
+    <!-- Nút Facebook (Thiết kế đúng chuẩn theo ảnh: Vòng tròn xanh, bên trong là vòng tròn trắng chứa chữ f xanh) -->
+    <a href="https://me-l.co/4do9euc0" target="_blank" rel="noopener noreferrer" 
+       title="Facebook Úm Ba La" aria-label="Facebook Úm Ba La"
+       class="group relative flex items-center justify-center w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#1877F2] shadow-lg shadow-[#1877F2]/35 hover:shadow-[#1877F2]/65 hover:scale-110 active:scale-95 transition-all duration-300">
+      <div class="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-white flex items-center justify-center shadow-inner">
+        <svg class="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#1877F2] fill-current" viewBox="0 0 24 24">
+          <path d="M14 13.5h2.5l1-4H14v-2c0-1.03.28-1.5 1.5-1.5h2V2.14c-.35-.05-1.55-.14-2.95-.14-2.92 0-4.8 1.78-4.8 4.93V9.5H7v4h2.75V22h4.25v-8.5z"/>
+        </svg>
+      </div>
+      <!-- Tooltip sang trái -->
+      <span class="hidden sm:inline-block absolute right-full mr-3.5 px-3 py-1.5 rounded-xl bg-gray-900/95 backdrop-blur-md text-white text-xs font-medium whitespace-nowrap shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 pointer-events-none transition-all duration-200 border border-white/10">
+        Facebook Úm Ba La 🌐
+      </span>
+    </a>
+
+    <!-- Nút TikTok -->
+    <a href="https://www.tiktok.com/@umbalavlu?_r=1&_t=ZS-9AauyjsqK2f" target="_blank" rel="noopener noreferrer" 
+       title="TikTok @umbalavlu" aria-label="TikTok @umbalavlu"
+       class="group relative flex items-center justify-center w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-black text-white border border-white/20 shadow-lg shadow-black/40 hover:shadow-black/70 hover:scale-110 active:scale-95 transition-all duration-300">
+      <svg class="w-5.5 h-5.5 sm:w-6 sm:h-6 fill-current text-white" viewBox="0 0 24 24">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.47 6.27 6.27 0 0 0 1.87-4.47V8.92a8.28 8.28 0 0 0 4.8 1.51v-3.52c-.3-.03-.6-.11-.9-.22z"/>
+      </svg>
+      <!-- Tooltip sang trái -->
+      <span class="hidden sm:inline-block absolute right-full mr-3.5 px-3 py-1.5 rounded-xl bg-gray-900/95 backdrop-blur-md text-white text-xs font-medium whitespace-nowrap shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 pointer-events-none transition-all duration-200 border border-white/10">
+        TikTok @umbalavlu 🎵
+      </span>
+    </a>
+  </aside>
 
   <script>
     /* Complete Database of 10 Major Occasions in Vietnam & Globally */
@@ -2962,6 +3308,7 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
       const creatorView = document.getElementById("creatorView");
       const btnR = document.getElementById("btnRecipientMode");
       const btnC = document.getElementById("btnCreatorMode");
+      const banner = document.getElementById("recipientPreviewBanner");
 
       if (mode === 'recipient') {
         recipientView.classList.remove("hidden");
@@ -2971,6 +3318,7 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
       } else {
         recipientView.classList.add("hidden");
         creatorView.classList.remove("hidden");
+        if (banner) banner.classList.add("hidden");
         btnC.className = "px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-semibold shadow-2xs transition-all";
         btnR.className = "px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all";
         
@@ -2982,7 +3330,175 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
     function previewAsRecipient() {
       switchMode('recipient');
       navigateToPhase(1);
-      showToast("Chuyển sang chế độ mở quà người nhận", "👀");
+      const banner = document.getElementById("recipientPreviewBanner");
+      if (banner) banner.classList.remove("hidden");
+      showToast("Chuyển sang chế độ mở hộp quà người nhận để xem thử!", "👀");
+      window.scrollTo({ top: 380, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       Pre-send Card Preview & Verification Checklist Handlers
+       ========================================================================== */
+    function openCardPreviewModal() {
+      // 1. Sync latest inputs from form
+      updateAppData();
+
+      const modal = document.getElementById("cardPreviewModal");
+      if (!modal) return;
+
+      const occasion = OCCASIONS_DATA[appState.currentOccasionId] || OCCASIONS_DATA.birthday;
+
+      // Card Header & Meta
+      const badgeEl = document.getElementById("previewCardOccasionBadge");
+      if (badgeEl) badgeEl.textContent = `${occasion.icon || "🎁"} ${occasion.name || "Kỷ Niệm"}`;
+
+      const recEl = document.getElementById("previewCardRecipient");
+      if (recEl) recEl.textContent = appState.recipientName || "Người thương";
+
+      const mileEl = document.getElementById("previewCardMilestone");
+      if (mileEl) mileEl.textContent = `Cột mốc: ${appState.age || "2026"}`;
+
+      const avatarEl = document.getElementById("previewCardAvatar");
+      if (avatarEl) {
+        avatarEl.src = appState.avatarUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+        avatarEl.onerror = function() {
+          this.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+        };
+      }
+
+      const headEl = document.getElementById("previewCardHeadline");
+      if (headEl) headEl.textContent = appState.newsTitle || occasion.headline;
+
+      const msgEl = document.getElementById("previewCardMessage");
+      if (msgEl) msgEl.textContent = appState.newsBody || occasion.newsBody;
+
+      const secretEl = document.getElementById("previewCardSecretLetter");
+      if (secretEl) secretEl.textContent = appState.secretLetter || occasion.letter;
+
+      const passSnippetEl = document.getElementById("previewCardPasscodeSnippet");
+      if (passSnippetEl) passSnippetEl.textContent = `Mật mã: ${appState.secretAnswer || "Chưa đặt"}`;
+
+      // Audio handling in preview modal
+      const audioRow = document.getElementById("previewCardAudioRow");
+      const audioPlayer = document.getElementById("previewModalAudioPlayer");
+      const audioStatus = document.getElementById("previewCardAudioStatus");
+      const chkAudioIcon = document.getElementById("chkAudioIcon");
+      const chkAudioText = document.getElementById("chkAudioText");
+
+      if (appState.voiceRecording) {
+        if (audioRow) audioRow.classList.remove("hidden");
+        if (audioPlayer) {
+          audioPlayer.src = appState.voiceRecording;
+          audioPlayer.classList.remove("hidden");
+        }
+        if (audioStatus) audioStatus.textContent = `Đã đính kèm bản ghi âm (${formatDuration(appState.voiceRecordingDuration)}) ✓`;
+        if (chkAudioIcon) { chkAudioIcon.textContent = "✓"; chkAudioIcon.className = "text-emerald-600 font-bold text-sm shrink-0"; }
+        if (chkAudioText) chkAudioText.textContent = `Đã đính kèm bản thu âm riêng (${formatDuration(appState.voiceRecordingDuration)})`;
+      } else {
+        if (audioPlayer) {
+          audioPlayer.pause();
+          audioPlayer.src = "";
+          audioPlayer.classList.add("hidden");
+        }
+        if (audioStatus) audioStatus.textContent = "Chưa thu âm giọng nói (Tùy chọn)";
+        if (chkAudioIcon) { chkAudioIcon.textContent = "ℹ️"; chkAudioIcon.className = "text-amber-500 font-bold text-sm shrink-0"; }
+        if (chkAudioText) chkAudioText.textContent = "Chưa thu âm giọng hát / lời chúc riêng";
+      }
+
+      // Video handling in preview modal
+      const videoRow = document.getElementById("previewCardVideoRow");
+      const videoWrap = document.getElementById("previewModalVideoWrap");
+      const videoPlayer = document.getElementById("previewModalVideoPlayer");
+      const videoStatus = document.getElementById("previewCardVideoStatus");
+      const videoBadge = document.getElementById("previewCardVideoBadge");
+      const chkVideoIcon = document.getElementById("chkVideoIcon");
+      const chkVideoText = document.getElementById("chkVideoText");
+
+      if (appState.videoGift) {
+        if (videoRow) videoRow.classList.remove("hidden");
+        if (videoWrap) videoWrap.classList.remove("hidden");
+        if (videoPlayer) {
+          videoPlayer.src = appState.videoGift;
+          videoPlayer.classList.remove("hidden");
+        }
+        if (videoStatus) videoStatus.textContent = `${appState.videoGiftName || "video.mp4"} • ${formatDuration(appState.videoGiftDuration)}`;
+        if (videoBadge) { videoBadge.textContent = "Đã Tải ✓"; videoBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold"; }
+        if (chkVideoIcon) { chkVideoIcon.textContent = "✓"; chkVideoIcon.className = "text-emerald-600 font-bold text-sm shrink-0"; }
+        if (chkVideoText) chkVideoText.textContent = `Đã tải video kỷ niệm (${formatDuration(appState.videoGiftDuration)})`;
+      } else {
+        if (videoWrap) videoWrap.classList.add("hidden");
+        if (videoPlayer) {
+          videoPlayer.pause();
+          videoPlayer.src = "";
+          videoPlayer.classList.add("hidden");
+        }
+        if (videoStatus) videoStatus.textContent = "Chưa tải video kỷ niệm (Tùy chọn)";
+        if (videoBadge) { videoBadge.textContent = "Chưa tải"; videoBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-gray-100 text-gray-600 font-medium"; }
+        if (chkVideoIcon) { chkVideoIcon.textContent = "ℹ️"; chkVideoIcon.className = "text-amber-500 font-bold text-sm shrink-0"; }
+        if (chkVideoText) chkVideoText.textContent = "Chưa tải video kỷ niệm (Tùy chọn)";
+      }
+
+      // Checklist Update
+      const chkRec = document.getElementById("chkRecipient");
+      if (chkRec) chkRec.textContent = `${appState.recipientName} • ${appState.age} (${occasion.name})`;
+
+      const chkQuiz = document.getElementById("chkQuiz");
+      if (chkQuiz) chkQuiz.textContent = `Gợi ý: "${appState.secretQuestion}"`;
+
+      const chkAnswer = document.getElementById("chkAnswer");
+      if (chkAnswer) chkAnswer.textContent = `Mật khẩu: [ ${appState.secretAnswer} ]`;
+
+      const chkMem = document.getElementById("chkMemoriesText");
+      if (chkMem) chkMem.textContent = `${appState.memories ? appState.memories.length : 3} khoảnh khắc ảnh & lời tự sự`;
+
+      const chkVouchers = document.getElementById("chkVouchersList");
+      if (chkVouchers && appState.vouchers) {
+        chkVouchers.innerHTML = appState.vouchers.map(v => `<li class="truncate">${v.icon || "✦"} ${v.text}</li>`).join("");
+      }
+
+      const chkPlan = document.getElementById("chkPlanText");
+      if (chkPlan) {
+        if (appState.user.plan === "free") {
+          chkPlan.textContent = "Gói 01 Dùng Thử: 1 lượt miễn phí";
+        } else {
+          chkPlan.textContent = appState.selectedPlan || "Gói 2: Kỷ niệm độc bản";
+        }
+      }
+
+      // Quota Notice Warning
+      const quotaNotice = document.getElementById("previewQuotaNotice");
+      if (quotaNotice) {
+        if (appState.user.plan === "free") {
+          quotaNotice.classList.remove("hidden");
+        } else {
+          quotaNotice.classList.add("hidden");
+        }
+      }
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeCardPreviewModal() {
+      const modal = document.getElementById("cardPreviewModal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+      const audioPlayer = document.getElementById("previewModalAudioPlayer");
+      if (audioPlayer) audioPlayer.pause();
+      const videoPlayer = document.getElementById("previewModalVideoPlayer");
+      if (videoPlayer) videoPlayer.pause();
+    }
+
+    function previewInteractiveExperienceFromModal() {
+      closeCardPreviewModal();
+      previewAsRecipient();
+    }
+
+    function confirmAndPublishGiftFromModal() {
+      closeCardPreviewModal();
+      publishGiftWithQuota();
     }
 
     /* Plan Selection Handler */
