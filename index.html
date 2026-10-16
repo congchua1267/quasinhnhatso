@@ -7,10 +7,10 @@
  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Editorial Vintage, Serif & Sans-Serif -->
+  <!-- Google Fonts: Editorial Vintage, Serif & Sans-Serif & Quicksand -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;0,600;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Interactive Utility CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -41,6 +41,7 @@
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            quicksand: ['"Quicksand"', 'sans-serif'],
             serif: ['"Playfair Display"', 'serif'],
             vintage: ['"Cinzel"', 'serif'],
             mono: ['"Courier Prime"', 'monospace'],
@@ -208,6 +209,19 @@
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
+    /* Quicksand font helper & Single-line header enforcement */
+    .font-quicksand,
+    header.font-quicksand,
+    header.font-quicksand * {
+      font-family: 'Quicksand', sans-serif !important;
+    }
+    header.font-quicksand a,
+    header.font-quicksand button,
+    header.font-quicksand span,
+    header.font-quicksand nav {
+      white-space: nowrap !important;
+    }
+
     /* Paper linen texture overlay */
     .paper-texture {
       background-image: radial-gradient(var(--c-ink) 0.5px, transparent 0.5px), radial-gradient(var(--c-ink) 0.5px, var(--c-bg) 0.5px);
@@ -285,68 +299,85 @@
   </aside>
 
   <!-- Sticky Main Header Navigation -->
-  <header class="sticky top-0 z-40 bg-capsule-bg/92 backdrop-blur-md border-b border-capsule-surface px-4 py-3 sm:px-8 transition-colors duration-400">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+  <header class="sticky top-0 z-40 bg-capsule-bg/92 backdrop-blur-md border-b border-capsule-surface px-3 sm:px-6 xl:px-8 py-2.5 transition-colors duration-400 font-quicksand">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 xl:gap-4">
       
       <!-- Brand Logo -->
-      <a href="./homepage.html" class="flex items-center gap-2 group focus:outline-none" title="Úm Ba La - Biến yêu thương thành phép màu">
-        <img src="logo-umbala.png" alt="Úm Ba La Logo" class="h-10 sm:h-12 w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform drop-shadow-xs">
+      <a href="./homepage.html" class="shrink-0 flex items-center gap-2 group focus:outline-none" title="Úm Ba La - Biến yêu thương thành phép màu">
+        <img src="logo-umbala.png" alt="Úm Ba La Logo" class="h-11 sm:h-13 xl:h-14 w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform drop-shadow-xs">
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-6 text-xs font-medium text-capsule-ink tracking-wide">
-      <a href="./homepage.html" class="hover:text-capsule-primary transition-colors">Trang chủ</a>
-        <a href="#occasionSection" id="navOccasionLink" class="hover:text-capsule-primary transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-capsule-surface/70 hover:bg-capsule-surface">
-        <span id="navOccasionLabel">Dịp Lễ</span>
-        <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent"></span>
+      <nav class="hidden lg:flex items-center gap-3.5 xl:gap-6 text-xs xl:text-[13px] font-semibold text-capsule-ink tracking-wide whitespace-nowrap shrink-0">
+        <a href="./homepage.html" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Trang chủ</a>
+        <a href="#occasionSection" id="navOccasionLink" class="hover:text-capsule-primary transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-capsule-surface/70 hover:bg-capsule-surface whitespace-nowrap">
+          <span id="navOccasionLabel" class="whitespace-nowrap">Dịp Lễ</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent shrink-0"></span>
         </a>
-        <a href="#experienceFlow" class="hover:text-capsule-primary transition-colors">3 chặng trải nghiệm</a>
-        <a href="#pricing" class="hover:text-capsule-primary transition-colors">Bảng giá</a>
-        <a href="#whyUs" class="hover:text-capsule-primary transition-colors">Ưu thế</a>
+        <a href="#experienceFlow" class="hover:text-capsule-primary transition-colors whitespace-nowrap">3 chặng trải nghiệm</a>
+        <a href="#pricing" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Bảng giá</a>
+        <a href="#whyUs" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Ưu thế</a>
       </nav>
 
       <!-- Header Action Controls -->
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 whitespace-nowrap">
         <!-- Audio BGM Player Toggle -->
-        <button id="bgmToggleBtn" onclick="toggleAudio()" class="px-3 py-1.5 rounded-full border border-capsule-surface text-xs font-medium flex items-center gap-1.5 bg-capsule-card hover:border-capsule-muted transition-colors text-capsule-ink shadow-2xs" title="Bật/Tắt Nhạc Nền Thư Giãn">
+        <button id="bgmToggleBtn" onclick="toggleAudio()" class="px-2.5 sm:px-3 py-1.5 rounded-full border border-capsule-surface text-xs font-semibold flex items-center gap-1.5 bg-capsule-card hover:border-capsule-muted transition-colors text-capsule-ink shadow-2xs cursor-pointer shrink-0 whitespace-nowrap" title="Bật/Tắt Nhạc Nền Thư Giãn">
           <span id="audioIcon">🎵</span>
-          <span id="audioStatusText" class="hidden sm:inline text-[11px] font-mono">Nhạc: Tắt</span>
+          <span id="audioStatusText" class="hidden sm:inline text-xs font-semibold whitespace-nowrap">Nhạc: Tắt</span>
         </button>
 
         <!-- View Mode Switcher -->
-        <div class="flex bg-capsule-surface p-1 rounded-full text-xs font-medium">
-          <button id="btnRecipientMode" onclick="switchMode('recipient')" class="px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-semibold shadow-2xs transition-all">
+        <div class="flex bg-capsule-surface p-1 rounded-full text-xs font-semibold shrink-0 whitespace-nowrap">
+          <button id="btnRecipientMode" onclick="switchMode('recipient')" class="px-2.5 sm:px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-bold shadow-2xs transition-all cursor-pointer whitespace-nowrap">
             Người Nhận
           </button>
-          <button id="btnCreatorMode" onclick="switchMode('creator')" class="px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all">
+          <button id="btnCreatorMode" onclick="switchMode('creator')" class="px-2.5 sm:px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all cursor-pointer whitespace-nowrap">
             Studio Tạo Quà
           </button>
         </div>
 
         <!-- Creator Account / Auth Status Button -->
-        <button id="headerAuthBtn" onclick="handleHeaderAuthClick()" class="px-3 py-1.5 rounded-full border border-capsule-surface bg-capsule-card hover:border-capsule-primary text-xs font-medium flex items-center gap-1.5 text-capsule-ink shadow-2xs transition-all" title="Tài khoản người tạo quà">
+        <button id="headerAuthBtn" onclick="handleHeaderAuthClick()" class="px-2.5 sm:px-3 py-1.5 rounded-full border border-capsule-surface bg-capsule-card hover:border-capsule-primary text-xs font-semibold flex items-center gap-1.5 text-capsule-ink shadow-2xs transition-all cursor-pointer shrink-0 whitespace-nowrap" title="Tài khoản người tạo quà">
           <span id="headerAuthIcon">👤</span>
-          <span id="headerAuthLabel" class="hidden md:inline text-[11px] font-mono">Đăng nhập (1 lượt Free)</span>
+          <span id="headerAuthLabel" class="hidden md:inline text-xs font-semibold whitespace-nowrap">Đăng nhập (1 lượt Free)</span>
         </button>
 
         <!-- Primary CTA Button -->
-        <a href="#creatorViewAnchor" onclick="switchMode('creator')" class="hidden sm:flex px-4 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs font-semibold tracking-wide transition-all shadow-xs hover:shadow-sm items-center gap-1.5">
-          <span>✨ Tạo Hộp Quà</span>
+        <a href="#creatorViewAnchor" onclick="switchMode('creator')" class="hidden sm:flex px-3.5 xl:px-4 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs xl:text-[13px] font-bold tracking-wide transition-all shadow-xs hover:shadow-sm items-center gap-1.5 cursor-pointer shrink-0 whitespace-nowrap">
+          <span class="whitespace-nowrap">✨ Tạo Hộp Quà</span>
         </a>
       </div>
     </div>
   </header>
  
   <!-- Quick Occasion Selector Carousel Bar -->
-<section id="occasionSection" class="sticky top-[57px] sm:top-[65px] scroll-mt-16 z-30 bg-capsule-card/95 backdrop-blur-md border-b border-capsule-surface px-4 py-2.5 transition-colors duration-400 shadow-2xs">
-  <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
-      <div class="flex items-center gap-1.5 text-capsule-muted text-xs font-mono shrink-0 hidden sm:flex">
+  <section id="occasionSection" class="sticky top-[57px] sm:top-[65px] scroll-mt-16 z-30 bg-capsule-card/95 backdrop-blur-md border-b border-capsule-surface px-3 sm:px-6 xl:px-8 py-2 transition-colors duration-400 shadow-2xs font-quicksand">
+    <div class="max-w-7xl mx-auto flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-1.5 text-capsule-muted text-xs font-semibold shrink-0 hidden sm:flex">
         <span>Chọn dịp Lễ:</span>
       </div>
       
-      <!-- Horizontal Scrollable Tags -->
-      <div id="occasionPillsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 w-full">
-        <!-- Occasion Buttons injected via JS -->
+      <!-- Horizontal Scrollable Container with Rounded Navigation Arrows -->
+      <div class="relative flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
+        <!-- Nút mũi tên cuộn trái -->
+        <button id="scrollOccasionLeft" onclick="scrollOccasions(-260)" type="button" class="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-capsule-surfaceDark shadow-xs hover:shadow-md hover:scale-105 active:scale-95 text-capsule-primary flex items-center justify-center transition-all cursor-pointer z-10" title="Xem dịp trước" aria-label="Cuộn sang trái">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-capsule-primary" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Horizontal Scrollable Tags -->
+        <div id="occasionPillsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 scroll-smooth w-full">
+          <!-- Occasion Buttons injected via JS -->
+        </div>
+
+        <!-- Nút mũi tên cuộn phải -->
+        <button id="scrollOccasionRight" onclick="scrollOccasions(260)" type="button" class="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-capsule-surfaceDark shadow-xs hover:shadow-md hover:scale-105 active:scale-95 text-capsule-primary flex items-center justify-center transition-all cursor-pointer z-10" title="Xem thêm dịp lễ" aria-label="Cuộn sang phải">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-capsule-primary" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -526,29 +557,155 @@
           </div>
         </div>
 
-        <!-- Trạm 3: Đĩa Than Phát Nhạc & Nút Chuyển Tiếp -->
-        <div class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-8 shadow-xs flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="flex items-center gap-5">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#1F2220] flex items-center justify-center p-2 shadow-md shrink-0">
-              <div id="vinylDisc" class="w-full h-full rounded-full border-4 border-dashed border-[#353A37] flex items-center justify-center spinning paused">
-                <div class="w-8 h-8 rounded-full bg-capsule-accent flex items-center justify-center text-capsule-card text-[9px] font-mono font-bold">
-                  ODE
-                </div>
-              </div>
-            </div>
+        <!-- Trạm 3: Âm Thanh Kỷ Niệm (Đĩa Than Lofi & Băng Cassette Giọng Hát Tự Thu) -->
+        <div class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-8 shadow-xs space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-2 pb-4 border-b border-capsule-surface">
             <div>
               <span class="text-xs font-mono text-capsule-accent uppercase tracking-wider font-semibold">Trạm 03 • Âm thanh kỷ niệm</span>
-              <h4 class="font-serif font-bold text-base sm:text-lg text-capsule-ink mt-0.5" id="bgmTrackTitle">Lofi Harmonic Breeze</h4>
-              <p class="text-xs text-capsule-muted mt-0.5" id="bgmTrackSubtitle">Giai điệu hoài niệm nhẹ nhàng thư giãn</p>
-              <button onclick="toggleAudio()" class="mt-2.5 px-4 py-1.5 rounded-full bg-capsule-primary text-capsule-card text-xs font-medium hover:bg-capsule-primaryHover transition-colors">
-                <span id="playerBtnText">Phát nhạc</span>
-              </button>
+              <h3 class="font-serif font-bold text-lg sm:text-xl text-capsule-ink flex items-center gap-2 mt-0.5">
+                <span>🎵</span> Giai Điệu & Giọng Hát Tặng Bạn
+              </h3>
+            </div>
+            <span class="text-xs font-mono px-3 py-1 rounded-full bg-capsule-primaryLight text-capsule-primary font-semibold">
+              ✦ Trải Nghiệm Thính Giác
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Box A: Đĩa Than Phát Nhạc Nền Lofi -->
+            <div class="p-5 rounded-2xl bg-capsule-surface/50 border border-capsule-surface flex items-center gap-4">
+              <div class="w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-[#1F2220] flex items-center justify-center p-2 shadow-md shrink-0">
+                <div id="vinylDisc" class="w-full h-full rounded-full border-4 border-dashed border-[#353A37] flex items-center justify-center spinning paused">
+                  <div class="w-7 h-7 rounded-full bg-capsule-accent flex items-center justify-center text-capsule-card text-[8px] font-mono font-bold">
+                    BGM
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <span class="text-[10px] font-mono text-capsule-accent uppercase tracking-wider font-bold">Giai Điệu Nền Hoài Niệm</span>
+                <h4 class="font-serif font-bold text-sm sm:text-base text-capsule-ink truncate mt-0.5" id="bgmTrackTitle">Lofi Harmonic Breeze</h4>
+                <p class="text-xs text-capsule-muted truncate mt-0.5" id="bgmTrackSubtitle">Giai điệu thư giãn nhẹ nhàng</p>
+                <button onclick="toggleAudio()" class="mt-2.5 px-3.5 py-1.5 rounded-full bg-capsule-primary text-capsule-card text-xs font-medium hover:bg-capsule-primaryHover transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <span id="playerBtnIcon">▶</span>
+                  <span id="playerBtnText">Phát nhạc nền</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Box B: Máy Băng Cassette Giọng Hát / Lời Chúc Riêng -->
+            <div id="recipientVoiceStationCard" class="p-5 rounded-2xl bg-[#232725] text-white border border-[#353A38] shadow-md flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono text-amber-300 uppercase tracking-widest font-bold flex items-center gap-1">
+                  <span>🎙️</span> CASSETTE BĂNG CỐI RIÊNG TƯ
+                </span>
+                <span id="recipientVoiceBadge" class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/80">
+                  SIDE A • ĐỘC BẢN
+                </span>
+              </div>
+
+              <!-- Cassette Tape Visual -->
+              <div class="bg-[#181A19] rounded-xl p-3 border border-white/10 flex items-center justify-between gap-3">
+                <!-- Left Reel -->
+                <div class="w-10 h-10 rounded-full border-2 border-dashed border-amber-200/50 flex items-center justify-center shrink-0">
+                  <div id="cassetteReelLeft" class="w-5 h-5 rounded-full border-2 border-white/60 flex items-center justify-center spinning paused">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                  </div>
+                </div>
+
+                <!-- Center Tape Window -->
+                <div class="flex-1 bg-[#101211] rounded-md py-1.5 px-3 border border-white/5 text-center min-w-0">
+                  <p class="font-serif text-xs font-semibold text-amber-100 truncate" id="recipientVoiceTitle">
+                    Bản Thu Âm Tặng <span class="recipient-name-display text-amber-300">Lan Anh</span>
+                  </p>
+                  <p class="text-[10px] font-mono text-white/50 truncate mt-0.5" id="recipientVoiceStatus">
+                    Lời chúc & giọng hát chân thành
+                  </p>
+                </div>
+
+                <!-- Right Reel -->
+                <div class="w-10 h-10 rounded-full border-2 border-dashed border-amber-200/50 flex items-center justify-center shrink-0">
+                  <div id="cassetteReelRight" class="w-5 h-5 rounded-full border-2 border-white/60 flex items-center justify-center spinning paused">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Voice Controls -->
+              <div class="flex items-center justify-between pt-1">
+                <audio id="recipientVoiceAudio" preload="auto" class="hidden"></audio>
+                <div class="flex items-center gap-2">
+                  <button id="btnPlayVoiceRecording" onclick="toggleVoiceAudio()" class="px-4 py-1.5 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-900 font-bold text-xs transition-all flex items-center gap-1.5 shadow-xs cursor-pointer">
+                    <span id="btnVoicePlayIcon">▶</span>
+                    <span id="btnVoicePlayText">Lắng nghe giọng hát</span>
+                  </button>
+                  <span id="recipientVoiceTime" class="text-[11px] font-mono text-amber-200/80">00:00</span>
+                </div>
+                <span class="text-[10px] font-mono text-white/40 italic">Độc bản</span>
+              </div>
             </div>
           </div>
-          
-          <button onclick="navigateToPhase(3)" class="w-full md:w-auto px-6 py-3 rounded-full bg-capsule-ink text-capsule-card text-xs sm:text-sm font-medium hover:bg-black transition-colors flex items-center justify-center gap-2">
-            <span>Đến tờ báo kỷ niệm & Voucher ➔</span>
-          </button>
+        </div>
+
+        <!-- Trạm 4: Thước Phim Kỷ Niệm (Cinema Mini - Tối Đa 3 Phút) -->
+        <div id="recipientCinemaStation" class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-8 shadow-xs space-y-6">
+          <div class="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-capsule-surface">
+            <div>
+              <span class="text-xs font-mono text-capsule-accent uppercase tracking-wider font-semibold">Trạm 04 • Thước phim kỷ niệm</span>
+              <h3 class="font-serif font-bold text-lg sm:text-xl text-capsule-ink flex items-center gap-2 mt-0.5">
+                <span>🎬</span> Rạp Chiếu Phim Kỷ Niệm
+              </h3>
+            </div>
+            <span class="text-xs font-mono px-3 py-1 rounded-full bg-capsule-primaryLight text-capsule-primary font-semibold" id="recipientCinemaBadge">
+              ✦ Suất Chiếu Riêng Tư
+            </span>
+          </div>
+
+          <!-- Cinema Projector Screen Frame -->
+          <div class="relative rounded-2xl overflow-hidden bg-[#161817] border-4 border-[#2C302E] shadow-xl p-3 sm:p-5 text-white">
+            <!-- Film Strip Perforations Top -->
+            <div class="flex items-center justify-between gap-2 pb-3 mb-2 border-b border-white/10 opacity-70 overflow-hidden">
+              <span class="font-mono text-[10px] tracking-widest uppercase text-amber-300/80">🎞️ AETERNA MEMORY FILM • 35MM REEL</span>
+              <div class="flex gap-1.5">
+                <span class="w-2.5 h-1.5 bg-white/30 rounded-xs"></span>
+                <span class="w-2.5 h-1.5 bg-white/30 rounded-xs"></span>
+                <span class="w-2.5 h-1.5 bg-white/30 rounded-xs"></span>
+                <span class="w-2.5 h-1.5 bg-white/30 rounded-xs"></span>
+              </div>
+            </div>
+
+            <!-- Video Player or Placeholder -->
+            <div id="recipientVideoContainer" class="relative rounded-xl overflow-hidden bg-black/90 aspect-video flex items-center justify-center">
+              <video id="recipientVideoPlayer" controls class="w-full h-full object-contain hidden" playsinline></video>
+              
+              <!-- Placeholder when no video has been uploaded yet -->
+              <div id="recipientVideoPlaceholder" class="text-center p-6 space-y-3">
+                <div class="w-14 h-14 rounded-full bg-white/10 mx-auto flex items-center justify-center text-2xl">
+                  📽️
+                </div>
+                <h4 class="font-serif text-base font-semibold text-amber-100">Khoảnh Khắc Đang Chờ Đón</h4>
+                <p class="text-xs text-white/60 max-w-sm mx-auto">
+                  Người tặng chưa tải video kỷ niệm lên. Hãy tiếp tục bước sang Chặng 3 để khám phá Tờ Báo & Voucher tình cảm!
+                </p>
+              </div>
+            </div>
+
+            <!-- Cinema Caption -->
+            <div class="mt-3 pt-2 flex items-center justify-between text-[11px] font-mono text-white/70">
+              <span id="recipientVideoCaption">Thước phim kỷ niệm độc bản dành riêng cho bạn</span>
+              <span id="recipientVideoDurationTag" class="text-amber-300">⏱️ Tối đa 3 phút</span>
+            </div>
+          </div>
+
+          <!-- Transition to Phase 3 -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+            <span class="text-xs text-capsule-muted font-mono italic">
+              ✨ Khép lại bảo tàng với món quà bất ngờ tại chặng cuối...
+            </span>
+            <button onclick="navigateToPhase(3)" class="w-full sm:w-auto px-6 py-3 rounded-full bg-capsule-ink text-capsule-card text-xs sm:text-sm font-semibold hover:bg-black transition-all shadow-xs flex items-center justify-center gap-2 hover:gap-3 cursor-pointer">
+              <span>Đến tờ báo kỷ niệm & Voucher</span>
+              <span>➔</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -787,6 +944,147 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- Bước 3: Thu Âm Giọng Hát / Bài Hát & Video Kỷ Niệm (Tối Đa 3 Phút) -->
+        <div class="mt-8 pt-6 border-t border-capsule-surface space-y-4">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h3 class="font-serif font-bold text-base text-capsule-ink flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-capsule-surface text-capsule-primary text-xs font-mono flex items-center justify-center font-bold">3</span>
+              🎙️ Thu Âm Giọng Hát & 🎬 Video Kỷ Niệm (Tối Đa 3 Phút)
+            </h3>
+            <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-capsule-primaryLight text-capsule-primary font-semibold">
+              ✦ Tính năng cảm xúc độc bản
+            </span>
+          </div>
+          <p class="text-xs text-capsule-muted">
+            Tự hát tặng một bài hát hoặc thu âm lời chúc ấm áp bằng chính giọng nói của bạn, cùng 1 thước phim video kỷ niệm sống động (thời lượng tối đa 3 phút) gửi trọn cho người nhận.
+          </p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+            <!-- Box 1: Thu Âm Giọng Hát / Bài Hát -->
+            <div class="p-5 rounded-2xl bg-capsule-surface/50 border border-capsule-surface flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-serif font-bold text-capsule-ink flex items-center gap-1.5">
+                    <span>🎙️</span> Bản Thu Âm Giọng Hát / Lời Chúc
+                  </span>
+                  <span id="recordingStatusBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-capsule-card text-capsule-muted font-semibold">
+                    Chưa có bản thu
+                  </span>
+                </div>
+                <p class="text-[11px] text-capsule-muted leading-relaxed">
+                  Bấm thu âm trực tiếp qua mic (hát tặng hoặc gửi gắm tâm tình), hoặc tải lên file âm thanh có sẵn (.mp3, .m4a, .wav).
+                </p>
+              </div>
+
+              <!-- Recording Controls Area -->
+              <div class="bg-capsule-card rounded-xl p-4 border border-capsule-surface space-y-3">
+                <!-- Idle State / Controls -->
+                <div id="recordingIdleState" class="flex flex-col items-center justify-center py-2 space-y-2">
+                  <button type="button" onclick="startVoiceRecording()" class="px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs font-semibold shadow-xs flex items-center gap-2 transition-transform hover:scale-105 cursor-pointer">
+                    <span class="w-2.5 h-2.5 rounded-full bg-white animate-ping"></span>
+                    <span>🔴 Bắt đầu thu âm trực tiếp</span>
+                  </button>
+                  <span class="text-[11px] text-capsule-muted font-mono">hoặc</span>
+                  <label class="cursor-pointer px-3.5 py-1.5 rounded-lg border border-dashed border-capsule-primary/40 hover:border-capsule-primary hover:bg-capsule-primaryLight/50 text-capsule-primary text-xs font-medium transition-all flex items-center gap-1.5">
+                    <span>📁 Tải lên file âm thanh có sẵn</span>
+                    <input type="file" id="inputAudioFile" accept="audio/*" class="hidden" onchange="handleAudioFileUpload(event)">
+                  </label>
+                </div>
+
+                <!-- Active Recording State -->
+                <div id="recordingActiveState" class="hidden flex flex-col items-center justify-center py-3 space-y-3 bg-red-50/70 rounded-lg border border-red-200/50">
+                  <div class="flex items-center gap-3">
+                    <span class="w-3.5 h-3.5 rounded-full bg-red-600 animate-pulse"></span>
+                    <span class="text-xs font-mono font-bold text-red-700 uppercase tracking-wider">Đang thu âm mic...</span>
+                    <span id="recordingTimer" class="font-mono text-sm font-bold text-red-600 px-2.5 py-0.5 rounded bg-white border border-red-200">00:00</span>
+                  </div>
+                  <!-- Wave animation bars -->
+                  <div class="flex items-center gap-1 h-6">
+                    <span class="w-1 bg-red-500 rounded-full animate-bounce h-4"></span>
+                    <span class="w-1 bg-red-500 rounded-full animate-bounce h-6" style="animation-delay: 0.15s"></span>
+                    <span class="w-1 bg-red-500 rounded-full animate-bounce h-3" style="animation-delay: 0.3s"></span>
+                    <span class="w-1 bg-red-500 rounded-full animate-bounce h-5" style="animation-delay: 0.2s"></span>
+                    <span class="w-1 bg-red-500 rounded-full animate-bounce h-2" style="animation-delay: 0.4s"></span>
+                  </div>
+                  <button type="button" onclick="stopVoiceRecording()" class="px-5 py-2 rounded-full bg-capsule-ink hover:bg-black text-white text-xs font-semibold shadow-xs flex items-center gap-1.5 transition-all cursor-pointer">
+                    <span>⏹️ Dừng & Lưu Bản Thu</span>
+                  </button>
+                </div>
+
+                <!-- Preview / Recorded State -->
+                <div id="recordingRecordedState" class="hidden space-y-3">
+                  <div class="flex items-center justify-between text-xs font-mono text-capsule-muted">
+                    <span class="flex items-center gap-1 text-emerald-700 font-semibold">
+                      <span>✓</span> Đã lưu bản thu (<span id="voiceDurationDisplay">00:00</span>)
+                    </span>
+                    <span id="voiceFileNameDisplay" class="truncate max-w-[150px]">Ghi_am_rieng.mp3</span>
+                  </div>
+                  <audio id="creatorAudioPreview" controls class="w-full h-9 rounded-lg outline-none"></audio>
+                  <div class="flex items-center justify-end gap-2 pt-1">
+                    <button type="button" onclick="retakeVoiceRecording()" class="px-3 py-1.5 rounded-lg border border-capsule-surface hover:bg-capsule-surface text-capsule-ink text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer">
+                      <span>🔄 Thu lại</span>
+                    </button>
+                    <button type="button" onclick="deleteVoiceRecording()" class="px-3 py-1.5 rounded-lg text-red-600 hover:bg-red-50 text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer">
+                      <span>🗑️ Xóa bản thu</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Box 2: Video Kỷ Niệm (Tối Đa 3 Phút) -->
+            <div class="p-5 rounded-2xl bg-capsule-surface/50 border border-capsule-surface flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-serif font-bold text-capsule-ink flex items-center gap-1.5">
+                    <span>🎬</span> Thước Phim Kỷ Niệm (Tối Đa 3 Phút)
+                  </span>
+                  <span id="videoStatusBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-capsule-card text-capsule-muted font-semibold">
+                    Chưa có video
+                  </span>
+                </div>
+                <p class="text-[11px] text-capsule-muted leading-relaxed">
+                  Tải lên 1 đoạn video đáng nhớ gửi tặng người nhận. Hệ thống tự động kiểm tra thời lượng (<strong class="text-capsule-primary font-bold">tối đa 3 phút / 180s</strong>).
+                </p>
+              </div>
+
+              <!-- Video Upload & Preview Area -->
+              <div class="bg-capsule-card rounded-xl p-4 border border-capsule-surface space-y-3">
+                <!-- Video Empty / Upload State -->
+                <div id="videoEmptyState" class="flex flex-col items-center justify-center py-4 border-2 border-dashed border-capsule-surfaceDark hover:border-capsule-primary rounded-xl transition-all cursor-pointer bg-capsule-bg/50" onclick="document.getElementById('inputVideoFile').click()">
+                  <div class="w-10 h-10 rounded-full bg-capsule-primary/10 text-capsule-primary flex items-center justify-center text-lg mb-2">
+                    🎥
+                  </div>
+                  <span class="text-xs font-semibold text-capsule-ink">Bấm để chọn video kỷ niệm</span>
+                  <span class="text-[11px] text-capsule-muted mt-0.5">Hỗ trợ .mp4, .mov, .webm (Thời lượng ≤ 3 phút)</span>
+                  <input type="file" id="inputVideoFile" accept="video/*" class="hidden" onchange="handleVideoUpload(event)">
+                </div>
+
+                <!-- Video Preview State -->
+                <div id="videoPreviewState" class="hidden space-y-2">
+                  <div class="flex items-center justify-between text-xs font-mono">
+                    <span class="text-emerald-700 font-semibold flex items-center gap-1">
+                      <span>✓</span> <span id="videoDurationBadge">00:00 / Tối đa 03:00 - Hợp Lệ ✓</span>
+                    </span>
+                    <span id="videoFileName" class="text-capsule-muted truncate max-w-[160px]">video.mp4</span>
+                  </div>
+                  <div class="relative rounded-lg overflow-hidden bg-black aspect-video max-h-48 flex items-center justify-center">
+                    <video id="creatorVideoPreview" controls class="w-full h-full object-contain"></video>
+                  </div>
+                  <div class="flex items-center justify-end gap-2 pt-1">
+                    <button type="button" onclick="document.getElementById('inputVideoFile').click()" class="px-3 py-1.5 rounded-lg border border-capsule-surface hover:bg-capsule-surface text-capsule-ink text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer">
+                      <span>🔄 Chọn video khác</span>
+                    </button>
+                    <button type="button" onclick="removeVideoGift()" class="px-3 py-1.5 rounded-lg text-red-600 hover:bg-red-50 text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer">
+                      <span>🗑️ Xóa video</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- QR Code & Link Generation -->
@@ -1710,6 +2008,12 @@
       memories: JSON.parse(JSON.stringify(OCCASIONS_DATA.birthday.memories)),
       currentPhase: 1,
       isAudioPlaying: false,
+      voiceRecording: null,
+      voiceRecordingDuration: 0,
+      voiceRecordingName: "",
+      videoGift: null,
+      videoGiftDuration: 0,
+      videoGiftName: "",
       user: {
         isLoggedIn: false,
         email: "",
@@ -1906,7 +2210,7 @@
           const btn = document.createElement("button");
           
           btn.type = "button";
-          btn.className = `px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all ${
+          btn.className = `px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all cursor-pointer ${
             isSelected 
               ? "bg-capsule-primary text-capsule-card font-bold shadow-xs scale-105" 
               : "bg-capsule-surface hover:bg-capsule-surfaceDark text-capsule-ink"
@@ -1915,14 +2219,59 @@
           btn.innerHTML = `<span>${occ.icon}</span><span>${occ.name}</span>`;
           btn.onclick = () => {
             setOccasion(key, true);
+            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
           };
           container.appendChild(btn);
+
+          if (isSelected && !isCreator) {
+            setTimeout(() => {
+              btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }, 100);
+          }
         });
       };
 
       buildPills(topContainer, false);
       buildPills(creatorContainer, true);
+      setTimeout(updateOccasionScrollButtons, 150);
     }
+
+    /* Occasion Scroll Buttons Controller */
+    function scrollOccasions(distance) {
+      const container = document.getElementById("occasionPillsContainer");
+      if (container) {
+        container.scrollBy({ left: distance, behavior: 'smooth' });
+        setTimeout(updateOccasionScrollButtons, 350);
+      }
+    }
+
+    function updateOccasionScrollButtons() {
+      const container = document.getElementById("occasionPillsContainer");
+      const btnLeft = document.getElementById("scrollOccasionLeft");
+      const btnRight = document.getElementById("scrollOccasionRight");
+      if (!container) return;
+
+      const atStart = container.scrollLeft <= 8;
+      const atEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 8;
+
+      if (btnLeft) {
+        btnLeft.style.opacity = atStart ? "0.35" : "1";
+        btnLeft.style.pointerEvents = atStart ? "none" : "auto";
+      }
+      if (btnRight) {
+        btnRight.style.opacity = atEnd ? "0.35" : "1";
+        btnRight.style.pointerEvents = atEnd ? "none" : "auto";
+      }
+    }
+
+    // Attach scroll listener to occasion container
+    window.addEventListener("DOMContentLoaded", () => {
+      const topOccContainer = document.getElementById("occasionPillsContainer");
+      if (topOccContainer) {
+        topOccContainer.addEventListener("scroll", updateOccasionScrollButtons, { passive: true });
+        window.addEventListener("resize", updateOccasionScrollButtons);
+      }
+    });
 
     /* Unboxing Animation Trigger */
     function triggerUnbox() {
@@ -2118,6 +2467,411 @@
       renderMemories();
       renderVouchers();
       generateQrCode();
+      syncVoiceUI();
+      syncRecipientVideo();
+    }
+
+    /* ==========================================================================
+       Voice Recording (Microphone & Audio Upload) System
+       ========================================================================== */
+    let mediaRecorder = null;
+    let recordedAudioChunks = [];
+    let recordingTimerInterval = null;
+    let recordingSeconds = 0;
+
+    function formatDuration(sec) {
+      if (isNaN(sec) || sec < 0) return "00:00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+    }
+
+    async function startVoiceRecording() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showToast("Trình duyệt không hỗ trợ mic trực tiếp. Bạn hãy dùng tính năng tải file âm thanh nhé!", "⚠️");
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recordedAudioChunks = [];
+
+        let mimeType = 'audio/webm';
+        if (typeof MediaRecorder.isTypeSupported === 'function') {
+          if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+            mimeType = 'audio/webm;codecs=opus';
+          } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
+            mimeType = 'audio/ogg;codecs=opus';
+          } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+            mimeType = 'audio/mp4';
+          }
+        }
+
+        mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedAudioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          stream.getTracks().forEach(track => track.stop());
+          const audioBlob = new Blob(recordedAudioChunks, { type: mimeType || 'audio/webm' });
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            appState.voiceRecording = reader.result;
+            appState.voiceRecordingDuration = recordingSeconds;
+            appState.voiceRecordingName = "Bản thu giọng hát riêng";
+            syncVoiceUI();
+            showToast(`Đã lưu bản thu âm giọng hát (${formatDuration(recordingSeconds)})!`, "🎙️");
+          };
+          reader.readAsDataURL(audioBlob);
+        };
+
+        mediaRecorder.start(200);
+        recordingSeconds = 0;
+        const timerEl = document.getElementById("recordingTimer");
+        if (timerEl) timerEl.textContent = "00:00";
+
+        const idle = document.getElementById("recordingIdleState");
+        const active = document.getElementById("recordingActiveState");
+        const recState = document.getElementById("recordingRecordedState");
+
+        if (idle) idle.classList.add("hidden");
+        if (recState) recState.classList.add("hidden");
+        if (active) active.classList.remove("hidden");
+
+        if (recordingTimerInterval) clearInterval(recordingTimerInterval);
+        recordingTimerInterval = setInterval(() => {
+          recordingSeconds++;
+          const t = document.getElementById("recordingTimer");
+          if (t) t.textContent = formatDuration(recordingSeconds);
+          if (recordingSeconds >= 300) { // Giới hạn 5 phút cho 1 lần thu
+            stopVoiceRecording();
+            showToast("Đã đạt thời lượng tối đa cho 1 lần thu âm (5 phút)", "⏱️");
+          }
+        }, 1000);
+
+      } catch (err) {
+        console.error("Microphone error:", err);
+        showToast("Không thể truy cập Microphone. Vui lòng cấp quyền micro trên trình duyệt!", "⚠️");
+      }
+    }
+
+    function stopVoiceRecording() {
+      if (recordingTimerInterval) {
+        clearInterval(recordingTimerInterval);
+        recordingTimerInterval = null;
+      }
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+    }
+
+    function retakeVoiceRecording() {
+      deleteVoiceRecording();
+      startVoiceRecording();
+    }
+
+    function deleteVoiceRecording() {
+      if (recordingTimerInterval) {
+        clearInterval(recordingTimerInterval);
+        recordingTimerInterval = null;
+      }
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+      appState.voiceRecording = null;
+      appState.voiceRecordingDuration = 0;
+      appState.voiceRecordingName = "";
+
+      const audioPreview = document.getElementById("creatorAudioPreview");
+      if (audioPreview) {
+        audioPreview.pause();
+        audioPreview.src = "";
+      }
+
+      const recAudio = document.getElementById("recipientVoiceAudio");
+      if (recAudio) {
+        recAudio.pause();
+        recAudio.src = "";
+      }
+
+      const inp = document.getElementById("inputAudioFile");
+      if (inp) inp.value = "";
+
+      syncVoiceUI();
+      showToast("Đã xóa bản thu âm", "🗑️");
+    }
+
+    function handleAudioFileUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      showToast("Đang đọc file âm thanh...", "⏳");
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const dataUrl = evt.target.result;
+        const tempAudio = document.createElement("audio");
+        tempAudio.preload = "metadata";
+        tempAudio.src = dataUrl;
+        tempAudio.onloadedmetadata = function() {
+          const dur = Math.round(tempAudio.duration || 0);
+          appState.voiceRecording = dataUrl;
+          appState.voiceRecordingDuration = dur;
+          appState.voiceRecordingName = file.name;
+          syncVoiceUI();
+          showToast(`Đã tải bản ghi âm "${file.name}" (${formatDuration(dur)})!`, "🎵");
+        };
+        tempAudio.onerror = function() {
+          appState.voiceRecording = dataUrl;
+          appState.voiceRecordingDuration = 0;
+          appState.voiceRecordingName = file.name;
+          syncVoiceUI();
+          showToast(`Đã tải bản ghi âm "${file.name}"!`, "🎵");
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function syncVoiceUI() {
+      const idleState = document.getElementById("recordingIdleState");
+      const activeState = document.getElementById("recordingActiveState");
+      const recordedState = document.getElementById("recordingRecordedState");
+      const statusBadge = document.getElementById("recordingStatusBadge");
+      const durationDisp = document.getElementById("voiceDurationDisplay");
+      const nameDisp = document.getElementById("voiceFileNameDisplay");
+      const audioPreview = document.getElementById("creatorAudioPreview");
+
+      // Recipient view elements
+      const recTitle = document.getElementById("recipientVoiceTitle");
+      const recStatus = document.getElementById("recipientVoiceStatus");
+      const recBadge = document.getElementById("recipientVoiceBadge");
+      const recAudio = document.getElementById("recipientVoiceAudio");
+      const recTime = document.getElementById("recipientVoiceTime");
+      const btnVoice = document.getElementById("btnPlayVoiceRecording");
+
+      if (appState.voiceRecording) {
+        if (idleState) idleState.classList.add("hidden");
+        if (activeState) activeState.classList.add("hidden");
+        if (recordedState) recordedState.classList.remove("hidden");
+        if (statusBadge) {
+          statusBadge.textContent = "✓ Đã sẵn sàng";
+          statusBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold";
+        }
+        if (durationDisp) durationDisp.textContent = formatDuration(appState.voiceRecordingDuration);
+        if (nameDisp) nameDisp.textContent = appState.voiceRecordingName || "Bản thu giọng hát";
+        if (audioPreview && audioPreview.src !== appState.voiceRecording) {
+          audioPreview.src = appState.voiceRecording;
+        }
+
+        // Recipient cassette player sync
+        if (recAudio && recAudio.src !== appState.voiceRecording) {
+          recAudio.src = appState.voiceRecording;
+          recAudio.onended = () => {
+            const rL = document.getElementById("cassetteReelLeft");
+            const rR = document.getElementById("cassetteReelRight");
+            const icon = document.getElementById("btnVoicePlayIcon");
+            const text = document.getElementById("btnVoicePlayText");
+            if (rL) rL.classList.add("paused");
+            if (rR) rR.classList.add("paused");
+            if (icon) icon.textContent = "▶";
+            if (text) text.textContent = "Nghe lại giọng hát";
+            showToast("Đã phát xong bản thu âm yêu thương! ❤️", "💖");
+          };
+          recAudio.ontimeupdate = () => {
+            if (recTime) {
+              recTime.textContent = `${formatDuration(recAudio.currentTime)} / ${formatDuration(recAudio.duration || appState.voiceRecordingDuration)}`;
+            }
+          };
+        }
+        if (recTitle) recTitle.innerHTML = `Bản Thu Âm Tặng <span class="recipient-name-display text-amber-300 font-bold">${appState.recipientName}</span>`;
+        if (recStatus) recStatus.textContent = `Giọng hát & lời chúc riêng (${formatDuration(appState.voiceRecordingDuration)})`;
+        if (recBadge) recBadge.textContent = `CHÂN THÀNH • ${formatDuration(appState.voiceRecordingDuration)}`;
+        if (recTime) recTime.textContent = `00:00 / ${formatDuration(appState.voiceRecordingDuration)}`;
+        if (btnVoice) {
+          btnVoice.classList.remove("opacity-50", "cursor-not-allowed");
+          btnVoice.title = "Bấm để nghe bản thu âm";
+        }
+
+      } else {
+        if (idleState) idleState.classList.remove("hidden");
+        if (activeState) activeState.classList.add("hidden");
+        if (recordedState) recordedState.classList.add("hidden");
+        if (statusBadge) {
+          statusBadge.textContent = "Chưa có bản thu";
+          statusBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded-full bg-capsule-card text-capsule-muted font-semibold";
+        }
+        if (recTitle) recTitle.innerHTML = `Bản Thu Âm Tặng <span class="recipient-name-display text-amber-300 font-bold">${appState.recipientName}</span>`;
+        if (recStatus) recStatus.textContent = "Người gửi chưa thu âm bản ghi riêng (Hãy nghe đĩa than Lofi)";
+        if (recBadge) recBadge.textContent = "SIDE A • 2026";
+        if (recTime) recTime.textContent = "00:00";
+      }
+    }
+
+    function toggleVoiceAudio() {
+      if (!appState.voiceRecording) {
+        showToast("Người gửi chưa đính kèm bản thu âm riêng. Hãy thưởng thức đĩa than Lofi nhé!", "🎙️");
+        return;
+      }
+
+      const audio = document.getElementById("recipientVoiceAudio");
+      const icon = document.getElementById("btnVoicePlayIcon");
+      const text = document.getElementById("btnVoicePlayText");
+      const rL = document.getElementById("cassetteReelLeft");
+      const rR = document.getElementById("cassetteReelRight");
+
+      if (!audio) return;
+
+      if (audio.paused) {
+        // Tự động tạm dừng đĩa than BGM nếu đang phát để người nhận nghe rõ tiếng hát
+        if (appState.isAudioPlaying) {
+          stopLofiBgmLoop();
+        }
+        audio.play().then(() => {
+          if (icon) icon.textContent = "⏸";
+          if (text) text.textContent = "Tạm dừng";
+          if (rL) rL.classList.remove("paused");
+          if (rR) rR.classList.remove("paused");
+          showToast("Đang phát bản thu âm giọng hát...", "🎙️");
+        }).catch(e => {
+          console.warn("Voice play exception:", e);
+        });
+      } else {
+        audio.pause();
+        if (icon) icon.textContent = "▶";
+        if (text) text.textContent = "Tiếp tục nghe";
+        if (rL) rL.classList.add("paused");
+        if (rR) rR.classList.add("paused");
+      }
+    }
+
+    /* ==========================================================================
+       Video Gift System (Max 3 Minutes / 180 Seconds)
+       ========================================================================== */
+    function handleVideoUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      showToast("Đang kiểm tra thời lượng video...", "⏳");
+      const objectUrl = URL.createObjectURL(file);
+      const tempVideo = document.createElement("video");
+      tempVideo.preload = "metadata";
+      tempVideo.src = objectUrl;
+
+      tempVideo.onloadedmetadata = function() {
+        const duration = tempVideo.duration;
+
+        // KIỂM TRA ĐIỀU KIỆN: TỐI ĐA 3 PHÚT (180 GIÂY)
+        if (duration > 180) {
+          URL.revokeObjectURL(objectUrl);
+          event.target.value = "";
+          alert(`⚠️ Video của bạn dài ${formatDuration(duration)} (vượt quá giới hạn tối đa 3 phút / 180 giây).\n\nVui lòng cắt ngắn hoặc chọn video dưới 3 phút để tiếp tục nhé!`);
+          showToast(`⚠️ Video dài quá 3 phút (${formatDuration(duration)}). Vui lòng chọn clip dưới 3 phút!`, "⚠️");
+          return;
+        }
+
+        // HỢP LỆ (<= 180s)
+        appState.videoGift = objectUrl;
+        appState.videoGiftDuration = duration;
+        appState.videoGiftName = file.name;
+
+        // Cập nhật giao diện Creator Preview
+        const emptyState = document.getElementById("videoEmptyState");
+        const previewState = document.getElementById("videoPreviewState");
+        const statusBadge = document.getElementById("videoStatusBadge");
+        const durationBadge = document.getElementById("videoDurationBadge");
+        const fileNameEl = document.getElementById("videoFileName");
+        const previewPlayer = document.getElementById("creatorVideoPreview");
+
+        if (emptyState) emptyState.classList.add("hidden");
+        if (previewState) previewState.classList.remove("hidden");
+        if (statusBadge) {
+          statusBadge.textContent = `✓ ${formatDuration(duration)}`;
+          statusBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold";
+        }
+        if (durationBadge) durationBadge.textContent = `${formatDuration(duration)} / Tối đa 03:00 - Hợp Lệ ✓`;
+        if (fileNameEl) fileNameEl.textContent = file.name;
+        if (previewPlayer) previewPlayer.src = objectUrl;
+
+        syncRecipientVideo();
+        showToast(`Đã tải lên video kỷ niệm (${formatDuration(duration)})!`, "🎬");
+      };
+
+      tempVideo.onerror = function() {
+        URL.revokeObjectURL(objectUrl);
+        event.target.value = "";
+        showToast("Không thể đọc định dạng video này. Vui lòng thử file .mp4, .mov, hoặc .webm khác!", "⚠️");
+      };
+    }
+
+    function removeVideoGift() {
+      if (appState.videoGift) {
+        URL.revokeObjectURL(appState.videoGift);
+      }
+      appState.videoGift = null;
+      appState.videoGiftDuration = 0;
+      appState.videoGiftName = "";
+
+      const emptyState = document.getElementById("videoEmptyState");
+      const previewState = document.getElementById("videoPreviewState");
+      const statusBadge = document.getElementById("videoStatusBadge");
+      const previewPlayer = document.getElementById("creatorVideoPreview");
+      const inp = document.getElementById("inputVideoFile");
+
+      if (inp) inp.value = "";
+      if (emptyState) emptyState.classList.remove("hidden");
+      if (previewState) previewState.classList.add("hidden");
+      if (statusBadge) {
+        statusBadge.textContent = "Chưa có video";
+        statusBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded-full bg-capsule-card text-capsule-muted font-semibold";
+      }
+      if (previewPlayer) {
+        previewPlayer.pause();
+        previewPlayer.src = "";
+      }
+
+      syncRecipientVideo();
+      showToast("Đã xóa video kỷ niệm", "🗑️");
+    }
+
+    function syncRecipientVideo() {
+      const recPlayer = document.getElementById("recipientVideoPlayer");
+      const recPlaceholder = document.getElementById("recipientVideoPlaceholder");
+      const recCaption = document.getElementById("recipientVideoCaption");
+      const recDurationTag = document.getElementById("recipientVideoDurationTag");
+
+      if (appState.videoGift) {
+        if (recPlayer) {
+          recPlayer.src = appState.videoGift;
+          recPlayer.classList.remove("hidden");
+          recPlayer.onplay = () => {
+            // Tạm dừng BGM và Voice audio khi phát video để tránh chồng chéo âm thanh
+            if (appState.isAudioPlaying) stopLofiBgmLoop();
+            const voiceAudio = document.getElementById("recipientVoiceAudio");
+            if (voiceAudio && !voiceAudio.paused) {
+              voiceAudio.pause();
+              const rL = document.getElementById("cassetteReelLeft");
+              const rR = document.getElementById("cassetteReelRight");
+              if (rL) rL.classList.add("paused");
+              if (rR) rR.classList.add("paused");
+            }
+          };
+        }
+        if (recPlaceholder) recPlaceholder.classList.add("hidden");
+        if (recCaption) recCaption.textContent = `Thước phim "${appState.videoGiftName || 'Kỷ niệm'}" do chính người tặng biên tập gửi trao.`;
+        if (recDurationTag) recDurationTag.textContent = `⏱️ ${formatDuration(appState.videoGiftDuration)} / 03:00`;
+      } else {
+        if (recPlayer) {
+          recPlayer.pause();
+          recPlayer.src = "";
+          recPlayer.classList.add("hidden");
+        }
+        if (recPlaceholder) recPlaceholder.classList.remove("hidden");
+        if (recCaption) recCaption.textContent = "Thước phim kỷ niệm độc bản dành riêng cho bạn";
+        if (recDurationTag) recDurationTag.textContent = "⏱️ Tối đa 3 phút";
+      }
     }
 
     /* Form Input Handler */
