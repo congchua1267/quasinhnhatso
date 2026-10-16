@@ -16,6 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -1466,71 +1467,136 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
     </div>
   </footer>
 
-  <!-- MODAL: ĐĂNG NHẬP EMAIL (DÙNG 1 LƯỢT MIỄN PHÍ) -->
+  <!-- MODAL: ĐĂNG NHẬP EMAIL & XÁC THỰC MÃ OTP (1 LƯỢT FREE DUY NHẤT) -->
   <div id="authModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4 transition-all duration-300">
     <div class="bg-capsule-card rounded-3xl border border-capsule-surfaceDark max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-capsule-ink">
       <!-- Close Button -->
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-capsule-surface hover:bg-capsule-surfaceDark text-capsule-muted hover:text-capsule-ink flex items-center justify-center transition-colors">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-capsule-surface hover:bg-capsule-surfaceDark text-capsule-muted hover:text-capsule-ink flex items-center justify-center transition-colors cursor-pointer">
         ✕
       </button>
 
-      <div class="text-center">
-        <div class="w-14 h-14 rounded-2xl bg-capsule-primaryLight text-capsule-primary flex items-center justify-center text-2xl mx-auto mb-3 shadow-xs">
-          ✉️
+      <!-- ================= BƯỚC 1: NHẬP ĐỊA CHỈ EMAIL ================= -->
+      <div id="authStepEmail" class="space-y-4">
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-capsule-primaryLight text-capsule-primary flex items-center justify-center text-2xl mx-auto mb-3 shadow-xs">
+            ✉️
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface text-capsule-primary text-[10px] font-mono tracking-widest uppercase mb-1.5 font-bold">
+            BƯỚC 1 / 2 • XÁC THỰC EMAIL
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-capsule-ink">Đăng nhập bằng Email</h3>
+          <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
+            Nhập email của bạn để nhận mã xác thực (OTP) và kích hoạt <strong class="text-capsule-primary font-bold">01 lượt tạo quà miễn phí</strong> duy nhất.
+          </p>
         </div>
-        <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface text-capsule-primary text-[10px] font-mono tracking-widest uppercase mb-1.5 font-bold">
-          Tài khoản người tạo quà
+
+        <!-- Free Benefits Check List -->
+        <div class="bg-capsule-surface/60 rounded-2xl p-4 border border-capsule-surfaceDark space-y-2 text-xs">
+          <div class="flex items-center gap-2 text-capsule-ink">
+            <span class="text-capsule-primary font-bold">✓</span>
+            <span><strong>01 Lượt tạo & kích hoạt link</strong> mở quà 3D hoàn chỉnh</span>
+          </div>
+          <div class="flex items-center gap-2 text-capsule-ink">
+            <span class="text-capsule-primary font-bold">✓</span>
+            <span>Tự do thu âm bài hát/lời chúc & up video kỷ niệm (≤ 3 phút)</span>
+          </div>
+          <div class="flex items-center gap-2 text-capsule-ink">
+            <span class="text-capsule-primary font-bold">✓</span>
+            <span>Xuất bản mã QR & link riêng tư chia sẻ qua Zalo/Messenger</span>
+          </div>
         </div>
-        <h3 class="font-serif font-bold text-2xl text-capsule-ink">Đăng nhập bằng Email</h3>
-        <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
-          Nhận ngay <strong>01 lượt tạo quà kỷ niệm miễn phí</strong>. Mỗi email được cấp 1 lượt duy nhất để trải nghiệm trọn vẹn nền tảng.
+
+        <!-- Email Input Form -->
+        <form onsubmit="handleRequestOtpSubmit(event)" class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1 font-semibold">
+              Địa chỉ Email của bạn
+            </label>
+            <input type="email" id="authEmailInput" required placeholder="nhap.email.cua.ban@gmail.com" class="w-full px-4 py-3 rounded-xl border border-capsule-surfaceDark bg-capsule-bg text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/40 text-capsule-ink font-mono">
+          </div>
+          <button type="submit" id="btnSendOtp" class="w-full py-3 rounded-xl bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs sm:text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+            <span>📨 Gửi Mã Xác Thực (OTP) Về Mail</span>
+          </button>
+        </form>
+
+        <!-- Quick Demo Option -->
+        <div class="pt-1 text-center">
+          <div class="relative my-2.5">
+            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-capsule-surface"></div></div>
+            <div class="relative flex justify-center text-[10px] font-mono uppercase"><span class="bg-capsule-card px-2 text-capsule-muted">Hoặc thử nhanh</span></div>
+          </div>
+          <button type="button" onclick="startQuickDemoAuth()" class="w-full py-2.5 rounded-xl border border-capsule-surfaceDark bg-white hover:bg-capsule-surface text-capsule-ink text-xs font-medium flex items-center justify-center gap-2 transition-all shadow-2xs cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span>Dùng thử nhanh với Email Mẫu (Nhận OTP ngay)</span>
+          </button>
+        </div>
+
+        <p class="text-[10px] text-capsule-muted text-center pt-1">
+          🔒 Mỗi địa chỉ email chỉ được cấp <strong>01 lượt dùng thử duy nhất</strong>. Sau khi sử dụng, bạn có thể nâng cấp các gói từ 29.000đ.
         </p>
       </div>
 
-      <!-- Free Benefits Check List -->
-      <div class="bg-capsule-surface/60 rounded-2xl p-4 my-5 border border-capsule-surfaceDark space-y-2 text-xs">
-        <div class="flex items-center gap-2 text-capsule-ink">
-          <span class="text-capsule-primary font-bold">✓</span>
-          <span><strong>01 Lượt tạo & kích hoạt link</strong> mở quà 3D hoàn chỉnh</span>
+      <!-- ================= BƯỚC 2: NHẬP MÃ OTP ================= -->
+      <div id="authStepOtp" class="hidden space-y-4">
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mx-auto mb-3 shadow-xs">
+            🔐
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono tracking-widest uppercase mb-1.5 font-bold">
+            BƯỚC 2 / 2 • NHẬP MÃ BẢO MẬT
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-capsule-ink">Xác Thực Mã OTP</h3>
+          <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
+            Mã xác thực gồm 6 chữ số đã được gửi tới:<br>
+            <strong id="otpTargetEmailDisplay" class="text-capsule-primary font-mono text-sm">user@gmail.com</strong>
+          </p>
         </div>
-        <div class="flex items-center gap-2 text-capsule-ink">
-          <span class="text-capsule-primary font-bold">✓</span>
-          <span>Tự do tùy chỉnh ảnh kỷ niệm, thư bí mật & voucher</span>
+
+        <!-- Notification Banner Giả Lập / Hộp Thư Đến -->
+        <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3.5 text-left text-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px] font-bold text-amber-900 flex items-center gap-1.5">
+              <span>📬</span> Hộp Thư Đến (Úm Ba La Security)
+            </span>
+            <span class="text-[10px] font-mono text-amber-700 bg-amber-200/60 px-2 py-0.5 rounded-full">Vừa xong</span>
+          </div>
+          <p class="text-capsule-ink text-xs leading-relaxed">
+            Mã OTP của bạn là: <strong id="otpDisplayHint" class="text-base font-mono text-capsule-primary font-bold px-2.5 py-0.5 bg-white rounded border border-amber-300 inline-block tracking-wider">849201</strong>
+          </p>
+          <div class="flex items-center justify-between pt-1 border-t border-amber-200/60">
+            <span class="text-[10px] text-amber-800/80">Hiệu lực trong 5 phút</span>
+            <button type="button" onclick="autoFillOtp()" class="text-[11px] font-bold text-capsule-primary hover:underline cursor-pointer flex items-center gap-1">
+              <span>📋 Tự động điền mã này</span>
+            </button>
+          </div>
         </div>
-        <div class="flex items-center gap-2 text-capsule-ink">
-          <span class="text-capsule-primary font-bold">✓</span>
-          <span>Tạo mã QR & chia sẻ trực tiếp qua Zalo/Messenger</span>
+
+        <!-- Form Nhập OTP -->
+        <form onsubmit="handleVerifyOtpSubmit(event)" class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1.5 text-center font-semibold">
+              Nhập 6 chữ số mã xác thực
+            </label>
+            <input type="text" id="authOtpInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required placeholder="------" class="w-full text-center tracking-[0.45em] font-mono font-bold text-2xl sm:text-3xl py-3 rounded-xl border border-capsule-surfaceDark bg-capsule-bg text-capsule-ink focus:outline-none focus:ring-2 focus:ring-capsule-primary/40">
+          </div>
+          <button type="submit" id="btnVerifyOtp" class="w-full py-3 rounded-xl bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs sm:text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+            <span>✨ Xác Nhận & Kích Hoạt 1 Lượt Free</span>
+          </button>
+        </form>
+
+        <!-- Resend OTP & Change Email Controls -->
+        <div class="flex items-center justify-between text-xs pt-1">
+          <button type="button" onclick="backToEmailStep()" class="text-capsule-muted hover:text-capsule-ink underline cursor-pointer">
+            ← Đổi email khác
+          </button>
+          <div id="otpResendBox" class="text-right font-mono text-[11px]">
+            <span id="otpCountdownText" class="text-capsule-muted">Gửi lại mã sau (59s)</span>
+            <button type="button" id="btnResendOtp" onclick="resendOtpCode()" class="hidden text-capsule-primary font-bold hover:underline cursor-pointer">
+              🔄 Gửi lại mã mới
+            </button>
+          </div>
         </div>
       </div>
-
-      <!-- Email Input Form -->
-      <form onsubmit="handleEmailAuthSubmit(event)" class="space-y-3">
-        <div>
-          <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1 font-semibold">
-            Địa chỉ Email của bạn
-          </label>
-          <input type="email" id="authEmailInput" required placeholder="nhap.email.cua.ban@gmail.com" class="w-full px-4 py-3 rounded-xl border border-capsule-surfaceDark bg-capsule-bg text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/40 text-capsule-ink font-mono">
-        </div>
-        <button type="submit" class="w-full py-3 rounded-xl bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs sm:text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2">
-          <span>✨ Kích hoạt 1 lượt miễn phí</span>
-        </button>
-      </form>
-
-      <!-- Quick Demo Login -->
-      <div class="mt-3 text-center">
-        <div class="relative my-3">
-          <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-capsule-surface"></div></div>
-          <div class="relative flex justify-center text-[10px] font-mono uppercase"><span class="bg-capsule-card px-2 text-capsule-muted">Hoặc thử nhanh</span></div>
-        </div>
-        <button type="button" onclick="loginWithGoogleDemo()" class="w-full py-2.5 rounded-xl border border-capsule-surfaceDark bg-white hover:bg-capsule-surface text-capsule-ink text-xs font-medium flex items-center justify-center gap-2 transition-all shadow-2xs">
-          <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-          <span>Đăng nhập nhanh với Google (Demo)</span>
-        </button>
-      </div>
-
-      <p class="text-[10px] text-capsule-muted text-center mt-4">
-        🔒 Bảo mật thông tin • Khi dùng hết 1 lượt miễn phí, bạn có thể dễ dàng nâng cấp sang các gói trả phí từ 29k.
-      </p>
     </div>
   </div>
 
@@ -2993,11 +3059,36 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
     let currentUpgradePrice = 29000;
     let currentUpgradePlanName = "Gói 2: Kỷ Niệm Độc Bản (29.000đ)";
 
+    // Config for optional EmailJS real email delivery
+    const EMAILJS_CONFIG = {
+      publicKey: "", // Nhập Public Key EmailJS tại đây để gửi thư thật tới Gmail
+      serviceId: "", // Service ID EmailJS
+      templateId: "" // Template ID EmailJS
+    };
+
+    let currentOtpSession = {
+      email: "",
+      code: "",
+      expiresAt: 0,
+      timerInterval: null,
+      secondsLeft: 60
+    };
+
     function initUserState() {
       try {
         const saved = localStorage.getItem("umbala_user");
         if (saved) {
           appState.user = JSON.parse(saved);
+        }
+        // Strict integrity check: cross-reference with permanent registry
+        if (appState.user && appState.user.isLoggedIn && appState.user.plan === "free") {
+          const usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
+          const registry = JSON.parse(localStorage.getItem("umbala_email_registry") || "{}");
+          const email = appState.user.email ? appState.user.email.toLowerCase() : "";
+          if ((registry[email] && registry[email].used) || usedEmails.includes(email)) {
+            appState.user.used = 1;
+            appState.user.quota = 1;
+          }
         }
       } catch (e) {
         console.warn("Storage error:", e);
@@ -3024,6 +3115,7 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
       const userQuotaText = document.getElementById("userQuotaText");
       const creatorAvatarBadge = document.getElementById("creatorAvatarBadge");
       const btnPublishLabel = document.getElementById("btnPublishLabel");
+      const btnPublishGift = document.getElementById("btnPublishGift");
       const selectedPlanDisplay = document.getElementById("selectedPlanDisplay");
 
       if (!appState.user.isLoggedIn) {
@@ -3041,22 +3133,37 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
 
         if (appState.user.plan === "free") {
           const shortEmail = appState.user.email.split("@")[0];
-          if (headerAuthLabel) headerAuthLabel.textContent = `${shortEmail} (${appState.user.used}/1 Free)`;
-          if (headerAuthIcon) headerAuthIcon.textContent = "🎁";
-          if (creatorAvatarBadge) creatorAvatarBadge.textContent = "🎁";
+          const isUsedUp = appState.user.used >= 1;
+
+          if (headerAuthLabel) headerAuthLabel.textContent = `${shortEmail} (${isUsedUp ? '0/1' : '1/1'} Free)`;
+          if (headerAuthIcon) headerAuthIcon.textContent = isUsedUp ? "⚠️" : "🎁";
+          if (creatorAvatarBadge) creatorAvatarBadge.textContent = isUsedUp ? "⚠️" : "🎁";
+          
           if (userPlanBadge) {
-            userPlanBadge.textContent = "Gói Dùng Thử: 1 Lượt Miễn Phí";
-            userPlanBadge.className = "text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-capsule-primaryLight text-capsule-primary font-bold border border-capsule-primary/20";
+            userPlanBadge.textContent = isUsedUp ? "Gói Dùng Thử: ĐÃ DÙNG HẾT" : "Gói Dùng Thử: 1 Lượt Miễn Phí";
+            userPlanBadge.className = isUsedUp 
+              ? "text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 font-bold border border-rose-300"
+              : "text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-capsule-primaryLight text-capsule-primary font-bold border border-capsule-primary/20";
           }
+          
           if (userQuotaText) {
-            const remaining = Math.max(0, appState.user.quota - appState.user.used);
-            userQuotaText.innerHTML = `Hạn mức: <strong>Còn ${remaining}/1 lượt</strong> • ${appState.user.used >= 1 ? '<span class="text-rose-600 font-bold">Đã dùng hết 1 lượt miễn phí duy nhất. Hãy nâng cấp gói trả phí!</span>' : 'Sử dụng 1 lần duy nhất cho hộp quà này'}`;
+            if (isUsedUp) {
+              userQuotaText.innerHTML = `Hạn mức: <strong class="text-rose-600">Còn 0/1 lượt</strong> • <span class="text-rose-700 font-bold">Bạn đã sử dụng hết 01 lượt miễn phí duy nhất. Hãy nâng cấp gói trả phí từ 29k để xuất thêm quà mới!</span>`;
+            } else {
+              userQuotaText.innerHTML = `Hạn mức: <strong>Còn 1/1 lượt</strong> • Áp dụng 1 lần duy nhất cho hộp quà này`;
+            }
           }
+          
           if (btnPublishLabel) {
-            btnPublishLabel.textContent = appState.user.used >= 1 ? "Nâng cấp gói để xuất thêm quà" : "Kích Hoạt Hộp Quà (Dùng 1 lượt)";
+            btnPublishLabel.textContent = isUsedUp ? "Nâng Cấp Gói Để Xuất Quà (Hết lượt Free)" : "Kích Hoạt Hộp Quà (Dùng 1 lượt)";
+          }
+          if (btnPublishGift) {
+            btnPublishGift.className = isUsedUp
+              ? "px-4 py-2 rounded-full bg-rose-800 hover:bg-rose-900 text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer ring-2 ring-rose-300"
+              : "px-4 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer";
           }
         } else {
-          // Paid user
+          // Paid VIP
           const isForever = appState.user.plan === "forever";
           if (headerAuthLabel) headerAuthLabel.textContent = isForever ? "👑 VIP Trọn Đời" : "💎 VIP Độc Bản";
           if (headerAuthIcon) headerAuthIcon.textContent = isForever ? "👑" : "💎";
@@ -3083,6 +3190,11 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
       if (modal) {
         modal.classList.remove("hidden");
         modal.classList.add("flex");
+        // Luôn mở ở Bước 1
+        const step1 = document.getElementById("authStepEmail");
+        const step2 = document.getElementById("authStepOtp");
+        if (step1) step1.classList.remove("hidden");
+        if (step2) step2.classList.add("hidden");
       }
     }
 
@@ -3092,56 +3204,216 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
         modal.classList.add("hidden");
         modal.classList.remove("flex");
       }
+      if (currentOtpSession.timerInterval) {
+        clearInterval(currentOtpSession.timerInterval);
+        currentOtpSession.timerInterval = null;
+      }
     }
 
-    function handleEmailAuthSubmit(e) {
+    /* Step 1: Gửi mã OTP về email */
+    function handleRequestOtpSubmit(e) {
       if (e) e.preventDefault();
       const input = document.getElementById("authEmailInput");
       if (!input || !input.value.trim()) return;
+
       const email = input.value.trim().toLowerCase();
-
-      let usedEmails = [];
-      try {
-        usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
-      } catch(err) {}
-
-      const alreadyUsed = usedEmails.includes(email);
-
-      appState.user = {
-        isLoggedIn: true,
-        email: email,
-        quota: 1,
-        used: alreadyUsed ? 1 : 0,
-        plan: "free",
-        planName: "Gói Dùng Thử: 1 Lượt Miễn Phí"
-      };
-
-      saveUserState();
-      closeAuthModal();
-
-      if (alreadyUsed) {
-        showToast(`Email ${email} đã dùng hết 1 lượt miễn phí trước đây. Bạn có thể nâng cấp để tạo thêm!`, "ℹ️");
-      } else {
-        showToast(`Đăng nhập thành công! Nhận 01 lượt tạo quà miễn phí.`, "🎁");
-        confetti({ particleCount: 50, spread: 60 });
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showToast("Vui lòng nhập đúng định dạng email (vd: name@gmail.com)!", "⚠️");
+        return;
       }
-      switchMode('creator');
+
+      sendOtpToEmail(email);
     }
 
-    function loginWithGoogleDemo() {
-      const demoEmail = "creator." + Math.floor(100 + Math.random() * 900) + "@gmail.com";
-      appState.user = {
-        isLoggedIn: true,
-        email: demoEmail,
-        quota: 1,
-        used: 0,
-        plan: "free",
-        planName: "Gói Dùng Thử: 1 Lượt Miễn Phí"
-      };
-      saveUserState();
-      closeAuthModal();
-      showToast(`Đăng nhập thành công với ${demoEmail}! Đã kích hoạt 1 lượt tạo free.`, "🎉");
-      confetti({ particleCount: 60, spread: 70 });
+    function sendOtpToEmail(email) {
+      // Tạo mã xác thực 6 số ngẫu nhiên
+      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+      currentOtpSession.email = email;
+      currentOtpSession.code = otpCode;
+      currentOtpSession.expiresAt = Date.now() + 5 * 60 * 1000; // 5 phút hiệu lực
+      currentOtpSession.secondsLeft = 60;
+
+      // Cập nhật giao diện Bước 2
+      const targetDisp = document.getElementById("otpTargetEmailDisplay");
+      const hintDisp = document.getElementById("otpDisplayHint");
+      const otpInp = document.getElementById("authOtpInput");
+
+      if (targetDisp) targetDisp.textContent = email;
+      if (hintDisp) hintDisp.textContent = otpCode;
+      if (otpInp) {
+        otpInp.value = "";
+        setTimeout(() => otpInp.focus(), 300);
+      }
+
+      // Chuyển sang Bước 2
+      const step1 = document.getElementById("authStepEmail");
+      const step2 = document.getElementById("authStepOtp");
+      if (step1) step1.classList.add("hidden");
+      if (step2) step2.classList.remove("hidden");
+
+      // Bắt đầu đếm ngược 60 giây gửi lại mã
+      startOtpCountdown();
+
+      // Gửi email thật qua EmailJS nếu có cấu hình
+      let sentReal = false;
+      if (window.emailjs && EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.serviceId && EMAILJS_CONFIG.templateId) {
+        try {
+          emailjs.init(EMAILJS_CONFIG.publicKey);
+          emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+            to_email: email,
+            otp_code: otpCode,
+            service_name: "Úm Ba La",
+            expire_minutes: 5
+          }).then(() => {
+            console.log("EmailJS sent to", email);
+          }).catch(err => {
+            console.warn("EmailJS error:", err);
+          });
+          sentReal = true;
+        } catch(err) {
+          console.warn("EmailJS call error:", err);
+        }
+      }
+
+      if (sentReal) {
+        showToast(`Đã gửi mã xác thực đến ${email}!`, "📨");
+      } else {
+        showToast(`Mã xác thực [${otpCode}] đã gửi đến ${email}!`, "📬");
+      }
+    }
+
+    function startOtpCountdown() {
+      const countdownText = document.getElementById("otpCountdownText");
+      const btnResend = document.getElementById("btnResendOtp");
+
+      if (countdownText) {
+        countdownText.textContent = `Gửi lại mã sau (${currentOtpSession.secondsLeft}s)`;
+        countdownText.classList.remove("hidden");
+      }
+      if (btnResend) btnResend.classList.add("hidden");
+
+      if (currentOtpSession.timerInterval) clearInterval(currentOtpSession.timerInterval);
+      currentOtpSession.timerInterval = setInterval(() => {
+        currentOtpSession.secondsLeft--;
+        if (currentOtpSession.secondsLeft <= 0) {
+          clearInterval(currentOtpSession.timerInterval);
+          currentOtpSession.timerInterval = null;
+          if (countdownText) countdownText.classList.add("hidden");
+          if (btnResend) btnResend.classList.remove("hidden");
+        } else {
+          if (countdownText) countdownText.textContent = `Gửi lại mã sau (${currentOtpSession.secondsLeft}s)`;
+        }
+      }, 1000);
+    }
+
+    function resendOtpCode() {
+      if (!currentOtpSession.email) {
+        backToEmailStep();
+        return;
+      }
+      sendOtpToEmail(currentOtpSession.email);
+      showToast("Đã gửi mã OTP mới!", "🔄");
+    }
+
+    function backToEmailStep() {
+      if (currentOtpSession.timerInterval) clearInterval(currentOtpSession.timerInterval);
+      const step1 = document.getElementById("authStepEmail");
+      const step2 = document.getElementById("authStepOtp");
+      if (step1) step1.classList.remove("hidden");
+      if (step2) step2.classList.add("hidden");
+    }
+
+    function autoFillOtp() {
+      const otpInp = document.getElementById("authOtpInput");
+      if (otpInp && currentOtpSession.code) {
+        otpInp.value = currentOtpSession.code;
+        showToast("Đã tự động điền mã OTP!", "📋");
+      }
+    }
+
+    function startQuickDemoAuth() {
+      const demoEmail = "demo.trainghiem." + Math.floor(100 + Math.random() * 900) + "@gmail.com";
+      const emailInp = document.getElementById("authEmailInput");
+      if (emailInp) emailInp.value = demoEmail;
+      sendOtpToEmail(demoEmail);
+    }
+
+    /* Step 2: Xác thực mã OTP & Kiểm soát chặt 1 lần free duy nhất */
+    function handleVerifyOtpSubmit(e) {
+      if (e) e.preventDefault();
+      const otpInp = document.getElementById("authOtpInput");
+      if (!otpInp) return;
+
+      const enteredCode = otpInp.value.trim();
+
+      // Kiểm tra hạn mã 5 phút
+      if (Date.now() > currentOtpSession.expiresAt) {
+        showToast("Mã OTP đã hết hạn sau 5 phút. Vui lòng bấm 'Gửi lại mã mới'!", "⚠️");
+        return;
+      }
+
+      // Kiểm tra mã OTP khớp
+      if (enteredCode !== currentOtpSession.code) {
+        showToast("Mã xác thực không đúng. Vui lòng kiểm tra lại 6 chữ số!", "❌");
+        return;
+      }
+
+      // Xác thực thành công!
+      const email = currentOtpSession.email.toLowerCase();
+
+      let usedEmails = [];
+      let registry = {};
+      try {
+        usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
+        registry = JSON.parse(localStorage.getItem("umbala_email_registry") || "{}");
+      } catch(err) {}
+
+      // KIỂM SOÁT NGHIÊM NGẶT: EMAIL NÀY ĐÃ TỪNG DÙNG LƯỢT FREE CHƯA?
+      const record = registry[email];
+      const isAlreadyUsed = (record && record.used) || usedEmails.includes(email);
+
+      if (isAlreadyUsed) {
+        // ĐÃ TỪNG DÙNG HẾT LƯỢT MIỄN PHÍ -> KHÓA HẠN MỨC
+        appState.user = {
+          isLoggedIn: true,
+          email: email,
+          quota: 1,
+          used: 1, // Khóa vĩnh viễn
+          plan: "free",
+          planName: "Gói Dùng Thử: ĐÃ DÙNG HẾT LƯỢT"
+        };
+        saveUserState();
+        closeAuthModal();
+
+        const usedTime = (record && record.usedAt) ? ` vào lúc ${record.usedAt}` : "";
+        alert(`⚠️ THÔNG BÁO HẠN MỨC:\n\nEmail "${email}" đã từng sử dụng trọn vẹn 01 lượt tạo quà miễn phí${usedTime}.\n\nMỗi tài khoản chỉ được cấp 01 lượt dùng thử duy nhất. Để tiếp tục xuất quà tặng mới, bạn vui lòng nâng cấp các gói trả phí (từ 29.000đ)!`);
+        showToast(`Email ${email} đã dùng hết 1 lượt miễn phí trước đây. Hãy nâng cấp gói!`, "⚠️");
+      } else {
+        // LẦN ĐẦU TIÊN -> CẤP 1 LƯỢT FREE
+        appState.user = {
+          isLoggedIn: true,
+          email: email,
+          quota: 1,
+          used: 0,
+          plan: "free",
+          planName: "Gói Dùng Thử: 1 Lượt Miễn Phí"
+        };
+        registry[email] = {
+          verifiedAt: new Date().toLocaleString('vi-VN'),
+          used: false
+        };
+        try {
+          localStorage.setItem("umbala_email_registry", JSON.stringify(registry));
+        } catch(err) {}
+
+        saveUserState();
+        closeAuthModal();
+
+        showToast(`Xác thực email thành công! Bạn nhận được 01 lượt tạo quà miễn phí.`, "🎉");
+        confetti({ particleCount: 70, spread: 70 });
+      }
+
       switchMode('creator');
     }
 
@@ -3285,41 +3557,58 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
 
     function publishGiftWithQuota() {
       if (!appState.user.isLoggedIn) {
-        showToast("Vui lòng đăng nhập Email để kích hoạt 1 lượt tạo quà miễn phí!", "✉️");
+        showToast("Vui lòng đăng nhập Email & nhận mã OTP để kích hoạt 1 lượt tạo quà miễn phí!", "✉️");
         openAuthModal();
         return;
       }
 
       if (appState.user.plan === "free") {
-        if (appState.user.used >= appState.user.quota) {
-          showToast("Bạn đã dùng hết 1 lượt tạo quà miễn phí. Hãy nâng cấp gói trả phí để tiếp tục!", "💎");
+        let registry = {};
+        let usedEmails = [];
+        try {
+          registry = JSON.parse(localStorage.getItem("umbala_email_registry") || "{}");
+          usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
+        } catch(err) {}
+
+        const email = appState.user.email.toLowerCase();
+        const record = registry[email];
+        const isAlreadyUsed = (record && record.used) || usedEmails.includes(email) || appState.user.used >= appState.user.quota;
+
+        if (isAlreadyUsed) {
+          alert(`⚠️ BẠN ĐÃ SỬ DỤNG HẾT 1 LƯỢT MIỄN PHÍ DUY NHẤT!\n\nEmail "${email}" đã từng kích hoạt quà trước đó. Để tiếp tục xuất bản hộp quà này và gửi đến người nhận, vui lòng nâng cấp lên Gói Độc Bản (29k) hoặc Vĩnh Cửu (49k).`);
+          showToast("Hạn mức miễn phí đã hết (1/1). Vui lòng nâng cấp gói trả phí để tiếp tục!", "💎");
           openUpgradeModal();
           return;
         }
 
-        // Mark quota as used
+        // TIÊU THỤ 1 LƯỢT MIỄN PHÍ DUY NHẤT VĨNH VIỄN
         appState.user.used = 1;
+        if (!registry[email]) registry[email] = {};
+        registry[email].used = true;
+        registry[email].usedAt = new Date().toLocaleString('vi-VN');
+        registry[email].occasion = appState.currentOccasionId;
 
-        // Save email to used emails
+        if (!usedEmails.includes(email)) {
+          usedEmails.push(email);
+        }
+
         try {
-          let usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
-          if (!usedEmails.includes(appState.user.email)) {
-            usedEmails.push(appState.user.email);
-            localStorage.setItem("umbala_used_emails", JSON.stringify(usedEmails));
-          }
-        } catch (err) {}
+          localStorage.setItem("umbala_email_registry", JSON.stringify(registry));
+          localStorage.setItem("umbala_used_emails", JSON.stringify(usedEmails));
+          localStorage.setItem("umbala_device_free_claimed", "true");
+        } catch(err) {}
 
         saveUserState();
         copyShareLink();
 
         confetti({
-          particleCount: 80,
+          particleCount: 90,
           spread: 80
         });
 
-        showToast("Đã kích hoạt thành công lượt tạo quà miễn phí duy nhất! Link quà đã sao chép.", "🚀");
+        showToast("Đã kích hoạt thành công 01 lượt miễn phí duy nhất! Đường link quà tặng đã sẵn sàng.", "🚀");
       } else {
-        // Paid plan -> unlimited
+        // Gói trả phí VIP
         copyShareLink();
         confetti({
           particleCount: 80,
