@@ -8,10 +8,10 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Editorial Vintage, Serif & Sans-Serif -->
+  <!-- Google Fonts: Editorial Vintage, Serif, Sans-Serif & Quicksand -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -40,6 +40,7 @@
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', '"DM Sans"', 'sans-serif'],
+            quicksand: ['"Quicksand"', 'sans-serif'],
             serif: ['"Playfair Display"', 'serif'],
             vintage: ['"Cinzel"', 'serif'],
             mono: ['"Courier Prime"', 'monospace'],
@@ -79,6 +80,19 @@
       --pink-dark: #b64d76;
       --pink-light: #fff0f5;
       --text: #6d5960;
+    }
+
+    /* Quicksand font helper & Single-line header enforcement */
+    .font-quicksand,
+    header.font-quicksand,
+    header.font-quicksand * {
+      font-family: 'Quicksand', sans-serif !important;
+    }
+    header.font-quicksand a,
+    header.font-quicksand button,
+    header.font-quicksand span,
+    header.font-quicksand nav {
+      white-space: nowrap !important;
     }
 
     /* Paper linen texture overlay */
@@ -991,107 +1005,124 @@
   </aside>
 
   <!-- Sticky Main Header Navigation -->
-  <header class="sticky top-0 z-40 bg-capsule-bg/92 backdrop-blur-md border-b border-capsule-surface px-4 py-3 sm:px-8 transition-colors duration-400">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+  <header class="sticky top-0 z-40 bg-capsule-bg/92 backdrop-blur-md border-b border-capsule-surface px-3 sm:px-6 xl:px-8 py-2.5 transition-colors duration-400 font-quicksand">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 xl:gap-4">
       
       <!-- Brand Logo -->
-      <a href="./homepage.html" class="flex items-center gap-2 group focus:outline-none" title="Úm Ba La - Biến yêu thương thành phép màu">
-        <img src="logo-umbala.png" alt="Úm Ba La Logo" class="h-10 sm:h-12 w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform drop-shadow-xs">
+      <a href="./homepage.html" class="shrink-0 flex items-center gap-2 group focus:outline-none" title="Úm Ba La - Biến yêu thương thành phép màu">
+        <img src="logo-umbala.png" alt="Úm Ba La Logo" class="h-11 sm:h-13 xl:h-14 w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform drop-shadow-xs">
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-6 text-xs font-medium text-capsule-ink tracking-wide">
-        <a href="./homepage.html" class="text-capsule-primary font-bold hover:text-capsule-primary transition-colors">Trang chủ</a>
-        <a href="./bumbleBeads.html#occasionSection" id="navOccasionLink" class="hover:text-capsule-primary transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-capsule-surface/70 hover:bg-capsule-surface">
-          <span id="navOccasionLabel">Dịp Lễ</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent"></span>
+      <nav class="hidden lg:flex items-center gap-3.5 xl:gap-6 text-xs xl:text-[13px] font-semibold text-capsule-ink tracking-wide whitespace-nowrap shrink-0">
+        <a href="./homepage.html" class="text-capsule-primary font-bold hover:text-capsule-primary transition-colors whitespace-nowrap">Trang chủ</a>
+        <a href="./bumbleBeads.html#occasionSection" id="navOccasionLink" class="hover:text-capsule-primary transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-capsule-surface/70 hover:bg-capsule-surface whitespace-nowrap">
+          <span id="navOccasionLabel" class="whitespace-nowrap">Dịp Lễ</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent shrink-0"></span>
         </a>
-        <a href="#trai-nghiem" class="hover:text-capsule-primary transition-colors">3 chặng trải nghiệm</a>
-        <a href="#bang-gia" class="hover:text-capsule-primary transition-colors">Bảng giá</a>
-        <a href="#uu-the" class="hover:text-capsule-primary transition-colors">Ưu thế</a>
+        <a href="#trai-nghiem" class="hover:text-capsule-primary transition-colors whitespace-nowrap">3 chặng trải nghiệm</a>
+        <a href="#bang-gia" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Bảng giá</a>
+        <a href="#uu-the" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Ưu thế</a>
       </nav>
 
       <!-- Header Action Controls -->
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 whitespace-nowrap">
         <!-- Audio BGM Player Toggle -->
-        <button id="bgmToggleBtn" onclick="toggleAudio()" class="px-3 py-1.5 rounded-full border border-capsule-surface text-xs font-medium flex items-center gap-1.5 bg-capsule-card hover:border-capsule-muted transition-colors text-capsule-ink shadow-2xs cursor-pointer" title="Bật/Tắt Nhạc Nền Thư Giãn">
+        <button id="bgmToggleBtn" onclick="toggleAudio()" class="px-2.5 sm:px-3 py-1.5 rounded-full border border-capsule-surface text-xs font-semibold flex items-center gap-1.5 bg-capsule-card hover:border-capsule-muted transition-colors text-capsule-ink shadow-2xs cursor-pointer shrink-0 whitespace-nowrap" title="Bật/Tắt Nhạc Nền Thư Giãn">
           <span id="audioIcon">🎵</span>
-          <span id="audioStatusText" class="hidden sm:inline text-[11px] font-mono">Nhạc: Tắt</span>
+          <span id="audioStatusText" class="hidden sm:inline text-xs font-semibold whitespace-nowrap">Nhạc: Tắt</span>
         </button>
 
         <!-- View Mode Switcher -->
-        <div class="flex bg-capsule-surface p-1 rounded-full text-xs font-medium">
-          <a href="#trai-nghiem" id="btnRecipientMode" class="px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-semibold shadow-2xs transition-all">
+        <div class="flex bg-capsule-surface p-1 rounded-full text-xs font-semibold shrink-0 whitespace-nowrap">
+          <a href="#trai-nghiem" id="btnRecipientMode" class="px-2.5 sm:px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-bold shadow-2xs transition-all whitespace-nowrap">
             Người Nhận
           </a>
-          <a href="./bumbleBeads.html#creatorViewAnchor" id="btnCreatorMode" class="px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all">
+          <a href="./bumbleBeads.html#creatorViewAnchor" id="btnCreatorMode" class="px-2.5 sm:px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all whitespace-nowrap">
             Studio Tạo Quà
           </a>
         </div>
 
         <!-- Creator Account / Auth Status Button -->
-        <button id="headerAuthBtn" onclick="handleHeaderAuthClick()" class="px-3 py-1.5 rounded-full border border-capsule-surface bg-capsule-card hover:border-capsule-primary text-xs font-medium flex items-center gap-1.5 text-capsule-ink shadow-2xs transition-all cursor-pointer" title="Tài khoản người tạo quà">
+        <button id="headerAuthBtn" onclick="handleHeaderAuthClick()" class="px-2.5 sm:px-3 py-1.5 rounded-full border border-capsule-surface bg-capsule-card hover:border-capsule-primary text-xs font-semibold flex items-center gap-1.5 text-capsule-ink shadow-2xs transition-all cursor-pointer shrink-0 whitespace-nowrap" title="Tài khoản người tạo quà">
           <span id="headerAuthIcon">👤</span>
-          <span id="headerAuthLabel" class="hidden md:inline text-[11px] font-mono">Đăng nhập (1 lượt Free)</span>
+          <span id="headerAuthLabel" class="hidden md:inline text-xs font-semibold whitespace-nowrap">Đăng nhập (1 lượt Free)</span>
         </button>
 
         <!-- Primary CTA Button -->
-        <a href="./bumbleBeads.html#creatorViewAnchor" class="hidden sm:flex px-4 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs font-semibold tracking-wide transition-all shadow-xs hover:shadow-sm items-center gap-1.5">
-          <span>✨ Tạo Hộp Quà</span>
+        <a href="./bumbleBeads.html#creatorViewAnchor" class="hidden sm:flex px-3.5 xl:px-4 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs xl:text-[13px] font-bold tracking-wide transition-all shadow-xs hover:shadow-sm items-center gap-1.5 cursor-pointer shrink-0 whitespace-nowrap">
+          <span class="whitespace-nowrap">✨ Tạo Hộp Quà</span>
         </a>
       </div>
     </div>
   </header>
 
   <!-- Quick Occasion Selector Carousel Bar -->
-  <section id="occasionSection" class="sticky top-[57px] sm:top-[65px] scroll-mt-16 z-30 bg-capsule-card/95 backdrop-blur-md border-b border-capsule-surface px-4 py-2.5 transition-colors duration-400 shadow-2xs">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
-      <div class="flex items-center gap-1.5 text-capsule-muted text-xs font-mono shrink-0 hidden sm:flex">
+  <section id="occasionSection" class="sticky top-[57px] sm:top-[65px] scroll-mt-16 z-30 bg-capsule-card/95 backdrop-blur-md border-b border-capsule-surface px-3 sm:px-6 xl:px-8 py-2 transition-colors duration-400 shadow-2xs font-quicksand">
+    <div class="max-w-7xl mx-auto flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-1.5 text-capsule-muted text-xs font-semibold shrink-0 hidden sm:flex">
         <span>Chọn dịp Lễ:</span>
       </div>
       
-      <!-- Horizontal Scrollable Tags -->
-      <div id="occasionPillsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 w-full">
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>🎂</span>
-          <span>Sinh Nhật</span>
-        </a>
-        <a href="./homepage.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-primary text-capsule-card font-bold shadow-xs scale-105">
-          <span>🌸</span>
-          <span>20/10 Phụ Nữ VN</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>🎓</span>
-          <span>20/11 Tri Ân Thầy Cô</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>💐</span>
-          <span>8/3 Quốc Tế Phụ Nữ</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>💝</span>
-          <span>14/2 Valentine</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>🎄</span>
-          <span>Giáng Sinh Noel</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>🧧</span>
-          <span>Tết Nguyên Đán</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>💍</span>
-          <span>Kỷ Niệm Ngày Yêu / Cưới</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>🎓</span>
-          <span>Lễ Tốt Nghiệp</span>
-        </a>
-        <a href="./bumbleBeads.html" class="px-3 py-1.5 rounded-full text-xs font-mono shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
-          <span>🪷</span>
-          <span>Vu Lan / Cha Mẹ</span>
-        </a>
+      <!-- Horizontal Scrollable Container with Rounded Navigation Arrows -->
+      <div class="relative flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
+        <!-- Nút mũi tên cuộn trái -->
+        <button id="scrollOccasionLeft" onclick="scrollOccasions(-260)" type="button" class="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-capsule-surfaceDark shadow-xs hover:shadow-md hover:scale-105 active:scale-95 text-capsule-primary flex items-center justify-center transition-all cursor-pointer z-10" title="Xem dịp trước" aria-label="Cuộn sang trái">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-capsule-primary" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Horizontal Scrollable Tags -->
+        <div id="occasionPillsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 scroll-smooth w-full">
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>🎂</span>
+            <span>Sinh Nhật</span>
+          </a>
+          <a href="./homepage.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-primary text-capsule-card font-bold shadow-xs scale-105">
+            <span>🌸</span>
+            <span>20/10 Phụ Nữ VN</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>🎓</span>
+            <span>20/11 Tri Ân Thầy Cô</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>💐</span>
+            <span>8/3 Quốc Tế Phụ Nữ</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>💝</span>
+            <span>14/2 Valentine</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>🎄</span>
+            <span>Giáng Sinh Noel</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>🧧</span>
+            <span>Tết Nguyên Đán</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>💍</span>
+            <span>Kỷ Niệm Ngày Yêu / Cưới</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>🎓</span>
+            <span>Lễ Tốt Nghiệp</span>
+          </a>
+          <a href="./bumbleBeads.html" class="px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 flex items-center gap-1.5 transition-all bg-capsule-surface text-capsule-ink hover:bg-capsule-surfaceDark">
+            <span>🪷</span>
+            <span>Vu Lan / Cha Mẹ</span>
+          </a>
+        </div>
+
+        <!-- Nút mũi tên cuộn phải -->
+        <button id="scrollOccasionRight" onclick="scrollOccasions(260)" type="button" class="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-capsule-surfaceDark shadow-xs hover:shadow-md hover:scale-105 active:scale-95 text-capsule-primary flex items-center justify-center transition-all cursor-pointer z-10" title="Xem thêm dịp lễ" aria-label="Cuộn sang phải">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-capsule-primary" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -1189,10 +1220,9 @@
 
         <article class="experience-card">
           <div class="card-icon">🎁</div>
-          <h3>02. Tạo hộp quà</h3>
+          <h3>02. Tạo hộp quà độc bản</h3>
           <p>
-            Khám phá trải nghiệm tạo quà số và biến thông điệp của bạn
-            thành một bất ngờ thật riêng.
+            Tự thu âm giọng hát / lời chúc chân thành, đính kèm video kỷ niệm (tối đa 3 phút) cùng bảo tàng ảnh ngọt ngào.
           </p>
           <a class="card-link" href="./bumbleBeads.html#creatorViewAnchor">Tạo món quà →</a>
         </article>
@@ -1587,6 +1617,43 @@
       const authLabel = document.getElementById("headerAuthLabel");
       if (authLabel) authLabel.textContent = "Google User (1 Free)";
     }
+
+    /* Occasion Scroll Buttons Controller */
+    function scrollOccasions(distance) {
+      const container = document.getElementById("occasionPillsContainer");
+      if (container) {
+        container.scrollBy({ left: distance, behavior: 'smooth' });
+        setTimeout(updateOccasionScrollButtons, 350);
+      }
+    }
+
+    function updateOccasionScrollButtons() {
+      const container = document.getElementById("occasionPillsContainer");
+      const btnLeft = document.getElementById("scrollOccasionLeft");
+      const btnRight = document.getElementById("scrollOccasionRight");
+      if (!container) return;
+
+      const atStart = container.scrollLeft <= 8;
+      const atEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 8;
+
+      if (btnLeft) {
+        btnLeft.style.opacity = atStart ? "0.35" : "1";
+        btnLeft.style.pointerEvents = atStart ? "none" : "auto";
+      }
+      if (btnRight) {
+        btnRight.style.opacity = atEnd ? "0.35" : "1";
+        btnRight.style.pointerEvents = atEnd ? "none" : "auto";
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const occContainer = document.getElementById("occasionPillsContainer");
+      if (occContainer) {
+        occContainer.addEventListener("scroll", updateOccasionScrollButtons, { passive: true });
+        window.addEventListener("resize", updateOccasionScrollButtons);
+        setTimeout(updateOccasionScrollButtons, 200);
+      }
+    });
 
     // --- HIỆU ỨNG MỞ HỘP QUÀ TUNG TÓE HOA ---
     const flowers = ['🌸', '🌷', '🌹', '🌺', '🌼', '💖', '💗', '✨', '💐', '🎀'];
