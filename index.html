@@ -17,7 +17,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
+<!-- Firebase SDK v10 (Bản compat dành cho file HTML) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script>
+  // Cấu hình Firebase của dự án umbala-58dcb
+ const firebaseConfig = {
+  apiKey: "AIzaSyCcmMQeQZdyoo5mTPAt9N3ktUaLdR4AVi4",
+  authDomain: "umbala-58dcb.firebaseapp.com",
+  projectId: "umbala-58dcb",
+  storageBucket: "umbala-58dcb.firebasestorage.app",
+  messagingSenderId: "516445194281",
+  appId: "1:516445194281:web:e642807f5d5bc4f651b438"
+};
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
   <script>
     tailwind.config = {
       theme: {
@@ -4266,7 +4281,8 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
        ========================================================================== */
     let currentUpgradePrice = 29000;
     let currentUpgradePlanName = "Gói 2: Kỷ Niệm Độc Bản (29.000đ)";
-
+    let currentOrderCode = null;
+    let unsubscribeOrderListener = null;
     // Config for optional EmailJS real email delivery
     const EMAILJS_CONFIG = {
       publicKey: "", // Nhập Public Key EmailJS tại đây để gửi thư thật tới Gmail
@@ -4676,53 +4692,108 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
         modal.classList.add("flex");
       }
     }
+function closeUpgradeModal() {
+  const modal = document.getElementById("upgradeModal");
+  if (modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+  // Hủy lắng nghe realtime khi người dùng đóng bảng thanh toán
+  if (unsubscribeOrderListener) {
+    unsubscribeOrderListener();
+    unsubscribeOrderListener = null;
+  }
+}
+async function selectUpgradePlan(price, planName) {
+  currentUpgradePrice = price;
+  currentUpgradePlanName = planName;
 
-    function closeUpgradeModal() {
-      const modal = document.getElementById("upgradeModal");
-      if (modal) {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      }
+  const opt69 = document.getElementById("planOption69");
+  const opt99 = document.getElementById("planOption99");
+  const amountDisp = document.getElementById("paymentAmountDisplay");
+  const codeDisp = document.getElementById("paymentCodeDisplay");
+  const qrImg = document.getElementById("paymentQrImg");
+
+  // Sinh mã đơn ngẫu nhiên UBLxxxxx
+  const orderNumber = Math.floor(10000 + Math.random() * 90000);
+  currentOrderCode = `UBL${orderNumber}`;
+  const planKey = (price === 49000) ? "forever" : "premium";
+
+  // Cập nhật giao diện chọn gói
+  if (price === 29000) {
+    if (opt69) opt69.className = "cursor-pointer p-4 rounded-2xl border-2 border-capsule-primary bg-capsule-primaryLight/40 transition-all relative flex flex-col justify-between ring-2 ring-capsule-primary/20";
+    if (opt99) opt99.className = "cursor-pointer p-4 rounded-2xl border border-capsule-surfaceDark bg-capsule-card hover:border-capsule-muted transition-all relative flex flex-col justify-between";
+    if (amountDisp) amountDisp.textContent = "29.000 đ";
+  } else {
+    if (opt99) opt99.className = "cursor-pointer p-4 rounded-2xl border-2 border-capsule-accent bg-amber-50/50 transition-all relative flex flex-col justify-between ring-2 ring-capsule-accent/20";
+    if (opt69) opt69.className = "cursor-pointer p-4 rounded-2xl border border-capsule-surfaceDark bg-capsule-card hover:border-capsule-muted transition-all relative flex flex-col justify-between";
+    if (amountDisp) amountDisp.textContent = "49.000 đ";
+  }
+
+  if (codeDisp) codeDisp.textContent = currentOrderCode;
+
+  // Cấu hình VietQR gắn chính xác mã đơn hàng
+  const bankId = "970422"; // BIDV
+  const accountNo = "8842873010"; // STK nhận tiền của bạn
+  const accountName = encodeURIComponent("UM BA LA CAPSULE");
+  
+  if (qrImg) {
+    qrImg.src = `https://api.vietqr.io/image/${bankId}-${accountNo}-compact2.jpg?amount=${price}&addInfo=${currentOrderCode}&accountName=${accountName}`;
+  }
+
+  // Lưu đơn hàng vào Firestore với trạng thái PENDING
+  const userEmail = (appState.user && appState.user.email) ? appState.user.email.toLowerCase() : "khach_chua_dang_nhap";
+  try {
+    await db.collection("orders").doc(currentOrderCode).set({
+      orderCode: currentOrderCode,
+      userEmail: userEmail,
+      planKey: planKey,
+      planName: planName,
+      amount: price,
+      status: "PENDING",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    // Lắng nghe thay đổi tự động duyệt
+    if (typeof listenToPaymentStatus === "function") {
+      listenToPaymentStatus(currentOrderCode);
     }
-
-    function selectUpgradePlan(price, planName) {
-      currentUpgradePrice = price;
-      currentUpgradePlanName = planName;
-
-      const opt69 = document.getElementById("planOption69");
-      const opt99 = document.getElementById("planOption99");
-      const amountDisp = document.getElementById("paymentAmountDisplay");
-      const codeDisp = document.getElementById("paymentCodeDisplay");
-      const qrImg = document.getElementById("paymentQrImg");
-
-      const orderId = Math.floor(10000 + Math.random() * 90000);
-      const userPrefix = appState.user.email ? appState.user.email.split("@")[0].toUpperCase().slice(0, 6) : "USER";
-      const paymentContent = `UMBALA ${orderId} ${userPrefix}`;
-
-      if (price === 29000) {
-        if (opt69) {
-          opt69.className = "cursor-pointer p-4 rounded-2xl border-2 border-capsule-primary bg-capsule-primaryLight/40 transition-all relative flex flex-col justify-between ring-2 ring-capsule-primary/20";
-        }
-        if (opt99) {
-          opt99.className = "cursor-pointer p-4 rounded-2xl border border-capsule-surfaceDark bg-capsule-card hover:border-capsule-muted transition-all relative flex flex-col justify-between";
-        }
-        if (amountDisp) amountDisp.textContent = "29.000 đ";
-      } else {
-        if (opt99) {
-          opt99.className = "cursor-pointer p-4 rounded-2xl border-2 border-capsule-accent bg-amber-50/50 transition-all relative flex flex-col justify-between ring-2 ring-capsule-accent/20";
-        }
-        if (opt69) {
-          opt69.className = "cursor-pointer p-4 rounded-2xl border border-capsule-surfaceDark bg-capsule-card hover:border-capsule-muted transition-all relative flex flex-col justify-between";
-        }
-        if (amountDisp) amountDisp.textContent = "49.000 đ";
+  } catch (err) {
+    console.error("Lỗi tạo đơn hàng trên Firestore:", err);
+  }
+}
+function listenToPaymentStatus(orderCode) {
+      if (unsubscribeOrderListener) {
+        unsubscribeOrderListener();
       }
 
-      if (codeDisp) codeDisp.textContent = paymentContent;
-      if (qrImg) {
-        qrImg.src = `https://api.vietqr.io/image/970422-0981234567-compact2.jpg?amount=${price}&addInfo=${encodeURIComponent(paymentContent)}&accountName=UM%20BA%20LA%20CAPSULE`;
-      }
+      unsubscribeOrderListener = db.collection("orders").doc(orderCode).onSnapshot((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          if (data.status === "SUCCESS") {
+            if (unsubscribeOrderListener) unsubscribeOrderListener();
+
+            const isForever = data.planKey === "forever";
+            appState.user.plan = isForever ? "forever" : "premium";
+            appState.user.quota = 9999;
+            appState.user.planName = data.planName;
+            appState.selectedPlan = data.planName;
+
+            saveUserState();
+            renderApp();
+            closeUpgradeModal();
+
+            confetti({
+              particleCount: 140,
+              spread: 100,
+              origin: { y: 0.6 }
+            });
+
+            showToast(`🎉 Thanh toán thành công! Gói ${data.planName} đã được kích hoạt.`, "⚡");
+          }
+        }
+      });
     }
-
     function copyPaymentText(text, label = "Thông tin") {
       navigator.clipboard.writeText(text).then(() => {
         showToast(`Đã sao chép ${label}: ${text}`, "📋");
@@ -4748,7 +4819,7 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
         renderApp();
 
         if (btn) btn.disabled = false;
-        if (btnText) btnText.textContent = "Tôi Đã Chuyển Khoản (Kích Hoạt Tức Thì)";
+        if (btnText) btnText.textContent = "Tôi đã chuyển khoản (Kích hoạt tức thì)";
 
         closeUpgradeModal();
 
