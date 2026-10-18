@@ -4736,7 +4736,7 @@ async function selectUpgradePlan(price, planName) {
   const bankId = "970418"; // BIDV
   const accountNo = "8842873010"; // STK nhận tiền của bạn  
   if (qrImg) {
-    qrImg.src = `https://api.vietqr.io/image/${bankId}-${accountNo}-compact2.jpg?amount=${price}&addInfo=${currentOrderCode}&accountName=${accountName}`;
+    qrImg.src = `https://api.vietqr.io/image/${bankId}-${accountNo}-compact2.jpg?amount=${price}&addInfo=${currentOrderCode}`;
   }
 
   // Lưu đơn hàng vào Firestore với trạng thái PENDING
