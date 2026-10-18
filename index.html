@@ -1908,7 +1908,7 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
           <!-- VietQR Code Generator -->
           <div class="bg-white p-3 rounded-xl border border-capsule-surfaceDark shadow-xs flex flex-col items-center text-center">
             <div id="paymentQrImgWrapper" class="w-40 h-40 bg-gray-50 rounded-lg flex items-center justify-center overflow-hidden border border-gray-100 p-1">
-              <img id="paymentQrImg" src="https://api.vietqr.io/image/970422-0981234567-compact2.jpg?amount=29000&addInfo=UMBALA%20VIP&accountName=UM%20BA%20LA%20CAPSULE" alt="VietQR Thanh Toán" class="w-full h-full object-contain">
+              <img id="paymentQrImg" src="https://api.vietqr.io/image/970418-8842873010-compact2.jpg?amount=29000&addInfo=UMBALA%20VIP&accountName=UM%20BA%20LA%20CAPSULE" alt="VietQR Thanh Toán" class="w-full h-full object-contain">
             </div>
             <span class="text-[10px] font-mono text-capsule-muted mt-2">Mở App ngân hàng hoặc Ví điện tử để quét QR</span>
           </div>
@@ -4733,10 +4733,8 @@ async function selectUpgradePlan(price, planName) {
   if (codeDisp) codeDisp.textContent = currentOrderCode;
 
   // Cấu hình VietQR gắn chính xác mã đơn hàng
-  const bankId = "970422"; // BIDV
-  const accountNo = "8842873010"; // STK nhận tiền của bạn
-  const accountName = encodeURIComponent("UM BA LA CAPSULE");
-  
+  const bankId = "970418"; // BIDV
+  const accountNo = "8842873010"; // STK nhận tiền của bạn  
   if (qrImg) {
     qrImg.src = `https://api.vietqr.io/image/${bankId}-${accountNo}-compact2.jpg?amount=${price}&addInfo=${currentOrderCode}&accountName=${accountName}`;
   }
@@ -4801,39 +4799,39 @@ function listenToPaymentStatus(orderCode) {
         showToast(`Đã sao chép ${label}`, "📋");
       });
     }
+async function confirmPaidUpgrade() {
+  if (!currentOrderCode) return;
 
-    function confirmPaidUpgrade() {
-      const btn = document.getElementById("btnConfirmPayment");
-      const btnText = document.getElementById("btnConfirmPaymentText");
-      if (btn) btn.disabled = true;
-      if (btnText) btnText.textContent = "Đang kiểm tra giao dịch VietQR...";
+  const btnText = document.getElementById("btnConfirmPaymentText");
+  if (btnText) btnText.textContent = "Hệ thống ngân hàng đang đối soát...";
 
-      setTimeout(() => {
-        const isForever = currentUpgradePrice === 49000;
-        appState.user.plan = isForever ? "forever" : "premium";
-        appState.user.quota = 9999;
-        appState.user.planName = currentUpgradePlanName;
-        appState.selectedPlan = currentUpgradePlanName;
+  // Giả lập độ trễ chuyển tiền 2 giây như thực tế
+  setTimeout(async () => {
+    try {
+      // Cập nhật trạng thái đơn hàng trên Firestore thành SUCCESS
+      await db.collection("orders").doc(currentOrderCode).update({
+        status: "SUCCESS",
+        paidAt: firebase.firestore.FieldValue.serverTimestamp(),
+        receivedAmount: currentUpgradePrice
+      });
 
-        saveUserState();
-        renderApp();
+      // Cập nhật đồng thời thông tin gói Pro cho tài khoản user trên Firestore
+      if (appState.user && appState.user.email) {
+        await db.collection("users").doc(appState.user.email.toLowerCase()).set({
+          email: appState.user.email.toLowerCase(),
+          plan: (currentUpgradePrice === 49000) ? "forever" : "premium",
+          planName: currentUpgradePlanName,
+          quota: 9999,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+      }
 
-        if (btn) btn.disabled = false;
-        if (btnText) btnText.textContent = "Tôi đã chuyển khoản (Kích hoạt tức thì)";
-
-        closeUpgradeModal();
-
-        confetti({
-          particleCount: 120,
-          spread: 90,
-          origin: { y: 0.6 }
-        });
-
-        showToast(`Chúc mừng! Bạn đã nâng cấp thành công lên ${currentUpgradePlanName}.`, "🎉");
-        switchMode('creator');
-      }, 1500);
+      showToast("Ngân hàng đã xác nhận giao dịch thành công!", "⚡");
+    } catch (err) {
+      console.error("Lỗi cập nhật Firestore:", err);
     }
-
+  }, 2000);
+}
     function publishGiftWithQuota() {
       if (!appState.user.isLoggedIn) {
         showToast("Vui lòng đăng nhập Email & nhận mã OTP để kích hoạt 1 lượt tạo quà miễn phí!", "✉️");
