@@ -151,7 +151,6 @@
       font: inherit;
     }
 
-    /* Đảm bảo các tiêu đề section luôn mượt mà và chống bẻ dòng xấu */
     .section-heading h2 {
       font-family: "Playfair Display", Georgia, serif;
       color: #a7476e;
@@ -159,31 +158,6 @@
       margin-bottom: 14px;
       white-space: nowrap;
       letter-spacing: -0.5px;
-    }
-
-    /* Topbar */
-    .topbar {
-      width: 100%;
-      min-height: 70px;
-      padding: 10px 7.8%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(250, 248, 243, 0.97);
-      border-bottom: 1px solid #e9e4da;
-      box-shadow: 0 2px 12px rgba(53, 64, 51, 0.04);
-      backdrop-filter: blur(12px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
     }
 
     .hero {
@@ -637,6 +611,28 @@
 
 <body data-theme="women" class="relative min-h-screen selection:bg-capsule-primary/20 flex flex-col justify-between">
 
+  <!-- Floating Social Contact Widget với đường link Facebook profile của bạn -->
+  <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-3">
+    <!-- Messenger (liên kết Messenger trực tiếp tới ID 61594632706445) -->
+    <a href="https://m.me/61594632706445" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 via-blue-500 to-purple-600 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform active:scale-95" title="Nhắn tin Messenger">
+      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.19 5.43 3.16 7.17.16.14.26.35.27.56l.08 1.78c.03.62.63 1.07 1.22.88l1.98-.65c.18-.06.38-.04.55.05A10.23 10.23 0 0 0 12 21.4c5.64 0 10-4.13 10-9.7S17.64 2 12 2zm1.19 12.19l-2.43-2.58a.62.62 0 0 0-.91 0l-3.32 2.58c-.43.34-.99-.18-.71-.65l3.24-5.38c.24-.4.81-.4 1.05 0l2.43 2.58c.22.24.6.24.82 0l3.32-2.58c.43-.34.99.18.71.65l-3.24 5.38c-.24.4-.81.4-1.05 0z"/>
+      </svg>
+    </a>
+    <!-- Facebook Profile Link -->
+    <a href="https://www.facebook.com/profile.php?id=61594632706445" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform active:scale-95" title="Trang Facebook">
+      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.69c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 3H13.1v6.8c4.56-.93 8-4.96 8-9.8z"/>
+      </svg>
+    </a>
+    <!-- TikTok Link -->
+    <a href="https://tiktok.com/@umbala" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform active:scale-95" title="Kênh TikTok">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.63a6.34 6.34 0 1 0 6.34 6.34V9.32a8.28 8.28 0 0 0 4.77 1.52V7.39a4.85 4.85 0 0 1-1-.7z"/>
+      </svg>
+    </a>
+  </div>
+
   <!-- Background Texture Layer -->
   <div class="fixed inset-0 paper-texture pointer-events-none z-0"></div>
 
@@ -688,7 +684,7 @@
           <span id="headerAuthIcon">👤</span>
           <span id="headerAuthLabel" class="hidden md:inline text-xs font-semibold whitespace-nowrap">Đăng nhập (1 lượt Free)</span>
         </button>
-        <!-- Nút mở bảng Quà của tôi (mặc định ẩn) -->
+        <!-- Nút mở bảng Quà của tôi -->
         <button id="btnMyGifts" type="button" onclick="openMyGiftsModal()" class="hidden px-2.5 sm:px-3 py-1.5 rounded-full border border-rose-200 bg-rose-50/80 hover:bg-rose-100 text-rose-700 text-xs font-semibold items-center gap-1.5 shadow-2xs transition-all cursor-pointer shrink-0 whitespace-nowrap" title="Xem các hộp quà bạn đã tạo">
           <span>🎁</span>
           <span class="hidden sm:inline text-xs font-semibold whitespace-nowrap">Quà của tôi</span>
@@ -899,10 +895,9 @@
     <!-- BẢNG GIÁ -->
     <section class="section" id="bang-gia">
       <div class="section-heading">
-        <div class="section-kicker">MÔ HÌNH DỊCH VỤ • BẢNG GIÁ</div>
-        <h2>Lựa chọn trải nghiệm phù hợp</h2>
-        <p>
-          Mô hình thuần kỹ thuật số: Trao gửi trọn vẹn cảm xúc tức thì đúng 00:00 không cần chờ ship.
+        <h2 style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700;">Lựa chọn trải nghiệm phù hợp</h2>
+        <p class="text-xs sm:text-sm text-capsule-muted mt-2 font-quicksand">
+          Mô hình thuần kỹ thuật số (Pure Digital SaaS): Không lo tồn kho, trao gửi cảm xúc ngay tức thì đúng 00:00.
         </p>
       </div>
 
@@ -912,11 +907,11 @@
         <div class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-7 flex flex-col justify-between hover:border-capsule-surfaceDark transition-all shadow-xs">
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono uppercase tracking-wider text-capsule-muted">Gói 01</span>
+              <span class="text-xs font-mono uppercase tracking-wider text-capsule-muted">GÓI 01</span>
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-capsule-surface text-capsule-muted">Dùng thử MVP</span>
             </div>
-            <h3 class="font-serif font-bold text-xl text-capsule-ink mt-2">Khởi đầu (Starter)</h3>
-            <p class="text-xs text-capsule-muted mt-1 font-quicksand">Trải nghiệm các tính năng cốt lõi cơ bản gửi tặng bạn bè.</p>
+            <h3 class="font-serif font-bold text-xl text-capsule-ink mt-2">Khởi đầu (Digital Starter)</h3>
+            <p class="text-xs text-capsule-muted mt-1 font-quicksand">Trải nghiệm các tính năng cốt lõi cơ bản cho bạn bè.</p>
             
             <div class="mt-4 pb-4 border-b border-capsule-surface">
               <span class="font-serif font-bold text-3xl sm:text-4xl text-capsule-ink">0đ</span>
@@ -936,23 +931,29 @@
               <li class="flex items-center gap-2">
                 <span class="text-capsule-primary font-bold">✓</span> Tờ báo kỷ niệm (kèm watermark web)
               </li>
+              <li class="flex items-center gap-2 text-gray-400 line-through">
+                <span>✕</span> Nhạc Lofi độc quyền
+              </li>
+              <li class="flex items-center gap-2 text-gray-400 line-through">
+                <span>✕</span> Lưu trữ dài hạn (giới hạn 7 ngày)
+              </li>
             </ul>
           </div>
 
           <button onclick="openAuthModal()" type="button" class="mt-7 w-full py-2.5 rounded-full border border-capsule-surfaceDark bg-white hover:bg-capsule-surface text-capsule-ink text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer font-quicksand">
-            <span>🎁</span> <span>Nhận 1 Lượt Free (Đăng nhập Email)</span>
+            <span>🎁</span> <span>Nhận 1 Lượt miễn phí (Đăng nhập Email)</span>
           </button>
         </div>
 
         <!-- GÓI 2 -->
         <div class="relative bg-capsule-card rounded-3xl border-2 border-capsule-primary p-6 sm:p-7 flex flex-col justify-between shadow-lg transform md:-translate-y-2">
-          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[11px] font-mono uppercase tracking-wider font-bold shadow-xs whitespace-nowrap">
-            Phổ biến nhất • Best Seller
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-capsule-primary text-white text-[10px] font-mono uppercase tracking-wider font-bold shadow-xs whitespace-nowrap">
+            PHỔ BIẾN NHẤT • BEST SELLER
           </div>
 
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono uppercase tracking-wider text-capsule-primary font-bold">Gói 02</span>
+              <span class="text-xs font-mono uppercase tracking-wider text-capsule-primary font-bold">GÓI 02</span>
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-capsule-primary/10 text-capsule-primary font-bold">Digital Full</span>
             </div>
             <h3 class="font-serif font-bold text-xl text-capsule-ink mt-2">Kỷ niệm độc bản (Premium)</h3>
@@ -968,7 +969,7 @@
                 <span class="text-capsule-primary font-bold">✓</span> <strong>Đầy đủ 3 Chặng trải nghiệm tương tác</strong>
               </li>
               <li class="flex items-center gap-2">
-                <span class="text-capsule-primary font-bold">✓</span> <strong>Thời hạn lưu trữ 06 tháng</strong>
+                <span class="text-capsule-primary font-bold">✓</span> <strong>Thời hạn lưu trữ 06 tháng</strong> (đủ trọn mùa lễ)
               </li>
               <li class="flex items-center gap-2">
                 <span class="text-capsule-primary font-bold">✓</span> Bảo tàng ký ức không giới hạn ảnh & lời dẫn
@@ -976,11 +977,20 @@
               <li class="flex items-center gap-2">
                 <span class="text-capsule-primary font-bold">✓</span> Minigame giải mã bức thư bí mật viết tay
               </li>
+              <li class="flex items-center gap-2">
+                <span class="text-capsule-primary font-bold">✓</span> Trình phát nhạc Lofi thư giãn tự động
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-capsule-primary font-bold">✓</span> Tải Tờ Báo nét cao (không watermark) để up Story
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-capsule-primary font-bold">✓</span> 5 Voucher tình cảm có tính năng bấm kích hoạt
+              </li>
             </ul>
           </div>
 
           <a href="./index.html#creatorViewAnchor" class="mt-7 w-full py-3 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-white text-xs font-semibold transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer font-quicksand">
-            <span>💎</span> <span>Tạo hộp quà độc bản (29.000đ)</span>
+            <span>💎</span> <span>Nâng cấp gói độc bản (29.000đ)</span>
           </a>
         </div>
 
@@ -988,7 +998,7 @@
         <div class="bg-[#F3EEE3] rounded-3xl border border-[#DCD5C7] p-6 sm:p-7 flex flex-col justify-between hover:border-capsule-muted transition-all shadow-xs">
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono uppercase tracking-wider text-amber-700 font-bold">Gói 03</span>
+              <span class="text-xs font-mono uppercase tracking-wider text-amber-800 font-bold">GÓI 03</span>
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-200/60 text-amber-900 font-bold">Trọn đời</span>
             </div>
             <h3 class="font-serif font-bold text-xl text-capsule-ink mt-2">Vĩnh viễn (Forever Capsule)</h3>
@@ -1001,18 +1011,24 @@
 
             <ul class="mt-5 space-y-2.5 text-xs text-capsule-ink font-normal font-quicksand">
               <li class="flex items-center gap-2">
-                <span class="text-capsule-primary font-bold">✓</span> <strong>Toàn bộ quyền lợi gói Premium (29k)</strong>
+                <span class="text-capsule-primary font-bold">✓</span> <strong>Toàn bộ quyền lợi của gói Premium (29k)</strong>
               </li>
               <li class="flex items-center gap-2">
-                <span class="text-amber-700 font-bold">✦</span> <strong>Lưu trữ VĨNH VIỄN trọn đời</strong>
+                <span class="text-amber-700 font-bold">✦</span> <strong>Lưu trữ VĨNH VIỄN trọn đời (Never Expire)</strong>
               </li>
               <li class="flex items-center gap-2">
-                <span class="text-amber-700 font-bold">✦</span> <strong>Mã QR động vĩnh viễn</strong>
+                <span class="text-amber-700 font-bold">✦</span> <strong>Mã QR động vĩnh viễn</strong> (quét lại sau 5 - 10 năm)
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-amber-700 font-bold">✦</span> Quyền chỉnh sửa & cập nhật thêm ảnh kỷ niệm sau này
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-amber-700 font-bold">✦</span> Khóa mật mã bảo mật cấp cao chống sao chép
               </li>
             </ul>
           </div>
 
-          <a href="./index.html#creatorViewAnchor" class="mt-7 w-full py-2.5 rounded-full bg-capsule-ink hover:bg-black text-white text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer font-quicksand">
+          <a href="./index.html#creatorViewAnchor" class="mt-7 w-full py-2.5 rounded-full bg-[#231618] hover:bg-black text-white text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer font-quicksand">
             <span>👑</span> <span>Sở hữu gói vĩnh viễn (49.000đ)</span>
           </a>
         </div>
@@ -1120,30 +1136,60 @@
           <img src="logo-umbala.png" alt="Úm Ba La Logo" class="h-16 sm:h-20 w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform">
         </a>
         <p class="text-xs text-capsule-muted max-w-sm leading-relaxed">
-          Có những lời yêu thương khó nói thành lời, có những kỷ niệm xứng đáng được lưu giữ mãi. Um Ba La giúp bạn biến những điều bình dị thành món quà số độc bản.
+          Có những lời yêu thương khó nói thành lời, có những kỷ niệm xứng đáng được lưu giữ mãi. Úm Ba La giúp bạn biến những điều bình dị thành món quà số độc bản, gửi trao bất ngờ và lưu giữ những khoảnh khắc đáng nhớ theo cách thật riêng.
         </p>
+        <p class="text-xs font-mono text-capsule-muted italic pt-1">
+          Mỗi món quà là một câu chuyện.<br>
+          Mỗi kỷ niệm là một phép màu.
+        </p>
+
+        <!-- Social Icons Footer với link Facebook profile của bạn -->
+        <div class="pt-2">
+          <h5 class="text-xs font-bold text-capsule-ink mb-2">Kết nối với Úm Ba La:</h5>
+          <div class="flex items-center gap-2.5">
+            <!-- Facebook Profile Link -->
+            <a href="https://www.facebook.com/profile.php?id=61594632706445" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs hover:opacity-90 transition-opacity" title="Trang Facebook Úm Ba La">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.69c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 3H13.1v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+            </a>
+            <!-- Messenger Link -->
+            <a href="https://m.me/61594632706445" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 via-blue-500 to-purple-600 text-white flex items-center justify-center shadow-xs hover:opacity-90 transition-opacity" title="Nhắn tin Messenger">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.19 5.43 3.16 7.17.16.14.26.35.27.56l.08 1.78c.03.62.63 1.07 1.22.88l1.98-.65c.18-.06.38-.04.55.05A10.23 10.23 0 0 0 12 21.4c5.64 0 10-4.13 10-9.7S17.64 2 12 2zm1.19 12.19l-2.43-2.58a.62.62 0 0 0-.91 0l-3.32 2.58c-.43.34-.99-.18-.71-.65l3.24-5.38c.24-.4.81-.4 1.05 0l2.43 2.58c.22.24.6.24.82 0l3.32-2.58c.43-.34.99.18.71.65l-3.24 5.38c-.24.4-.81.4-1.05 0z"/></svg>
+            </a>
+            <!-- TikTok Link -->
+            <a href="https://tiktok.com/@umbala" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center shadow-xs hover:opacity-90 transition-opacity" title="Kênh TikTok">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.63a6.34 6.34 0 1 0 6.34 6.34V9.32a8.28 8.28 0 0 0 4.77 1.52V7.39a4.85 4.85 0 0 1-1-.7z"/></svg>
+            </a>
+          </div>
+        </div>
       </div>
 
+      <!-- Cột Trải nghiệm -->
       <div class="text-xs space-y-2">
-        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Trải nghiệm</h4>
+        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">TRẢI NGHIỆM</h4>
         <div><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="text-capsule-muted hover:text-capsule-primary transition-colors">Trang chủ</a></div>
         <div><a href="#occasionSection" class="text-capsule-muted hover:text-capsule-primary transition-colors">10 dịp Lễ đặc biệt</a></div>
         <div><a href="#trai-nghiem" class="text-capsule-muted hover:text-capsule-primary transition-colors">3 chặng cảm xúc</a></div>
+        <div><a href="#communityFeedback" class="text-capsule-muted hover:text-capsule-primary transition-colors">Chia sẻ cộng đồng</a></div>
+        <div><a href="./index.html#creatorViewAnchor" class="text-capsule-muted hover:text-capsule-primary transition-colors">Studio thiết kế</a></div>
         <div><a href="#bang-gia" class="text-capsule-muted hover:text-capsule-primary transition-colors">Bảng giá gói quà</a></div>
       </div>
 
+      <!-- Cột Cam kết nền tảng -->
       <div class="text-xs space-y-2">
-        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Cam kết nền tảng</h4>
+        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">CAM KẾT NỀN TẢNG</h4>
         <div class="text-capsule-muted">🔒 Bảo mật dữ liệu kỷ niệm 100%</div>
         <div class="text-capsule-muted">☁️ Lưu trữ đám mây vĩnh viễn</div>
         <div class="text-capsule-muted">✨ Không chèn quảng cáo phiền toái</div>
         <div class="text-capsule-muted">⚡ Kích hoạt đúng 00:00 không trễ</div>
       </div>
 
+      <!-- Cột Hỗ trợ & Điều khoản -->
       <div class="text-xs space-y-2">
-        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Hỗ trợ & Điều khoản</h4>
+        <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">HỖ TRỢ & ĐIỀU KHOẢN</h4>
         <div><button type="button" onclick="openRefundModal()" class="text-capsule-primary hover:text-capsule-primaryHover font-bold transition-colors flex items-center gap-1.5 text-left cursor-pointer">🛡️ Chính sách hoàn tiền</button></div>
+        <div><a href="javascript:void(0)" onclick="showToast('Chính sách bảo mật dữ liệu tuyệt đối', '🔒')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Chính sách bảo mật</a></div>
         <div><a href="javascript:void(0)" onclick="showToast('Hệ thống hỗ trợ tự động gửi qua Email đúng 00:00', '⏰')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Cách gửi quà đúng 00:00</a></div>
+        <div><a href="javascript:void(0)" onclick="showToast('Mỗi tài khoản miễn phí 1 lượt tạo MVP', '🎁')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Quy định giới hạn lượt tạo</a></div>
       </div>
     </div>
 
@@ -1178,7 +1224,8 @@
       </div>
     </div>
   </div>
-<!-- MODAL: HỘP QUÀ CỦA TÔI -->
+
+  <!-- MODAL: HỘP QUÀ CỦA TÔI -->
   <div id="myGiftsModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-rose-100 font-sans">
       <!-- Header Modal -->
@@ -1199,6 +1246,7 @@
       </div>
     </div>
   </div>
+
   <!-- TOAST -->
   <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-capsule-ink text-capsule-card text-xs font-medium px-5 py-3 rounded-2xl shadow-2xl border border-capsule-muted/30 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5 backdrop-blur-md font-quicksand">
     <span id="toastIcon">ℹ️</span>
@@ -1211,7 +1259,8 @@
     const audioStatusText = document.getElementById("audioStatusText");
     const audioIcon = document.getElementById("audioIcon");
     const bgmToggleBtn = document.getElementById("bgmToggleBtn");
-function updateMyGiftsButtonVisibility() {
+
+    function updateMyGiftsButtonVisibility() {
       const btn = document.getElementById("btnMyGifts");
       if (!btn) return;
       const userEmail = (typeof appState !== "undefined" && appState.user && appState.user.email)
@@ -1226,6 +1275,7 @@ function updateMyGiftsButtonVisibility() {
         btn.classList.remove("flex");
       }
     }
+
     function updateMusicUI(playing) {
       if (audioStatusText) audioStatusText.textContent = playing ? "Nhạc: Bật" : "Nhạc: Tắt";
       if (audioIcon) audioIcon.textContent = playing ? "🔊" : "🎵";
@@ -1265,6 +1315,7 @@ function updateMyGiftsButtonVisibility() {
     }
 
     function handleHeaderAuthClick() { openAuthModal(); }
+    
     function handleRequestOtpSubmit(e) {
       if (e) e.preventDefault();
       const email = document.getElementById("authEmailInput").value.trim();
@@ -1273,6 +1324,7 @@ function updateMyGiftsButtonVisibility() {
       showToast(`Đã gửi thư xác thực tới ${email}!`, "📨");
       closeAuthModal();
     }
+
     function scrollOccasions(distance) {
       const container = document.getElementById("occasionPillsContainer");
       if (container) container.scrollBy({ left: distance, behavior: 'smooth' });
@@ -1292,6 +1344,7 @@ function updateMyGiftsButtonVisibility() {
         }
       }
     }
+
     function createParticle(x, y) {
       const p = document.createElement("div");
       p.className = "flower-particle";
@@ -1307,7 +1360,6 @@ function updateMyGiftsButtonVisibility() {
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 1200);
     }
-    
   </script>
 </body>
 </html>
