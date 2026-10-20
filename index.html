@@ -1288,7 +1288,7 @@
           </div>
         </div>
 
-        <!-- QR Code & Link Generation -->
+        <!--  Code & Link Generation -->
         <div class="mt-8 pt-6 border-t border-capsule-surface flex flex-col md:flex-row items-center justify-between gap-6 bg-capsule-surface/60 p-6 rounded-2xl">
           <div class="flex items-center gap-4">
             <div id="qrcodeBox" class="p-2.5 bg-white rounded-xl shadow-2xs border border-capsule-surface shrink-0"></div>
@@ -4219,41 +4219,38 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
     }
 
     /* QR Code and Sharing Functions */
-function generateQrCode() {
+function generateQrCode(capsuleId) {
   const qrContainer = document.getElementById("qrcodeBox");
+  const linkInput = document.getElementById("shareableLinkDisplay");
   if (!qrContainer) return;
-  qrContainer.innerHTML = "";
 
-  // 1. Lấy mã quà (ID) và thời gian mở từ dữ liệu đang tạo
-  // Ưu tiên lấy từ appState hoặc ID vừa lưu
-  const capsuleId = (typeof currentCapsuleId !== "undefined" && currentCapsuleId) 
-                    || (typeof appState !== "undefined" && appState.currentCapsuleId)
-                    || "DEMO" + Math.floor(100000 + Math.random() * 900000);
+  // Nếu chưa có capsuleId truyền vào hoặc chưa tạo quà xong -> Hiện trạng thái chờ
+  const activeId = capsuleId 
+                || (typeof currentCapsuleId !== "undefined" && currentCapsuleId)
+                || (typeof appState !== "undefined" && appState.currentCapsuleId);
 
-  // Lấy thời gian hẹn mở nếu người dùng có cài đặt hẹn giờ
-  const unlockTimeInput = document.getElementById("scheduledDeliveryInput") 
-                       || document.getElementById("unlockDateTimeInput");
-  const unlockTime = unlockTimeInput && unlockTimeInput.value ? encodeURIComponent(unlockTimeInput.value) : "";
-
-  // 2. Tạo đường link chuyên biệt dành riêng cho Người Nhận mở quà
-  const baseUrl = window.location.origin + window.location.pathname.replace("homepage.html", "index.html");
-  let giftUrl = `${baseUrl}?id=${capsuleId}`;
-  if (unlockTime) {
-    giftUrl += `&openAt=${unlockTime}`;
+  if (!activeId) {
+    qrContainer.innerHTML = `
+      <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 p-2 text-center text-xs">
+        <span>🔒</span>
+        <span class="text-[10px] mt-1">Chờ xuất bản</span>
+      </div>`;
+    if (linkInput) linkInput.value = "Chưa hoàn tất tạo quà...";
+    return;
   }
 
-  // 3. Hiển thị đường link vào ô để người dùng bấm copy
-  const linkInput = document.getElementById("shareableLinkDisplay");
+  // Khi đã có mã quà chính thức -> Tạo link chuẩn kèm ID
+  const giftUrl = `${window.location.origin}/index.html?id=${activeId}`;
   if (linkInput) linkInput.value = giftUrl;
 
-  // 4. Vẽ mã QR với đường link quà chuẩn
+  qrContainer.innerHTML = "";
   new QRCode(qrContainer, {
     text: giftUrl,
-    width: 110,
-    height: 110,
+    width: 90,
+    height: 90,
     colorDark: "#2C302E",
     colorLight: "#FFFFFF",
-    correctLevel: QRCode.CorrectLevel.H
+    correctLevel: QRCode.CorrectLevel.M
   });
 }
     function copyShareLink() {
