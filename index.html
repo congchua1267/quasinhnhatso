@@ -34,6 +34,9 @@
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();
+  // Khởi tạo EmailJS
+(function() {
+  emailjs.init("R2YN6bU1ZQ3wfHV5q");})();
 </script>
   <script>
     tailwind.config = {
@@ -4252,6 +4255,27 @@ function generateQrCode(capsuleId) {
     colorLight: "#FFFFFF",
     correctLevel: QRCode.CorrectLevel.M
   });
+  // Tự động kích hoạt gửi Email thật cho người nhận kèm link và QR
+  const recipientEmail = (typeof appState !== "undefined" && appState.recipientEmail)
+                      || document.getElementById("recipientEmailInput")?.value?.trim();
+
+  if (recipientEmail && typeof sendGiftEmailToRecipient === "function") {
+    showToast("Đang gửi quà đến hộp thư người nhận...", "⏳");
+
+    sendGiftEmailToRecipient({
+      capsuleId: activeId,
+      receiverEmail: recipientEmail,
+      receiverName: (typeof appState !== "undefined" && appState.recipientName) || document.getElementById("recipientNameInput")?.value?.trim() || "Người thương",
+      senderName: (typeof appState !== "undefined" && appState.senderName) || document.getElementById("senderNameInput")?.value?.trim() || "Người gửi ẩn danh",
+      title: "Hộp quà số Úm Ba La"
+    }).then(isSent => {
+      if (isSent) {
+        showToast("Đã gửi email quà tặng kèm mã QR thành công!", "💌");
+      } else {
+        showToast("Đã tạo quà! Bạn có thể sao chép link gửi trực tiếp.", "✨");
+      }
+    });
+  }
 }
     function copyShareLink() {
       const link = document.getElementById("shareableLinkDisplay");
@@ -4261,7 +4285,43 @@ function generateQrCode(capsuleId) {
         showToast("Đã sao chép link quà vào bộ nhớ tạm!", "📋");
       }
     }
+  // Hàm gửi Email thật cho người nhận khi hoàn tất tạo quà
+async function sendGiftEmailToRecipient(capsuleData) {
+  const recipientEmail = capsuleData.receiverEmail;
+  if (!recipientEmail || !recipientEmail.includes("@")) {
+    console.warn("Chưa nhập email người nhận, bỏ qua gửi mail.");
+    return false;
+  }
 
+  // Tạo đường link quà
+  const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId}`;
+  
+  // Tạo link ảnh mã QR tự động để nhúng thẳng vào email
+  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(giftUrl)}`;
+
+  // Các biến truyền vào mẫu thư EmailJS (khớp với {{...}} trong Template)
+  const templateParams = {
+    to_email: recipientEmail,
+    to_name: capsuleData.receiverName || "Bạn thân mến",
+    sender_name: capsuleData.senderName || (typeof appState !== "undefined" && appState.user && appState.user.email) || "Người thương",
+    gift_url: giftUrl,
+    qr_image_url: qrImageUrl,
+    message_preview: capsuleData.title || "Một bất ngờ dành riêng cho bạn"
+  };
+
+  try {
+    const response = await emailjs.send(
+      "service_wsn5i6n",   // <-- Thay bằng Service ID bạn tạo trên EmailJS (ví dụ: service_xxx)
+      "template_ociwlfo",  // <-- Thay bằng Template ID bạn tạo trên EmailJS (ví dụ: template_xxx)
+      templateParams
+    );
+    console.log("Email quà tặng đã gửi thành công!", response.status, response.text);
+    return true;
+  } catch (error) {
+    console.error("Gửi email thất bại:", error);
+    return false;
+  }
+}
     /* High-res Image Download */
     function downloadNewspaperImage() {
       const element = document.getElementById("newspaperCaptureArea");
