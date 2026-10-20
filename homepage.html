@@ -1232,12 +1232,10 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
     const audioStatusText = document.getElementById("audioStatusText");
     const audioIcon = document.getElementById("audioIcon");
     const bgmToggleBtn = document.getElementById("bgmToggleBtn");
-
     function updateMusicUI(playing) {
       if (audioStatusText) audioStatusText.textContent = playing ? "Nhạc: Bật" : "Nhạc: Tắt";
       if (audioIcon) audioIcon.textContent = playing ? "🔊" : "🎵";
     }
-
     async function toggleAudio() {
       if (!bgMusic) return;
       if (bgMusic.paused) {
@@ -1247,7 +1245,6 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
         updateMusicUI(false);
       }
     }
-
     function showToast(msg, icon = "✨") {
       const toast = document.getElementById("toastNotification");
       if (!toast) return;
@@ -1260,31 +1257,40 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
         toast.classList.remove("translate-y-0", "opacity-100");
       }, 3200);
     }
-
     function openAuthModal() {
       document.getElementById("authModal").classList.remove("hidden");
       document.getElementById("authModal").classList.add("flex");
     }
-
     function closeAuthModal() {
       document.getElementById("authModal").classList.add("hidden");
       document.getElementById("authModal").classList.remove("flex");
     }
+    function openRefundModal() {
+      const modal = document.getElementById("refundModal");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
 
+    function closeRefundModal() {
+      const modal = document.getElementById("refundModal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
     function handleHeaderAuthClick() { openAuthModal(); }
-
     function handleRequestOtpSubmit(e) {
       if (e) e.preventDefault();
       const email = document.getElementById("authEmailInput").value.trim();
       showToast(`Đã gửi thư xác thực tới ${email}!`, "📨");
       closeAuthModal();
     }
-
     function scrollOccasions(distance) {
       const container = document.getElementById("occasionPillsContainer");
       if (container) container.scrollBy({ left: distance, behavior: 'smooth' });
     }
-
     const flowers = ['🌸', '🌷', '🌹', '🌺', '🌼', '💖', '💗', '✨', '💐', '🎀'];
     function openGiftBox(e) {
       const box = document.getElementById("giftBox");
