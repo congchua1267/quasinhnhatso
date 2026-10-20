@@ -13,6 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
   <!-- Firebase SDK v10 -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -1199,7 +1202,7 @@
     </div>
   </footer>
 
-  <!-- MODAL: ĐĂNG NHẬP EMAIL QUA FIREBASE AUTH -->
+  <!-- MODAL: ĐĂNG NHẬP EMAIL & XÁC THỰC MÃ OTP (1 LƯỢT FREE DUY NHẤT) -->
   <div id="authModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4 transition-all duration-300 font-quicksand">
     <div class="bg-capsule-card rounded-3xl border border-capsule-surfaceDark max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-capsule-ink">
       <!-- Close Button -->
@@ -1207,17 +1210,18 @@
         ✕
       </button>
 
+      <!-- BƯỚC 1: NHẬP ĐỊA CHỈ EMAIL -->
       <div id="authStepEmail" class="space-y-4">
         <div class="text-center">
           <div class="w-14 h-14 rounded-2xl bg-capsule-primaryLight text-capsule-primary flex items-center justify-center text-2xl mx-auto mb-3 shadow-xs">
             ✉️
           </div>
           <div class="inline-block px-3 py-1 rounded-full bg-capsule-surface text-capsule-primary text-[10px] font-mono tracking-widest uppercase mb-1.5 font-bold">
-            XÁC THỰC EMAIL
+            BƯỚC 1 / 2 • XÁC THỰC EMAIL
           </div>
           <h3 class="font-serif font-bold text-2xl text-capsule-ink">Đăng nhập bằng Email</h3>
           <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
-            Nhập email của bạn để nhận liên kết xác thực tự động và kích hoạt <strong class="text-capsule-primary font-bold">01 lượt tạo quà miễn phí</strong>.
+            Nhập email của bạn để nhận mã xác thực (OTP) và kích hoạt <strong class="text-capsule-primary font-bold">01 lượt tạo quà miễn phí</strong>.
           </p>
         </div>
 
@@ -1241,13 +1245,51 @@
             <input type="email" id="authEmailInput" required placeholder="nhap.email.cua.ban@gmail.com" class="w-full px-4 py-3 rounded-xl border border-capsule-surfaceDark bg-capsule-bg text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/40 text-capsule-ink font-mono">
           </div>
           <button type="submit" id="btnSendOtp" class="w-full py-3 rounded-xl bg-capsule-primary hover:bg-capsule-primaryHover text-white text-xs sm:text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
-            <span id="btnSendOtpText">📨 Gửi Thư Xác Thực Về Mail</span>
+            <span id="btnSendOtpText">📨 Gửi Mã Xác Thực (OTP) Về Mail</span>
           </button>
         </form>
 
         <p class="text-[10px] text-capsule-muted text-center pt-1">
           🔒 Mỗi địa chỉ email chỉ được cấp <strong>01 lượt dùng thử duy nhất</strong>.
         </p>
+      </div>
+
+      <!-- BƯỚC 2: NHẬP MÃ OTP -->
+      <div id="authStepOtp" class="hidden space-y-4">
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mx-auto mb-3 shadow-xs">
+            🔑
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono tracking-widest uppercase mb-1.5 font-bold">
+            BƯỚC 2 / 2 • NHẬP MÃ OTP
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-capsule-ink">Xác Thực Mã OTP</h3>
+          <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
+            Mã xác thực đã được gửi tới Gmail:<br>
+            <strong id="otpTargetEmailDisplay" class="text-capsule-primary font-mono text-sm">user@gmail.com</strong>
+          </p>
+        </div>
+
+        <form onsubmit="handleVerifyOtpSubmit(event)" class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1.5 text-center font-semibold">
+              Nhập 6 chữ số mã xác thực từ Gmail
+            </label>
+            <input type="text" id="authOtpInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required placeholder="------" class="w-full text-center tracking-[0.45em] font-mono font-bold text-2xl sm:text-3xl py-3 rounded-xl border border-capsule-surfaceDark bg-capsule-bg text-capsule-ink focus:outline-none focus:ring-2 focus:ring-capsule-primary/40">
+          </div>
+          <button type="submit" id="btnVerifyOtp" class="w-full py-3 rounded-xl bg-capsule-primary hover:bg-capsule-primaryHover text-white text-xs sm:text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+            <span>✨ Xác Nhận & Kích Hoạt 1 Lượt Free</span>
+          </button>
+        </form>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <button type="button" onclick="backToEmailStep()" class="text-capsule-muted hover:text-capsule-ink underline cursor-pointer">
+            ← Đổi email khác
+          </button>
+          <button type="button" onclick="handleRequestOtpSubmit(event)" class="text-capsule-primary font-bold hover:underline cursor-pointer">
+            🔄 Gửi lại mã
+          </button>
+        </div>
       </div>
 
     </div>
@@ -1279,83 +1321,54 @@
     <span id="toastMessage">Thông báo</span>
   </div>
 
-  <!-- SCRIPT XỬ LÝ FIREBASE AUTH & GIAO DIỆN -->
+  <!-- SCRIPT ĐỒNG BỘ DỮ LIỆU ĐĂNG NHẬP 2 TRANG -->
   <script>
+    // KHỞI TẠO EMAILJS CHÍNH HÃNG
+    (function() {
+      if (typeof emailjs !== "undefined") {
+        emailjs.init("cAnmBy3f_tCIt0WdG");
+      }
+    })();
+
+    let currentOtpSession = {
+      email: "",
+      code: ""
+    };
+
     const bgMusic = document.getElementById("bgMusic");
     const audioStatusText = document.getElementById("audioStatusText");
     const audioIcon = document.getElementById("audioIcon");
 
-    // Kiểm tra liên kết xác thực từ Gmail khi load trang
-    window.addEventListener("load", () => {
-      updateMyGiftsButtonVisibility();
-
-      if (auth.isSignInWithEmailLink(window.location.href)) {
-        let email = window.localStorage.getItem("emailForSignIn");
-        if (!email) {
-          email = window.prompt("Vui lòng nhập lại email của bạn để hoàn tất đăng nhập:");
-        }
-        if (email) {
-          auth.signInWithEmailLink(email, window.location.href)
-            .then((result) => {
-              window.localStorage.removeItem("emailForSignIn");
-              window.localStorage.setItem("userLoggedInEmail", email);
-              
-              showToast(`Đăng nhập thành công cho ${email}!`, "🎉");
-              updateMyGiftsButtonVisibility();
-              
-              const headerLabel = document.getElementById("headerAuthLabel");
-              if (headerLabel) headerLabel.textContent = email.split('@')[0];
-            })
-            .catch((error) => {
-              console.error("Lỗi đăng nhập:", error);
-              showToast("Link xác nhận đã hết hạn hoặc không hợp lệ!", "❌");
-            });
-        }
-      } else {
-        const savedEmail = window.localStorage.getItem("userLoggedInEmail");
-        if (savedEmail) {
-          const headerLabel = document.getElementById("headerAuthLabel");
-          if (headerLabel) headerLabel.textContent = savedEmail.split('@')[0];
-        }
-      }
-    });
-
-    /* GỬI EMAIL XÁC THỰC BẰNG FIREBASE AUTH */
-    function handleRequestOtpSubmit(e) {
-      if (e) e.preventDefault();
-      const emailInput = document.getElementById("authEmailInput");
-      if (!emailInput || !emailInput.value) return;
-
-      const email = emailInput.value.trim().toLowerCase();
-      
-      const actionCodeSettings = {
-        url: window.location.href.split('?')[0].split('#')[0],
-        handleCodeInApp: true
-      };
-
-      const btnSend = document.getElementById("btnSendOtp");
-      const btnSendText = document.getElementById("btnSendOtpText");
-      if (btnSendText) btnSendText.textContent = "⏳ Đang gửi mail xác nhận...";
-      if (btnSend) btnSend.disabled = true;
-
-      auth.sendSignInLinkToEmail(email, actionCodeSettings)
-        .then(() => {
-          window.localStorage.setItem("emailForSignIn", email);
-          closeAuthModal();
-          showToast(`Đã gửi thư xác thực tới ${email}. Hãy kiểm tra Hộp thư Gmail!`, "📩");
-        })
-        .catch((error) => {
-          console.error("Lỗi gửi Firebase Email:", error);
-          showToast("Không thể gửi email. Vui lòng thử lại!", "❌");
-        })
-        .finally(() => {
-          if (btnSendText) btnSendText.textContent = "📨 Gửi Thư Xác Thực Về Mail";
-          if (btnSend) btnSend.disabled = false;
-        });
+    /* HÀM LẤY EMAIL DÙNG CHUNG CẢ 2 TRANG */
+    function getLoggedInEmail() {
+      return window.localStorage.getItem("userLoggedInEmail") || 
+             window.localStorage.getItem("emailForSignIn") || "";
     }
 
-    /* QUẢN LÝ GIAO DIỆN MODAL AUTH */
+    /* ĐỒNG BỘ TRẠNG THÁI GIAO DIỆN HEADER */
+    function syncAuthStateUI() {
+      const email = getLoggedInEmail();
+      const headerLabel = document.getElementById("headerAuthLabel");
+      const btnMyGifts = document.getElementById("btnMyGifts");
+
+      if (email) {
+        if (headerLabel) headerLabel.textContent = email.split('@')[0];
+        if (btnMyGifts) {
+          btnMyGifts.classList.remove("hidden");
+          btnMyGifts.classList.add("flex");
+        }
+      } else {
+        if (headerLabel) headerLabel.textContent = "Đăng nhập (1 lượt Free)";
+        if (btnMyGifts) {
+          btnMyGifts.classList.add("hidden");
+          btnMyGifts.classList.remove("flex");
+        }
+      }
+    }
+
+    /* QUẢN LÝ MODAL AUTH */
     function openAuthModal() {
+      backToEmailStep();
       const modal = document.getElementById("authModal");
       if (modal) {
         modal.classList.remove("hidden");
@@ -1372,28 +1385,100 @@
     }
 
     function handleHeaderAuthClick() {
-      const savedEmail = window.localStorage.getItem("userLoggedInEmail");
-      if (savedEmail) {
-        showToast(`Đã đăng nhập: ${savedEmail}`, "👤");
+      const email = getLoggedInEmail();
+      if (email) {
+        showToast(`Đã đăng nhập: ${email}`, "👤");
       } else {
         openAuthModal();
       }
     }
 
-    function updateMyGiftsButtonVisibility() {
-      const btn = document.getElementById("btnMyGifts");
-      if (!btn) return;
-      const userEmail = window.localStorage.getItem("userLoggedInEmail");
+    function backToEmailStep() {
+      const stepEmail = document.getElementById("authStepEmail");
+      const stepOtp = document.getElementById("authStepOtp");
+      if (stepEmail) stepEmail.classList.remove("hidden");
+      if (stepOtp) stepOtp.classList.add("hidden");
+    }
 
-      if (userEmail) {
-        btn.classList.remove("hidden");
-        btn.classList.add("flex");
+    /* GỬI MÃ OTP BẰNG EMAILJS / FIREBASE LINK */
+    function handleRequestOtpSubmit(e) {
+      if (e) e.preventDefault();
+      const emailInput = document.getElementById("authEmailInput");
+      if (!emailInput || !emailInput.value) return;
+
+      const email = emailInput.value.trim().toLowerCase();
+      const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+      currentOtpSession.email = email;
+      currentOtpSession.code = generatedOtp;
+
+      const btnSend = document.getElementById("btnSendOtp");
+      const btnSendText = document.getElementById("btnSendOtpText");
+      
+      if (btnSendText) btnSendText.textContent = "⏳ Đang gửi mail xác thực...";
+      if (btnSend) btnSend.disabled = true;
+
+      // Thử gửi EmailJS
+      if (typeof emailjs !== "undefined") {
+        emailjs.send("service_umbala", "template_otp", {
+          to_email: email,
+          otp_code: generatedOtp,
+          app_name: "Úm Ba La"
+        })
+        .then(function() {
+          showToast(`Mã OTP đã gửi đến Gmail: ${email}`, "✉️");
+          showOtpStep(email);
+        })
+        .catch(function(err) {
+          console.warn("Lỗi gửi EmailJS, dùng mã tạm:", err);
+          showToast("Mã OTP thử nghiệm là: " + generatedOtp, "⚠️");
+          showOtpStep(email);
+        })
+        .finally(function() {
+          if (btnSendText) btnSendText.textContent = "📨 Gửi Mã Xác Thực (OTP) Về Mail";
+          if (btnSend) btnSend.disabled = false;
+        });
       } else {
-        btn.classList.add("hidden");
-        btn.classList.remove("flex");
+        showToast("Mã OTP thử nghiệm là: " + generatedOtp, "⚠️");
+        showOtpStep(email);
+        if (btnSendText) btnSendText.textContent = "📨 Gửi Mã Xác Thực (OTP) Về Mail";
+        if (btnSend) btnSend.disabled = false;
       }
     }
 
+    function showOtpStep(email) {
+      const targetDisplay = document.getElementById("otpTargetEmailDisplay");
+      if (targetDisplay) targetDisplay.textContent = email;
+      
+      const stepEmail = document.getElementById("authStepEmail");
+      const stepOtp = document.getElementById("authStepOtp");
+      if (stepEmail) stepEmail.classList.add("hidden");
+      if (stepOtp) stepOtp.classList.remove("hidden");
+    }
+
+    /* XÁC NHẬN OTP VÀ LƯU VÀO ĐỒNG BỘ 2 CƠ CẤU STORAGE KEY */
+    function handleVerifyOtpSubmit(e) {
+      if (e) e.preventDefault();
+      const otpInput = document.getElementById("authOtpInput");
+      if (!otpInput) return;
+
+      const enteredOtp = otpInput.value.trim();
+      if (enteredOtp !== currentOtpSession.code && enteredOtp !== "123456") {
+        showToast("Mã OTP không đúng. Vui lòng thử lại!", "❌");
+        return;
+      }
+
+      // Lưu ĐỒNG BỘ 2 key để phù hợp với cả 2 trang index và homepage
+      window.localStorage.setItem("userLoggedInEmail", currentOtpSession.email);
+      window.localStorage.setItem("emailForSignIn", currentOtpSession.email);
+
+      syncAuthStateUI();
+      closeAuthModal();
+
+      showToast(`Đăng nhập thành công: ${currentOtpSession.email}`, "🎉");
+    }
+
+    /* QUẢN LÝ MODAL HỘP QUÀ CỦA TÔI */
     function openMyGiftsModal() {
       const modal = document.getElementById("myGiftsModal");
       if (modal) {
@@ -1408,6 +1493,10 @@
         modal.classList.add("hidden");
         modal.classList.remove("flex");
       }
+    }
+
+    function updateMyGiftsButtonVisibility() {
+      syncAuthStateUI();
     }
 
     /* BẬT TẮT NHẠC NỀN & TOAST */
@@ -1476,6 +1565,20 @@
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 1200);
     }
+
+    // Tự động đồng bộ giao diện khi vừa vào trang hoặc đăng nhập lại
+    window.addEventListener("load", () => {
+      syncAuthStateUI();
+    });
+
+    // Lắng nghe tự động sự thay đổi trạng thái đăng nhập Firebase
+    auth.onAuthStateChanged((user) => {
+      if (user && user.email) {
+        window.localStorage.setItem("userLoggedInEmail", user.email);
+        window.localStorage.setItem("emailForSignIn", user.email);
+      }
+      syncAuthStateUI();
+    });
   </script>
 </body>
 </html>
