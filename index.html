@@ -4256,28 +4256,6 @@ const giftUrl = `${window.location.origin}/index.html?id=${activeId}${occasionPa
     colorLight: "#FFFFFF",
     correctLevel: QRCode.CorrectLevel.M
   });
-  // Tự động kích hoạt gửi Email thật cho người nhận kèm link và QR
-  // Thay thế dòng 1205 cũ bằng dòng này:
-  const recipientEmail = (typeof appState !== "undefined" && appState.delivery && appState.delivery.recipientEmail)
-                      || document.getElementById("inputRecipientEmail")?.value?.trim();
-
-  if (recipientEmail && typeof sendGiftEmailToRecipient === "function") {
-    showToast("Đang gửi quà đến hộp thư người nhận...", "⏳");
-
-    sendGiftEmailToRecipient({
-      capsuleId: activeId,
-      receiverEmail: recipientEmail,
-      receiverName: (typeof appState !== "undefined" && appState.recipientName) || document.getElementById("recipientNameInput")?.value?.trim() || "Người thương",
-      senderName: (typeof appState !== "undefined" && appState.senderName) || document.getElementById("senderNameInput")?.value?.trim() || "Người gửi ẩn danh",
-      title: "Hộp quà số Úm Ba La"
-    }).then(isSent => {
-      if (isSent) {
-        showToast("Đã gửi email quà tặng kèm mã QR thành công!", "💌");
-      } else {
-        showToast("Đã tạo quà! Bạn có thể sao chép link gửi trực tiếp.", "✨");
-      }
-    });
-  }
 }
     function copyShareLink() {
       const link = document.getElementById("shareableLinkDisplay");
