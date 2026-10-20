@@ -688,7 +688,11 @@
           <span id="headerAuthIcon">👤</span>
           <span id="headerAuthLabel" class="hidden md:inline text-xs font-semibold whitespace-nowrap">Đăng nhập (1 lượt Free)</span>
         </button>
-
+        <!-- Nút mở bảng Quà của tôi (mặc định ẩn) -->
+        <button id="btnMyGifts" type="button" onclick="openMyGiftsModal()" class="hidden px-2.5 sm:px-3 py-1.5 rounded-full border border-rose-200 bg-rose-50/80 hover:bg-rose-100 text-rose-700 text-xs font-semibold items-center gap-1.5 shadow-2xs transition-all cursor-pointer shrink-0 whitespace-nowrap" title="Xem các hộp quà bạn đã tạo">
+          <span>🎁</span>
+          <span class="hidden sm:inline text-xs font-semibold whitespace-nowrap">Quà của tôi</span>
+        </button>
         <a href="./index.html#creatorViewAnchor" class="hidden sm:flex px-3.5 xl:px-4 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs xl:text-[13px] font-bold tracking-wide transition-all shadow-xs hover:shadow-sm items-center gap-1.5 cursor-pointer shrink-0 whitespace-nowrap">
           <span class="whitespace-nowrap">✨ Tạo Hộp Quà</span>
         </a>
@@ -1187,7 +1191,21 @@
     const audioStatusText = document.getElementById("audioStatusText");
     const audioIcon = document.getElementById("audioIcon");
     const bgmToggleBtn = document.getElementById("bgmToggleBtn");
+function updateMyGiftsButtonVisibility() {
+      const btn = document.getElementById("btnMyGifts");
+      if (!btn) return;
+      const userEmail = (typeof appState !== "undefined" && appState.user && appState.user.email)
+        ? appState.user.email
+        : window.localStorage.getItem("emailForSignIn");
 
+      if (userEmail) {
+        btn.classList.remove("hidden");
+        btn.classList.add("flex");
+      } else {
+        btn.classList.add("hidden");
+        btn.classList.remove("flex");
+      }
+    }
     function updateMusicUI(playing) {
       if (audioStatusText) audioStatusText.textContent = playing ? "Nhạc: Bật" : "Nhạc: Tắt";
       if (audioIcon) audioIcon.textContent = playing ? "🔊" : "🎵";
@@ -1254,7 +1272,6 @@
         }
       }
     }
-
     function createParticle(x, y) {
       const p = document.createElement("div");
       p.className = "flower-particle";
@@ -1270,6 +1287,7 @@
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 1200);
     }
+    
   </script>
 </body>
 </html>
