@@ -4451,64 +4451,35 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
 
       sendOtpToEmail(email);
     }
+async function sendOtpToEmail(email) {
+  // Cấu hình đường link chuyển hướng khi người dùng bấm vào email
+  const actionCodeSettings = {
+    // URL trang web của bạn (ví dụ trên GitHub Pages hoặc link hiện tại)
+    url: window.location.href.split('#')[0],
+    handleCodeInApp: true
+  };
 
-    function sendOtpToEmail(email) {
-      // Tạo mã xác thực 6 số ngẫu nhiên
-      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-      currentOtpSession.email = email;
-      currentOtpSession.code = otpCode;
-      currentOtpSession.expiresAt = Date.now() + 5 * 60 * 1000; // 5 phút hiệu lực
-      currentOtpSession.secondsLeft = 60;
+  showToast(`Đang kết nối Firebase gửi email tới ${email}...`, "⏳");
 
-      // Cập nhật giao diện Bước 2
-      const targetDisp = document.getElementById("otpTargetEmailDisplay");
-      const hintDisp = document.getElementById("otpDisplayHint");
-      const otpInp = document.getElementById("authOtpInput");
+  try {
+    // Lệnh gửi email xác thực thật từ Firebase về hòm thư
+    await auth.sendSignInLinkToEmail(email, actionCodeSettings);
 
-      if (targetDisp) targetDisp.textContent = email;
-      if (hintDisp) hintDisp.textContent = otpCode;
-      if (otpInp) {
-        otpInp.value = "";
-        setTimeout(() => otpInp.focus(), 300);
-      }
+    // Lưu tạm email vào máy để khi khách bấm link từ mail quay lại sẽ tự nhận diện
+    window.localStorage.setItem('emailForSignIn', email);
 
-      // Chuyển sang Bước 2
-      const step1 = document.getElementById("authStepEmail");
-      const step2 = document.getElementById("authStepOtp");
-      if (step1) step1.classList.add("hidden");
-      if (step2) step2.classList.remove("hidden");
+    // Thông báo cho người dùng
+    alert(`✨ Firebase đã gửi thư xác thực tới địa chỉ: ${email}\n\nBạn vui lòng mở hộp thư đến (hoặc kiểm tra cả mục Thư rác/Spam) và bấm vào đường link trong thư để kích hoạt tài khoản nhé!`);
+    showToast(`Đã gửi email xác thực thành công tới ${email}!`, "📨");
 
-      // Bắt đầu đếm ngược 60 giây gửi lại mã
-      startOtpCountdown();
+    // Đóng modal đăng nhập
+    closeAuthModal();
 
-      // Gửi email thật qua EmailJS nếu có cấu hình
-      let sentReal = false;
-      if (window.emailjs && EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.serviceId && EMAILJS_CONFIG.templateId) {
-        try {
-          emailjs.init(EMAILJS_CONFIG.publicKey);
-          emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
-            to_email: email,
-            otp_code: otpCode,
-            service_name: "Úm Ba La",
-            expire_minutes: 5
-          }).then(() => {
-            console.log("EmailJS sent to", email);
-          }).catch(err => {
-            console.warn("EmailJS error:", err);
-          });
-          sentReal = true;
-        } catch(err) {
-          console.warn("EmailJS call error:", err);
-        }
-      }
-
-      if (sentReal) {
-        showToast(`Đã gửi mã xác thực đến ${email}!`, "📨");
-      } else {
-        showToast(`Mã xác thực [${otpCode}] đã gửi đến ${email}!`, "📬");
-      }
-    }
-
+  } catch (error) {
+    console.error("Lỗi gửi email Firebase:", error);
+    showToast(`Lỗi gửi mail: ${error.message}`, "❌");
+  }
+}
     function startOtpCountdown() {
       const countdownText = document.getElementById("otpCountdownText");
       const btnResend = document.getElementById("btnResendOtp");
@@ -5316,6 +5287,36 @@ async function confirmPaidUpgrade() {
       initEmailDeliveryDefaults();
       startScheduledEmailBackgroundService();
       handleInitialRouteOrHash();
+  // Kiểm tra nếu người dùng vừa bấm link từ Email quay lại web
+if (auth.isSignInWithEmailLink(window.location.href)) {
+  let email = window.localStorage.getItem('emailForSignIn');
+  if (!email) {
+    email = window.prompt('Vui lòng nhập lại email của bạn để hoàn tất xác thực:');
+  }
+  
+  auth.signInWithEmailLink(email, window.location.href)
+    .then((result) => {
+      window.localStorage.removeItem('emailForSignIn');
+      
+      // Kích hoạt tài khoản 1 lượt miễn phí
+      appState.user = {
+        isLoggedIn: true,
+        email: email.toLowerCase(),
+        quota: 1,
+        used: 0,
+        plan: "free",
+        planName: "Gói Dùng Thử: 1 Lượt Miễn Phí"
+      };
+      saveUserState();
+      renderApp();
+      
+      confetti({ particleCount: 90, spread: 80 });
+      showToast(`🎉 Xác thực email thành công! Đã kích hoạt 1 lượt tạo quà miễn phí.`, "✨");
+    })
+    .catch((error) => {
+      console.error("Lỗi xác thực link email:", error);
+    });
+}
     });
   </script>
 </body>
