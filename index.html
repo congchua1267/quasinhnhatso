@@ -4243,7 +4243,8 @@ function generateQrCode(capsuleId) {
   }
 
   // Khi đã có mã quà chính thức -> Tạo link chuẩn kèm ID
-  const giftUrl = `${window.location.origin}/index.html?id=${activeId}`;
+const occasionParam = (typeof appState !== "undefined" && appState.currentOccasionId) ? `&occasion=${appState.currentOccasionId}` : "";
+const giftUrl = `${window.location.origin}/index.html?id=${activeId}${occasionParam}`;
   if (linkInput) linkInput.value = giftUrl;
 
   qrContainer.innerHTML = "";
@@ -4295,8 +4296,8 @@ async function sendGiftEmailToRecipient(capsuleData) {
   }
 
   // Tạo đường link quà
-  const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId}`;
-  
+const occasionParam = capsuleData.occasionId || (typeof appState !== "undefined" && appState.currentOccasionId) ? `&occasion=${capsuleData.occasionId || appState.currentOccasionId}` : "";
+const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId}${occasionParam}`;  
   // Tạo link ảnh mã QR tự động để nhúng thẳng vào email
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(giftUrl)}`;
 
@@ -5352,6 +5353,16 @@ async function publishGiftWithQuota() {
       initEmailDeliveryDefaults();
       startScheduledEmailBackgroundService();
       handleInitialRouteOrHash();
+      // Tự động chuyển đúng loại thiệp khi mở link có ?occasion=...
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetOccasion = urlParams.get('occasion');
+        if (targetOccasion && typeof OCCASIONS_DATA !== "undefined" && OCCASIONS_DATA[targetOccasion]) {
+          setOccasion(targetOccasion, true);
+        }
+      } catch (err) {
+        console.warn("Lỗi đọc tham số occasion:", err);
+      }
   // Kiểm tra nếu người dùng vừa bấm link từ Email quay lại web
 if (auth.isSignInWithEmailLink(window.location.href)) {
   let email = window.localStorage.getItem('emailForSignIn');
