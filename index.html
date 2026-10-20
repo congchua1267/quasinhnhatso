@@ -20,6 +20,7 @@
 <!-- Firebase SDK v10 (Bản compat dành cho file HTML) -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script>
   // Cấu hình Firebase của dự án umbala-58dcb
  const firebaseConfig = {
@@ -31,6 +32,7 @@
   appId: "1:516445194281:web:e642807f5d5bc4f651b438"
 };
   firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
   const db = firebase.firestore();
 </script>
   <script>
