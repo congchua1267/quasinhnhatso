@@ -4256,8 +4256,9 @@ function generateQrCode(capsuleId) {
     correctLevel: QRCode.CorrectLevel.M
   });
   // Tự động kích hoạt gửi Email thật cho người nhận kèm link và QR
-  const recipientEmail = (typeof appState !== "undefined" && appState.recipientEmail)
-                      || document.getElementById("recipientEmailInput")?.value?.trim();
+  // Thay thế dòng 1205 cũ bằng dòng này:
+  const recipientEmail = (typeof appState !== "undefined" && appState.delivery && appState.delivery.recipientEmail)
+                      || document.getElementById("inputRecipientEmail")?.value?.trim();
 
   if (recipientEmail && typeof sendGiftEmailToRecipient === "function") {
     showToast("Đang gửi quà đến hộp thư người nhận...", "⏳");
@@ -4881,13 +4882,17 @@ async function confirmPaidUpgrade() {
     }
   }, 2000);
 }
-    function publishGiftWithQuota() {
+async function publishGiftWithQuota() {
+      // 1. Kiểm tra trạng thái đăng nhập
       if (!appState.user.isLoggedIn) {
-        showToast("Vui lòng đăng nhập Email & nhận mã OTP để kích hoạt 1 lượt tạo quà miễn phí!", "✉️");
+        showToast("Vui lòng đăng nhập Email để kích hoạt tạo quà!", "✉️");
         openAuthModal();
         return;
       }
 
+      const email = appState.user.email.toLowerCase();
+
+      // 2. Kiểm tra hạn mức đối với gói dùng thử (Free)
       if (appState.user.plan === "free") {
         let registry = {};
         let usedEmails = [];
@@ -4896,27 +4901,24 @@ async function confirmPaidUpgrade() {
           usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
         } catch(err) {}
 
-        const email = appState.user.email.toLowerCase();
         const record = registry[email];
         const isAlreadyUsed = (record && record.used) || usedEmails.includes(email) || appState.user.used >= appState.user.quota;
 
         if (isAlreadyUsed) {
-          alert(`⚠️ BẠN ĐÃ SỬ DỤNG HẾT 1 LƯỢT MIỄN PHÍ DUY NHẤT!\n\nEmail "${email}" đã từng kích hoạt quà trước đó. Để tiếp tục xuất bản hộp quà này và gửi đến người nhận, vui lòng nâng cấp lên Gói Độc Bản (29k) hoặc Vĩnh Cửu (49k).`);
-          showToast("Hạn mức miễn phí đã hết (1/1). Vui lòng nâng cấp gói trả phí để tiếp tục!", "💎");
+          alert(`⚠️ BẠN ĐÃ SỬ DỤNG HẾT 1 LƯỢT MIỄN PHÍ DUY NHẤT!\n\nEmail "${email}" đã từng kích hoạt quà trước đó. Để tiếp tục xuất bản hộp quà này, vui lòng nâng cấp lên Gói Độc Bản (29k) hoặc Vĩnh Cửu (49k).`);
+          showToast("Hạn mức miễn phí đã hết. Vui lòng nâng cấp gói trả phí!", "💎");
           openUpgradeModal();
           return;
         }
 
-        // TIÊU THỤ 1 LƯỢT MIỄN PHÍ DUY NHẤT VĨNH VIỄN
+        // Đánh dấu đã dùng 1 lượt free
         appState.user.used = 1;
         if (!registry[email]) registry[email] = {};
         registry[email].used = true;
         registry[email].usedAt = new Date().toLocaleString('vi-VN');
         registry[email].occasion = appState.currentOccasionId;
 
-        if (!usedEmails.includes(email)) {
-          usedEmails.push(email);
-        }
+        if (!usedEmails.includes(email)) usedEmails.push(email);
 
         try {
           localStorage.setItem("umbala_email_registry", JSON.stringify(registry));
@@ -4925,80 +4927,67 @@ async function confirmPaidUpgrade() {
         } catch(err) {}
 
         saveUserState();
-        copyShareLink();
-
-        // Tích hợp gửi quà qua Email tự động (Bước 4)
-        updateAppData();
-        if (appState.delivery && appState.delivery.recipientEmail) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (emailRegex.test(appState.delivery.recipientEmail)) {
-            scheduleGiftDelivery();
-            if (appState.delivery.sendMode === "now") {
-              if (window.emailjs && EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.serviceId) {
-                try {
-                  emailjs.init(EMAILJS_CONFIG.publicKey);
-                  emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId || "template_gift", {
-                    to_email: appState.delivery.recipientEmail,
-                    to_name: appState.recipientName,
-                    from_name: appState.delivery.senderName || "Người thương",
-                    subject: appState.delivery.emailSubject,
-                    message: appState.delivery.emailCoverMessage,
-                    gift_link: window.location.href.split('#')[0] + "?recipient=" + encodeURIComponent(appState.recipientName)
-                  });
-                } catch(e) {}
-              }
-              showToast(`🚀 Đã gửi email quà tặng thành công tới ${appState.delivery.recipientEmail}!`, "📬");
-            } else {
-              const schedStr = appState.delivery.scheduledTime ? new Date(appState.delivery.scheduledTime).toLocaleString('vi-VN') : "00:00 ngày kỷ niệm";
-              showToast(`⏰ Đã hẹn giờ tự động gửi email lúc ${schedStr} tới ${appState.delivery.recipientEmail}!`, "💌");
-            }
-          }
-        }
-
-        confetti({
-          particleCount: 90,
-          spread: 80
-        });
-
-        showToast("Đã kích hoạt thành công 01 lượt miễn phí duy nhất! Đường link quà tặng đã sẵn sàng.", "🚀");
-      } else {
-        // Gói trả phí VIP
-        copyShareLink();
-
-        // Tích hợp gửi quà qua Email tự động cho khách VIP
-        updateAppData();
-        if (appState.delivery && appState.delivery.recipientEmail) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (emailRegex.test(appState.delivery.recipientEmail)) {
-            scheduleGiftDelivery();
-            if (appState.delivery.sendMode === "now") {
-              if (window.emailjs && EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.serviceId) {
-                try {
-                  emailjs.init(EMAILJS_CONFIG.publicKey);
-                  emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId || "template_gift", {
-                    to_email: appState.delivery.recipientEmail,
-                    to_name: appState.recipientName,
-                    from_name: appState.delivery.senderName || "Người thương",
-                    subject: appState.delivery.emailSubject,
-                    message: appState.delivery.emailCoverMessage,
-                    gift_link: window.location.href.split('#')[0] + "?recipient=" + encodeURIComponent(appState.recipientName)
-                  });
-                } catch(e) {}
-              }
-              showToast(`🚀 Đã xuất bản & gửi email VIP tới ${appState.delivery.recipientEmail}!`, "👑");
-            } else {
-              const schedStr = appState.delivery.scheduledTime ? new Date(appState.delivery.scheduledTime).toLocaleString('vi-VN') : "00:00 ngày kỷ niệm";
-              showToast(`⏰ Đã lập lịch gửi thư tự động lúc ${schedStr} tới ${appState.delivery.recipientEmail}!`, "👑");
-            }
-          }
-        }
-
-        confetti({
-          particleCount: 80,
-          spread: 80
-        });
-        showToast("Đã xuất bản hộp quà thành công với đặc quyền VIP!", "👑");
       }
+
+      // 3. Đồng bộ dữ liệu mới nhất
+      updateAppData();
+
+      // 4. Sinh mã định danh Capsule ID độc bản
+      const newCapsuleId = "CAP" + Date.now().toString().slice(-6) + Math.floor(100 + Math.random() * 900);
+      appState.currentCapsuleId = newCapsuleId;
+
+      // 5. Cập nhật và mở khóa mã QR trên màn hình ngay lập tức
+      generateQrCode(newCapsuleId);
+      copyShareLink();
+
+      // 6. Lưu dữ liệu hộp quà lên Firebase Firestore
+      try {
+        await db.collection("capsules").doc(newCapsuleId).set({
+          capsuleId: newCapsuleId,
+          creatorEmail: email,
+          receiverName: appState.recipientName,
+          receiverEmail: appState.delivery.recipientEmail || "",
+          senderName: appState.delivery.senderName || "Người gửi yêu thương",
+          occasionId: appState.currentOccasionId,
+          plan: appState.user.plan,
+          status: "SENT",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          lastAccessedAt: null,
+          openedAt: null
+        });
+        console.log("Đã lưu Capsule lên Firestore:", newCapsuleId);
+      } catch (err) {
+        console.warn("Lưu Firestore dự phòng (offline/rules):", err);
+      }
+
+      // 7. Gửi Email thật cho người nhận qua EmailJS
+      const targetRecipientEmail = appState.delivery.recipientEmail || document.getElementById("inputRecipientEmail")?.value?.trim();
+
+      if (targetRecipientEmail && targetRecipientEmail.includes("@")) {
+        showToast("Đang gửi quà đến hộp thư người nhận...", "⏳");
+
+        sendGiftEmailToRecipient({
+          capsuleId: newCapsuleId,
+          receiverEmail: targetRecipientEmail,
+          receiverName: appState.recipientName || "Bạn thân mến",
+          senderName: appState.delivery.senderName || email,
+          title: appState.newsTitle || "Hộp quà số độc bản Úm Ba La"
+        }).then(isSent => {
+          if (isSent) {
+            showToast(`Đã gửi email quà tặng thành công tới ${targetRecipientEmail}!`, "💌");
+          } else {
+            showToast("Đã kích hoạt quà! Bạn có thể sao chép link gửi trực tiếp.", "✨");
+          }
+        });
+      } else {
+        showToast("Đã kích hoạt hộp quà! Bạn có thể sao chép link hoặc mã QR để gửi qua Zalo/Mess.", "🚀");
+      }
+
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
     }
 
     /* ==========================================================================
