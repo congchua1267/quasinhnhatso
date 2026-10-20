@@ -13,7 +13,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
+<!-- Firebase SDK v10 (Bản compat dành cho file HTML) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script>
+  // Cấu hình Firebase của dự án umbala-58dcb
+ const firebaseConfig = {
+  apiKey: "AIzaSyCcmMQeQZdyoo5mTPAt9N3ktUaLdR4AVi4",
+  authDomain: "umbala-58dcb.firebaseapp.com",
+  projectId: "umbala-58dcb",
+  storageBucket: "umbala-58dcb.firebasestorage.app",
+  messagingSenderId: "516445194281",
+  appId: "1:516445194281:web:e642807f5d5bc4f651b438"
+};
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
   <script>
     tailwind.config = {
       corePlugins: {
@@ -1955,34 +1972,34 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
 
       sendOtpToEmail(email);
     }
+async function sendOtpToEmail(email) {
+  const actionCodeSettings = {
+    // Trỏ đúng về trang web hiện tại sau khi bấm xác thực trong Gmail
+    url: window.location.href.split('#')[0],
+    handleCodeInApp: true
+  };
 
-    function sendOtpToEmail(email) {
-      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-      currentOtpSession.email = email;
-      currentOtpSession.code = otpCode;
-      currentOtpSession.expiresAt = Date.now() + 5 * 60 * 1000;
-      currentOtpSession.secondsLeft = 60;
+  showToast(`Đang gửi thư xác thực tới ${email}...`, "⏳");
 
-      const targetDisp = document.getElementById("otpTargetEmailDisplay");
-      const hintDisp = document.getElementById("otpDisplayHint");
-      const otpInp = document.getElementById("authOtpInput");
+  try {
+    // Lệnh gửi email thật từ Firebase
+    await auth.sendSignInLinkToEmail(email, actionCodeSettings);
 
-      if (targetDisp) targetDisp.textContent = email;
-      if (hintDisp) hintDisp.textContent = otpCode;
-      if (otpInp) {
-        otpInp.value = "";
-        setTimeout(() => otpInp.focus(), 300);
-      }
+    // Lưu tạm email vào localStorage
+    window.localStorage.setItem('emailForSignIn', email);
 
-      const step1 = document.getElementById("authStepEmail");
-      const step2 = document.getElementById("authStepOtp");
-      if (step1) step1.classList.add("hidden");
-      if (step2) step2.classList.remove("hidden");
+    alert(`✨ Thư xác thực đã được gửi tới: ${email}\n\nBạn hãy mở hộp thư Gmail (kiểm tra cả mục Spam/Thư rác nếu không thấy) và bấm vào đường link trong thư để kích hoạt tài khoản nhé!`);
+    showToast(`Đã gửi email xác thực thành công tới ${email}!`, "📨");
 
-      startOtpCountdown();
-      showToast(`Mã xác thực [${otpCode}] đã được gửi đến ${email}!`, "📬");
-    }
+    // Đóng popup nhập email
+    closeAuthModal();
 
+  } catch (error) {
+    console.error("Lỗi gửi mail xác thực Firebase:", error);
+    showToast(`Lỗi: ${error.message}`, "❌");
+    alert(`Lỗi khi gửi email: ${error.message}`);
+  }
+}
     function startOtpCountdown() {
       const countdownText = document.getElementById("otpCountdownText");
       const btnResend = document.getElementById("btnResendOtp");
@@ -2130,6 +2147,37 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
         occContainer.addEventListener("scroll", updateOccasionScrollButtons, { passive: true });
         window.addEventListener("resize", updateOccasionScrollButtons);
         setTimeout(updateOccasionScrollButtons, 200);
+      }
+    // Tự động kích hoạt khi bấm link từ Gmail quay lại
+      if (typeof auth !== "undefined" && auth.isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn');
+        if (!email) {
+          email = window.prompt('Vui lòng nhập lại email của bạn để hoàn tất xác thực:');
+        }
+        
+        if (email) {
+          auth.signInWithEmailLink(email, window.location.href)
+            .then(() => {
+              window.localStorage.removeItem('emailForSignIn');
+              appState.user = {
+                isLoggedIn: true,
+                email: email.toLowerCase(),
+                quota: 1,
+                used: 0,
+                plan: "free",
+                planName: "Gói Dùng Thử: 1 Lượt Miễn Phí"
+              };
+              saveUserState();
+              renderApp();
+              
+              if (typeof confetti === "function") confetti({ particleCount: 90, spread: 80 });
+              showToast(`🎉 Xác thực email thành công! Đã nhận 1 lượt tạo quà miễn phí.`, "✨");
+              window.history.replaceState({}, document.title, window.location.pathname);
+            })
+            .catch((error) => {
+              console.error("Lỗi xác thực link email:", error);
+            });
+        }
       }
     });
 
