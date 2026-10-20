@@ -1245,14 +1245,14 @@ function updateMyGiftsButtonVisibility() {
     }
 
     function handleHeaderAuthClick() { openAuthModal(); }
-
     function handleRequestOtpSubmit(e) {
       if (e) e.preventDefault();
       const email = document.getElementById("authEmailInput").value.trim();
+      window.localStorage.setItem("emailForSignIn", email);
+      updateMyGiftsButtonVisibility();
       showToast(`Đã gửi thư xác thực tới ${email}!`, "📨");
       closeAuthModal();
     }
-
     function scrollOccasions(distance) {
       const container = document.getElementById("occasionPillsContainer");
       if (container) container.scrollBy({ left: distance, behavior: 'smooth' });
