@@ -4219,24 +4219,43 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
     }
 
     /* QR Code and Sharing Functions */
-    function generateQrCode() {
-      const qrContainer = document.getElementById("qrcodeBox");
-      if (!qrContainer) return;
-      qrContainer.innerHTML = "";
-      const currentUrl = window.location.href.split('#')[0];
-      const linkInput = document.getElementById("shareableLinkDisplay");
-      if (linkInput) linkInput.value = currentUrl;
+function generateQrCode() {
+  const qrContainer = document.getElementById("qrcodeBox");
+  if (!qrContainer) return;
+  qrContainer.innerHTML = "";
 
-      new QRCode(qrContainer, {
-        text: currentUrl,
-        width: 80,
-        height: 80,
-        colorDark: "#2C302E",
-        colorLight: "#FFFFFF",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-    }
+  // 1. Lấy mã quà (ID) và thời gian mở từ dữ liệu đang tạo
+  // Ưu tiên lấy từ appState hoặc ID vừa lưu
+  const capsuleId = (typeof currentCapsuleId !== "undefined" && currentCapsuleId) 
+                    || (typeof appState !== "undefined" && appState.currentCapsuleId)
+                    || "DEMO" + Math.floor(100000 + Math.random() * 900000);
 
+  // Lấy thời gian hẹn mở nếu người dùng có cài đặt hẹn giờ
+  const unlockTimeInput = document.getElementById("scheduledDeliveryInput") 
+                       || document.getElementById("unlockDateTimeInput");
+  const unlockTime = unlockTimeInput && unlockTimeInput.value ? encodeURIComponent(unlockTimeInput.value) : "";
+
+  // 2. Tạo đường link chuyên biệt dành riêng cho Người Nhận mở quà
+  const baseUrl = window.location.origin + window.location.pathname.replace("homepage.html", "index.html");
+  let giftUrl = `${baseUrl}?id=${capsuleId}`;
+  if (unlockTime) {
+    giftUrl += `&openAt=${unlockTime}`;
+  }
+
+  // 3. Hiển thị đường link vào ô để người dùng bấm copy
+  const linkInput = document.getElementById("shareableLinkDisplay");
+  if (linkInput) linkInput.value = giftUrl;
+
+  // 4. Vẽ mã QR với đường link quà chuẩn
+  new QRCode(qrContainer, {
+    text: giftUrl,
+    width: 110,
+    height: 110,
+    colorDark: "#2C302E",
+    colorLight: "#FFFFFF",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
     function copyShareLink() {
       const link = document.getElementById("shareableLinkDisplay");
       if (link) {
