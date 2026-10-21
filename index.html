@@ -4355,29 +4355,47 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
       timerInterval: null,
       secondsLeft: 60
     };
+function initUserState() {
+  try {
+    // 1. Kiểm tra dữ liệu đăng nhập từ cả 2 khóa lưu trữ
+    const saved = localStorage.getItem("umbala_user");
+    const savedEmail = localStorage.getItem("userLoggedInEmail");
 
-    function initUserState() {
-      try {
-        const saved = localStorage.getItem("umbala_user");
-        if (saved) {
-          appState.user = JSON.parse(saved);
-        }
-        // Strict integrity check: cross-reference with permanent registry
-        if (appState.user && appState.user.isLoggedIn && appState.user.plan === "free") {
-          const usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
-          const registry = JSON.parse(localStorage.getItem("umbala_email_registry") || "{}");
-          const email = appState.user.email ? appState.user.email.toLowerCase() : "";
-          if ((registry[email] && registry[email].used) || usedEmails.includes(email)) {
-            appState.user.used = 1;
-            appState.user.quota = 1;
-          }
-        }
-      } catch (e) {
-        console.warn("Storage error:", e);
-      }
-      updateUserUI();
+    if (saved) {
+      appState.user = JSON.parse(saved);
+    } else if (savedEmail) {
+      // Nếu bên homepage đã đăng nhập, tự động đồng bộ vào appState của index
+      appState.user = {
+        isLoggedIn: true,
+        email: savedEmail,
+        plan: "free",
+        quota: 1,
+        used: 0
+      };
     }
 
+    // 2. Kiểm tra nếu email đã dùng hết lượt dùng thử
+    if (appState.user && appState.user.isLoggedIn && appState.user.plan === "free") {
+      const usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails")) || [];
+      const registry = JSON.parse(localStorage.getItem("umbala_email_registry")) || {};
+      const email = appState.user.email ? appState.user.email.toLowerCase() : "";
+      if ((registry[email] && registry[email].used) || usedEmails.includes(email)) {
+        appState.user.used = 1;
+        appState.user.quota = 1;
+      }
+    }
+  } catch (e) {
+    console.warn("Storage error:", e);
+  }
+
+  // 3. Cập nhật giao diện Header và Banner tài khoản
+  updateUserUI();
+
+  // 4. Cập nhật nút Quà của tôi nếu có
+  if (typeof updateMyGiftsButtonVisibility === "function") {
+    updateMyGiftsButtonVisibility();
+  }
+}
     function saveUserState() {
       try {
         localStorage.setItem("umbala_user", JSON.stringify(appState.user));
