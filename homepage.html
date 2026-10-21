@@ -1250,38 +1250,57 @@
       </div>
 
       <!-- ================= BƯỚC 2: NHẬP MÃ OTP ================= -->
+<!-- ================= BƯỚC 2: NHẬP MÃ OTP ================= -->
       <div id="authStepOtp" class="hidden space-y-4">
         <div class="text-center">
-          <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mx-auto mb-3 shadow-xs">
-            🔑
-          </div>
           <div class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono tracking-widest uppercase mb-1.5 font-bold">
-            BƯỚC 2 / 2 • NHẬP MÃ OTP
+            BƯỚC 2 / 2 • NHẬP MÃ BẢO MẬT
           </div>
           <h3 class="font-serif font-bold text-2xl text-capsule-ink">Xác Thực Mã OTP</h3>
-          <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
-            Mã xác thực đã được gửi tới Gmail:<br>
+          <p class="text-xs text-capsule-muted mt-1 leading-relaxed">
+            Mã xác thực gồm 6 chữ số đã được gửi tới:<br>
             <strong id="otpTargetEmailDisplay" class="text-capsule-primary font-mono text-sm">user@gmail.com</strong>
           </p>
         </div>
 
+        <!-- Khung Hộp Thư Đến Mô Phỏng (giống bên index) -->
+        <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3.5 space-y-2.5 text-xs">
+          <div class="flex items-center justify-between font-mono text-[11px] text-amber-900 font-semibold">
+            <span class="flex items-center gap-1.5">📬 Hộp Thư Đến (Úm Ba La Security)</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-100/90 text-amber-800 text-[10px]">Vừa xong</span>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <span class="text-capsule-muted text-xs">Mã OTP của bạn là:</span>
+            <span id="otpDisplayHint" class="px-3 py-1 bg-white border border-amber-300 rounded-lg font-mono font-bold text-base tracking-wider text-capsule-primary shadow-2xs">------</span>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-capsule-muted pt-1 border-t border-amber-200/50">
+            <span>Hiệu lực trong 5 phút</span>
+            <button type="button" onclick="autoFillOtp()" class="text-capsule-primary font-semibold hover:underline flex items-center gap-1 cursor-pointer">
+              📋 Tự động điền mã này
+            </button>
+          </div>
+        </div>
         <!-- Form Nhập OTP -->
         <form onsubmit="handleVerifyOtpSubmit(event)" class="space-y-3">
           <div>
             <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1.5 text-center font-semibold">
               NHẬP 6 CHỮ SỐ MÃ XÁC THỰC
             </label>
-            <input type="text" id="authOtpInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required placeholder="- - - - - -" class="w-full text-center tracking-[0.45em] font-mono font-bold text-2xl sm:text-3xl py-3 rounded-xl border border-capsule-surfaceDark bg-capsule-bg text-capsule-ink focus:outline-none focus:ring-2 focus:ring-capsule-primary/40">
+            <input type="text" id="authOtpInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required placeholder="- - - - - -" class="w-full text-center tracking-[0.45em] font-mono font-bold text-2xl sm:text-3xl py-3 rounded-xl border border-blue-300 bg-white text-capsule-ink focus:outline-none focus:ring-2 focus:ring-blue-400">
           </div>
           <button type="submit" id="btnVerifyOtp" class="w-full py-3 rounded-xl bg-capsule-primary hover:bg-capsule-primaryHover text-white text-xs sm:text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
             <span>✨ Xác Nhận & Kích Hoạt 1 Lượt Free</span>
           </button>
         </form>
-        <div class="flex items-center justify-between text-xs pt-1">
-          <button type="button" onclick="backToEmailStep()" class="text-capsule-muted hover:text-capsule-ink underline cursor-pointer">
+
+        <div class="flex items-center justify-between text-xs pt-1 font-mono">
+          <button type="button" onclick="backToEmailStep()" class="text-capsule-muted hover:text-capsule-ink underline cursor-pointer text-[11px]">
             ← Đổi email khác
           </button>
-          <button type="button" onclick="resendOtpCode()" class="text-capsule-primary font-bold hover:underline cursor-pointer">
+          <span id="otpCountdownText" class="text-capsule-muted text-[11px]">Gửi lại mã sau (60s)</span>
+          <button type="button" id="btnResendOtp" onclick="resendOtpCode()" class="hidden text-capsule-primary font-bold hover:underline cursor-pointer text-[11px]">
             🔄 Gửi lại mã
           </button>
         </div>
@@ -1354,9 +1373,13 @@
         }
       }
     });
-
-    /* GỬI EMAIL XÁC THỰC BẰNG FIREBASE AUTH */
-let currentOtpSession = { email: "", code: "", expiresAt: 0 };
+let currentOtpSession = {
+  email: "",
+  code: "",
+  expiresAt: 0,
+  secondsLeft: 60,
+  timerInterval: null
+};
 
 async function handleRequestOtpSubmit(e) {
   if (e) e.preventDefault();
@@ -1371,29 +1394,70 @@ async function handleRequestOtpSubmit(e) {
   currentOtpSession = {
     email: email,
     code: generatedOtp,
-    expiresAt: Date.now() + 5 * 60 * 1000 // Hạn 5 phút
+    expiresAt: Date.now() + 5 * 60 * 1000,
+    secondsLeft: 60,
+    timerInterval: null
   };
 
   // 2. Chuyển sang Bước 2 (Nhập OTP)
   const step1 = document.getElementById("authStepEmail");
   const step2 = document.getElementById("authStepOtp");
   const targetEmailDisp = document.getElementById("otpTargetEmailDisplay");
+  const hintDisp = document.getElementById("otpDisplayHint");
   const otpInput = document.getElementById("authOtpInput");
 
   if (step1) step1.classList.add("hidden");
   if (step2) step2.classList.remove("hidden");
   if (targetEmailDisp) targetEmailDisp.textContent = email;
+  if (hintDisp) hintDisp.textContent = generatedOtp;
 
   if (otpInput) {
     otpInput.value = "";
     setTimeout(() => otpInput.focus(), 300);
   }
 
-  // 3. Hiện mã OTP trực tiếp trên màn hình để bạn test ngay
-  showToast(`Mã OTP là: ${generatedOtp}`);
+  // 3. Khởi động bộ đếm 60s
+  startOtpCountdown();
+
+  // 4. Bật Toast thông báo ở góc dưới màn hình
+  showToast(`Mã OTP thử nghiệm là: ${generatedOtp}`, "🔑");
 }
 
-// Hàm xác thực khi người dùng nhập xong 6 số OTP
+function startOtpCountdown() {
+  if (currentOtpSession.timerInterval) clearInterval(currentOtpSession.timerInterval);
+  currentOtpSession.secondsLeft = 60;
+
+  const countdownText = document.getElementById("otpCountdownText");
+  const resendBtn = document.getElementById("btnResendOtp");
+
+  if (countdownText) {
+    countdownText.classList.remove("hidden");
+    countdownText.textContent = `Gửi lại mã sau (${currentOtpSession.secondsLeft}s)`;
+  }
+  if (resendBtn) resendBtn.classList.add("hidden");
+
+  currentOtpSession.timerInterval = setInterval(() => {
+    currentOtpSession.secondsLeft--;
+    if (currentOtpSession.secondsLeft <= 0) {
+      clearInterval(currentOtpSession.timerInterval);
+      if (countdownText) countdownText.classList.add("hidden");
+      if (resendBtn) resendBtn.classList.remove("hidden");
+    } else {
+      if (countdownText) countdownText.textContent = `Gửi lại mã sau (${currentOtpSession.secondsLeft}s)`;
+    }
+  }, 1000);
+}
+
+// Bấm nút tự động điền mã
+function autoFillOtp() {
+  const otpInput = document.getElementById("authOtpInput");
+  if (otpInput && currentOtpSession.code) {
+    otpInput.value = currentOtpSession.code;
+    showToast("Đã tự động điền mã OTP!", "📋");
+  }
+}
+
+// Xác nhận mã OTP
 function handleVerifyOtpSubmit(e) {
   if (e) e.preventDefault();
   const otpInput = document.getElementById("authOtpInput");
@@ -1411,10 +1475,10 @@ function handleVerifyOtpSubmit(e) {
     return;
   }
 
-  // Xác thực thành công: Lưu đăng nhập và cấp quyền
+  // Lưu đăng nhập vào bộ nhớ trình duyệt
   window.localStorage.setItem("userLoggedInEmail", currentOtpSession.email);
   window.localStorage.setItem("emailForSignIn", currentOtpSession.email);
-  
+
   if (typeof appState !== "undefined" && appState.user) {
     appState.user.isLoggedIn = true;
     appState.user.email = currentOtpSession.email;
@@ -1425,13 +1489,17 @@ function handleVerifyOtpSubmit(e) {
 
   closeAuthModal();
   showToast("Đăng nhập thành công! Nhận 01 lượt tạo quà miễn phí.", "✨");
-  
+
+  const headerLabel = document.getElementById("headerAuthLabel");
+  if (headerLabel) headerLabel.textContent = currentOtpSession.email.split('@')[0];
+
   if (typeof updateMyGiftsButtonVisibility === "function") {
     updateMyGiftsButtonVisibility();
   }
 }
 
 function backToEmailStep() {
+  if (currentOtpSession.timerInterval) clearInterval(currentOtpSession.timerInterval);
   const step1 = document.getElementById("authStepEmail");
   const step2 = document.getElementById("authStepOtp");
   if (step1) step1.classList.remove("hidden");
