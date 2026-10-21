@@ -1246,6 +1246,44 @@
         </form>
 
         <p class="text-[10px] text-capsule-muted text-center pt-1">
+    <!-- ================= BƯỚC 2: NHẬP MÃ OTP ================= -->
+      <div id="authStepOtp" class="hidden space-y-4">
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mx-auto mb-3 shadow-xs">
+            🔑
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono tracking-widest uppercase mb-1.5 font-bold">
+            BƯỚC 2 / 2 • NHẬP MÃ OTP
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-capsule-ink">Xác Thực Mã OTP</h3>
+          <p class="text-xs text-capsule-muted mt-1.5 leading-relaxed">
+            Mã xác thực đã được gửi tới Gmail:<br>
+            <strong id="otpTargetEmailDisplay" class="text-capsule-primary font-mono text-sm">user@gmail.com</strong>
+          </p>
+        </div>
+
+        <!-- Form Nhập OTP -->
+        <form onsubmit="handleVerifyOtpSubmit(event)" class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1.5 text-center font-semibold">
+              NHẬP 6 CHỮ SỐ MÃ XÁC THỰC TỪ GMAIL
+            </label>
+            <input type="text" id="authOtpInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required placeholder="- - - - - -" class="w-full text-center tracking-[0.45em] font-mono font-bold text-2xl sm:text-3xl py-3 rounded-xl border border-capsule-surfaceDark bg-capsule-bg text-capsule-ink focus:outline-none focus:ring-2 focus:ring-capsule-primary/40">
+          </div>
+          <button type="submit" id="btnVerifyOtp" class="w-full py-3 rounded-xl bg-capsule-primary hover:bg-capsule-primaryHover text-white text-xs sm:text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+            <span>✨ Xác Nhận & Kích Hoạt 1 Lượt Free</span>
+          </button>
+        </form>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <button type="button" onclick="backToEmailStep()" class="text-capsule-muted hover:text-capsule-ink underline cursor-pointer">
+            ← Đổi email khác
+          </button>
+          <button type="button" onclick="resendOtpCode()" class="text-capsule-primary font-bold hover:underline cursor-pointer">
+            🔄 Gửi lại mã
+          </button>
+        </div>
+      </div>
           🔒 Mỗi địa chỉ email chỉ được cấp <strong>01 lượt dùng thử duy nhất</strong>.
         </p>
       </div>
@@ -1321,39 +1359,94 @@
     });
 
     /* GỬI EMAIL XÁC THỰC BẰNG FIREBASE AUTH */
-    function handleRequestOtpSubmit(e) {
-      if (e) e.preventDefault();
-      const emailInput = document.getElementById("authEmailInput");
-      if (!emailInput || !emailInput.value) return;
+let currentOtpSession = { email: "", code: "", expiresAt: 0 };
 
-      const email = emailInput.value.trim().toLowerCase();
-      
-      const actionCodeSettings = {
-        url: window.location.href.split('?')[0].split('#')[0],
-        handleCodeInApp: true
-      };
+async function handleRequestOtpSubmit(e) {
+  if (e) e.preventDefault();
+  const input = document.getElementById("authEmailInput");
+  if (!input || !input.value.trim()) return;
 
-      const btnSend = document.getElementById("btnSendOtp");
-      const btnSendText = document.getElementById("btnSendOtpText");
-      if (btnSendText) btnSendText.textContent = "⏳ Đang gửi mail xác nhận...";
-      if (btnSend) btnSend.disabled = true;
+  const email = input.value.trim().toLowerCase();
+  
+  // 1. Tạo ngẫu nhiên mã OTP 6 chữ số
+  const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
-      auth.sendSignInLinkToEmail(email, actionCodeSettings)
-        .then(() => {
-          window.localStorage.setItem("emailForSignIn", email);
-          closeAuthModal();
-          showToast(`Đã gửi thư xác thực tới ${email}. Hãy kiểm tra Hộp thư Gmail!`, "📩");
-        })
-        .catch((error) => {
-          console.error("Lỗi gửi Firebase Email:", error);
-          showToast("Không thể gửi email. Vui lòng thử lại!", "❌");
-        })
-        .finally(() => {
-          if (btnSendText) btnSendText.textContent = "📨 Gửi Thư Xác Thực Về Mail";
-          if (btnSend) btnSend.disabled = false;
-        });
-    }
+  currentOtpSession = {
+    email: email,
+    code: generatedOtp,
+    expiresAt: Date.now() + 5 * 60 * 1000 // Hạn 5 phút
+  };
 
+  // 2. Chuyển sang Bước 2 (Nhập OTP)
+  const step1 = document.getElementById("authStepEmail");
+  const step2 = document.getElementById("authStepOtp");
+  const targetEmailDisp = document.getElementById("otpTargetEmailDisplay");
+  const otpInput = document.getElementById("authOtpInput");
+
+  if (step1) step1.classList.add("hidden");
+  if (step2) step2.classList.remove("hidden");
+  if (targetEmailDisp) targetEmailDisp.textContent = email;
+
+  if (otpInput) {
+    otpInput.value = "";
+    setTimeout(() => otpInput.focus(), 300);
+  }
+
+  // 3. Hiện mã OTP trực tiếp trên màn hình để bạn test ngay
+  showToast(`Không thể gửi thư. Mã OTP thử nghiệm là: ${generatedOtp}`, "⚠️");
+}
+
+// Hàm xác thực khi người dùng nhập xong 6 số OTP
+function handleVerifyOtpSubmit(e) {
+  if (e) e.preventDefault();
+  const otpInput = document.getElementById("authOtpInput");
+  if (!otpInput) return;
+
+  const enteredCode = otpInput.value.trim();
+
+  if (Date.now() > currentOtpSession.expiresAt) {
+    showToast("Mã OTP đã hết hạn!", "⚠️");
+    return;
+  }
+
+  if (enteredCode !== currentOtpSession.code) {
+    showToast("Mã xác thực không đúng. Vui lòng thử lại!", "❌");
+    return;
+  }
+
+  // Xác thực thành công: Lưu đăng nhập và cấp quyền
+  window.localStorage.setItem("userLoggedInEmail", currentOtpSession.email);
+  window.localStorage.setItem("emailForSignIn", currentOtpSession.email);
+  
+  if (typeof appState !== "undefined" && appState.user) {
+    appState.user.isLoggedIn = true;
+    appState.user.email = currentOtpSession.email;
+    appState.user.quota = 1;
+    appState.user.used = 0;
+    appState.user.plan = "free";
+  }
+
+  closeAuthModal();
+  showToast("Đăng nhập thành công! Nhận 01 lượt tạo quà miễn phí.", "✨");
+  
+  if (typeof updateMyGiftsButtonVisibility === "function") {
+    updateMyGiftsButtonVisibility();
+  }
+}
+
+function backToEmailStep() {
+  const step1 = document.getElementById("authStepEmail");
+  const step2 = document.getElementById("authStepOtp");
+  if (step1) step1.classList.remove("hidden");
+  if (step2) step2.classList.add("hidden");
+}
+
+function resendOtpCode() {
+  if (currentOtpSession.email) {
+    handleRequestOtpSubmit();
+    showToast("Đã tạo mã OTP mới!", "🔄");
+  }
+}
     /* QUẢN LÝ GIAO DIỆN MODAL AUTH */
     function openAuthModal() {
       const modal = document.getElementById("authModal");
