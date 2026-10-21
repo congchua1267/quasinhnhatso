@@ -1351,9 +1351,15 @@
         if (email) {
           auth.signInWithEmailLink(email, window.location.href)
             .then((result) => {
-              window.localStorage.removeItem("emailForSignIn");
-              window.localStorage.setItem("userLoggedInEmail", email);
-              
+              window.localStorage.removeItem("emailForSignIn", currentOtpSession.email);
+              window.localStorage.setItem("userLoggedInEmail", currentOtpSession.email);
+              window.localStorage.setItem("umbala_user", JSON.stringify({
+              isLoggedIn: true,
+              email: currentOtpSession.email,
+              plan: "free",
+              quota: 1,
+              used: 0
+              }));
               showToast(`Đăng nhập thành công cho ${email}!`, "🎉");
               updateMyGiftsButtonVisibility();
               
