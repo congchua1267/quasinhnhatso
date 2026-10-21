@@ -4508,33 +4508,43 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
       sendOtpToEmail(email);
     }
 async function sendOtpToEmail(email) {
-  // Cấu hình đường link chuyển hướng khi người dùng bấm vào email
-  const actionCodeSettings = {
-    // URL trang web của bạn (ví dụ trên GitHub Pages hoặc link hiện tại)
-    url: window.location.href.split('#')[0],
-    handleCodeInApp: true
+  showToast(`Đang tạo mã xác thực cho ${email}...`, "⏳");
+
+  // 1. Tạo ngẫu nhiên mã OTP 6 chữ số
+  const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // 2. Lưu phiên OTP vào bộ nhớ (hiệu lực 5 phút)
+  currentOtpSession = {
+    email: email,
+    code: generatedOtp,
+    expiresAt: Date.now() + 5 * 60 * 1000,
+    timerInterval: null,
+    secondsLeft: 60
   };
 
-  showToast(`Đang kết nối Firebase gửi email tới ${email}...`, "⏳");
+  // 3. Chuyển sang màn hình Bước 2 (Nhập mã OTP)
+  const step1 = document.getElementById("authStepEmail");
+  const step2 = document.getElementById("authStepOtp");
+  const targetEmailDisp = document.getElementById("otpTargetEmailDisplay");
+  const hintDisp = document.getElementById("otpDisplayHint");
+  const otpInput = document.getElementById("authOtpInput");
 
-  try {
-    // Lệnh gửi email xác thực thật từ Firebase về hòm thư
-    await auth.sendSignInLinkToEmail(email, actionCodeSettings);
+  if (step1) step1.classList.add("hidden");
+  if (step2) step2.classList.remove("hidden");
+  if (targetEmailDisp) targetEmailDisp.textContent = email;
+  if (hintDisp) hintDisp.textContent = generatedOtp;
 
-    // Lưu tạm email vào máy để khi khách bấm link từ mail quay lại sẽ tự nhận diện
-    window.localStorage.setItem('emailForSignIn', email);
-
-    // Thông báo cho người dùng
-    alert(`✨ Firebase đã gửi thư xác thực tới địa chỉ: ${email}\n\nBạn vui lòng mở hộp thư đến (hoặc kiểm tra cả mục Thư rác/Spam) và bấm vào đường link trong thư để kích hoạt tài khoản nhé!`);
-    showToast(`Đã gửi email xác thực thành công tới ${email}!`, "📨");
-
-    // Đóng modal đăng nhập
-    closeAuthModal();
-
-  } catch (error) {
-    console.error("Lỗi gửi email Firebase:", error);
-    showToast(`Lỗi gửi mail: ${error.message}`, "❌");
+  if (otpInput) {
+    otpInput.value = "";
+    setTimeout(() => otpInput.focus(), 300);
   }
+
+  if (typeof startOtpCountdown === "function") {
+    startOtpCountdown();
+  }
+
+  // 4. Hiển thị mã OTP trực tiếp trên màn hình thông báo
+  showToast(`Mã OTP thử nghiệm là: ${generatedOtp}`, "🔑");
 }
     function startOtpCountdown() {
       const countdownText = document.getElementById("otpCountdownText");
