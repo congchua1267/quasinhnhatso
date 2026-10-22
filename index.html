@@ -4189,7 +4189,7 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
               if (window.emailjs && EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.serviceId && item.recipientEmail) {
                 try {
                   emailjs.init(EMAILJS_CONFIG.publicKey);
-                  emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId || "template_gift", {
+                  emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
                     to_email: item.recipientEmail,
                     to_name: item.recipientName,
                     from_name: item.senderName,
@@ -4272,7 +4272,9 @@ async function sendGiftEmailToRecipient(capsuleData) {
     console.warn("Chưa nhập email người nhận, bỏ qua gửi mail.");
     return false;
   }
-
+if (window.emailjs) {
+      emailjs.init(EMAILJS_CONFIG.publicKey);
+    }
   // Tạo đường link quà
 const occasionParam = capsuleData.occasionId || (typeof appState !== "undefined" && appState.currentOccasionId) ? `&occasion=${capsuleData.occasionId || appState.currentOccasionId}` : "";
 const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId}${occasionParam}`;  
@@ -4283,18 +4285,19 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
   const templateParams = {
     to_email: recipientEmail,
     to_name: capsuleData.receiverName || "Bạn thân mến",
-    sender_name: capsuleData.senderName || (typeof appState !== "undefined" && appState.user && appState.user.email) || "Người thương",
+    from_name: capsuleData.senderName || (appState.user && appState.user.email) || "Người gửi yêu thương",
+    subject: capsuleData.subject || appState.delivery.emailSubject || "🎁 Bạn nhận được một hộp quà kỷ niệm độc bản!",
+    message: capsuleData.message || appState.delivery.emailCoverMessage || "Một món quà số độc bản chứa đựng những kỷ niệm quý giá được chuẩn bị riêng cho bạn.",
+    message_preview: capsuleData.title || "Một bất ngờ dành riêng cho bạn",
     gift_url: giftUrl,
-    qr_image_url: qrImageUrl,
-    message_preview: capsuleData.title || "Một bất ngờ dành riêng cho bạn"
-  };
-
+    qr_image_url: qrImageUrl
+    };
   try {
-    const response = await emailjs.send(
-      "service_wsn5i6n",   // <-- Thay bằng Service ID bạn tạo trên EmailJS (ví dụ: service_xxx)
-      "template_ociwlfo",  // <-- Thay bằng Template ID bạn tạo trên EmailJS (ví dụ: template_xxx)
-      templateParams
-    );
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        templateParams
+      );
     console.log("Email quà tặng đã gửi thành công!", response.status, response.text);
     return true;
   } catch (error) {
@@ -4343,9 +4346,9 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
     let unsubscribeOrderListener = null;
     // Config for optional EmailJS real email delivery
     const EMAILJS_CONFIG = {
-      publicKey: "", // Nhập Public Key EmailJS tại đây để gửi thư thật tới Gmail
-      serviceId: "", // Service ID EmailJS
-      templateId: "" // Template ID EmailJS
+      publicKey: "R2YN6bU1ZQ3wfHV5q", // Nhập Public Key EmailJS tại đây để gửi thư thật tới Gmail
+      serviceId: "service_wsn5i6n", // Service ID EmailJS
+      templateId: "template_ociwlfo" // Template ID EmailJS
     };
 
     let currentOtpSession = {
@@ -4954,24 +4957,35 @@ async function publishGiftWithQuota() {
 
       if (targetRecipientEmail && targetRecipientEmail.includes("@")) {
         showToast("Đang gửi quà đến hộp thư người nhận...", "⏳");
+// Lưu thông tin vào danh sách lịch hẹn gửi
+        scheduleGiftDelivery();
 
-        sendGiftEmailToRecipient({
-          capsuleId: newCapsuleId,
-          receiverEmail: targetRecipientEmail,
-          receiverName: appState.recipientName || "Bạn thân mến",
-          senderName: appState.delivery.senderName || email,
-          title: appState.newsTitle || "Hộp quà số độc bản Úm Ba La"
-        }).then(isSent => {
-          if (isSent) {
-            showToast(`Đã gửi email quà tặng thành công tới ${targetRecipientEmail}!`, "💌");
-          } else {
-            showToast("Đã kích hoạt quà! Bạn có thể sao chép link gửi trực tiếp.", "✨");
-          }
-        });
+        if (appState.delivery.sendMode === "now") {
+          showToast("Đang gửi email trực tiếp tới người nhận qua EmailJS...", "⏳");
+          
+          sendGiftEmailToRecipient({
+            capsuleId: newCapsuleId,
+            receiverEmail: targetRecipientEmail,
+            receiverName: appState.recipientName || "Bạn thân mến",
+            senderName: appState.delivery.senderName || email,
+            title: appState.newsTitle || "Hộp quà số độc bản Úm Ba La",
+            subject: appState.delivery.emailSubject,
+            message: appState.delivery.emailCoverMessage
+          }).then(isSent => {
+            if (isSent) {
+              showToast(`Đã gửi email quà tặng thành công tới ${targetRecipientEmail}!`, "💌");
+            } else {
+              showToast("Đã kích hoạt quà! Bạn có thể sao chép link gửi trực tiếp.", "✨");
+            }
+          });
+        } else {
+          // Trường hợp chọn Hẹn Giờ 00:00
+          const timeStr = appState.delivery.scheduledTime ? new Date(appState.delivery.scheduledTime).toLocaleString('vi-VN') : "00:00 ngày kỷ niệm";
+          showToast(`Đã lên lịch gửi email tự động lúc ${timeStr} tới ${targetRecipientEmail}!`, "⏰");
+        }
       } else {
         showToast("Đã kích hoạt hộp quà! Bạn có thể sao chép link hoặc mã QR để gửi qua Zalo/Mess.", "🚀");
       }
-
       confetti({
         particleCount: 100,
         spread: 80,
