@@ -302,6 +302,443 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* =========================================================================
+       HOMEPAGE INTEGRATED STYLES & INTERACTIVE GIFT BOX
+       ========================================================================= */
+    #homeView .home-hero {
+      min-height: 640px;
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      padding: 60px 8%;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 77% 40%, rgba(255, 218, 231, 0.93), transparent 43%),
+        radial-gradient(ellipse at 30% 95%, rgba(255, 224, 235, 0.9), transparent 48%),
+        linear-gradient(135deg, #fffdfd 0%, #fff3f7 50%, #ffe3ed 100%);
+    }
+
+    #homeView .hero-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      align-items: center;
+      gap: 35px;
+    }
+
+    #homeView .hero-label {
+      color: #d96b95;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    #homeView .home-hero h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      color: #a7476e;
+      font-size: clamp(38px, 4.5vw, 66px);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    #homeView .home-hero h1 em {
+      color: #ed78a4;
+      font-weight: 600;
+    }
+
+    #homeView .hero-description {
+      max-width: 480px;
+      color: #a47788;
+      font-size: 14px;
+      line-height: 1.85;
+      margin-bottom: 26px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    #homeView .hero-note {
+      font-size: 13px;
+      color: #b6768e;
+      margin-top: 16px;
+      font-style: italic;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .home-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 32px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .home-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .home-btn-primary {
+      color: white;
+      background: linear-gradient(135deg, #f18ab0, #d65d8c);
+      box-shadow: 0 9px 23px rgba(216, 93, 140, 0.25);
+    }
+
+    #homeView .hero-art {
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .gift-circle {
+      width: min(320px, 75vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 30px 70px rgba(200, 105, 142, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: floatGift 4s ease-in-out infinite;
+    }
+
+    .gift-box {
+      width: 210px;
+      height: 155px;
+      position: relative;
+      margin-top: 50px;
+      filter: drop-shadow(0 17px 13px rgba(170, 65, 108, 0.14));
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .gift-body {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 15px;
+      bottom: 0;
+      background: linear-gradient(130deg, #f6a1c0, #e97ba6);
+      border-radius: 0 0 12px 12px;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .gift-ribbon {
+      position: absolute;
+      z-index: 2;
+      width: 45px;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #fff0a9, #ffe7a0);
+    }
+
+    .gift-lid-group {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 36px;
+      z-index: 10;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-origin: bottom left;
+    }
+
+    .gift-lid {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 36px;
+      border-radius: 7px;
+      background: linear-gradient(100deg, #f99cbd, #e66e9d);
+      box-shadow: 0 7px 9px rgba(171, 64, 106, 0.14);
+      transform: rotate(-2deg);
+    }
+
+    .gift-lid-ribbon {
+      position: absolute;
+      z-index: 4;
+      width: 45px;
+      height: 36px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffecaa;
+    }
+
+    .gift-heart {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 56px;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 21px;
+    }
+
+    .gift-bow {
+      position: absolute;
+      z-index: 6;
+      top: -38px;
+      left: 50%;
+      color: #f8c75d;
+      font-size: 85px;
+      font-family: Georgia, serif;
+      font-weight: bold;
+      line-height: 1;
+      transform: translateX(-32%) rotate(-23deg);
+      text-shadow: 0 4px 5px rgba(183, 133, 41, 0.15);
+    }
+
+    .gift-bouquet {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%) scale(0.2);
+      opacity: 0;
+      z-index: 1;
+      font-size: 85px;
+      transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      filter: drop-shadow(0 8px 15px rgba(216, 93, 140, 0.3));
+    }
+
+    .gift-box.open .gift-lid-group {
+      transform: translateY(-85px) rotate(-40deg);
+    }
+
+    .gift-box.open .gift-bouquet {
+      transform: translateX(-50%) translateY(-95px) scale(1.1);
+      opacity: 1;
+    }
+
+    .gift-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -43px;
+      text-align: center;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 16px;
+      font-style: italic;
+      color: #bf728f;
+      white-space: nowrap;
+    }
+
+    .flower-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 24px;
+      animation: burstOut 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes burstOut {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.3) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(var(--scale)) rotate(var(--rot));
+      }
+    }
+
+    .home-decor {
+      position: absolute;
+      user-select: none;
+      pointer-events: none;
+      animation: floatDecor 4s ease-in-out infinite;
+    }
+
+    .home-decor.flower-left {
+      top: 11%;
+      left: 3.5%;
+      font-size: 78px;
+      color: #f8e2eb;
+    }
+
+    .home-decor.flower-right {
+      bottom: 8%;
+      right: 4%;
+      font-size: 90px;
+      color: #f8cddd;
+    }
+
+    @keyframes floatGift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-11px); }
+    }
+
+    @keyframes floatDecor {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    #homeView .section {
+      padding: 70px 8%;
+      scroll-margin-top: 85px;
+    }
+
+    #homeView .section-heading {
+      max-width: 750px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    #homeView .section-heading h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      color: #a7476e;
+      font-size: clamp(24px, 3.2vw, 38px);
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+
+    #homeView .section-kicker {
+      color: #d96b95;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    #homeView .section-heading p {
+      color: #987a85;
+      font-size: 13.5px;
+      line-height: 1.8;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    #homeView .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    #homeView .experience-card {
+      padding: 28px 24px;
+      background: white;
+      border: 1px solid #f5e4ea;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(150, 89, 112, 0.055);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    #homeView .experience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(150, 89, 112, 0.09);
+    }
+
+    #homeView .card-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: #fff0f5;
+      font-size: 23px;
+      margin-bottom: 18px;
+    }
+
+    #homeView .experience-card h3 {
+      color: #a7476e;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    #homeView .experience-card p {
+      font-size: 12.5px;
+      color: #987d86;
+      line-height: 1.8;
+      margin-bottom: 18px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    #homeView .card-link {
+      display: inline-block;
+      color: #c65380;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    #homeView .occasion-section {
+      background: linear-gradient(135deg, #fff5f8, #fffdfb);
+    }
+
+    #homeView .occasion-panel {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 35px;
+      background: white;
+      border: 1px solid #f4e3e9;
+      border-radius: 22px;
+      box-shadow: 0 10px 35px rgba(150, 89, 112, 0.06);
+    }
+
+    #homeView .occasion-panel h3 {
+      color: #a7476e;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #homeView .occasion-panel p {
+      max-width: 580px;
+      color: #987d86;
+      font-size: 13px;
+      line-height: 1.85;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    @media (max-width: 900px) {
+      #homeView .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      #homeView .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #homeView .hero-buttons {
+        display: flex;
+        justify-content: center;
+      }
+      #homeView .experience-grid {
+        grid-template-columns: 1fr;
+      }
+      #homeView .occasion-panel {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body data-theme="birthday" class="relative min-h-screen selection:bg-capsule-primary/20 flex flex-col justify-between">
@@ -324,18 +761,18 @@
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 xl:gap-4">
       
       <!-- Brand Logo -->
-      <a href="./homepage.html" class="shrink-0 flex items-center gap-2 group focus:outline-none" title="Úm Ba La - Biến yêu thương thành phép màu">
+      <a href="javascript:void(0)" onclick="switchMode('home')" class="shrink-0 flex items-center gap-2 group focus:outline-none" title="Úm Ba La - Biến yêu thương thành phép màu">
         <img src="logo-umbala.png" alt="Úm Ba La Logo" class="h-11 sm:h-13 xl:h-14 w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform drop-shadow-xs">
       </a>
 
       <!-- Desktop Nav Links -->
       <nav class="hidden lg:flex items-center gap-3.5 xl:gap-6 text-xs xl:text-[13px] font-semibold text-capsule-ink tracking-wide whitespace-nowrap shrink-0">
-        <a href="./homepage.html" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Trang chủ</a>
+        <a href="javascript:void(0)" id="navHomeLink" onclick="switchMode('home')" class="text-capsule-primary font-bold hover:text-capsule-primary transition-colors whitespace-nowrap">Trang chủ</a>
         <a href="#occasionSection" id="navOccasionLink" class="hover:text-capsule-primary transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-capsule-surface/70 hover:bg-capsule-surface whitespace-nowrap">
           <span id="navOccasionLabel" class="whitespace-nowrap">Dịp Lễ</span>
           <span class="w-1.5 h-1.5 rounded-full bg-capsule-accent shrink-0"></span>
         </a>
-        <a href="#experienceFlow" class="hover:text-capsule-primary transition-colors whitespace-nowrap">3 chặng trải nghiệm</a>
+        <a href="javascript:void(0)" onclick="navigateToExperience()" class="hover:text-capsule-primary transition-colors whitespace-nowrap">3 chặng trải nghiệm</a>
         <a href="#pricing" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Bảng giá</a>
         <a href="#whyUs" class="hover:text-capsule-primary transition-colors whitespace-nowrap">Ưu thế</a>
       </nav>
@@ -402,6 +839,135 @@
       </div>
     </div>
   </section>
+
+  <!-- =========================================================================
+       SECTION: TRANG CHỦ (HOMEPAGE VIEW)
+       ========================================================================= -->
+  <div id="homeView" class="w-full">
+    <!-- Hero Trang Chủ -->
+    <section class="home-hero" id="loi-chuc">
+      <span class="home-decor flower-left">✿</span>
+      <span class="home-decor flower-right">✿</span>
+
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-label">
+            🌷 20 THÁNG 10 · NGÀY CỦA YÊU THƯƠNG
+          </div>
+
+          <h1>
+            Gửi ngàn<br>
+            <em>yêu thương</em><br>
+            đến nàng
+          </h1>
+
+          <p class="hero-description">
+            Một chút ngọt ngào, một chút dịu dàng và thật nhiều yêu thương.
+            Chúc những người phụ nữ tuyệt vời luôn xinh đẹp, hạnh phúc
+            và được trân trọng mỗi ngày.
+          </p>
+
+          <div class="hero-buttons">
+            <button type="button" onclick="switchMode('creator')" class="home-btn home-btn-primary font-quicksand">
+              ✨ Trải nghiệm ngay
+            </button>
+          </div>
+
+          <p class="hero-note">
+            ✨ Dành tặng bạn — người xứng đáng với những điều đẹp đẽ nhất.
+          </p>
+        </div>
+
+        <div class="hero-art" aria-label="Hộp quà màu hồng">
+          <div class="gift-circle">
+            <div class="gift-box" id="homeGiftBox" onclick="openHomeGiftBox(event)" title="Nhấn để mở hộp quà bất ngờ!">
+              <div class="gift-bouquet">💐</div>
+
+              <div class="gift-body">
+                <div class="gift-ribbon"></div>
+                <div class="gift-heart">♥</div>
+              </div>
+              <div class="gift-lid-group">
+                <div class="gift-lid"></div>
+                <div class="gift-lid-ribbon"></div>
+                <div class="gift-bow">♡</div>
+              </div>
+              <div class="gift-caption">A little gift, a lot of love ♡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 CHẶNG TRẢI NGHIỆM TRANG CHỦ -->
+    <section class="section" id="homeExperienceFlow">
+      <div class="section-heading">
+        <div class="section-kicker">YOUR LITTLE SURPRISE</div>
+        <h2>Ba chặng, một món quà yêu thương</h2>
+        <p>
+          Bắt đầu hành trình tạo nên món quà số của riêng bạn.
+          Mỗi chi tiết nhỏ đều có thể trở thành một kỷ niệm đáng nhớ.
+        </p>
+      </div>
+
+      <div class="experience-grid">
+        <article class="experience-card">
+          <div class="card-icon">💌</div>
+          <h3>01. Gửi lời yêu thương</h3>
+          <p>
+            Chọn những lời chúc ngọt ngào để gửi đến người bạn trân quý
+            trong dịp đặc biệt.
+          </p>
+          <a class="card-link" href="javascript:void(0)" onclick="switchMode('creator')">Bắt đầu khám phá →</a>
+        </article>
+
+        <article class="experience-card">
+          <div class="card-icon">🎁</div>
+          <h3>02. Tạo hộp quà độc bản</h3>
+          <p>
+            Tự thu âm giọng hát / lời chúc chân thành, đính kèm video kỷ niệm (tối đa 3 phút) cùng bảo tàng ảnh ngọt ngào.
+          </p>
+          <a class="card-link" href="javascript:void(0)" onclick="switchMode('creator')">Tạo món quà →</a>
+        </article>
+
+        <article class="experience-card">
+          <div class="card-icon">💗</div>
+          <h3>03. Trao kỷ niệm</h3>
+          <p>
+            Hoàn thiện món quà và chia sẻ niềm vui đến người nhận
+            theo cách thật đặc biệt.
+          </p>
+          <a class="card-link" href="javascript:void(0)" onclick="switchMode('creator')">Khám phá ngay →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- DỊP LỄ TRANG CHỦ -->
+    <section class="section occasion-section">
+      <div class="section-heading">
+        <div class="section-kicker">EVERY MOMENT MATTERS</div>
+        <h2>Mỗi dịp lễ, một cách yêu thương</h2>
+        <p>
+          Không cần món quà quá lớn. Đôi khi, một lời chúc đúng lúc
+          cũng khiến một ngày trở nên thật đặc biệt.
+        </p>
+      </div>
+
+      <div class="occasion-panel">
+        <div>
+          <h3>Tháng 10 — tháng của nàng 🌷</h3>
+          <p>
+            Gửi lời chúc đến mẹ, chị, em gái, bạn thân hoặc người đặc biệt
+            của bạn. Hãy để những điều nhỏ bé nói thay tình cảm chân thành.
+          </p>
+          <div style="margin-top:20px;">
+            <button type="button" class="home-btn home-btn-primary font-quicksand" onclick="switchMode('creator')">✨ Trải nghiệm ngay</button>
+          </div>
+        </div>
+        <div class="occasion-emoji" style="font-size: 55px;">🌸🎀💝</div>
+      </div>
+    </section>
+  </div>
 
   <!-- Hero Section -->
   <section id="hero" class="relative z-10 pt-9 pb-6 sm:pt-12 sm:pb-8 px-4 text-center max-w-4xl mx-auto">
@@ -1627,7 +2193,7 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-capsule-surfaceDark">
       
       <div class="lg:col-span-2 space-y-3">
-        <a href="./homepage.html" class="inline-block focus:outline-none group mb-2" title="Úm Ba La - Biến yêu thương thành phép màu">
+        <a href="javascript:void(0)" onclick="switchMode('home')" class="inline-block focus:outline-none group mb-2" title="Úm Ba La - Biến yêu thương thành phép màu">
           <img src="logo-umbala.png" alt="Úm Ba La Logo" class="h-16 sm:h-20 w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform">
         </a>
         <p class="text-xs text-capsule-muted max-w-sm leading-relaxed">
@@ -1674,9 +2240,9 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
       <!-- Quick Links Col 3 -->
       <div class="text-xs space-y-2">
         <h4 class="font-serif font-bold text-sm text-capsule-ink mb-3 uppercase tracking-wider">Trải nghiệm</h4>
-        <div><a href="./homepage.html" class="text-capsule-muted hover:text-capsule-primary transition-colors">Trang chủ</a></div>
+        <div><a href="javascript:void(0)" onclick="switchMode('home')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Trang chủ</a></div>
         <div><a href="#occasionSection" class="text-capsule-muted hover:text-capsule-primary transition-colors">10 dịp Lễ đặc biệt</a></div>
-        <div><a href="#experienceFlow" onclick="switchMode('recipient')" class="text-capsule-muted hover:text-capsule-primary transition-colors">3 chặng cảm xúc</a></div>
+        <div><a href="javascript:void(0)" onclick="navigateToExperience()" class="text-capsule-muted hover:text-capsule-primary transition-colors">3 chặng cảm xúc</a></div>
         <div><a href="#communityFeedback" class="text-capsule-muted hover:text-capsule-primary transition-colors">Chia sẻ cộng đồng</a></div>
         <div><a href="#creatorViewAnchor" onclick="switchMode('creator')" class="text-capsule-muted hover:text-capsule-primary transition-colors">Studio thiết kế</a></div>
         <div><a href="#pricing" class="text-capsule-muted hover:text-capsule-primary transition-colors">Bảng giá gói quà</a></div>
@@ -2959,6 +3525,9 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
           btn.innerHTML = `<span>${occ.icon}</span><span>${occ.name}</span>`;
           btn.onclick = () => {
             setOccasion(key, true);
+            if (typeof currentAppMode !== 'undefined' && currentAppMode === 'home') {
+              switchMode('recipient');
+            }
             btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
           };
           container.appendChild(btn);
@@ -3648,29 +4217,119 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
       renderApp();
     }
 
-    /* Mode Switching (Recipient vs Studio) */
-    function switchMode(mode) {
+    let currentAppMode = 'home';
+
+    /* Mode Switching (Recipient vs Studio vs Home) */
+    function switchMode(mode, shouldScroll = true) {
+      currentAppMode = mode;
+      const homeView = document.getElementById("homeView");
+      const heroSection = document.getElementById("hero");
+      const mainExperience = document.querySelector("main");
       const recipientView = document.getElementById("recipientView");
       const creatorView = document.getElementById("creatorView");
       const btnR = document.getElementById("btnRecipientMode");
       const btnC = document.getElementById("btnCreatorMode");
+      const navHome = document.getElementById("navHomeLink");
       const banner = document.getElementById("recipientPreviewBanner");
 
-      if (mode === 'recipient') {
-        recipientView.classList.remove("hidden");
-        creatorView.classList.add("hidden");
-        btnR.className = "px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-semibold shadow-2xs transition-all";
-        btnC.className = "px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all";
-      } else {
-        recipientView.classList.add("hidden");
-        creatorView.classList.remove("hidden");
+      if (mode === 'home') {
+        if (homeView) homeView.classList.remove("hidden");
+        if (heroSection) heroSection.classList.add("hidden");
+        if (mainExperience) mainExperience.classList.add("hidden");
+        if (recipientView) recipientView.classList.add("hidden");
+        if (creatorView) creatorView.classList.add("hidden");
         if (banner) banner.classList.add("hidden");
-        btnC.className = "px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-semibold shadow-2xs transition-all";
-        btnR.className = "px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all";
-        
-        const anchor = document.getElementById("creatorViewAnchor");
-        if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        if (btnR) btnR.className = "px-2.5 sm:px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all cursor-pointer whitespace-nowrap";
+        if (btnC) btnC.className = "px-2.5 sm:px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all cursor-pointer whitespace-nowrap";
+        if (navHome) {
+          navHome.className = "text-capsule-primary font-bold hover:text-capsule-primary transition-colors whitespace-nowrap";
+        }
+        if (shouldScroll) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else if (mode === 'recipient') {
+        if (homeView) homeView.classList.add("hidden");
+        if (heroSection) heroSection.classList.remove("hidden");
+        if (mainExperience) mainExperience.classList.remove("hidden");
+        if (recipientView) recipientView.classList.remove("hidden");
+        if (creatorView) creatorView.classList.add("hidden");
+
+        if (btnR) btnR.className = "px-2.5 sm:px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-bold shadow-2xs transition-all cursor-pointer whitespace-nowrap";
+        if (btnC) btnC.className = "px-2.5 sm:px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all cursor-pointer whitespace-nowrap";
+        if (navHome) {
+          navHome.className = "text-capsule-ink font-semibold hover:text-capsule-primary transition-colors whitespace-nowrap";
+        }
+        if (shouldScroll) {
+          const heroTarget = document.getElementById("hero") || document.getElementById("occasionSection");
+          if (heroTarget) heroTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else { // 'creator'
+        if (homeView) homeView.classList.add("hidden");
+        if (heroSection) heroSection.classList.add("hidden");
+        if (mainExperience) mainExperience.classList.remove("hidden");
+        if (recipientView) recipientView.classList.add("hidden");
+        if (creatorView) creatorView.classList.remove("hidden");
+        if (banner) banner.classList.add("hidden");
+
+        if (btnC) btnC.className = "px-2.5 sm:px-3 py-1.5 rounded-full bg-capsule-card text-capsule-primary font-bold shadow-2xs transition-all cursor-pointer whitespace-nowrap";
+        if (btnR) btnR.className = "px-2.5 sm:px-3 py-1.5 rounded-full text-capsule-muted hover:text-capsule-ink transition-all cursor-pointer whitespace-nowrap";
+        if (navHome) {
+          navHome.className = "text-capsule-ink font-semibold hover:text-capsule-primary transition-colors whitespace-nowrap";
+        }
+
+        if (shouldScroll) {
+          const anchor = document.getElementById("creatorViewAnchor") || document.querySelector("main");
+          if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
+    }
+
+    function navigateToExperience() {
+      if (currentAppMode === 'home') {
+        const el = document.getElementById("homeExperienceFlow");
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        switchMode('recipient', false);
+        const el = document.getElementById("experienceFlow") || document.getElementById("phase1Unboxing");
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    /* Hiệu ứng tương tác Mở Hộp Quà Bung Hoa tại Trang Chủ */
+    const homeFlowers = ['🌸', '🌷', '🌹', '🌺', '🌼', '💖', '💗', '✨', '💐', '🎀'];
+    function openHomeGiftBox(e) {
+      const box = document.getElementById("homeGiftBox");
+      if (!box) return;
+      box.classList.toggle("open");
+      if (!appState.isAudioPlaying) {
+        startLofiBgmLoop();
+      }
+      if (box.classList.contains("open")) {
+        const rect = box.getBoundingClientRect();
+        const startX = rect.left + rect.width / 2;
+        const startY = rect.top + 30;
+        for (let i = 0; i < 35; i++) {
+          createHomeFlowerParticle(startX, startY);
+        }
+        showToast("Hộp quà bất ngờ đã mở! Chúc bạn ngập tràn yêu thương.", "💐");
+      }
+    }
+
+    function createHomeFlowerParticle(x, y) {
+      const p = document.createElement("div");
+      p.className = "flower-particle";
+      p.textContent = homeFlowers[Math.floor(Math.random() * homeFlowers.length)];
+      p.style.left = x + "px";
+      p.style.top = y + "px";
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 120 + Math.random() * 220;
+      p.style.setProperty("--dx", Math.cos(angle) * distance + "px");
+      p.style.setProperty("--dy", (Math.sin(angle) * distance - (50 + Math.random() * 80)) + "px");
+      p.style.setProperty("--scale", (0.7 + Math.random() * 0.9).toFixed(2));
+      p.style.setProperty("--rot", (Math.random() * 360 - 180) + "deg");
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1200);
     }
 
     function previewAsRecipient() {
@@ -4355,29 +5014,47 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
       timerInterval: null,
       secondsLeft: 60
     };
+function initUserState() {
+  try {
+    // 1. Kiểm tra dữ liệu đăng nhập từ cả 2 khóa lưu trữ
+    const saved = localStorage.getItem("umbala_user");
+    const savedEmail = localStorage.getItem("userLoggedInEmail");
 
-    function initUserState() {
-      try {
-        const saved = localStorage.getItem("umbala_user");
-        if (saved) {
-          appState.user = JSON.parse(saved);
-        }
-        // Strict integrity check: cross-reference with permanent registry
-        if (appState.user && appState.user.isLoggedIn && appState.user.plan === "free") {
-          const usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
-          const registry = JSON.parse(localStorage.getItem("umbala_email_registry") || "{}");
-          const email = appState.user.email ? appState.user.email.toLowerCase() : "";
-          if ((registry[email] && registry[email].used) || usedEmails.includes(email)) {
-            appState.user.used = 1;
-            appState.user.quota = 1;
-          }
-        }
-      } catch (e) {
-        console.warn("Storage error:", e);
-      }
-      updateUserUI();
+    if (saved) {
+      appState.user = JSON.parse(saved);
+    } else if (savedEmail) {
+      // Nếu bên homepage đã đăng nhập, tự động đồng bộ vào appState của index
+      appState.user = {
+        isLoggedIn: true,
+        email: savedEmail,
+        plan: "free",
+        quota: 1,
+        used: 0
+      };
     }
 
+    // 2. Kiểm tra nếu email đã dùng hết lượt dùng thử
+    if (appState.user && appState.user.isLoggedIn && appState.user.plan === "free") {
+      const usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails")) || [];
+      const registry = JSON.parse(localStorage.getItem("umbala_email_registry")) || {};
+      const email = appState.user.email ? appState.user.email.toLowerCase() : "";
+      if ((registry[email] && registry[email].used) || usedEmails.includes(email)) {
+        appState.user.used = 1;
+        appState.user.quota = 1;
+      }
+    }
+  } catch (e) {
+    console.warn("Storage error:", e);
+  }
+
+  // 3. Cập nhật giao diện Header và Banner tài khoản
+  updateUserUI();
+
+  // 4. Cập nhật nút Quà của tôi nếu có
+  if (typeof updateMyGiftsButtonVisibility === "function") {
+    updateMyGiftsButtonVisibility();
+  }
+}
     function saveUserState() {
       try {
         localStorage.setItem("umbala_user", JSON.stringify(appState.user));
@@ -4389,34 +5066,38 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
 
     function updateUserUI() {
       const headerAuthLabel = document.getElementById("headerAuthLabel");
-      const headerAuthIcon = document.getElementById("headerAuthIcon");
-      const creatorAuthBanner = document.getElementById("creatorAuthBanner");
-      const creatorQuotaBanner = document.getElementById("creatorQuotaBanner");
-      const userEmailDisplay = document.getElementById("userEmailDisplay");
-      const userPlanBadge = document.getElementById("userPlanBadge");
-      const userQuotaText = document.getElementById("userQuotaText");
-      const creatorAvatarBadge = document.getElementById("creatorAvatarBadge");
-      const btnPublishLabel = document.getElementById("btnPublishLabel");
-      const btnPublishGift = document.getElementById("btnPublishGift");
-      const selectedPlanDisplay = document.getElementById("selectedPlanDisplay");
-
-      if (!appState.user.isLoggedIn) {
-        // Anonymous guest
+  const headerAuthIcon = document.getElementById("headerAuthIcon");
+  const creatorAuthBanner = document.getElementById("creatorAuthBanner");
+  const creatorQuotaBanner = document.getElementById("creatorQuotaBanner");
+  const userEmailDisplay = document.getElementById("userEmailDisplay");
+  const userPlanBadge = document.getElementById("userPlanBadge");
+  const userQuotaText = document.getElementById("userQuotaText");
+  const creatorAvatarBadge = document.getElementById("creatorAvatarBadge");
+  const email = (appState && appState.user && appState.user.email) ? appState.user.email : (localStorage.getItem("userLoggedInEmail") || "");
+  const isLoggedIn = (appState && appState.user && appState.user.isLoggedIn) || !!email;
+  if (!isLoggedIn) {        // Anonymous guest
         if (headerAuthLabel) headerAuthLabel.textContent = "Đăng nhập (1 lượt Free)";
-        if (headerAuthIcon) headerAuthIcon.textContent = "👤";
-        if (creatorAuthBanner) creatorAuthBanner.classList.remove("hidden");
-        if (creatorQuotaBanner) creatorQuotaBanner.classList.add("hidden");
-        if (btnPublishLabel) btnPublishLabel.textContent = "Đăng nhập để Xuất quà (1 lượt Free)";
-      } else {
-        // Logged in
-        if (creatorAuthBanner) creatorAuthBanner.classList.add("hidden");
-        if (creatorQuotaBanner) creatorQuotaBanner.classList.remove("hidden");
-        if (userEmailDisplay) userEmailDisplay.textContent = appState.user.email;
-
-        if (appState.user.plan === "free") {
-          const shortEmail = appState.user.email.split("@")[0];
-          const isUsedUp = appState.user.used >= 1;
-
+      if (headerAuthIcon) headerAuthIcon.textContent = "👤";
+      if (creatorAuthBanner) creatorAuthBanner.classList.remove("hidden");
+      if (creatorQuotaBanner) creatorQuotaBanner.classList.add("hidden");
+      if (typeof btnPublishLabel !== "undefined" && btnPublishLabel) {
+        btnPublishLabel.textContent = "Đăng nhập để Xuất quà (1 lượt Free)";
+      }
+  } else {
+    const shortEmail = email.split("@")[0];
+       if (headerAuthLabel) headerAuthLabel.textContent = shortEmail;
+      if (headerAuthIcon) headerAuthIcon.textContent = "👤";
+      if (userEmailDisplay) userEmailDisplay.textContent = email;
+      if (creatorAvatarBadge) creatorAvatarBadge.textContent = shortEmail.charAt(0).toUpperCase();
+      if (creatorAuthBanner) creatorAuthBanner.classList.add("hidden");
+      if (creatorQuotaBanner) creatorQuotaBanner.classList.remove("hidden");
+      if (typeof appState !== "undefined" && appState.user) {
+        appState.user.isLoggedIn = true;
+        appState.user.email = email;
+      }
+    }
+      if (isLoggedIn && email) {
+      const isUsedUp = (appState && appState.user && appState.user.used >= 1);
           if (headerAuthLabel) headerAuthLabel.textContent = `${shortEmail} (${isUsedUp ? '0/1' : '1/1'} Free)`;
           if (headerAuthIcon) headerAuthIcon.textContent = isUsedUp ? "⚠️" : "🎁";
           if (creatorAvatarBadge) creatorAvatarBadge.textContent = isUsedUp ? "⚠️" : "🎁";
@@ -4439,6 +5120,7 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
           if (btnPublishLabel) {
             btnPublishLabel.textContent = isUsedUp ? "Nâng Cấp Gói Để Xuất Quà (Hết lượt Free)" : "Kích Hoạt Hộp Quà (Dùng 1 lượt)";
           }
+
           if (btnPublishGift) {
             btnPublishGift.className = isUsedUp
               ? "px-4 py-2 rounded-full bg-rose-800 hover:bg-rose-900 text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer ring-2 ring-rose-300"
@@ -4465,8 +5147,10 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
           }
         }
       }
-    }
-
+    
+      if (typeof updateMyGiftsButtonVisibility === "function") {
+      updateMyGiftsButtonVisibility();
+      }
     function openAuthModal() {
       const modal = document.getElementById("authModal");
       if (modal) {
@@ -5285,31 +5969,36 @@ async function publishGiftWithQuota() {
 
     /* Route & Hash Handler (Auto-switch mode & Smooth scroll) */
     function handleInitialRouteOrHash() {
+      let isOccasionSpecified = false;
+
       // 1. Check query parameter for occasion
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const occParam = urlParams.get('occasion');
         if (occParam && OCCASIONS_DATA[occParam]) {
           setOccasion(occParam, true);
+          isOccasionSpecified = true;
+          switchMode('recipient', false);
         }
       } catch (e) {}
 
       // 2. Check hash route
       const hash = window.location.hash;
-      if (!hash) return;
+      if (!hash) {
+        if (!isOccasionSpecified) {
+          switchMode('home', false);
+        }
+        return;
+      }
       
       if (hash === '#creatorView' || hash === '#creatorViewAnchor' || hash === '#creator' || hash === '#studio') {
-        switchMode('creator');
+        switchMode('creator', false);
         setTimeout(() => {
           const anchor = document.getElementById("creatorViewAnchor");
           if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 150);
       } else if (hash === '#experienceFlow' || hash === '#trai-nghiem' || hash === '#recipientView') {
-        switchMode('recipient');
-        setTimeout(() => {
-          const target = document.getElementById("experienceFlow") || document.getElementById("phase1Unboxing");
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 150);
+        navigateToExperience();
       } else if (hash === '#pricing' || hash === '#bang-gia') {
         setTimeout(() => {
           const target = document.getElementById("pricing") || document.getElementById("bang-gia");
@@ -5325,6 +6014,12 @@ async function publishGiftWithQuota() {
           const target = document.getElementById("occasionSection");
           if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 150);
+      } else if (hash === '#home' || hash === '#homeView' || hash === '#trang-chu' || hash === '#loi-chuc') {
+        switchMode('home', false);
+      } else {
+        if (!isOccasionSpecified) {
+          switchMode('home', false);
+        }
       }
     }
 
@@ -5341,16 +6036,6 @@ async function publishGiftWithQuota() {
       initEmailDeliveryDefaults();
       startScheduledEmailBackgroundService();
       handleInitialRouteOrHash();
-      // Tự động chuyển đúng loại thiệp khi mở link có ?occasion=...
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const targetOccasion = urlParams.get('occasion');
-        if (targetOccasion && typeof OCCASIONS_DATA !== "undefined" && OCCASIONS_DATA[targetOccasion]) {
-          setOccasion(targetOccasion, true);
-        }
-      } catch (err) {
-        console.warn("Lỗi đọc tham số occasion:", err);
-      }
   // Kiểm tra nếu người dùng vừa bấm link từ Email quay lại web
 if (auth.isSignInWithEmailLink(window.location.href)) {
   let email = window.localStorage.getItem('emailForSignIn');
