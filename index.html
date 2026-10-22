@@ -5074,9 +5074,11 @@ function initUserState() {
   const userQuotaText = document.getElementById("userQuotaText");
   const creatorAvatarBadge = document.getElementById("creatorAvatarBadge");
   const email = (appState && appState.user && appState.user.email) ? appState.user.email : (localStorage.getItem("userLoggedInEmail") || "");
+  const shortEmail = email ? email.split("@")[0] : "";
+  const isLoggedIn = (appState && appState.user && appState.user.isLoggedIn) || !!email;
   const isLoggedIn = (appState && appState.user && appState.user.isLoggedIn) || !!email;
   if (!isLoggedIn) {        // Anonymous guest
-        if (headerAuthLabel) headerAuthLabel.textContent = "Đăng nhập (1 lượt Free)";
+      if (headerAuthLabel) headerAuthLabel.textContent = "Đăng nhập (1 lượt Free)";
       if (headerAuthIcon) headerAuthIcon.textContent = "👤";
       if (creatorAuthBanner) creatorAuthBanner.classList.remove("hidden");
       if (creatorQuotaBanner) creatorQuotaBanner.classList.add("hidden");
@@ -5085,13 +5087,13 @@ function initUserState() {
       }
   } else {
     const shortEmail = email.split("@")[0];
-       if (headerAuthLabel) headerAuthLabel.textContent = shortEmail;
-      if (headerAuthIcon) headerAuthIcon.textContent = "👤";
-      if (userEmailDisplay) userEmailDisplay.textContent = email;
-      if (creatorAvatarBadge) creatorAvatarBadge.textContent = shortEmail.charAt(0).toUpperCase();
-      if (creatorAuthBanner) creatorAuthBanner.classList.add("hidden");
-      if (creatorQuotaBanner) creatorQuotaBanner.classList.remove("hidden");
-      if (typeof appState !== "undefined" && appState.user) {
+    if (headerAuthLabel) headerAuthLabel.textContent = `${shortEmail} (${isUsedUp ? '0/1' : '1/1'} Free)`;      
+    if (headerAuthIcon) headerAuthIcon.textContent = "👤";
+    if (userEmailDisplay) userEmailDisplay.textContent = email;
+    if (creatorAvatarBadge) creatorAvatarBadge.textContent = shortEmail.charAt(0).toUpperCase();
+    if (creatorAuthBanner) creatorAuthBanner.classList.add("hidden");
+    if (creatorQuotaBanner) creatorQuotaBanner.classList.remove("hidden");
+    if (typeof appState !== "undefined" && appState.user) {
         appState.user.isLoggedIn = true;
         appState.user.email = email;
       }
