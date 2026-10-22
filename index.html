@@ -4355,47 +4355,29 @@ const giftUrl = `${window.location.origin}/index.html?id=${capsuleData.capsuleId
       timerInterval: null,
       secondsLeft: 60
     };
-function initUserState() {
-  try {
-    // 1. Kiểm tra dữ liệu đăng nhập từ cả 2 khóa lưu trữ
-    const saved = localStorage.getItem("umbala_user");
-    const savedEmail = localStorage.getItem("userLoggedInEmail");
 
-    if (saved) {
-      appState.user = JSON.parse(saved);
-    } else if (savedEmail) {
-      // Nếu bên homepage đã đăng nhập, tự động đồng bộ vào appState của index
-      appState.user = {
-        isLoggedIn: true,
-        email: savedEmail,
-        plan: "free",
-        quota: 1,
-        used: 0
-      };
-    }
-
-    // 2. Kiểm tra nếu email đã dùng hết lượt dùng thử
-    if (appState.user && appState.user.isLoggedIn && appState.user.plan === "free") {
-      const usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails")) || [];
-      const registry = JSON.parse(localStorage.getItem("umbala_email_registry")) || {};
-      const email = appState.user.email ? appState.user.email.toLowerCase() : "";
-      if ((registry[email] && registry[email].used) || usedEmails.includes(email)) {
-        appState.user.used = 1;
-        appState.user.quota = 1;
+    function initUserState() {
+      try {
+        const saved = localStorage.getItem("umbala_user");
+        if (saved) {
+          appState.user = JSON.parse(saved);
+        }
+        // Strict integrity check: cross-reference with permanent registry
+        if (appState.user && appState.user.isLoggedIn && appState.user.plan === "free") {
+          const usedEmails = JSON.parse(localStorage.getItem("umbala_used_emails") || "[]");
+          const registry = JSON.parse(localStorage.getItem("umbala_email_registry") || "{}");
+          const email = appState.user.email ? appState.user.email.toLowerCase() : "";
+          if ((registry[email] && registry[email].used) || usedEmails.includes(email)) {
+            appState.user.used = 1;
+            appState.user.quota = 1;
+          }
+        }
+      } catch (e) {
+        console.warn("Storage error:", e);
       }
+      updateUserUI();
     }
-  } catch (e) {
-    console.warn("Storage error:", e);
-  }
 
-  // 3. Cập nhật giao diện Header và Banner tài khoản
-  updateUserUI();
-
-  // 4. Cập nhật nút Quà của tôi nếu có
-  if (typeof updateMyGiftsButtonVisibility === "function") {
-    updateMyGiftsButtonVisibility();
-  }
-}
     function saveUserState() {
       try {
         localStorage.setItem("umbala_user", JSON.stringify(appState.user));
@@ -4407,38 +4389,34 @@ function initUserState() {
 
     function updateUserUI() {
       const headerAuthLabel = document.getElementById("headerAuthLabel");
-  const headerAuthIcon = document.getElementById("headerAuthIcon");
-  const creatorAuthBanner = document.getElementById("creatorAuthBanner");
-  const creatorQuotaBanner = document.getElementById("creatorQuotaBanner");
-  const userEmailDisplay = document.getElementById("userEmailDisplay");
-  const userPlanBadge = document.getElementById("userPlanBadge");
-  const userQuotaText = document.getElementById("userQuotaText");
-  const creatorAvatarBadge = document.getElementById("creatorAvatarBadge");
-  const email = (appState && appState.user && appState.user.email) ? appState.user.email : (localStorage.getItem("userLoggedInEmail") || "");
-  const isLoggedIn = (appState && appState.user && appState.user.isLoggedIn) || !!email;
-  if (!isLoggedIn) {        // Anonymous guest
+      const headerAuthIcon = document.getElementById("headerAuthIcon");
+      const creatorAuthBanner = document.getElementById("creatorAuthBanner");
+      const creatorQuotaBanner = document.getElementById("creatorQuotaBanner");
+      const userEmailDisplay = document.getElementById("userEmailDisplay");
+      const userPlanBadge = document.getElementById("userPlanBadge");
+      const userQuotaText = document.getElementById("userQuotaText");
+      const creatorAvatarBadge = document.getElementById("creatorAvatarBadge");
+      const btnPublishLabel = document.getElementById("btnPublishLabel");
+      const btnPublishGift = document.getElementById("btnPublishGift");
+      const selectedPlanDisplay = document.getElementById("selectedPlanDisplay");
+
+      if (!appState.user.isLoggedIn) {
+        // Anonymous guest
         if (headerAuthLabel) headerAuthLabel.textContent = "Đăng nhập (1 lượt Free)";
-      if (headerAuthIcon) headerAuthIcon.textContent = "👤";
-      if (creatorAuthBanner) creatorAuthBanner.classList.remove("hidden");
-      if (creatorQuotaBanner) creatorQuotaBanner.classList.add("hidden");
-      if (typeof btnPublishLabel !== "undefined" && btnPublishLabel) {
-        btnPublishLabel.textContent = "Đăng nhập để Xuất quà (1 lượt Free)";
-      }
-  } else {
-    const shortEmail = email.split("@")[0];
-       if (headerAuthLabel) headerAuthLabel.textContent = shortEmail;
-      if (headerAuthIcon) headerAuthIcon.textContent = "👤";
-      if (userEmailDisplay) userEmailDisplay.textContent = email;
-      if (creatorAvatarBadge) creatorAvatarBadge.textContent = shortEmail.charAt(0).toUpperCase();
-      if (creatorAuthBanner) creatorAuthBanner.classList.add("hidden");
-      if (creatorQuotaBanner) creatorQuotaBanner.classList.remove("hidden");
-      if (typeof appState !== "undefined" && appState.user) {
-        appState.user.isLoggedIn = true;
-        appState.user.email = email;
-      }
-    }
-      if (isLoggedIn && email) {
-      const isUsedUp = (appState && appState.user && appState.user.used >= 1);
+        if (headerAuthIcon) headerAuthIcon.textContent = "👤";
+        if (creatorAuthBanner) creatorAuthBanner.classList.remove("hidden");
+        if (creatorQuotaBanner) creatorQuotaBanner.classList.add("hidden");
+        if (btnPublishLabel) btnPublishLabel.textContent = "Đăng nhập để Xuất quà (1 lượt Free)";
+      } else {
+        // Logged in
+        if (creatorAuthBanner) creatorAuthBanner.classList.add("hidden");
+        if (creatorQuotaBanner) creatorQuotaBanner.classList.remove("hidden");
+        if (userEmailDisplay) userEmailDisplay.textContent = appState.user.email;
+
+        if (appState.user.plan === "free") {
+          const shortEmail = appState.user.email.split("@")[0];
+          const isUsedUp = appState.user.used >= 1;
+
           if (headerAuthLabel) headerAuthLabel.textContent = `${shortEmail} (${isUsedUp ? '0/1' : '1/1'} Free)`;
           if (headerAuthIcon) headerAuthIcon.textContent = isUsedUp ? "⚠️" : "🎁";
           if (creatorAvatarBadge) creatorAvatarBadge.textContent = isUsedUp ? "⚠️" : "🎁";
@@ -4461,7 +4439,6 @@ function initUserState() {
           if (btnPublishLabel) {
             btnPublishLabel.textContent = isUsedUp ? "Nâng Cấp Gói Để Xuất Quà (Hết lượt Free)" : "Kích Hoạt Hộp Quà (Dùng 1 lượt)";
           }
-
           if (btnPublishGift) {
             btnPublishGift.className = isUsedUp
               ? "px-4 py-2 rounded-full bg-rose-800 hover:bg-rose-900 text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer ring-2 ring-rose-300"
@@ -4489,9 +4466,7 @@ function initUserState() {
         }
       }
     }
-      if (typeof updateMyGiftsButtonVisibility === "function") {
-      updateMyGiftsButtonVisibility();
-      }
+
     function openAuthModal() {
       const modal = document.getElementById("authModal");
       if (modal) {
