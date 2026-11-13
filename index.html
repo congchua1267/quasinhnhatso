@@ -941,10 +941,6 @@
               <h3 class="font-serif font-bold text-lg text-capsule-ink">Khảo Sát Người Nhận, AI Viết Chúc & Quay Video</h3>
             </div>
             <!-- Nhập Gemini API Key -->
-            <div class="flex items-center gap-2">
-              <input type="password" id="geminiApiKeyInput" placeholder="Dán Gemini API Key..." class="px-3 py-1.5 rounded-lg border border-capsule-surfaceDark bg-capsule-card text-xs font-mono w-44 sm:w-52 focus:outline-none focus:ring-2 focus:ring-capsule-primary/40">
-              <span class="text-[10px] font-mono text-capsule-muted hidden md:inline" title="Dùng để AI tự động sáng tạo lời chúc">(Tùy chọn AI)</span>
-            </div>
           </div>
 
           <!-- 1. Bộ câu hỏi tính cách, sở thích, thời tiết & cảm xúc thật -->
@@ -992,13 +988,14 @@
           </div>
 
           <!-- Nút hành động: Đề xuất giao diện phù hợp + AI đổi lời chúc -->
+          <!-- Nút hành động: Đề xuất giao diện + AI đề xuất lời chúc -->
           <div class="flex flex-wrap items-center gap-3">
             <button type="button" onclick="applySmartPersonalization()" class="px-4 py-2 rounded-full bg-capsule-surfaceDark hover:bg-capsule-muted/20 text-capsule-ink text-xs font-semibold transition-all flex items-center gap-1.5">
-              <span>🎯 Đề Xuất Thiệp & Màu Sắc Theo Tính Cách</span>
+              <span>🎨 Đổi Màu Thiệp Theo Tính Cách</span>
             </button>
 
             <button type="button" id="btnAiGenerate" onclick="generateAiWishes()" class="px-5 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5">
-              <span>✨ AI Đổi Lời Chúc Cá Nhân Hóa</span>
+              <span>✨ AI Đề Xuất Lời Chúc Mới</span>
             </button>
           </div>
 
@@ -5472,6 +5469,170 @@ async function publishGiftWithQuota() {
     window.addEventListener("hashchange", handleInitialRouteOrHash);
 
     // Initialize application lifecycle
+    /* =====================================================================
+       TÍNH NĂNG MỚI: AI ĐỀ XUẤT LỜI CHÚC THÔNG MINH & QUAY VIDEO TRỰC TIẾP
+       ===================================================================== */
+    let mediaStream = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let recordedVideoUrl = null;
+    let aiSuggestionIndex = 0;
+
+    // 1. Đổi màu thiệp tự động theo Tính cách & Mối quan hệ
+    function applySmartPersonalization() {
+      const personality = document.getElementById("selectPersonality").value;
+      const relationship = document.getElementById("selectRelationship").value;
+      const emotion = document.getElementById("selectRealEmotion").value;
+
+      if (relationship.includes("Người yêu")) {
+        document.body.setAttribute("data-theme", "valentine");
+      } else if (relationship.includes("Cha Mẹ")) {
+        document.body.setAttribute("data-theme", "parents");
+      } else if (relationship.includes("Thầy Cô")) {
+        document.body.setAttribute("data-theme", "teacher");
+      } else if (personality.includes("Trầm lắng")) {
+        document.body.setAttribute("data-theme", "birthday");
+      } else if (personality.includes("Lãng mạn")) {
+        document.body.setAttribute("data-theme", "women");
+      } else {
+        document.body.setAttribute("data-theme", "xmas");
+      }
+
+      updateEmotionBadge(emotion);
+      showToast("Đã phối màu thiệp phù hợp với tính cách người nhận!", "🎨");
+    }
+
+    // 2. AI Đề xuất lời chúc cá nhân hóa (tự động tổng hợp Tên + Dịp + Thời tiết + Tính cách + Cảm xúc)
+    function generateAiWishes() {
+      const btn = document.getElementById("btnAiGenerate");
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = "<span>⏳ AI đang soạn lời chúc...</span>";
+
+      setTimeout(() => {
+        const occasionName = OCCASIONS_DATA[appState.currentOccasionId]?.name || "Kỷ niệm đặc biệt";
+        const name = document.getElementById("inputRecipientName").value || "Bạn";
+        const relationship = document.getElementById("selectRelationship").value;
+        const personality = document.getElementById("selectPersonality").value;
+        const weather = document.getElementById("selectWeather").value;
+        const emotion = document.getElementById("selectRealEmotion").value;
+
+        // Kho 3 phong cách đề xuất luân phiên mỗi lần người dùng bấm nút
+        const templates = [
+          {
+            headline: `DÀNH TẶNG ${name.toUpperCase()} TRONG NGÀY ${occasionName.toUpperCase()}!`,
+            newsBody: `Giữa tiết trời ${weather.toLowerCase()}, xin gửi tới ${name} lời chúc chân thành nhất nhân dịp ${occasionName}. Là một người ${personality.toLowerCase()}, mong bạn luôn giữ trọn sự an nhiên và nụ cười rạng rỡ mỗi ngày.`,
+            letter: `Gửi ${name},\n\nHôm nay ngoài trời đang ${weather.toLowerCase()}, tự nhiên nghĩ đến bạn với tất cả sự ${emotion.toLowerCase()}. Cảm ơn vì bạn luôn là một người ${personality.toLowerCase()} và mang lại thật nhiều điều ấm áp cho cuộc sống này!`
+          },
+          {
+            headline: `KHOẢNH KHẮC ĐẶC BIỆT: CHÚC MỪNG ${name.toUpperCase()}!`,
+            newsBody: `Nhân dịp ${occasionName}, bản tin đặc biệt này được thiết kế dành riêng cho một tâm hồn ${personality.toLowerCase()}. Dù thời tiết hôm nay ${weather.toLowerCase()}, mong mọi điều tốt đẹp và bình an nhất sẽ luôn mỉm cười với ${name}.`,
+            letter: `Thân gửi ${name},\n\nVới tư cách là ${relationship.toLowerCase()}, mình luôn trân trọng từng khoảnh khắc chúng ta đồng hành cùng nhau. Gửi tới bạn trọn vẹn sự ${emotion.toLowerCase()} cùng lời chúc một mùa ${occasionName} thật đáng nhớ!`
+          },
+          {
+            headline: `MÓN QUÀ TINH THẦN GỬI TỚI ${name.toUpperCase()}`,
+            newsBody: `Không khoảng cách nào ngăn được tình cảm chân thành. Trong khung cảnh ${weather.toLowerCase()}, chúc ${name} đón một dịp ${occasionName} ngập tràn niềm vui, luôn tự tin tỏa sáng đúng với nét ${personality.toLowerCase()} của riêng bạn.`,
+            letter: `Chào ${name},\n\nCó những điều khó nói thành lời, nên mình gói ghém tất cả sự ${emotion.toLowerCase()} vào hộp quà nhỏ này. Chúc bạn luôn khỏe mạnh, hạnh phúc và gặp thật nhiều may mắn trên chặng đường phía trước!`
+          }
+        ];
+
+        const chosen = templates[aiSuggestionIndex % templates.length];
+        aiSuggestionIndex++;
+
+        document.getElementById("inputNewsTitle").value = chosen.headline;
+        document.getElementById("inputNewsBody").value = chosen.newsBody;
+        document.getElementById("inputSecretLetter").value = chosen.letter;
+
+        applySmartPersonalization();
+        updateAppData();
+
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        showToast(`AI đã đề xuất mẫu lời chúc số #${((aiSuggestionIndex - 1) % templates.length) + 1}!`, "✨");
+      }, 450);
+    }
+
+    function updateEmotionBadge(emotionText) {
+      const tag = document.getElementById("recipientEmotionTag");
+      const showcase = document.getElementById("recipientVideoShowcase");
+      if (tag) {
+        tag.textContent = `Cảm xúc gửi gắm: ${emotionText}`;
+      }
+      if (showcase && recordedVideoUrl) {
+        showcase.classList.remove("hidden");
+      }
+    }
+
+    // 3. Quay Video Trực Tiếp (Camera + Micro) & Đưa lên trang Người Nhận
+    async function startCamera() {
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          showToast("Trình duyệt của bạn không hỗ trợ mở Camera hoặc chưa chạy trên HTTPS/Localhost!", "⚠️");
+          return;
+        }
+        mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        const preview = document.getElementById("cameraPreview");
+        const playback = document.getElementById("recordedVideoPlayback");
+        const placeholder = document.getElementById("cameraPlaceholder");
+
+        playback.classList.add("hidden");
+        placeholder.classList.add("hidden");
+        preview.classList.remove("hidden");
+        preview.srcObject = mediaStream;
+
+        document.getElementById("btnStartRecord").disabled = false;
+        showToast("Đã bật camera! Sẵn sàng quay lời chúc.", "📷");
+      } catch (err) {
+        console.error(err);
+        showToast("Không thể truy cập Camera. Hãy bấm Cho phép (Allow) trên thanh địa chỉ!", "⚠️");
+      }
+    }
+
+    function startRecording() {
+      if (!mediaStream) return;
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(mediaStream);
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: "video/webm" });
+        if (recordedVideoUrl) URL.revokeObjectURL(recordedVideoUrl);
+        recordedVideoUrl = URL.createObjectURL(blob);
+
+        const preview = document.getElementById("cameraPreview");
+        const playback = document.getElementById("recordedVideoPlayback");
+        preview.classList.add("hidden");
+        playback.src = recordedVideoUrl;
+        playback.classList.remove("hidden");
+
+        const recipientShowcase = document.getElementById("recipientVideoShowcase");
+        const recipientPlayer = document.getElementById("recipientVideoPlayer");
+        const emotion = document.getElementById("selectRealEmotion").value;
+
+        recipientPlayer.src = recordedVideoUrl;
+        updateEmotionBadge(emotion);
+        recipientShowcase.classList.remove("hidden");
+
+        mediaStream.getTracks().forEach(track => track.stop());
+        showToast("Đã lưu & gắn video vào Bảo tàng ký ức!", "🎥");
+      };
+
+      mediaRecorder.start();
+      document.getElementById("recordingBadge").classList.remove("hidden");
+      document.getElementById("btnStartRecord").disabled = true;
+      document.getElementById("btnStopRecord").disabled = false;
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+        document.getElementById("recordingBadge").classList.add("hidden");
+        document.getElementById("btnStopRecord").disabled = true;
+      }
+    }
     window.addEventListener("DOMContentLoaded", () => {
       setOccasion("birthday", false);
       renderOccasionButtons();
