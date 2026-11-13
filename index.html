@@ -933,7 +933,113 @@
             <!-- Preset buttons injected by JS -->
           </div>
         </div>
+<!-- KHỐI TÍNH NĂNG MỚI: AI CÁ NHÂN HÓA, TÍNH CÁCH, THỜI TIẾT & QUAY VIDEO -->
+        <div class="mt-6 bg-capsule-surface/40 border border-capsule-surfaceDark rounded-2xl p-5 sm:p-6 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-capsule-surfaceDark pb-3">
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-wider text-capsule-primary font-bold">✦ Trợ Lý Cảm Xúc & Cá Nhân Hóa</span>
+              <h3 class="font-serif font-bold text-lg text-capsule-ink">Khảo Sát Người Nhận, AI Viết Chúc & Quay Video</h3>
+            </div>
+            <!-- Nhập Gemini API Key -->
+            <div class="flex items-center gap-2">
+              <input type="password" id="geminiApiKeyInput" placeholder="Dán Gemini API Key..." class="px-3 py-1.5 rounded-lg border border-capsule-surfaceDark bg-capsule-card text-xs font-mono w-44 sm:w-52 focus:outline-none focus:ring-2 focus:ring-capsule-primary/40">
+              <span class="text-[10px] font-mono text-capsule-muted hidden md:inline" title="Dùng để AI tự động sáng tạo lời chúc">(Tùy chọn AI)</span>
+            </div>
+          </div>
 
+          <!-- 1. Bộ câu hỏi tính cách, sở thích, thời tiết & cảm xúc thật -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Mối quan hệ</label>
+              <select id="selectRelationship" class="w-full px-3 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs focus:outline-none">
+                <option value="Người yêu / Vợ chồng">Người yêu / Vợ chồng</option>
+                <option value="Cha Mẹ / Gia đình">Cha Mẹ / Gia đình</option>
+                <option value="Bạn thân / Tri kỷ">Bạn thân / Tri kỷ</option>
+                <option value="Thầy Cô / Người dìu dắt">Thầy Cô / Người dìu dắt</option>
+                <option value="Đồng nghiệp / Sếp">Đồng nghiệp / Sếp</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Tính cách & Sở thích</label>
+              <select id="selectPersonality" class="w-full px-3 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs focus:outline-none">
+                <option value="Trầm lắng, thích đọc sách & sự tinh tế">Trầm lắng, thích tinh tế</option>
+                <option value="Năng động, hài hước & thích khám phá">Năng động, vui vẻ & hài hước</option>
+                <option value="Lãng mạn, giàu cảm xúc & yêu nghệ thuật">Lãng mạn, yêu cái đẹp</option>
+                <option value="Thực tế, ấm áp & trân trọng gia đình">Ấm áp, hướng về gia đình</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Thời tiết nơi người nhận</label>
+              <select id="selectWeather" class="w-full px-3 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs focus:outline-none">
+                <option value="Nắng ấm dịu nhẹ">☀️ Nắng ấm dịu nhẹ</option>
+                <option value="Mưa rào se lạnh">🌧️ Mưa rào se lạnh</option>
+                <option value="Gió thu mát mẻ">🍂 Gió thu mát mẻ</option>
+                <option value="Đêm đông lạnh giá">❄️ Đêm đông lạnh giá</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-1">Cảm xúc thật của bạn</label>
+              <select id="selectRealEmotion" onchange="updateAppData()" class="w-full px-3 py-2 rounded-xl border border-capsule-surface bg-capsule-bg text-xs focus:outline-none">
+                <option value="Biết ơn & Trân trọng sâu sắc">🥹 Biết ơn & Trân trọng</option>
+                <option value="Nhớ nhung & Mong ngày hội ngộ">💌 Nhớ nhung từ phương xa</option>
+                <option value="Tự hào & Hạnh phúc vỡ òa">🥰 Tự hào & Hạnh phúc</option>
+                <option value="Chân thành & Bình yên">🌿 Chân thành & Bình yên</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Nút hành động: Đề xuất giao diện phù hợp + AI đổi lời chúc -->
+          <div class="flex flex-wrap items-center gap-3">
+            <button type="button" onclick="applySmartPersonalization()" class="px-4 py-2 rounded-full bg-capsule-surfaceDark hover:bg-capsule-muted/20 text-capsule-ink text-xs font-semibold transition-all flex items-center gap-1.5">
+              <span>🎯 Đề Xuất Thiệp & Màu Sắc Theo Tính Cách</span>
+            </button>
+
+            <button type="button" id="btnAiGenerate" onclick="generateAiWishes()" class="px-5 py-2 rounded-full bg-capsule-primary hover:bg-capsule-primaryHover text-capsule-card text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5">
+              <span>✨ AI Đổi Lời Chúc Cá Nhân Hóa</span>
+            </button>
+          </div>
+
+          <!-- 2. Trình Quay Video Trực Tiếp (WebRTC Camera) -->
+          <div class="pt-4 border-t border-capsule-surfaceDark">
+            <label class="block text-[11px] font-mono text-capsule-muted uppercase mb-2">
+              🎥 Quay Video Lời Chúc Trực Tiếp (Đính kèm vào Bảo tàng ký ức)
+            </label>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+              <!-- Khung xem trước camera / video đã quay -->
+              <div class="relative w-full md:w-72 h-44 bg-black rounded-xl overflow-hidden border border-capsule-surfaceDark flex items-center justify-center">
+                <video id="cameraPreview" autoplay muted playsinline class="w-full h-full object-cover hidden"></video>
+                <video id="recordedVideoPlayback" controls playsinline class="w-full h-full object-cover hidden"></video>
+                <span id="cameraPlaceholder" class="text-[11px] font-mono text-white/70 text-center px-4">
+                  Chưa bật camera. Nhấn nút bên cạnh để quay video gửi cảm xúc thật.
+                </span>
+                <span id="recordingBadge" class="hidden absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-red-600 text-white text-[10px] font-mono animate-pulse">
+                  ● ĐANG QUAY
+                </span>
+              </div>
+
+              <!-- Các nút điều khiển quay video -->
+              <div class="space-y-2 text-xs">
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" id="btnStartCamera" onclick="startCamera()" class="px-3.5 py-2 rounded-lg bg-capsule-card border border-capsule-surfaceDark hover:border-capsule-primary font-medium text-capsule-ink">
+                    📷 Bật Camera
+                  </button>
+                  <button type="button" id="btnStartRecord" onclick="startRecording()" disabled class="px-3.5 py-2 rounded-lg bg-red-600 text-white font-medium disabled:opacity-40">
+                    ⏺ Bắt đầu quay
+                  </button>
+                  <button type="button" id="btnStopRecord" onclick="stopRecording()" disabled class="px-3.5 py-2 rounded-lg bg-capsule-ink text-white font-medium disabled:opacity-40">
+                    ⏹ Dừng & Lưu Video
+                  </button>
+                </div>
+                <p class="text-[11px] text-capsule-muted leading-relaxed">
+                  Video quay trực tiếp sẽ được phát ngay trong <strong>Chặng 2 (Bảo tàng kỷ niệm)</strong> của người nhận để truyền tải trọn vẹn ánh mắt và giọng nói của bạn.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- Customizer Form Fields -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-6">
           
