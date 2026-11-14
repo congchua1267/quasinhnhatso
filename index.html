@@ -302,6 +302,29 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Soul Frequency Unlock */
+    .soul-choice {
+      padding: .75rem .6rem; border: 1px solid var(--c-surfaceDark); border-radius: 1rem;
+      background: var(--c-card); color: var(--c-ink); font-size: .75rem; font-weight: 600;
+      transition: all .2s ease; cursor: pointer;
+    }
+    .soul-choice:hover { border-color: var(--c-primary); transform: translateY(-1px); }
+    .soul-choice.selected { background: var(--c-primaryLight); border-color: var(--c-primary); color: var(--c-primary); box-shadow: 0 0 0 2px color-mix(in srgb, var(--c-primary) 12%, transparent); }
+    .wax-seal {
+      width: 112px; height: 112px; border-radius: 50%; border: 5px solid #8e2638;
+      background: radial-gradient(circle at 35% 28%, #d66b78, #9e2439 58%, #651426);
+      color: #ffe8c4; box-shadow: 0 8px 0 #5f1725, 0 14px 24px #0002, inset 0 2px 8px #ffffff55;
+      display:flex; align-items:center; justify-content:center; cursor: pointer; user-select:none;
+      touch-action:none; transition: transform .15s ease, filter .2s ease;
+    }
+    .wax-seal:active, .wax-seal.holding { transform: translateY(5px) scale(.96); box-shadow: 0 3px 0 #5f1725, 0 8px 16px #0002; filter: brightness(1.12); }
+    .wax-seal.broken { animation: wax-break .45s ease forwards; }
+    .wax-seal-inner { width:78px; height:78px; border:1px solid #f4c58c99; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:2rem; }
+    .wax-seal-inner small { font: 700 8px 'Courier Prime', monospace; letter-spacing:2px; }
+    @keyframes wax-break { 0%{transform:scale(1) rotate(0)} 35%{transform:scale(1.15) rotate(-8deg)} 100%{transform:scale(.2) rotate(25deg);opacity:0} }
+    @keyframes letter-reveal { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    .letter-reveal { animation: letter-reveal .8s ease both; }
   </style>
 </head>
 <body data-theme="birthday" class="relative min-h-screen selection:bg-capsule-primary/20 flex flex-col justify-between">
@@ -580,32 +603,74 @@
           <div id="memoryCardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
 
-        <!-- Trạm 2: Minigame Mật Mã Mở Khóa Bức Thư Riêng -->
-        <div class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-8 shadow-xs relative">
-          <div class="max-w-xl mx-auto text-center space-y-3">
-            <span class="text-xs font-mono text-capsule-accent uppercase tracking-wider font-semibold">Trạm 02 • Minigame mật mã</span>
-            <h3 class="font-serif font-bold text-xl sm:text-2xl text-capsule-ink">Giải mã thông điệp bí mật</h3>
-            <p id="secretQuestionDisplay" class="text-xs sm:text-sm text-capsule-muted italic">
-              "Hãy nhập mật mã riêng hoặc con số kỷ niệm để đọc thông điệp đặc biệt:"
-            </p>
+        <!-- Trạm 2: Soul Frequency Unlock -->
+        <div class="bg-capsule-card rounded-3xl border border-capsule-surface p-6 sm:p-8 shadow-xs relative overflow-hidden">
+          <div class="max-w-xl mx-auto text-center space-y-4">
+            <span class="text-xs font-mono text-capsule-accent uppercase tracking-wider font-semibold">Trạm 02 • Soul Frequency Unlock</span>
+            <h3 class="font-serif font-bold text-xl sm:text-2xl text-capsule-ink">Giải mã tần số tâm hồn</h3>
+            <p class="text-xs sm:text-sm text-capsule-muted">Hai lựa chọn nhỏ, một bí mật đang chờ bạn khám phá. Hãy chọn theo cảm giác đầu tiên nhé!</p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-2 max-w-sm mx-auto pt-2">
-              <input type="text" id="secretAnswerInput" placeholder="Nhập đáp án tại đây..." class="w-full px-4 py-2.5 rounded-full border border-capsule-surface bg-capsule-bg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-capsule-primary/30 text-center font-mono">
-              <button onclick="checkSecretAnswer()" class="w-full sm:w-auto px-6 py-2.5 rounded-full bg-capsule-primary text-capsule-card text-xs sm:text-sm font-medium hover:bg-capsule-primaryHover transition-colors shrink-0">
-                Mở khóa
-              </button>
+            <!-- Bước 1: Hai câu hỏi vui -->
+            <div id="soulQuizStep" class="space-y-5 pt-2">
+              <div class="rounded-2xl bg-capsule-newspaper border border-capsule-surfaceDark p-4 sm:p-5 text-left">
+                <div class="text-[10px] font-mono uppercase tracking-widest text-capsule-accent font-bold mb-2">Câu hỏi 01 / 02</div>
+                <p class="font-serif font-bold text-base text-capsule-ink mb-3">Hôm nay tâm trạng của bạn giống màu trời nào?</p>
+                <div class="grid grid-cols-2 gap-2" data-soul-question="1">
+                  <button type="button" data-soul-answer="Nắng vàng" class="soul-choice">☀️ Nắng vàng</button>
+                  <button type="button" data-soul-answer="Trời xanh" class="soul-choice">🌤️ Trời xanh</button>
+                  <button type="button" data-soul-answer="Mây dịu" class="soul-choice">☁️ Mây dịu</button>
+                  <button type="button" data-soul-answer="Mưa nhẹ" class="soul-choice">🌧️ Mưa nhẹ</button>
+                </div>
+              </div>
+              <div class="rounded-2xl bg-capsule-newspaper border border-capsule-surfaceDark p-4 sm:p-5 text-left">
+                <div class="text-[10px] font-mono uppercase tracking-widest text-capsule-accent font-bold mb-2">Câu hỏi 02 / 02</div>
+                <p class="font-serif font-bold text-base text-capsule-ink mb-3">Nếu được chọn một món ngay lúc này, bạn sẽ chọn gì?</p>
+                <div class="grid grid-cols-2 gap-2" data-soul-question="2">
+                  <button type="button" data-soul-answer="Một món ngọt" class="soul-choice">🍰 Một món ngọt</button>
+                  <button type="button" data-soul-answer="Một ly nước" class="soul-choice">🧋 Một ly nước</button>
+                  <button type="button" data-soul-answer="Một cái ôm" class="soul-choice">🫂 Một cái ôm</button>
+                  <button type="button" data-soul-answer="Một chuyến đi" class="soul-choice">🧳 Một chuyến đi</button>
+                </div>
+              </div>
+              <p id="soulQuizHint" class="text-[11px] text-capsule-muted">Đã chọn 0/2 câu. Chọn cả hai để dò tần số cảm xúc.</p>
+              <button id="soulScanBtn" type="button" disabled class="w-full px-6 py-3 rounded-full bg-capsule-primary text-capsule-card text-xs sm:text-sm font-semibold opacity-40 cursor-not-allowed transition-all">✧ Dò tần số tâm hồn</button>
             </div>
-            <p id="quizErrorText" class="text-xs text-red-700/80 hidden font-mono">Mật mã chưa đúng, bạn hãy thử lại xem sao nhé!</p>
 
-            <!-- Bức thư viết tay mở khóa -->
-            <div id="unlockedSecretLetter" class="hidden text-left bg-capsule-newspaper rounded-2xl p-6 border border-capsule-surfaceDark mt-6 transition-all duration-500 shadow-inner font-mono text-xs sm:text-sm leading-relaxed text-capsule-ink">
+            <!-- Hiệu ứng dò tần số -->
+            <div id="soulScanStep" class="hidden py-5 space-y-4">
+              <div class="text-4xl animate-pulse">💗</div>
+              <p class="font-serif text-lg font-bold text-capsule-ink">Đang dò tần số cảm xúc...</p>
+              <div class="w-full h-2.5 rounded-full bg-capsule-surface overflow-hidden">
+                <div id="soulScanProgress" class="h-full rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-capsule-primary" style="width:0%;transition:width 1.8s ease;"></div>
+              </div>
+              <p id="soulScanStatus" class="text-xs font-mono text-capsule-muted">Đang kết nối những tín hiệu yêu thương...</p>
+              <p id="soulMatchResult" class="hidden text-2xl font-serif font-bold text-capsule-primary">Trùng khớp 98% ✨</p>
+            </div>
+
+            <!-- Bước 2: Nhấn giữ con dấu sáp -->
+            <div id="soulSealStep" class="hidden py-4 space-y-3">
+              <div class="text-[10px] font-mono uppercase tracking-widest text-capsule-accent font-bold">Bước 02 • Phá niêm phong</div>
+              <p class="font-serif font-bold text-lg text-capsule-ink">Một lá thư đang được niêm phong dành riêng cho bạn</p>
+              <p class="text-xs text-capsule-muted">Nhấn giữ con dấu trong 2 giây để mở khóa. Đừng thả tay nhé!</p>
+              <div class="flex justify-center py-2">
+                <button id="waxSealButton" type="button" class="wax-seal" aria-label="Nhấn giữ con dấu sáp trong hai giây để mở thư">
+                  <span class="wax-seal-inner">✦<small>UMBALA</small></span>
+                </button>
+              </div>
+              <div class="w-full max-w-xs mx-auto h-2 rounded-full bg-capsule-surface overflow-hidden">
+                <div id="sealHoldProgress" class="h-full bg-capsule-primary rounded-full" style="width:0%"></div>
+              </div>
+              <p id="sealHoldHint" class="text-[11px] text-capsule-muted">Nhấn giữ 2 giây • Có thể dùng chuột hoặc màn hình cảm ứng</p>
+            </div>
+
+            <!-- Bước 3: Bức thư mở khóa -->
+            <div id="unlockedSecretLetter" class="hidden text-left bg-capsule-newspaper rounded-2xl p-6 border border-capsule-surfaceDark mt-6 shadow-inner font-mono text-xs sm:text-sm leading-relaxed text-capsule-ink">
               <div class="flex items-center justify-between pb-3 mb-3 border-b border-capsule-surfaceDark">
                 <span class="text-xs font-bold text-capsule-primary uppercase" id="secretLetterBadge">✧ Bức thư kỷ niệm riêng tư</span>
                 <span class="text-[11px] text-capsule-muted" id="letterDateStamp">00:00 • Hôm nay</span>
               </div>
-              <p id="secretLetterContent" class="whitespace-pre-line text-capsule-ink">
-                Chúc bạn một tuổi mới bình an, rực rỡ và luôn vững vàng trước mọi ngã rẽ!
-              </p>
+              <p class="text-[10px] font-mono text-capsule-accent uppercase tracking-widest mb-3">Một vài tín hiệu từ bạn: <span id="soulChoiceSummary"></span></p>
+              <p id="secretLetterContent" class="whitespace-pre-line text-capsule-ink min-h-24"></p>
               <div class="mt-4 pt-3 border-t border-capsule-surfaceDark flex justify-end">
                 <span class="font-serif italic font-bold text-capsule-primary" id="secretLetterSign">— Người gửi yêu thương</span>
               </div>
@@ -3122,6 +3187,7 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
 
     // Attach scroll listener to occasion container
     window.addEventListener("DOMContentLoaded", () => {
+      initSoulUnlock();
       const topOccContainer = document.getElementById("occasionPillsContainer");
       if (topOccContainer) {
         topOccContainer.addEventListener("scroll", updateOccasionScrollButtons, { passive: true });
@@ -3207,23 +3273,130 @@ Có những lời yêu thương khó nói thành lời, có những kỷ niệm 
       }
     }
 
-    /* Secret Quiz Validation */
-    function checkSecretAnswer() {
-      const input = document.getElementById("secretAnswerInput");
-      const err = document.getElementById("quizErrorText");
-      const letter = document.getElementById("unlockedSecretLetter");
+    /* Soul Frequency Unlock — 3-step recipient experience */
+    const soulUnlockState = { answers: {}, holdTimer: null, holdStarted: 0, unlocked: false };
 
-      const cleanInput = input.value.trim().toLowerCase();
-      const cleanTarget = appState.secretAnswer.trim().toLowerCase();
+    function initSoulUnlock() {
+      document.querySelectorAll("[data-soul-question] .soul-choice").forEach(button => {
+        button.addEventListener("click", () => {
+          const group = button.closest("[data-soul-question]");
+          group.querySelectorAll(".soul-choice").forEach(item => item.classList.remove("selected"));
+          button.classList.add("selected");
+          soulUnlockState.answers[group.dataset.soulQuestion] = button.dataset.soulAnswer;
+          const count = Object.keys(soulUnlockState.answers).length;
+          const hint = document.getElementById("soulQuizHint");
+          const scanBtn = document.getElementById("soulScanBtn");
+          if (hint) hint.textContent = `Đã chọn ${count}/2 câu. ${count === 2 ? "Sẵn sàng dò tần số!" : "Chọn câu còn lại nhé."}`;
+          if (scanBtn) {
+            scanBtn.disabled = count !== 2;
+            scanBtn.classList.toggle("opacity-40", count !== 2);
+            scanBtn.classList.toggle("cursor-not-allowed", count !== 2);
+          }
+        });
+      });
 
-      if (cleanInput === cleanTarget || cleanInput === "1010" || cleanInput === "lan anh" || cleanInput === "1402" || cleanInput === "2011" || cleanInput === "hoa hong" || cleanInput === "banh chung") {
-        err.classList.add("hidden");
-        letter.classList.remove("hidden");
-        showToast("Giải mã thành công thông điệp bí mật!", "💌");
-        confetti({ particleCount: 35, spread: 50, origin: { y: 0.8 } });
-      } else {
-        err.classList.remove("hidden");
+      const scanBtn = document.getElementById("soulScanBtn");
+      if (scanBtn) scanBtn.addEventListener("click", runSoulFrequencyScan);
+
+      const seal = document.getElementById("waxSealButton");
+      if (seal) {
+        seal.addEventListener("pointerdown", startSealHold);
+        ["pointerup", "pointerleave", "pointercancel", "lostpointercapture"].forEach(eventName =>
+          seal.addEventListener(eventName, cancelSealHold)
+        );
+        seal.addEventListener("contextmenu", event => event.preventDefault());
+        seal.addEventListener("keydown", event => {
+          if ((event.key === " " || event.key === "Enter") && !event.repeat) startSealHold(event);
+        });
+        seal.addEventListener("keyup", event => {
+          if (event.key === " " || event.key === "Enter") cancelSealHold();
+        });
       }
+    }
+
+    function runSoulFrequencyScan() {
+      if (Object.keys(soulUnlockState.answers).length !== 2) return;
+      document.getElementById("soulQuizStep")?.classList.add("hidden");
+      document.getElementById("soulScanStep")?.classList.remove("hidden");
+      const progress = document.getElementById("soulScanProgress");
+      const status = document.getElementById("soulScanStatus");
+      const result = document.getElementById("soulMatchResult");
+      requestAnimationFrame(() => { if (progress) progress.style.width = "100%"; });
+      setTimeout(() => { if (status) status.textContent = "Đã tìm thấy những điểm đồng điệu..."; }, 850);
+      setTimeout(() => {
+        if (result) result.classList.remove("hidden");
+        if (status) status.textContent = "Tín hiệu yêu thương đã được xác nhận!";
+        setTimeout(() => {
+          document.getElementById("soulScanStep")?.classList.add("hidden");
+          document.getElementById("soulSealStep")?.classList.remove("hidden");
+          showToast("Tần số đã kết nối. Một lá thư đang chờ bạn!", "💗");
+        }, 900);
+      }, 1900);
+    }
+
+    function startSealHold(event) {
+      if (soulUnlockState.unlocked || soulUnlockState.holdTimer) return;
+      if (event && event.pointerId !== undefined) {
+        try { event.currentTarget.setPointerCapture(event.pointerId); } catch (_) {}
+      }
+      const seal = document.getElementById("waxSealButton");
+      const progress = document.getElementById("sealHoldProgress");
+      const hint = document.getElementById("sealHoldHint");
+      if (!seal) return;
+      seal.classList.add("holding");
+      if (hint) hint.textContent = "Đang phá niêm phong... tiếp tục giữ nhé!";
+      soulUnlockState.holdStarted = Date.now();
+      if (progress) progress.style.transition = "width 2s linear";
+      requestAnimationFrame(() => { if (progress) progress.style.width = "100%"; });
+      soulUnlockState.holdTimer = setTimeout(unlockSoulLetter, 2000);
+    }
+
+    function cancelSealHold() {
+      if (!soulUnlockState.holdTimer || soulUnlockState.unlocked) return;
+      clearTimeout(soulUnlockState.holdTimer);
+      soulUnlockState.holdTimer = null;
+      const seal = document.getElementById("waxSealButton");
+      const progress = document.getElementById("sealHoldProgress");
+      const hint = document.getElementById("sealHoldHint");
+      if (seal) seal.classList.remove("holding");
+      if (progress) { progress.style.transition = "width .15s ease"; progress.style.width = "0%"; }
+      if (hint) hint.textContent = "Bạn vừa thả tay. Hãy nhấn giữ lại đủ 2 giây nhé!";
+    }
+
+    function unlockSoulLetter() {
+      soulUnlockState.holdTimer = null;
+      soulUnlockState.unlocked = true;
+      const seal = document.getElementById("waxSealButton");
+      if (seal) { seal.classList.remove("holding"); seal.classList.add("broken"); }
+      document.getElementById("soulSealStep")?.classList.add("hidden");
+      const letter = document.getElementById("unlockedSecretLetter");
+      if (letter) { letter.classList.remove("hidden"); letter.classList.add("letter-reveal"); }
+      const choices = document.getElementById("soulChoiceSummary");
+      if (choices) choices.textContent = `${soulUnlockState.answers["1"] || ""} • ${soulUnlockState.answers["2"] || ""}`;
+      const stamp = document.getElementById("letterDateStamp");
+      if (stamp) stamp.textContent = new Date().toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
+      revealSecretLetter();
+      if (typeof confetti === "function") confetti({ particleCount: 55, spread: 65, origin: { y: 0.75 }, colors: ["#8E162D", "#E5A84B", "#F4C7CE"] });
+      showToast("Niêm phong đã mở. Lá thư dành riêng cho bạn đây!", "💌");
+    }
+
+    function revealSecretLetter() {
+      const target = document.getElementById("secretLetterContent");
+      if (!target) return;
+      const message = appState.secretLetter || "Cảm ơn bạn đã dành thời gian mở món quà nhỏ này. Mong rằng hôm nay sẽ dịu dàng với bạn.";
+      target.textContent = "";
+      let index = 0;
+      const step = Math.max(1, Math.ceil(message.length / 180));
+      const timer = setInterval(() => {
+        index = Math.min(message.length, index + step);
+        target.textContent = message.slice(0, index);
+        if (index >= message.length) clearInterval(timer);
+      }, 24);
+    }
+
+    /* Backward compatibility for any remaining button references */
+    function checkSecretAnswer() {
+      runSoulFrequencyScan();
     }
 
     /* Rendering Vouchers */
