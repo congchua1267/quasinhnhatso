@@ -575,7 +575,7 @@
       Cảm xúc gửi gắm: Biết ơn & Trân trọng sâu sắc
     </span>
   </div>
-  <video id="recipientVideoPlayer" controls playsinline class="w-full max-h-80 rounded-xl bg-black object-contain shadow-xs"></video>
+  <video id="recipientVideoShowcasePlayer" controls playsinline class="w-full max-h-80 rounded-xl bg-black object-contain shadow-xs"></video>
   </div>
           <div id="memoryCardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
@@ -5473,7 +5473,7 @@ async function publishGiftWithQuota() {
        TÍNH NĂNG MỚI: AI ĐỀ XUẤT LỜI CHÚC THÔNG MINH & QUAY VIDEO TRỰC TIẾP
        ===================================================================== */
     let mediaStream = null;
-    let mediaRecorder = null;
+    let videoMediaRecorder = null;
     let recordedChunks = [];
     let recordedVideoUrl = null;
     let aiSuggestionIndex = 0;
@@ -5591,13 +5591,13 @@ async function publishGiftWithQuota() {
     function startRecording() {
       if (!mediaStream) return;
       recordedChunks = [];
-      mediaRecorder = new MediaRecorder(mediaStream);
+      videoMediaRecorder = new MediaRecorder(mediaStream);
 
-      mediaRecorder.ondataavailable = (e) => {
+      videoMediaRecorder.ondataavailable = (e) => {
         if (e.data.size > 0) recordedChunks.push(e.data);
       };
 
-      mediaRecorder.onstop = () => {
+      videoMediaRecorder.onstop = () => {
         const blob = new Blob(recordedChunks, { type: "video/webm" });
         if (recordedVideoUrl) URL.revokeObjectURL(recordedVideoUrl);
         recordedVideoUrl = URL.createObjectURL(blob);
@@ -5609,7 +5609,7 @@ async function publishGiftWithQuota() {
         playback.classList.remove("hidden");
 
         const recipientShowcase = document.getElementById("recipientVideoShowcase");
-        const recipientPlayer = document.getElementById("recipientVideoPlayer");
+        const recipientPlayer = document.getElementById("recipientVideoShowcasePlayer");
         const emotion = document.getElementById("selectRealEmotion").value;
 
         recipientPlayer.src = recordedVideoUrl;
@@ -5620,15 +5620,15 @@ async function publishGiftWithQuota() {
         showToast("Đã lưu & gắn video vào Bảo tàng ký ức!", "🎥");
       };
 
-      mediaRecorder.start();
+      videoMediaRecorder.start();
       document.getElementById("recordingBadge").classList.remove("hidden");
       document.getElementById("btnStartRecord").disabled = true;
       document.getElementById("btnStopRecord").disabled = false;
     }
 
     function stopRecording() {
-      if (mediaRecorder && mediaRecorder.state !== "inactive") {
-        mediaRecorder.stop();
+      if (videoMediaRecorder && videoMediaRecorder.state !== "inactive") {
+        videoMediaRecorder.stop();
         document.getElementById("recordingBadge").classList.add("hidden");
         document.getElementById("btnStopRecord").disabled = true;
       }
