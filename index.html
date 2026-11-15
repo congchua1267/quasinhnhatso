@@ -5072,8 +5072,8 @@ async function selectUpgradePlan(price, planName) {
   if (codeDisp) codeDisp.textContent = currentOrderCode;
 
   // Cấu hình VietQR gắn chính xác mã đơn hàng
-  const bankId = "970418"; // BIDV
-  const accountNo = "8842873010"; // STK nhận tiền của bạn  
+  const bankId = "970407"; // Techcombank
+  const accountNo = "8828102006"; // STK nhận tiền của bạn  
   if (qrImg) {
     qrImg.src = `https://api.vietqr.io/image/${bankId}-${accountNo}-compact2.jpg?amount=${price}&addInfo=${currentOrderCode}`;
   }
