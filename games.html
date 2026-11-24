@@ -15,7 +15,7 @@
     }
     .font-serif { font-family: "Playfair Display", serif; }
 
-    /* CSS Game Tính Nhẩm Giáng Sinh */
+    /* CSS Game Tính Nhẩm  */
     .xmas-lights { display: flex; justify-content: center; gap: 14px; margin: 0 0 8px; }
     .xmas-lights i {
       width: 22px; height: 30px; border-radius: 50% 50% 55% 55%;
@@ -71,7 +71,7 @@
          GAME HAY COMBAT ĐÃ TAY
         </h1>
         <p class="text-xs sm:text-sm text-stone-500 max-w-2xl">
-          Thư giãn cùng 4 trò chơi tuổi thơ: Tính nhẩm nhanh, Xếp hình trượt, Đào vàng kỷ niệm và Hái hoa tặng người thương.
+          Thư giãn cùng 4 trò chơi tuổi thơ: Tính nhẩm nhanh,1-8, Đào trân châu kỷ niệm và Hái hoa tặng người thương.
         </p>
       </div>
     </section>
@@ -80,19 +80,19 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       <button onclick="selectArcadeGame('math')" id="tab-game-math" class="arcade-tab p-4 rounded-2xl border-2 border-rose-700 bg-white text-left shadow-xs transition-all cursor-pointer">
         <div class="text-2xl mb-1">🎄</div>
-        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">Tính Nhẩm Giáng Sinh</div>
+        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">Tính Nhẩm Nhanh </div>
         <p class="text-[11px] text-stone-500 mt-0.5">5 giây thử thách phản xạ</p>
       </button>
 
       <button onclick="selectArcadeGame('puzzle')" id="tab-game-puzzle" class="arcade-tab p-4 rounded-2xl border border-stone-200 bg-white hover:border-stone-400 text-left transition-all cursor-pointer">
         <div class="text-2xl mb-1">🧩</div>
-        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">Xếp Hình Trượt</div>
+        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">1-8</div>
         <p class="text-[11px] text-stone-500 mt-0.5">Sắp xếp bảng số 1 - 8</p>
       </button>
 
       <button onclick="selectArcadeGame('gold')" id="tab-game-gold" class="arcade-tab p-4 rounded-2xl border border-stone-200 bg-white hover:border-stone-400 text-left transition-all cursor-pointer">
         <div class="text-2xl mb-1">⛏️</div>
-        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">Đào Vàng Kỷ Niệm</div>
+        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">Đào Trân Châu</div>
         <p class="text-[11px] text-stone-500 mt-0.5">Thả móc gắp vàng & kim cương</p>
       </button>
 
@@ -261,7 +261,7 @@
       if (gameKey === 'flower') startFlowerGame();
     }
 
-    /* GAME 1: TÍNH NHẨM GIÁNG SINH */
+    /* GAME 1: TÍNH NHẨM NHANH */
     (function initXmasMathGame() {
       const $ = (id) => document.getElementById(id);
       const TIME = 5000, KEY = "tinh-nham-noel-best";
