@@ -57,6 +57,18 @@
         <span class="text-xs font-mono font-bold text-amber-900" id="arcadeTotalScore">0 điểm</span>
       </div>
     </div>
+    <div class="flex items-center gap-2.5">
+        <!-- Nút Bật / Tắt Nhạc Nền Vui Vẻ -->
+        <button id="btnArcadeMusic" onclick="toggleArcadeMusic()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-rose-50 text-stone-700 hover:text-rose-700 text-xs font-semibold transition-all cursor-pointer border border-stone-200">
+          <span id="arcadeMusicIcon">🎵</span>
+          <span id="arcadeMusicText">Nhạc vui: Tắt</span>
+        </button>
+
+        <div class="flex items-center gap-2 bg-amber-50 border border-amber-200 px-3.5 py-1.5 rounded-full">
+          <span class="text-sm">🏆</span>
+          <span class="text-xs font-mono font-bold text-amber-900" id="arcadeTotalScore">0 điểm</span>
+        </div>
+      </div>
   </header>
 
   <!-- NỘI DUNG CHÍNH TRANG CHƠI GAME -->
@@ -623,6 +635,111 @@
         dropGoldHook();
       }
     });
+    /* ==========================================================================
+       BỘ PHÁT NHẠC NỀN VUI VẺ & ÂM THANH GHI ĐIỂM (WEB AUDIO API - KHÔNG CẦN MP3)
+       ========================================================================== */
+    let arcadeAudioCtx = null;
+    let isArcadeMusicOn = false;
+    let arcadeMelodyTimer = null;
+
+    // Giai điệu vui tươi (Jingle Bells / Nhịp điệu lễ hội rộn ràng)
+    const HAPPY_MELODY = [
+      { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.36 }, // Mi Mi Mi
+      { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.36 }, // Mi Mi Mi
+      { f: 329.63, d: 0.18 }, { f: 392.00, d: 0.18 }, { f: 261.63, d: 0.25 }, { f: 293.66, d: 0.15 }, { f: 329.63, d: 0.55 }, // Mi Sol Do Re Mi
+      { f: 349.23, d: 0.18 }, { f: 349.23, d: 0.18 }, { f: 349.23, d: 0.25 }, { f: 349.23, d: 0.15 }, // Fa Fa Fa Fa
+      { f: 349.23, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, // Fa Mi Mi Mi
+      { f: 329.63, d: 0.18 }, { f: 293.66, d: 0.18 }, { f: 293.66, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 293.66, d: 0.36 }, { f: 392.00, d: 0.45 } // Mi Re Re Mi Re Sol
+    ];
+    let melodyNoteIdx = 0;
+
+    function initArcadeAudio() {
+      if (!arcadeAudioCtx) {
+        arcadeAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (arcadeAudioCtx.state === 'suspended') {
+        arcadeAudioCtx.resume();
+      }
+    }
+
+    function playHappyNote(freq, duration) {
+      if (!arcadeAudioCtx || !isArcadeMusicOn) return;
+      const now = arcadeAudioCtx.currentTime;
+      const osc = arcadeAudioCtx.createOscillator();
+      const gain = arcadeAudioCtx.createGain();
+
+      osc.type = 'triangle'; // Âm sắc hộp nhạc vui tươi, trong trẻo
+      osc.frequency.setValueAtTime(freq, now);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.exponentialRampToValueAtTime(0.08, now + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      osc.connect(gain);
+      gain.connect(arcadeAudioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + duration + 0.02);
+    }
+
+    function playCoinSfx() {
+      // Tiếng "Ting!" vui tai mỗi khi trả lời đúng hoặc ăn điểm
+      if (!arcadeAudioCtx || !isArcadeMusicOn) return;
+      const now = arcadeAudioCtx.currentTime;
+      const osc = arcadeAudioCtx.createOscillator();
+      const gain = arcadeAudioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now);       // D5
+      osc.frequency.setValueAtTime(880.00, now + 0.07); // A5
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.connect(gain);
+      gain.connect(arcadeAudioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.26);
+    }
+
+    function toggleArcadeMusic() {
+      const btn = document.getElementById('btnArcadeMusic');
+      const icon = document.getElementById('arcadeMusicIcon');
+      const text = document.getElementById('arcadeMusicText');
+
+      if (!isArcadeMusicOn) {
+        initArcadeAudio();
+        isArcadeMusicOn = true;
+        melodyNoteIdx = 0;
+
+        if (btn) btn.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-700 text-white text-xs font-semibold transition-all cursor-pointer shadow-xs';
+        if (icon) icon.textContent = '🎶';
+        if (text) text.textContent = 'Nhạc vui: Bật';
+
+        const scheduleNextNote = () => {
+          if (!isArcadeMusicOn) return;
+          const note = HAPPY_MELODY[melodyNoteIdx % HAPPY_MELODY.length];
+          playHappyNote(note.f, note.d);
+          melodyNoteIdx++;
+          const pauseMs = (note.d * 1000) + 65;
+          arcadeMelodyTimer = setTimeout(scheduleNextNote, pauseMs);
+        };
+        scheduleNextNote();
+        showToast('Đã bật giai điệu lễ hội vui vẻ!', '🎶');
+      } else {
+        isArcadeMusicOn = false;
+        clearTimeout(arcadeMelodyTimer);
+
+        if (btn) btn.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-rose-50 text-stone-700 hover:text-rose-700 text-xs font-semibold transition-all cursor-pointer border border-stone-200';
+        if (icon) icon.textContent = '🎵';
+        if (text) text.textContent = 'Nhạc vui: Tắt';
+        showToast('Đã tắt nhạc nền.', '🔇');
+      }
+    }
+
+    // Tự động phát tiếng "Ting!" vui tai mỗi khi cộng điểm ở bất kỳ game nào
+    const _origAddArcadePoints = addArcadePoints;
+    addArcadePoints = function(pts) {
+      _origAddArcadePoints(pts);
+      playCoinSfx();
+    };
   </script>
 </body>
 </html>
