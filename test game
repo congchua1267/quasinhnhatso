@@ -3,13 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tính nhẩm Giáng sinh</title>
+<title> Tính nhẩm với Úm ba la 🎄</title>
+<meta name="description" content="Trò chơi tính nhẩm Giáng sinh 5 giây. Càng đúng nhiều, phép tính càng khó!">
+<meta property="og:title" content="Tính nhẩm Giáng sinh 🎄">
+<meta property="og:description" content="Thử thách tính nhẩm trong 5 giây cùng ông già Noel!">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap">
 <style>
 :root{
   box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
   color-scheme:dark;
   --bg:#0f2a22; --panel:#16392d; --ink:#fdf6e3; --muted:#a9c4b8; --line:#2c5a4a;
   --accent:#d7263d; --accent-ink:#ffffff; --gold:#f4c542;
@@ -27,26 +31,34 @@
   --bg:#e6f0ee; --panel:#ffffff; --ink:#12332a; --muted:#5d7a70; --line:#c3d6d0;
   --accent:#b3202f; --gold:#c48a00; --good:#1f8a4c; --bad:#c0392b; --flake:rgba(90,130,150,.55);
 }
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center}
+html,body{height:100%;min-height:100dvh;margin:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+  user-select:none;-webkit-user-select:none;
+}
 #snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 main{position:relative;z-index:1;width:min(520px,100%);padding:20px;box-sizing:border-box}
-.card{background:var(--panel);border:2px solid var(--line);border-radius:22px;padding:26px 22px;text-align:center}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:22px;padding:26px 22px;text-align:center;box-shadow:0 12px 32px rgba(0,0,0,.2)}
 h1{margin:0 0 8px;font-size:2rem;font-weight:800;letter-spacing:-.02em}
 p{margin:0 0 20px;color:var(--muted);line-height:1.5}
-.go{width:100%;padding:16px;border:0;border-radius:14px;background:var(--accent);color:var(--accent-ink);font:inherit;font-size:1.1rem;font-weight:800;cursor:pointer}
+.go{width:100%;padding:16px;border:0;border-radius:14px;background:var(--accent);color:var(--accent-ink);font:inherit;font-size:1.1rem;font-weight:800;cursor:pointer;touch-action:manipulation}
+.go:active{transform:scale(.98)}
 button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .hidden{display:none}
 .lights{display:flex;justify-content:center;gap:14px;margin:0 0 6px}
 .lights i{width:26px;height:34px;border-radius:50% 50% 55% 55%;background:var(--c);box-shadow:0 0 14px 2px var(--c);opacity:1}
 .stats{display:flex;justify-content:space-between;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:10px}
 .stats b{color:var(--ink)}
-.q{font-size:clamp(2.6rem,12vw,3.8rem);font-weight:800;margin:22px 0 22px;font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+.q{font-size:clamp(2.6rem,12vw,3.8rem);font-weight:800;margin:22px 0;font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opts button{position:relative;padding:20px 8px;border:2px solid var(--line);border-radius:16px;background:transparent;color:var(--ink);font:inherit;font-size:1.8rem;font-weight:800;cursor:pointer;font-variant-numeric:tabular-nums}
+.opts button{position:relative;padding:20px 8px;border:2px solid var(--line);border-radius:16px;background:transparent;color:var(--ink);font:inherit;font-size:1.8rem;font-weight:800;cursor:pointer;font-variant-numeric:tabular-nums;touch-action:manipulation}
 .opts button small{position:absolute;top:6px;left:10px;font-size:.7rem;font-weight:600;color:var(--muted)}
-.opts button:hover{border-color:var(--gold)}
+@media (hover:hover){.opts button:hover{border-color:var(--gold)}}
+.opts button:active{transform:scale(.97)}
 .opts button.good{background:var(--good);border-color:var(--good);color:#fff}
 .opts button.bad{background:var(--bad);border-color:var(--bad);color:#fff}
 .fb{min-height:1.6em;margin:14px 0 0;font-weight:600;color:var(--muted)}
@@ -59,7 +71,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
   <section class="card" id="start">
     <h1>Tính nhẩm Giáng sinh 🎄</h1>
     <p>Chọn đúng đáp án trong 5 giây. Chọn sai hoặc hết giờ là thua. Càng đúng nhiều, phép tính càng khó.</p>
-    <button class="go" id="play">Bắt đầu 🎅</button>
+    <button class="go" id="play" type="button">Bắt đầu 🎅</button>
     <p id="best" style="margin:16px 0 0"></p>
   </section>
 
@@ -79,7 +91,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     <div class="big" id="fs">0</div>
     <p style="margin-bottom:4px">câu trả lời đúng</p>
     <p id="msg"></p>
-    <button class="go" id="again">Chơi lại ⭐</button>
+    <button class="go" id="again" type="button">Chơi lại ⭐</button>
     <p id="best2" style="margin:16px 0 0"></p>
   </section>
 </main>
@@ -119,6 +131,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     var box = $("opts"); box.innerHTML = "";
     opts.forEach(function(v,i){
       var btn = document.createElement("button");
+      btn.type = "button";
       btn.innerHTML = "<small>"+(i+1)+"</small>"+v;
       btn.addEventListener("click", function(){ pick(i); });
       box.appendChild(btn);
