@@ -41,10 +41,11 @@
 
   <!-- THANH ĐIỀU HƯỚNG QUAY VỀ TRANG CHỦ -->
   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-      <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-stone-100 hover:bg-rose-50 hover:text-rose-800 text-stone-800 text-xs sm:text-sm font-semibold transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <a href="index.html" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-stone-100 hover:bg-rose-50 hover:text-rose-800 text-stone-800 text-xs sm:text-sm font-semibold transition-all">
         <span>←</span>
-        <span>Quay lại Hộp Quà Úm Ba La</span>
+        <span class="hidden sm:inline">Quay lại Hộp Quà Úm Ba La</span>
+        <span class="sm:hidden">Trang chủ</span>
       </a>
 
       <div class="flex items-center gap-2">
@@ -52,23 +53,18 @@
         <span class="font-serif font-bold text-base sm:text-lg text-stone-900">Úm Ba La Arcade</span>
       </div>
 
-      <div class="flex items-center gap-2 bg-amber-50 border border-amber-200 px-3.5 py-1.5 rounded-full">
-        <span class="text-sm">🏆</span>
-        <span class="text-xs font-mono font-bold text-amber-900" id="arcadeTotalScore">0 điểm</span>
-      </div>
-    </div>
-    <div class="flex items-center gap-2.5">
-        <!-- Nút Bật / Tắt Nhạc Nền Vui Vẻ -->
-        <button id="btnArcadeMusic" onclick="toggleArcadeMusic()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-rose-50 text-stone-700 hover:text-rose-700 text-xs font-semibold transition-all cursor-pointer border border-stone-200">
+      <div class="flex items-center gap-2">
+        <button id="btnArcadeMusic" onclick="toggleArcadeMusic()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 hover:bg-rose-50 text-stone-700 hover:text-rose-700 text-xs font-semibold transition-all cursor-pointer border border-stone-200">
           <span id="arcadeMusicIcon">🎵</span>
-          <span id="arcadeMusicText">Nhạc vui: Tắt</span>
+          <span id="arcadeMusicText" class="hidden md:inline">Nhạc vui: Tắt</span>
         </button>
 
-        <div class="flex items-center gap-2 bg-amber-50 border border-amber-200 px-3.5 py-1.5 rounded-full">
+        <div class="flex items-center gap-1.5 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
           <span class="text-sm">🏆</span>
           <span class="text-xs font-mono font-bold text-amber-900" id="arcadeTotalScore">0 điểm</span>
         </div>
       </div>
+    </div>
   </header>
 
   <!-- NỘI DUNG CHÍNH TRANG CHƠI GAME -->
@@ -83,7 +79,7 @@
          GAME HAY COMBAT ĐÃ TAY
         </h1>
         <p class="text-xs sm:text-sm text-stone-500 max-w-2xl">
-          Thư giãn cùng 4 trò chơi tuổi thơ: Tính nhẩm nhanh,1-8, Đào trân châu kỷ niệm và Hái hoa tặng người thương.
+          Thư giãn cùng 4 trò chơi tuổi thơ: Tính nhẩm nhanh, 1-8, Đào trân châu kỷ niệm và Hái hoa tặng người thương.
         </p>
       </div>
     </section>
@@ -92,7 +88,7 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       <button onclick="selectArcadeGame('math')" id="tab-game-math" class="arcade-tab p-4 rounded-2xl border-2 border-rose-700 bg-white text-left shadow-xs transition-all cursor-pointer">
         <div class="text-2xl mb-1">🎄</div>
-        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">Tính Nhẩm Nhanh </div>
+        <div class="font-serif font-bold text-sm sm:text-base text-stone-900">Tính Nhẩm Nhanh</div>
         <p class="text-[11px] text-stone-500 mt-0.5">5 giây thử thách phản xạ</p>
       </button>
 
@@ -115,7 +111,7 @@
       </button>
     </div>
 
-    <!-- GAME 1: TÍNH NHẨM NHANH🎄 -->
+    <!-- GAME 1: TÍNH NHẨM NHANH 🎄 -->
     <section id="panel-game-math" class="arcade-panel relative overflow-hidden rounded-3xl border-2 border-[#2c5a4a] bg-[#0f2a22] text-[#fdf6e3] p-6 sm:p-10 shadow-xl">
       <canvas id="xmasSnowCanvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
@@ -231,6 +227,82 @@
         </p>
       </div>
     </section>
+
+    <!-- BẢNG XẾP HẠNG (LEADERBOARD) -->
+    <section id="leaderboardSection" class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-xs space-y-6">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-stone-100 pb-5">
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-widest px-3 py-1 rounded-full bg-amber-50 text-amber-800 font-bold">
+            🏅 Vinh Danh Kỷ Lục
+          </span>
+          <h2 class="font-serif text-xl sm:text-2xl font-bold text-stone-900 mt-1.5">
+            Bảng Xếp Hạng Úm Ba La Arcade
+          </h2>
+          <p class="text-xs text-stone-500 mt-0.5">
+            Lưu tự động trên trình duyệt của bạn. Nhập tên để ghi danh điểm hiện tại!
+          </p>
+        </div>
+
+        <!-- Form lưu điểm nhanh -->
+        <div class="flex flex-wrap items-center gap-2">
+          <input
+            type="text"
+            id="leaderboardPlayerName"
+            maxlength="24"
+            placeholder="Tên của bạn..."
+            class="px-3.5 py-2 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:border-rose-700 focus:outline-none text-xs sm:text-sm font-medium text-stone-800 w-40 sm:w-48"
+          />
+          <button
+            onclick="saveCurrentScoreToLeaderboard()"
+            class="px-4 py-2 rounded-xl bg-rose-700 hover:bg-rose-800 text-white text-xs sm:text-sm font-bold shadow-xs transition-all cursor-pointer"
+          >
+            💾 Lưu điểm
+          </button>
+          <button
+            onclick="resetLeaderboard()"
+            title="Xóa bảng xếp hạng"
+            class="px-3 py-2 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-500 hover:text-rose-700 text-xs font-semibold transition-all cursor-pointer"
+          >
+            🗑️
+          </button>
+        </div>
+      </div>
+
+      <!-- Bộ lọc theo trò chơi -->
+      <div class="flex flex-wrap items-center gap-2" id="leaderboardFilterBar">
+        <button onclick="setLeaderboardFilter('all')" data-lb-filter="all" class="lb-filter-btn px-3.5 py-1.5 rounded-full bg-stone-900 text-white text-xs font-bold cursor-pointer transition-all">
+          🌟 Tổng điểm Arcade
+        </button>
+        <button onclick="setLeaderboardFilter('math')" data-lb-filter="math" class="lb-filter-btn px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer transition-all">
+          🎄 Tính Nhẩm
+        </button>
+        <button onclick="setLeaderboardFilter('puzzle')" data-lb-filter="puzzle" class="lb-filter-btn px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer transition-all">
+          🧩 1-8
+        </button>
+        <button onclick="setLeaderboardFilter('gold')" data-lb-filter="gold" class="lb-filter-btn px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer transition-all">
+          ⛏️ Đào Trân Châu
+        </button>
+        <button onclick="setLeaderboardFilter('flower')" data-lb-filter="flower" class="lb-filter-btn px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer transition-all">
+          🌸 Hái Hoa
+        </button>
+      </div>
+
+      <!-- Bảng danh sách -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-stone-200 text-[11px] font-mono uppercase tracking-wider text-stone-400">
+              <th class="py-2.5 px-3 w-16">Hạng</th>
+              <th class="py-2.5 px-3">Người chơi</th>
+              <th class="py-2.5 px-3">Thể loại</th>
+              <th class="py-2.5 px-3">Thời gian</th>
+              <th class="py-2.5 px-3 text-right">Điểm số</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody" class="divide-y divide-stone-100 text-xs sm:text-sm"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
   <!-- TOAST THÔNG BÁO -->
@@ -256,7 +328,159 @@
       document.getElementById('arcadeTotalScore').textContent = `${arcadeTotalPoints} điểm`;
     }
 
+    /* ==========================================================================
+       BẢNG XẾP HẠNG (LEADERBOARD - LOCALSTORAGE)
+       ========================================================================== */
+    const LB_STORAGE_KEY = 'umba_arcade_leaderboard_v1';
+    const LB_NAME_KEY = 'umba_arcade_player_name_v1';
+    let currentLbFilter = 'all';
+    let currentActiveGame = 'math';
+
+    const GAME_LABELS = {
+      all: '🌟 Tổng Arcade',
+      math: '🎄 Tính Nhẩm',
+      puzzle: '🧩 1-8',
+      gold: '⛏️ Đào Trân Châu',
+      flower: '🌸 Hái Hoa'
+    };
+
+    function getDefaultLeaderboard() {
+      return [
+        { id: 'seed-1', name: 'Gia Hân', game: 'all', score: 320, date: 'Hôm nay' },
+        { id: 'seed-2', name: 'Thảo Nguyễn', game: 'math', score: 180, date: 'Hôm nay' },
+        { id: 'seed-3', name: 'Thợ Mỏ Nhí', game: 'gold', score: 250, date: 'Hôm qua' },
+        { id: 'seed-4', name: 'Nghệ Nhân Hoa', game: 'flower', score: 140, date: 'Hôm qua' },
+        { id: 'seed-5', name: 'Kỳ Thủ 1-8', game: 'puzzle', score: 100, date: '3 ngày trước' }
+      ];
+    }
+
+    function loadLeaderboardEntries() {
+      try {
+        const raw = localStorage.getItem(LB_STORAGE_KEY);
+        if (!raw) {
+          const defaults = getDefaultLeaderboard();
+          localStorage.setItem(LB_STORAGE_KEY, JSON.stringify(defaults));
+          return defaults;
+        }
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : getDefaultLeaderboard();
+      } catch (e) {
+        return getDefaultLeaderboard();
+      }
+    }
+
+    function saveLeaderboardEntries(entries) {
+      try {
+        localStorage.setItem(LB_STORAGE_KEY, JSON.stringify(entries.slice(0, 50)));
+      } catch (e) {}
+    }
+
+    function getPlayerName() {
+      const input = document.getElementById('leaderboardPlayerName');
+      const val = (input?.value || '').trim();
+      if (val) {
+        try { localStorage.setItem(LB_NAME_KEY, val); } catch (e) {}
+        return val;
+      }
+      return 'Người chơi Úm Ba La';
+    }
+
+    function recordScore(gameKey, scoreValue, customName = null) {
+      if (!scoreValue || scoreValue <= 0) return;
+      const playerName = (customName || getPlayerName()).trim() || 'Người chơi Úm Ba La';
+      const nowStr = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' · ' +
+                     new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+
+      const entries = loadLeaderboardEntries();
+      entries.push({
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        name: playerName,
+        game: gameKey,
+        score: Number(scoreValue),
+        date: nowStr
+      });
+      entries.sort((a, b) => b.score - a.score);
+      saveLeaderboardEntries(entries);
+      renderLeaderboard();
+    }
+
+    function saveCurrentScoreToLeaderboard() {
+      if (arcadeTotalPoints <= 0) {
+        showToast('Chưa có điểm để lưu — hãy chơi một ván trước nhé!', '⚠️');
+        return;
+      }
+      const name = getPlayerName();
+      recordScore('all', arcadeTotalPoints, name);
+      showToast(`Đã lưu ${arcadeTotalPoints} điểm cho "${name}" lên Bảng xếp hạng!`, '🏅');
+    }
+
+    function resetLeaderboard() {
+      const defaults = getDefaultLeaderboard();
+      saveLeaderboardEntries(defaults);
+      renderLeaderboard();
+      showToast('Đã đặt lại Bảng xếp hạng mặc định.', '🔄');
+    }
+
+    function setLeaderboardFilter(filterKey) {
+      currentLbFilter = filterKey;
+      document.querySelectorAll('.lb-filter-btn').forEach(btn => {
+        const isActive = btn.dataset.lbFilter === filterKey;
+        btn.className = isActive
+          ? 'lb-filter-btn px-3.5 py-1.5 rounded-full bg-stone-900 text-white text-xs font-bold cursor-pointer transition-all'
+          : 'lb-filter-btn px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer transition-all';
+      });
+      renderLeaderboard();
+    }
+
+    function renderLeaderboard() {
+      const tbody = document.getElementById('leaderboardBody');
+      if (!tbody) return;
+
+      let entries = loadLeaderboardEntries();
+      if (currentLbFilter !== 'all') {
+        entries = entries.filter(item => item.game === currentLbFilter);
+      }
+      entries = [...entries].sort((a, b) => b.score - a.score).slice(0, 10);
+
+      if (entries.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 px-4 text-center text-stone-400 text-xs">
+              Chưa có kỷ lục nào cho mục này. Chơi và lưu điểm để mở đầu bảng nhé!
+            </td>
+          </tr>`;
+        return;
+      }
+
+      const medals = ['🥇', '🥈', '🥉'];
+      tbody.innerHTML = entries.map((item, idx) => {
+        const rankBadge = idx < 3
+          ? `<span class="text-base">${medals[idx]}</span>`
+          : `<span class="font-mono font-bold text-stone-400">#${idx + 1}</span>`;
+        const rowHighlight = idx === 0 ? 'bg-amber-50/50' : '';
+        return `
+          <tr class="${rowHighlight} hover:bg-stone-50 transition-colors">
+            <td class="py-3 px-3">${rankBadge}</td>
+            <td class="py-3 px-3 font-bold text-stone-800">${escapeHtml(item.name)}</td>
+            <td class="py-3 px-3">
+              <span class="inline-block px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 text-[11px] font-semibold">
+                ${GAME_LABELS[item.game] || item.game}
+              </span>
+            </td>
+            <td class="py-3 px-3 font-mono text-[11px] text-stone-400">${escapeHtml(item.date)}</td>
+            <td class="py-3 px-3 text-right font-mono font-extrabold text-rose-700">${item.score} điểm</td>
+          </tr>`;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[m]));
+    }
+
     function selectArcadeGame(gameKey) {
+      currentActiveGame = gameKey;
       document.querySelectorAll('.arcade-panel').forEach(p => p.classList.add('hidden'));
       document.querySelectorAll('.arcade-tab').forEach(t => {
         t.className = 'arcade-tab p-4 rounded-2xl border border-stone-200 bg-white hover:border-stone-400 text-left transition-all cursor-pointer';
@@ -383,6 +607,9 @@
         const btns = $("xmasOptions").children;
         opts.forEach((v, idx) => { if (v === ans && btns[idx]) btns[idx].classList.add("good"); });
         $("xmasFeedback").textContent = i < 0 ? "Hết 5 giây rồi!" : "Sai mất rồi!";
+        if (score > 0) {
+          recordScore('math', score * 15);
+        }
         setTimeout(() => {
           const best = getBest(), isNew = score > best;
           if (isNew) setBest(score);
@@ -481,6 +708,7 @@
       if (puzzleTiles.slice(0, 8).every((val, i) => val === i + 1)) {
         document.getElementById('puzzleWinBanner').classList.remove('hidden');
         addArcadePoints(100);
+        recordScore('puzzle', 100);
         confetti({ particleCount: 70, spread: 60 });
         showToast('Chúc mừng! Bạn đã xếp hình thành công (+100 điểm)!', '🧩');
       }
@@ -513,6 +741,7 @@
         if (goldState.time <= 0) {
           clearInterval(goldTimerInt);
           cancelAnimationFrame(goldAnimId);
+          if (goldState.score > 0) recordScore('gold', goldState.score);
           showToast(`Hết giờ Đào Vàng! Bạn thu được ${goldState.score} điểm!`, '⛏️');
         }
       }, 1000);
@@ -614,6 +843,7 @@
             document.getElementById('flowerLives').textContent = flowerState.lives;
             if (flowerState.lives <= 0) {
               flowerState.active = false;
+              if (flowerState.score > 0) recordScore('flower', flowerState.score);
               showToast(`Kết thúc! Bạn đã hái được bó hoa ${flowerState.score} điểm!`, '💐');
               return;
             }
@@ -635,21 +865,21 @@
         dropGoldHook();
       }
     });
+
     /* ==========================================================================
-       BỘ PHÁT NHẠC NỀN VUI VẺ & ÂM THANH GHI ĐIỂM (WEB AUDIO API - KHÔNG CẦN MP3)
+       BỘ PHÁT NHẠC NỀN VUI VẺ & ÂM THANH GHI ĐIỂM (WEB AUDIO API)
        ========================================================================== */
     let arcadeAudioCtx = null;
     let isArcadeMusicOn = false;
     let arcadeMelodyTimer = null;
 
-    // Giai điệu vui tươi (Jingle Bells / Nhịp điệu lễ hội rộn ràng)
     const HAPPY_MELODY = [
-      { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.36 }, // Mi Mi Mi
-      { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.36 }, // Mi Mi Mi
-      { f: 329.63, d: 0.18 }, { f: 392.00, d: 0.18 }, { f: 261.63, d: 0.25 }, { f: 293.66, d: 0.15 }, { f: 329.63, d: 0.55 }, // Mi Sol Do Re Mi
-      { f: 349.23, d: 0.18 }, { f: 349.23, d: 0.18 }, { f: 349.23, d: 0.25 }, { f: 349.23, d: 0.15 }, // Fa Fa Fa Fa
-      { f: 349.23, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, // Fa Mi Mi Mi
-      { f: 329.63, d: 0.18 }, { f: 293.66, d: 0.18 }, { f: 293.66, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 293.66, d: 0.36 }, { f: 392.00, d: 0.45 } // Mi Re Re Mi Re Sol
+      { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.36 },
+      { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.36 },
+      { f: 329.63, d: 0.18 }, { f: 392.00, d: 0.18 }, { f: 261.63, d: 0.25 }, { f: 293.66, d: 0.15 }, { f: 329.63, d: 0.55 },
+      { f: 349.23, d: 0.18 }, { f: 349.23, d: 0.18 }, { f: 349.23, d: 0.25 }, { f: 349.23, d: 0.15 },
+      { f: 349.23, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 329.63, d: 0.18 },
+      { f: 329.63, d: 0.18 }, { f: 293.66, d: 0.18 }, { f: 293.66, d: 0.18 }, { f: 329.63, d: 0.18 }, { f: 293.66, d: 0.36 }, { f: 392.00, d: 0.45 }
     ];
     let melodyNoteIdx = 0;
 
@@ -668,7 +898,7 @@
       const osc = arcadeAudioCtx.createOscillator();
       const gain = arcadeAudioCtx.createGain();
 
-      osc.type = 'triangle'; // Âm sắc hộp nhạc vui tươi, trong trẻo
+      osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, now);
 
       gain.gain.setValueAtTime(0.001, now);
@@ -683,14 +913,13 @@
     }
 
     function playCoinSfx() {
-      // Tiếng "Ting!" vui tai mỗi khi trả lời đúng hoặc ăn điểm
       if (!arcadeAudioCtx || !isArcadeMusicOn) return;
       const now = arcadeAudioCtx.currentTime;
       const osc = arcadeAudioCtx.createOscillator();
       const gain = arcadeAudioCtx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(587.33, now);       // D5
-      osc.frequency.setValueAtTime(880.00, now + 0.07); // A5
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.setValueAtTime(880.00, now + 0.07);
       gain.gain.setValueAtTime(0.09, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
       osc.connect(gain);
@@ -709,7 +938,7 @@
         isArcadeMusicOn = true;
         melodyNoteIdx = 0;
 
-        if (btn) btn.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-700 text-white text-xs font-semibold transition-all cursor-pointer shadow-xs';
+        if (btn) btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-700 text-white text-xs font-semibold transition-all cursor-pointer shadow-xs';
         if (icon) icon.textContent = '🎶';
         if (text) text.textContent = 'Nhạc vui: Bật';
 
@@ -727,19 +956,28 @@
         isArcadeMusicOn = false;
         clearTimeout(arcadeMelodyTimer);
 
-        if (btn) btn.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-100 hover:bg-rose-50 text-stone-700 hover:text-rose-700 text-xs font-semibold transition-all cursor-pointer border border-stone-200';
+        if (btn) btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 hover:bg-rose-50 text-stone-700 hover:text-rose-700 text-xs font-semibold transition-all cursor-pointer border border-stone-200';
         if (icon) icon.textContent = '🎵';
         if (text) text.textContent = 'Nhạc vui: Tắt';
         showToast('Đã tắt nhạc nền.', '🔇');
       }
     }
 
-    // Tự động phát tiếng "Ting!" vui tai mỗi khi cộng điểm ở bất kỳ game nào
     const _origAddArcadePoints = addArcadePoints;
     addArcadePoints = function(pts) {
       _origAddArcadePoints(pts);
       playCoinSfx();
     };
+
+    // Khởi tạo tên người chơi đã lưu và render Bảng xếp hạng
+    (function bootLeaderboard() {
+      try {
+        const savedName = localStorage.getItem(LB_NAME_KEY);
+        const input = document.getElementById('leaderboardPlayerName');
+        if (savedName && input) input.value = savedName;
+      } catch (e) {}
+      renderLeaderboard();
+    })();
   </script>
 </body>
 </html>
